@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#app-version{
+  position: fixed;
+  top: 0.6vh;
+  left: 0.9vw;
+  z-index: 50;
+  font-size: 1.3em;
+  text-align: center;
+  color: #777777;
+}
+#app-name{
+  position: fixed;
+  top: 0.6vh;
+  left: 17vw;
+  height: 11vh;
+  width: 21vw;
+  z-index: 50;
+}
+#connection-status{
+  position: fixed;
+  top: 5vh;
+  left: 1vw;
+
+  height: 7vh;
+  font-family: "Arial Black";
+  z-index: 50;
+  font-size: 2em;
+  text-align: center;
+  padding: 3px;
+
+  border-radius: 12px;
+  border-width: 3px;
+  border-style: solid;
+}
+
+.connected-to-server{
+  border-color: forestgreen;
+  color: forestgreen;
+}
+
+.connecting-to-server{
+  border-color: orange;
+  color: orange;
+  cursor: progress;
+  animation: blinker 2s linear infinite;
+}
+.red-border{
+  border: 2px solid red;
+}

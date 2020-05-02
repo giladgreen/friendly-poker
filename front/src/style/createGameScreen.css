@@ -1,0 +1,128 @@
+
+#online-screen{
+    margin-top: 4px;
+    background: transparent;
+    color: white;
+    width: 100vw;
+    padding-left: 7vw;
+    padding-right: 15vw;
+    padding-top: 10px;
+    position:relative;
+}
+
+#online-screen #two-sections{
+    margin-top: 10vh;
+    border: 5px solid transparent;
+    height: 80vh;
+}
+
+#create-new-online-game-section{
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 10px;
+    height: 76vh;
+    width: 60%;
+    padding: 20px;
+    z-index: 1;
+    margin-right: 2vw;
+}
+
+#please-wait{
+    background: #111111dd;
+    border: 2px solid grey;
+    position: absolute;
+    top:10vh;
+    left:5.7vw;
+    height: 62vh;
+    width: 35vw;
+    border-radius: 10px;
+    padding-top: 22vh;
+    z-index: 2;
+    font-weight: bold;
+    text-align: center;
+    font-size: 7em;
+}
+header{
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+}
+#existing-games-list{
+    background: #050505;
+    margin-top: 1vh;
+    font-size: 2em;
+}
+#new-online-game-inputs{
+    background: #050505;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 1vh;
+    font-size: 2em;
+}
+#new-online-game-inputs input{
+    border-radius: 10px;
+    margin-bottom: 1.5vh;
+    padding-left: 20px;
+
+}
+
+
+#new-online-game-inputs .name-input{
+    width: 22vw;
+}
+
+
+#new-online-game-inputs .small-blind{
+    width: 5vw;
+    margin-right: 1.48vw;
+}
+#new-online-game-inputs .big-blind{
+    width: 5vw;
+
+}
+
+#new-online-game-inputs .time{
+    width: 5vw;
+}
+
+#new-online-game-inputs .buy-in{
+    width: 5vw;
+    margin-right: 1vw;
+}
+
+#new-online-game-inputs #signs{
+   margin-left: 17vw;
+
+    height: 5vh;
+    border-radius: 10px;
+    padding: 3px;
+
+}
+
+#new-online-game-inputs #signs span{
+   border: 1px solid white;
+    border-radius: 10px;
+margin: 3px;
+    padding: 4px 10px;
+    background: #114411;
+}
+
+
+#online-screen #create-button-div{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 4em;
+    text-align: center;
+}
+
+#online-screen #create-button{
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#online-screen #create-button:hover{
+    background: #5a626844;
+    cursor: pointer;
+}

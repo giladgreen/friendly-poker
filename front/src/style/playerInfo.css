@@ -1,0 +1,214 @@
+#player1{
+    top:65vh;
+    left:44vw;
+}
+
+#player1-pot{
+    top:-6.4vh;
+    left:3.5vw;
+}
+
+#player2{
+    top:61vh;
+    left:23vw;
+}
+
+#player2-pot{
+    top:-5.8vh;
+    left:7vw;
+}
+
+#player3{
+    top:36vh;
+    left:9vw;
+}
+
+#player3-pot{
+    top:10.82vh;
+    left:10.4vw;
+}
+
+#player4{
+    top:14vh;
+    left:23vw;
+}
+
+#player4-pot{
+    top:10.6vh;
+    left:8.5vw;
+}
+
+#player5{
+    top:9vh;
+    left:44vw;
+}
+
+#player5-pot{
+    top:11.3vh;
+    left:7.2vw;
+}
+
+#player6{
+    top:14vh;
+    left:66vw;
+}
+#player6-pot{
+    top:9.5vh;
+    left:-4.2vw;
+}
+
+#player7{
+    top:36vh;
+    left:80vw;
+}
+
+#player7-pot{
+    top:5.7vh;
+    left:-4.7vw;
+}
+
+#player8{
+    top:61vh;
+    left:66vw;
+}
+
+#player8-pot{
+    top:-6.4vh;
+    left:-1.3vw;
+}
+
+.player{
+    position: absolute;
+    width: 13vw;
+    height: 10vh;
+    z-index: 3;
+}
+
+.active-player{
+    background: rgba(232,174,0,0.53);
+    -webkit-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
+    -moz-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
+    box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
+    border-radius: 30%;
+}
+
+.player-div{
+    position:relative;
+}
+
+.player-info{
+    z-index: 19;
+    border-radius: 5px;
+    position: absolute;
+    left: 5.2vw;
+    width: 9.7vw;
+    height: 10vh;
+    background: white;
+    font-size: 1.3em;
+    padding-top: 2vh;
+    padding-left: 6vh;
+    border: 1px solid black;
+}
+
+.player-name{
+    color: #6c757d;
+}
+
+.player-balance{
+    color: #4a535b;
+    font-weight: bold;
+}
+
+#dealer-button{
+    z-index: 23;
+    border-radius: 50%;
+    position: absolute;
+    left: 13.6vw;
+    width: 2vw;
+    height: 2vw;
+    padding-top: 0.14vw;
+    padding-left: 0.6vw;
+    font-size: 1.3em;
+    top:-1.5vh;
+    background: mediumpurple;
+    color: white;
+}
+
+#small-blind-button{
+    z-index: 22;
+    border-radius: 50%;
+    position: absolute;
+    left: 12.1vw;
+    width: 2vw;
+    height: 2vw;
+    top:-1.5vh;
+    background: #9fcdff;
+    color: black;
+    font-size: 1em;
+    padding-top: 0.35vw;
+    padding-left: 0.47vw;
+}
+
+#big-blind-button{
+    z-index: 22;
+    border-radius: 50%;
+    position: absolute;
+    left: 12.1vw;
+    width: 2vw;
+    height: 2vw;
+    top:-1.5vh;
+    background: #9fcdbb;
+    color: black;
+    font-size: 1em;
+    padding-top: 0.35vw;
+    padding-left: 0.47vw;
+}
+
+.player-pot{
+    position: absolute;
+    width: 4.3vw;
+    height: 2.7vw;
+    border-radius: 25px;
+    background: #eec117;
+    color: white;
+    font-weight: bold;
+    font-size: 1.9em;
+    z-index: 2;
+    padding-top: 6px;
+    alignment: center;
+    text-align: center;
+}
+
+.player-status{
+    position: absolute;
+    width: 4vw;
+    height: 1.8vw;
+    border-radius: 20px;
+    background: #117a8b;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    z-index: 30;
+    padding-top: 3px;
+    alignment: center;
+    text-align: center;
+    top:9.7vh;
+    left:1.1vw;
+}
+
+.player-offline-indication{
+    position: absolute;
+    width: 8vw;
+    height: 2.2vw;
+    border-radius: 10px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    z-index: 10;
+    padding-top: 3px;
+    alignment: center;
+    text-align: center;
+    top:11.7vh;
+    left:0vw;
+}

@@ -1,0 +1,9 @@
+#loader-screen{
+    background: black;
+    text-align: center;
+    padding-top: 30vh;
+    font-weight: bold;
+    color: white;
+    font-size: 4em;
+    animation: blinker 2s linear infinite;
+}

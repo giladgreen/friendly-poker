@@ -1,0 +1,98 @@
+#join-screen{
+    margin-top: 4px;
+    background: transparent;
+    color: white;
+    width: 100vw;
+    padding-left: 7vw;
+    padding-right: 15vw;
+    padding-top: 10px;
+
+    position:relative;
+}
+
+
+#join-screen #two-sections{
+    margin-top: 10vh;
+    border: 5px solid transparent;
+    height: 80vh;
+}
+
+#join-game-section{
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 10px;
+    height: 76vh;
+    width: 60%;
+    padding: 20px;
+    z-index: 1;
+    margin-right: 2vw;
+}
+
+#join-screen #join-button-div{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 4em;
+    text-align: center;
+}
+
+#join-screen #join-button{
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+#join-screen #join-button-full-game-div{
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 3.8em;
+    text-align: center;
+
+}
+
+#join-screen #join-button-full-game{
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background: red;
+    color: black;
+}
+
+#join-screen #join-button:hover{
+    background: #5a626844;
+    cursor: pointer;
+}
+
+#existing-players{
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 10px;
+
+    width: 33%;
+    height: 76vh;
+    padding: 20px;
+    z-index: 1;
+}
+.greyPlayer{
+    background: #5a6268;
+
+}
+.whitePlayer{
+    background: grey;
+}
+.existing-player{
+    width: 100%;
+    padding-left: 20px;
+    margin: 1px;
+    cursor: pointer;
+
+}
+.existing-player:hover{
+    padding-left: 20px;
+    background: #9fcdff;
+
+}
+
+#existing-players-list{
+    background: #050505;
+    margin-top: 1vh;
+    font-size: 2em;
+}
