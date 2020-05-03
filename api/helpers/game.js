@@ -77,19 +77,19 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
   delete gameToSend.deck;
   delete gameToSend.timerRef;
   gameToSend.players = gameToSend.players.map((p) => {
-    const player = { ...p };
+    const player = { ...p, cards: [...(p.cards || [])] };
     delete player.offline;
     delete player.solvedHand;
     if (!Mappings.GetSocketByPlayerId(player.id)) {
       player.offline = true;
     }
-    if (player.id === playerId || game.showPlayersHands.includes(player.id)) {
+    if (player.id === playerId || gameToSend.showPlayersHands.includes(player.id)) {
       player.me = player.id === playerId;
       if (!player.me) {
         player.showingCards = true;
       }
-      if (game.board && game.board.length > 2) {
-        player.userDesc = Hand.solve([...game.board, ...player.cards]).descr;
+      if (player.cards && player.cards.length === 2 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length > 2) {
+        player.userDesc = Hand.solve([...gameToSend.board, ...player.cards]).descr;
       }
       if (player.active) {
         gameToSend.playersTurn = true;
@@ -107,22 +107,26 @@ function deleteGameInDB(gameId) {
   return models.onlineGames.destroy({ where: { id: gameId } }).catch(e => logger.error('failed to delete game', e));
 }
 
-function saveGameToDB(g) {
-  const game = { ...g };
-  const id = game.id;
-  delete game.timerRef;
+async function saveGameToDB(g) {
+  try {
+    const game = { ...g };
+    const id = game.id;
+    delete game.timerRef;
 
 
-  return models.onlineGames
-    .findOne({ where: { id } })
-    .then((obj) => {
-      // update
-      if (obj) {
-        return obj.update({ data: { ...game } });
-      }
-      // insert
-      return models.onlineGames.create({ id, data: { ...game } });
-    }).catch(err => logger.error('failed to save game to db', err));
+    return await models.onlineGames
+        .findOne({ where: { id } })
+        .then((obj) => {
+          // update
+          if (obj) {
+            return obj.update({ data: { ...game } });
+          }
+          // insert
+          return models.onlineGames.create({ id, data: { ...game } });
+        });
+  } catch (e) {
+    logger.error('saveGameToDB ', e.message);
+  }
 }
 async function loadGamesFromDb() {
   try {
@@ -188,21 +192,21 @@ function givePotMoneyToWinners(game) {
       const amountWon = Math.floor(totalSidePotMoney / winnerHands.length);
 
       relevantPlayers.filter(p => winnerHands.some(winnerHand => winnerHand.cards.join('') === p.solvedHand.cards.join('')))
-        .forEach((p) => {
-          if (!winnings[p.id]) {
-            winnings[p.id] = {
-              amount: 0,
-              name: p.name,
-              handDesc: winnerHands[0].descr,
-              cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
-            };
-          }
-          p.balance += amountWon;
-          game.pot -= amountWon;
+          .forEach((p) => {
+            if (!winnings[p.id]) {
+              winnings[p.id] = {
+                amount: 0,
+                name: p.name,
+                handDesc: winnerHands[0].descr,
+                cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
+              };
+            }
+            p.balance += amountWon;
+            game.pot -= amountWon;
 
 
-          winnings[p.id].amount += amountWon;
-        });
+            winnings[p.id].amount += amountWon;
+          });
     }
   });
   const messages = [];

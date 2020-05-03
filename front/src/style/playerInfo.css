@@ -205,6 +205,23 @@
     color: white;
     font-weight: bold;
     font-size: 1.5em;
+    z-index: 11;
+    padding-top: 3px;
+    alignment: center;
+    text-align: center;
+    top:11.7vh;
+    left:0vw;
+}
+
+.player-hand-description{
+    position: absolute;
+    width: 11vw;
+    height: 2.2vw;
+    border-radius: 10px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
     z-index: 10;
     padding-top: 3px;
     alignment: center;

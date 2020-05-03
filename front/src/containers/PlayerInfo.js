@@ -27,7 +27,9 @@ const PlayerInfo = (props) => {
             { player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index+1}-pot`} className="player-pot">{(player.pot[game.gamePhase])}</div>}
             {player.status && <div  className="player-status">{player.status}</div>}
             {player.offline && <div  className="player-offline-indication">OFFLINE</div>}
-        </div>
+            {player.userDesc && <div  className="player-hand-description">{player.userDesc}</div>}
+
+         </div>
     </div>
 }
 
