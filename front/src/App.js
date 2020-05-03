@@ -148,7 +148,7 @@ class App extends Component {
 
         this.socket.on('onerror', (data) => {
             console.error('SERVER ERROR',data);
-            if (localStorage.get('debug')===true){
+            if (localStorage.getItem('debug')===true){
                 alert('SERVER ERROR. '+JSON.stringify(data));
             }
             // if (data.popMessage){
@@ -242,6 +242,14 @@ class App extends Component {
             const { gameId, playerId } = this.state;
             console.log('emiting quitgame')
             this.socket.emit('quitgame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
+        }
+    };
+
+    deleteGame = (gameId) =>{
+        if (confirm("Are you sure?")){
+            const { playerId } = this.state;
+            console.log('emiting deletegame')
+            this.socket.emit('deletegame', {gameId , playerId });
         }
     };
 
@@ -352,6 +360,7 @@ class App extends Component {
                 connected={this.state.connected}
                 playerId={this.state.playerId}
                 socket={this.socket}
+                deleteGame={this.deleteGame}
                 createGame={this.createGame}
                 showAlertMessage={this.showAlertMessage}
                 games={this.state.games} />);

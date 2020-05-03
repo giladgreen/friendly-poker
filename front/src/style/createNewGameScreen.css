@@ -252,3 +252,19 @@
 .whiteGame{
     background: grey;
 }
+#delete-game-button{
+    margin: 15px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
+    background: white;
+    color: black;
+    width: 50%;
+    border-radius: 20px;
+}
+
+#delete-game-button:hover{
+    background: indianred;
+    color: white;
+    cursor: revert;
+}

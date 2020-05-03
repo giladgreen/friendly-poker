@@ -153,26 +153,26 @@ class CreateGameScreen extends Component {
                                    type="number" value={this.state.BB}
                                    onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))} />
                         </div>
-                         <div id="create-new-game-action-time-div">
+                        <div id="create-new-game-action-time-div">
                             <span id="create-new-game-action-time-label" className="create-new-game-labels">Player Time To Think:</span>
-                             <input id="create-new-game-action-time-input"
-                                 className={this.state.showErrors ? 'red-border':''}
-                                 type="number"
-                                 min="10"
-                                 value={this.state.time}
-                                 onChange={(e)=>this.setTime(Math.floor(e.target.value))}
-                                 step="5"
-                             />
-                             <span className="create-new-game-labels">Seconds</span>
+                            <input id="create-new-game-action-time-input"
+                                   className={this.state.showErrors ? 'red-border':''}
+                                   type="number"
+                                   min="10"
+                                   value={this.state.time}
+                                   onChange={(e)=>this.setTime(Math.floor(e.target.value))}
+                                   step="5"
+                            />
+                            <span className="create-new-game-labels">Seconds</span>
                         </div>
                         <div id="create-new-game-buy-in-div">
                             <span id="create-new-game-buy-in-label" className="create-new-game-labels">Initial Buy-In:</span>
                             <input id="create-new-game-buy-in-input"
-                                className={this.state.showErrors ? 'red-border':''}
-                                type="number"
-                                pattern="\d*"
-                                value={this.state.buyIn}
-                                onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
+                                   className={this.state.showErrors ? 'red-border':''}
+                                   type="number"
+                                   pattern="\d*"
+                                   value={this.state.buyIn}
+                                   onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
                         </div>
                         <div id="create-new-game-private-checkbox">
                             <FormControlLabel
@@ -190,7 +190,7 @@ class CreateGameScreen extends Component {
                         </div>
                     </div>
                     <div id="create-game-button" className={this.props.connected ? '' : 'disabled-create-game-button'} onClick={this.onCreate}>
-                       Create
+                        Create
                     </div>
 
                 </div>
@@ -204,18 +204,21 @@ class CreateGameScreen extends Component {
                             !this.props.games || this.props.games.length === 0 ? '' :
 
                                 this.props.games.map((game,index)=>{
+                                    const isCreator = game.players.find(p=>p.creator).id === this.props.playerId;
                                     const gameId = game.id;
                                     const gameCreationTime = gameId.split('_')[1];
                                     const epoc = parseInt(gameCreationTime, 10);
                                     const date = new Date(epoc);
                                     return <div key={game.id}
-                                                onClick={()=>window.location = `${serverPrefix}?gameid=${game.id}`}
                                                 className={index % 2 ===0 ?'existing-game greyGame':'existing-game whiteGame'}>
-                                                <div>{game.privateGame ? 'private game' : 'public game'}</div>
-                                                <div> created by {this.getGameCreator(game)}</div>
-                                                <div> blinds: {game.smallBlind}/{game.bigBlind}</div>
-                                                <div>{date.AsGameName()} {date.AsExactTime()}</div>
-
+                                        <div  onClick={()=>window.location = `${serverPrefix}?gameid=${game.id}`}>
+                                            <div>{game.privateGame ? 'private game' : 'public game'}</div>
+                                            <div> created by {this.getGameCreator(game)}</div>
+                                            <div> blinds: {game.smallBlind}/{game.bigBlind}</div>
+                                            <div>{date.AsGameName()} {date.AsExactTime()}</div>
+                                            <div>{game.players.length} players</div>
+                                        </div>
+                                        {isCreator && <div id="delete-game-button" onClick={()=>this.props.deleteGame(game.id)}>Delete Game</div>}
                                     </div>
                                 })
                         }
