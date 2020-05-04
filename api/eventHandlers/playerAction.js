@@ -132,8 +132,10 @@ function onPlayerActionEvent(socket, {
       player.options = [];
       const nextActivePlayer = PlayerHelper.getNextPlayerToTalk(game.players, playerId);
       nextActivePlayer.active = true;
-      nextActivePlayer.options = [RAISE, (nextActivePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
-      logger.info(` nextActivePlayer (name: ${nextActivePlayer.name}, pot:${nextActivePlayer.pot[game.gamePhase]}, options:[${nextActivePlayer.options.join(',')}])`);
+      nextActivePlayer.options = [(nextActivePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
+      if (nextActivePlayer.balance > game.amountToCall){
+        nextActivePlayer.options.push(RAISE);
+      }      logger.info(` nextActivePlayer (name: ${nextActivePlayer.name}, pot:${nextActivePlayer.pot[game.gamePhase]}, options:[${nextActivePlayer.options.join(',')}])`);
     }
 
     GameHelper.updateGamePlayers(game, gameIsOver);

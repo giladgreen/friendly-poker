@@ -155,9 +155,6 @@ class OnlineGame extends Component {
             me =  game.players[myIndex];
             options = me.options || [];
             showingCards = me.showingCards;
-            console.log('## me',me)
-            console.log('## me.pot',me.pot)
-            console.log('## game',game)
             amountToCall = game.amountToCall - me.pot[game.gamePhase];
             if (me.balance < amountToCall){
                 amountToCall = me.balance;
@@ -401,10 +398,10 @@ class OnlineGame extends Component {
 
         return (
             <div id="online-game-screen" >
-
+                <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
                 <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
 
-                <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
+
                 {!game.paused && <div id="hand-time">
                     {hand && hand >0 ? <span>Hand #{hand} </span> :<div/> }
                     {handTime ? <span>: { handTime }</span> : <div/>}
@@ -412,7 +409,6 @@ class OnlineGame extends Component {
 
                 { !game.paused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
                 { !game.paused && hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
-                { !game.paused && <div id="player-hand" >{ this.state.userHand && <span>{`You Got ${this.state.userHand}`}</span>}</div>}
 
                 { !game.paused && game.playersTurn && <div id="your-turn-indication"> Your Turn</div>}
                 <img id="table-image" src="table.png" />

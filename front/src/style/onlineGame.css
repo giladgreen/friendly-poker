@@ -38,7 +38,7 @@
 
 }
 #copy-game-link-small{
-
+    text-align: center;
     top:10vh;
     right:2vw;
     width: 8vw;
@@ -174,14 +174,7 @@
 
 
 
-#clock{
-    color: #eaeaea;
-    z-index: 30;
-    font-size: 1.5em;
-    position: fixed;
-    top:0.3vh;
-    left: 6vw;
-}
+
 #hand-time{
     color: #eaeaea;
     z-index: 30;
@@ -240,7 +233,15 @@
     box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.48);
 }
 
-
+#clock{
+    color: #eaeaea55;
+    z-index: 30;
+    font-size: 1.3em;
+    position: fixed;
+    position: fixed;
+    top:0.2vh;
+    right:2vw;
+}
 #blinds-data{
     color: white;
     z-index: 30;
@@ -342,7 +343,8 @@
 }
 
 .inactive-button{
-    opacity: 50%;
+    opacity: 60%;
+    cursor: default;
 }
 
 .active-button{
@@ -637,6 +639,7 @@
         height: 8vh;
         width: 12vw;
         padding: 0px 5px;
+
     }
 
     #rebuy-button{                                            /*<---*/
