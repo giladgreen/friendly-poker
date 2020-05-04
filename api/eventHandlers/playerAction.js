@@ -171,7 +171,7 @@ function onPlayerActionEvent(socket, {
 handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
   player.balance += game.pot;
-  game.messages.push({ action: 'won_without_showdown', name: player.name, amount: game.pot });
+  game.messages.push({ action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, });
   game.pot = 0;
   game.handOver = true;
   setTimeout(() => {

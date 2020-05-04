@@ -9,25 +9,11 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import DnsIcon from '@material-ui/icons/Dns';
 import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
 
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
@@ -75,6 +61,17 @@ class OnlineGame extends Component {
     };
     toggleSettings = ()=>{
         this.setState({showSettings:!this.state.showSettings})
+    };
+    toggleLogs = ()=>{
+        if (!this.state.showLogs){
+            setTimeout(()=>{
+                const objDiv = document.getElementById('game-logs-modal');
+                if (objDiv){
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }
+            },100)
+        }
+        this.setState({showLogs:!this.state.showLogs})
     };
 
     saveSettings = ()=>{
@@ -137,6 +134,7 @@ class OnlineGame extends Component {
             showSettings: false,
             rebuySectionOpen: false,
             showInfoScreen: false,
+            showLogs: false,
             me:{},
             time: props.game.time,
             smallBlind: props.game.smallBlind,
@@ -314,54 +312,6 @@ class OnlineGame extends Component {
         return this.props.action('Raise',this.state.raiseValue);
     };
 
-    getMessage = (messageObject)=>{
-        const {time, name, names, balance, amount, hand, text,playerIndex} = messageObject;
-        let message = null;
-        if (messageObject.action === 'game_started'){
-            message = `game started by ${name}`;
-        }
-        if (messageObject.action === 'won_without_showdown'){
-            message = `${name} won ${amount} - no show-down`;
-        }
-        if (messageObject.action === 'won_with_showdown'){
-            message = `${name} won ${amount} with ${hand}`;
-        }
-        if (messageObject.action === 'split_win'){
-            message = `${names} won ${amount} each with ${hand}`;
-        }
-        if (messageObject.action === 'join'){
-            message = `${name} has join the game, initial buy-in: ${balance}`;
-        }
-        if (messageObject.action === 'rebuy'){
-            message = `${name} did a rebuy of ${amount}`;
-        }
-
-
-
-        if (['Flop','Turn','River'].includes(messageObject.action)){
-            message = `${messageObject.action}. ${messageObject.board.map(card=> card.replace('T','10')).join(',')}`;
-        }
-
-        if (['game_resumed','game_paused'].includes(messageObject.action)){
-            message = messageObject.popupMessage;
-        }
-        if (messageObject.action === 'usermessage'){
-            console.log('playerIndex',playerIndex)
-            return <div key={`msg_${time}_${message}`}>
-                <span className="msg-time" >{time}</span>
-                <span className={`msg-text-player-name msg-text-player-name-color${playerIndex}`}>{name}:</span>
-                <span className="msg-text">{text}</span>  </div>
-        }
-        if (message === null){
-            return <div/>;
-        }
-
-        return <div key={`msg_${time}_${message}`}>
-            <span className="msg-time" >{time}</span>
-            <span className="msg-text">{message}</span>
-        </div>
-
-    }
 
     setRebuy= (val) =>{
         const maxBalance = Math.max(...this.props.game.players.map(p => p.balance));
@@ -410,6 +360,7 @@ class OnlineGame extends Component {
         const infoButton = <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>;
 
         const quitButton = <div id="quit-button" className="active-button" onClick={this.props.quitGame}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>;
+        const logsButton = <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>;
         const settingsButton = this.props.isCreator ? <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div> : <div/>;
 
 
@@ -427,8 +378,7 @@ class OnlineGame extends Component {
             : <div/>;
 
 
-        const messages = this.props.messages.map(messageObject=>this.getMessage(messageObject));
-
+        const messages = this.props.messages;
         return (
             <div id="online-game-screen" >
                 <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
@@ -496,6 +446,7 @@ class OnlineGame extends Component {
                 {standButton}
                 {infoButton}
                 {quitButton}
+                {logsButton}
                 {settingsButton}
 
 
@@ -555,6 +506,23 @@ class OnlineGame extends Component {
                     </Fade>
                 </Modal>
 
+                <Modal
+                    open={this.state.showLogs}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}>
+                    <Fade in={this.state.showLogs}>
+
+                        <div id="game-logs-modal">
+                            <div id="game-logs-modal-close-x" onClick={this.toggleLogs}>X</div>
+                            {this.props.logs}
+                        </div>
+                    </Fade>
+                </Modal>
+
+
 
                 <input id="chat-input"
                        type="text"
@@ -567,7 +535,6 @@ class OnlineGame extends Component {
                                 this.onSendMessage();
                             }
                         }}
-
                 />
                 <div id="send-message-button" onClick={this.onSendMessage} >send</div>
                 <div id="messages-box">

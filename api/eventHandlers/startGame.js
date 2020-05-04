@@ -24,6 +24,7 @@ function onStartGameEvent(socket, { gameId, dateTime, playerId }) {
     game.messages = [{
       action: 'game_started',
       name: starterPlayer.name,
+      log: true,
     }];
     game.startDate = dateTime;
     game.lastAction = (new Date()).getTime();

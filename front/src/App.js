@@ -59,8 +59,10 @@ class App extends Component {
             const queryItems = search.substr(1).split('&');
             gameId = queryItems.find(qi=>qi.startsWith(ONLINE_GAME_ID)).split('=')[1] || '';
         }
+
         this.state = {
             games:null,
+            logs:[],
             messages:[],
             game:null,
             showAlert:false,
@@ -105,6 +107,52 @@ class App extends Component {
 
         return gameClone;
     };
+
+    getMessage = (messageObject)=>{
+        const {time, name, names, balance, amount, hand, text,playerIndex} = messageObject;
+        if (messageObject.action === 'usermessage'){
+            messageObject.div = <div key={`msg_${time}_${text}`}>
+                <span className="msg-time" >{time}</span>
+                <span className={`msg-text-player-name msg-text-player-name-color${playerIndex}`}>{name}:</span>
+                <span className="msg-text">{text}</span>  </div>;
+            return;
+        }
+
+        if (messageObject.action === 'game_started'){
+            messageObject.message = `game started by ${name}`;
+        }
+        if (messageObject.action === 'won_without_showdown'){
+            messageObject.message = `${name} won ${amount} - no show-down`;
+        }
+        if (messageObject.action === 'won_with_showdown'){
+            messageObject.message = `${name} won ${amount} with ${hand}`;
+        }
+        if (messageObject.action === 'split_win'){
+            messageObject.message = `${names} won ${amount} each with ${hand}`;
+        }
+        if (messageObject.action === 'join'){
+            messageObject.message = `${name} has join the game, initial buy-in: ${balance}`;
+        }
+        if (messageObject.action === 'rebuy'){
+            messageObject.message = `${name} did a rebuy of ${amount}`;
+        }
+
+        if (['Flop','Turn','River'].includes(messageObject.action)){
+            messageObject.message = `${messageObject.action}. ${messageObject.board.map(card=> card.replace('T','10')).join(',')}`;
+        }
+
+        if (['game_resumed','game_paused'].includes(messageObject.action)){
+            messageObject.message = messageObject.popupMessage;
+        }
+
+        if (messageObject.message){
+            messageObject.div = <div key={`msg_${time}_${messageObject.message}`}>
+                <span className="msg-time" >{time}</span>
+                <span className="msg-text">{messageObject.message}</span>
+            </div>
+        }
+    }
+
 
     componentDidMount() {
         this.socket = io(endpoint, {origins:"*"});
@@ -158,7 +206,6 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-            console.log('## .on(gameupdate) game:',game);
             const gameClone = this.getGameClone(game);
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
@@ -191,17 +238,31 @@ class App extends Component {
                     this.showAlertMessage(message.popupMessage);
                 })
             }
-            const messages = [...this.state.messages, message];
-
-            this.setState({ messages, connected: true });
-
-            setTimeout(()=>{
-                const objDiv = document.getElementById('messages-box');
-                if (objDiv){
-                    objDiv.scrollTop = objDiv.scrollHeight;
+            this.getMessage(message);
+            if (message.log){
+                if (message.div){
+                    this.setState({ logs: [...this.state.logs, message.div], connected: true });
+                    setTimeout(()=>{
+                        const objDiv = document.getElementById('game-logs-modal');
+                        if (objDiv){
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    },100)
                 }
-            },100)
 
+            } else{
+                console.log('new message',message)
+                if (message.div){
+                    this.setState({ messages: [...this.state.messages, message.div], connected: true });
+                    setTimeout(()=>{
+                        const objDiv = document.getElementById('messages-box');
+                        if (objDiv){
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }
+                    },100)
+                }
+
+            }
         });
     }
 
@@ -393,6 +454,7 @@ class App extends Component {
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}
+                    logs={this.state.logs}
                     showAlertMessage={this.showAlertMessage}
                     registerGameUpdatedCallback={this.registerGameUpdatedCallback}
                     isCreator={isCreator}

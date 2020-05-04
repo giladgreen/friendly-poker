@@ -25,6 +25,7 @@ function onJoinGameEvent(socket, {
         action: 'join',
         name: p.name,
         balance: p.balance,
+        log: true,
       });
     });
 

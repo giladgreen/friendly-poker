@@ -31,7 +31,7 @@ function onRebuyEvent(socket, {
 
 
     game.messages.push({
-      action: 'rebuy', name: player.name, amount, popupMessage: `${player.name} did a rebuy of ${amount}`,
+      action: 'rebuy', name: player.name, amount, popupMessage: `${player.name} did a rebuy of ${amount}`, log: true,
     });
 
     updateGamePlayers(game);

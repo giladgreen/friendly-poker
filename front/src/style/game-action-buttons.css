@@ -149,10 +149,9 @@
 
 @media only screen and (max-width: 800px) {
 
-
     #buttons{
         position: fixed;
-        top: 69vh;
+        top: 82vh;
         z-index: 30;
         width: 93vw;
         height: 30vh;
@@ -191,7 +190,7 @@
 
 
     #raise-buttons{
-        bottom: 12vh;
+        bottom: 2vh;
         right: 0.3vw;
         border-radius: 8px;
         height: 8vh;
