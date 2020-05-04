@@ -240,6 +240,7 @@ class App extends Component {
             }
             this.getMessage(message);
             if (message.log){
+                console.log('this is a log', message)
                 if (message.div){
                     this.setState({ logs: [...this.state.logs, message.div], connected: true });
                     setTimeout(()=>{
@@ -251,7 +252,7 @@ class App extends Component {
                 }
 
             } else{
-                console.log('new message',message)
+                console.log('this is a message', message)
                 if (message.div){
                     this.setState({ messages: [...this.state.messages, message.div], connected: true });
                     setTimeout(()=>{

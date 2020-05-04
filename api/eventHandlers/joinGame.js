@@ -19,15 +19,7 @@ function onJoinGameEvent(socket, {
     if (game.players.some(p => p.id === playerId)) {
       throw new Error('already joined game');
     }
-    game.messages.push({ action: 'join', name, balance });
-    game.players.forEach((p) => {
-      socket.emit('onmessage', {
-        action: 'join',
-        name: p.name,
-        balance: p.balance,
-        log: true,
-      });
-    });
+    game.messages.push({ action: 'join', name, balance, log: true, popupMessage: `${name} has join the game` });
 
     game.players.push({
       id: playerId,
