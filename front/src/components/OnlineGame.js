@@ -463,11 +463,11 @@ class OnlineGame extends Component {
                 </div>}
                 <div id="buttons">
                     { !game.paused && game.handOver && !this.state.showingCards && <div id="show-cards-button" className="big-button active-button" onClick={this.showCards}> Show Cards </div>}
-                    { !game.paused && options.length>0 && <div id="fold-button" className={`big-button ${options.includes('Fold') ? 'active':'inactive'}-button`} onClick={this.fold}> Fold </div>}
-                    { !game.paused && options.length>0 && <div id="check-button" className={`big-button ${options.includes('Check') ? 'active':'inactive'}-button`} onClick={options.includes('Check') ? this.check : ()=>{}}> Check </div>}
-                    { !game.paused && options.length>0 && <div id="call-button" className={`big-button ${options.includes('Call') ? 'active':'inactive'}-button`} onClick={options.includes('Call') ? this.call : ()=>{}}> Call {options.includes('Call') ? this.state.amountToCall : ''} </div>}
-                    { !game.paused && options.length>0 && <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={options.includes('Raise') ? this.toggleRaiseButton : ()=>{}}> Raise... </div>}
-                    { !game.paused && options.length>0 && this.state.raiseEnabled && <div id="raise-buttons">
+                    { !game.paused && options.length>0 && !game.handOver && <div id="fold-button" className={`big-button ${options.includes('Fold') ? 'active':'inactive'}-button`} onClick={this.fold}> Fold </div>}
+                    { !game.paused && options.length>0 && !game.handOver && <div id="check-button" className={`big-button ${options.includes('Check') ? 'active':'inactive'}-button`} onClick={options.includes('Check') ? this.check : ()=>{}}> Check </div>}
+                    { !game.paused && options.length>0 && !game.handOver && <div id="call-button" className={`big-button ${options.includes('Call') ? 'active':'inactive'}-button`} onClick={options.includes('Call') ? this.call : ()=>{}}> Call {options.includes('Call') ? this.state.amountToCall : ''} </div>}
+                    { !game.paused && options.length>0 && !game.handOver &&  <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={options.includes('Raise') ? this.toggleRaiseButton : ()=>{}}> Raise... </div>}
+                    { !game.paused && options.length>0 && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
 
 
                         { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise {this.state.raiseValue}</div>}

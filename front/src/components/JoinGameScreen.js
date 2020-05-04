@@ -8,9 +8,10 @@ class JoinGameScreen extends Component {
 
     constructor(props) {
         super(props);
+        const buyIn = props.game.players.length >0 ? Math.max(...props.game.players.map(p=>p.balance)) : 100 * props.game.bigBlind;
         this.state = {
             name:'',
-            buyIn:50,
+            buyIn,
             showErrors:false,
             joinRequestSent: false,
         }

@@ -3,9 +3,9 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
 function onUpdateGameSettingsEvent(socket, {
-    gameId, dateTime, playerId, time, smallBlind, bigBlind, now,
+    gameId, dateTime, playerId, time, smallBlind, bigBlind,
 }) {
-    logger.info('onUpdateGameSettingsEvent ', gameId, dateTime, playerId, time, smallBlind, bigBlind, now);
+    logger.info('onUpdateGameSettingsEvent ', gameId, dateTime, playerId, time, smallBlind, bigBlind);
 
     try {
         socket.playerId = playerId;

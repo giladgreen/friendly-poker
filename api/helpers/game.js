@@ -79,6 +79,7 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
   gameToSend.players = gameToSend.players.map((p) => {
     const player = { ...p, cards: [...(p.cards || [])] };
     delete player.offline;
+    const userDesc = player.solvedHand ? player.solvedHand.descr : null;
     delete player.solvedHand;
     if (!Mappings.GetSocketByPlayerId(player.id)) {
       player.offline = true;
@@ -96,6 +97,9 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
       }
     } else if (!showCards || player.status === FOLD) {
       delete player.cards;
+    }
+    if (showCards && player.status !== FOLD && userDesc){
+      player.userDesc = userDesc;
     }
     return player;
   });
@@ -217,7 +221,7 @@ function givePotMoneyToWinners(game) {
 
     if (winners.length === 1) {
       const msg = {
-        action: 'won_with_showdown', name: winners[0].name, amount, hand: winners[0].handDesc, cards: winners[0],
+        action: 'won_with_showdown', name: winners[0].name, amount, hand: winners[0].handDesc, cards: winners[0], log:true,
       };
       messages.push(msg);
     } else {
@@ -232,7 +236,7 @@ function givePotMoneyToWinners(game) {
         }
       });
       const msg = {
-        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0],
+        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log:true,
       };
       messages.push(msg);
     }

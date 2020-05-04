@@ -226,7 +226,7 @@
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:11.7vh;
+    top:12.2vh;
     left:0vw;
 }
 @media only screen and (max-width: 800px) {
@@ -282,6 +282,7 @@
     }
 
     .player-hand-description{
+        top:12vh;
         padding-top: 0px;
         font-size: 0.4em;
         width: 13vw;
