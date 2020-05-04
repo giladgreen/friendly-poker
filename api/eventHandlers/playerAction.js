@@ -126,7 +126,7 @@ function onPlayerActionEvent(socket, {
     const betRoundOver = game.fastForward || game.players.filter(p => p.needToTalk).length === 0;
     const allButOneHaveFolded = game.players.filter(p => p.needToTalk).length === 1 && game.players.filter(p => !p.fold && !p.sitOut).length === 1;
     if (betRoundOver || allButOneHaveFolded) {
-      const activePlayersStillInGame = PlayerHelper.getActivePlayersStillInGame(game.players);
+      const activePlayersStillInGame = PlayerHelper.getActivePlayersStillInGame(game);
 
       if (!game.fastForward && activePlayersStillInGame.length === 1) {
         logger.info('hand is over!');

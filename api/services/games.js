@@ -74,6 +74,9 @@ function startNewHand(game, dateTime) {
     if (player.balance === 0) {
       player.sitOut = true;
       player.sitOutByServer = true;
+    } else if (game.pendingPlayers.includes(player.id)) {
+      delete player.sitOut;
+      delete player.sitOutByServer;
     }
     delete player.active;
     delete player.dealer;
@@ -86,7 +89,7 @@ function startNewHand(game, dateTime) {
     player.cards = player.sitOut ? [] : [game.deck.pop(), game.deck.pop()];
   });
 
-  const playersCount = PlayerHelper.getActivePlayersStillInGame(game.players).filter(p => p.balance > 0).length;
+  const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
   if (playersCount < 2) {
     game.paused = true;
     game.pausedByServer = true;

@@ -15,7 +15,7 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
     const game = Mappings.getGameById(gameId);
 
     if (game.pausedByServer) {
-      const playersCount = PlayerHelper.getActivePlayersStillInGame(game.players).filter(p => p.balance > 0).length;
+      const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
       if (playersCount < 2) {
         throw new Error('game cant be resume yet');
       } else {

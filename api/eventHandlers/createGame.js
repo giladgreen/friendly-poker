@@ -13,6 +13,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
   try {
     const newGame = {
       id: gameCreatorData.id,
+      pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
       hand: 0,
@@ -26,6 +27,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
         name: gameCreatorData.name,
         balance: amount,
         creator: true,
+        sitOut: true,
       }],
       playersData: [{
         id: playerId,

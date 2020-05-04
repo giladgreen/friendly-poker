@@ -72,8 +72,8 @@ function getPreviousActivePlayer(players, playerId) {
   return players[previousPlayerIndex];
 }
 
-function getActivePlayersStillInGame(players) {
-  return players.filter(player => !player.fold && !player.sitOut);
+function getActivePlayersStillInGame(game) {
+  return game.players.filter(player => !player.fold && (!player.sitOut || game.pendingPlayers.includes(player.id)));
 }
 
 

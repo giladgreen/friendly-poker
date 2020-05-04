@@ -23,7 +23,7 @@ function onRebuyEvent(socket, {
     }
     player.balance += amount;
     if (player.sitOut && player.sitOutByServer) {
-      delete player.sitOut;
+      game.pendingPlayers.push(playerId);
       delete player.sitOutByServer;
     }
     const playerData = game.playersData.find(p => p.id === playerId);

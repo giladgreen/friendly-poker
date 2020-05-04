@@ -17,10 +17,10 @@ function onSitBackEvent(socket, { playerId, gameId }) {
       throw new Error('did not find player');
     }
 
-    delete player.sitOut;
+    game.pendingPlayers.push(playerId);
 
     game.messages.push({
-      action: 'sitback', name: player.name, popupMessage: `${player.name} as re-joined te game`,
+      action: 'sitback', name: player.name, popupMessage: `${player.name} will re-joined next hand`,
     });
 
     updateGamePlayers(game);

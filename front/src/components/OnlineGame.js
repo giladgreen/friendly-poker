@@ -57,11 +57,13 @@ class OnlineGame extends Component {
     }
 
     toggleRaiseButton = ()=>{
-        this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.state.game ? this.state.game.bigBlind : 1})
+        this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.getMinRaise()})
     };
+
     toggleSettings = ()=>{
         this.setState({showSettings:!this.state.showSettings})
     };
+
     toggleLogs = ()=>{
         if (!this.state.showLogs){
             setTimeout(()=>{
@@ -78,6 +80,7 @@ class OnlineGame extends Component {
         this.props.updateGameSettings(this.state.time,this.state.smallBlind,this.state.bigBlind)
         this.setState({showSettings:false})
     }
+
     onSendMessage = ()=>{
         this.props.sendMessage(this.state.chatMessage);
         this.setState({chatMessage:''});
@@ -127,7 +130,7 @@ class OnlineGame extends Component {
             chatMessage: '',
             communityCards:[],
             raiseEnabled: false,
-            raiseValue:1,
+            raiseValue: props.game.bigBlind,
             userTimer:0,
             options:[],
             rebuyValue: null,
@@ -236,9 +239,9 @@ class OnlineGame extends Component {
             userHand,
             rebuyEnabled,
             amountToCall,
-
+            raiseValue: this.getMinRaise(),
         };
-
+        console.log('## newState ', newState)
         if (!rebuyEnabled){
             newState.rebuyValue = null;
             newState.rebuySectionOpen = false;
@@ -260,15 +263,37 @@ class OnlineGame extends Component {
 
     setChatMessage = (chatMessage) =>{
         this.setState({chatMessage})
+    };
+
+    getMinRaise=()=>{
+        const game = this.props.game;
+        const me = this.state.me;
+        if (!game.gamePhase){
+            return game.bigBlind;
+        }
+        const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
+        if (amountForMeToCall > 0) {
+            const minValue = 2 * game.amountToCall;
+            if (me.balance + me.pot[game.gamePhase] < minValue) {
+                return me.balance + me.pot[game.gamePhase];
+            }
+            return minValue;
+        }
+        return game.bigBlind;
     }
+
+    getMaxRaise=()=>{
+        return this.state.me.balance + this.state.me.pot[this.props.game.gamePhase] ;
+    };
 
     setRaiseValue = (newVal) =>{
         newVal = Math.floor(newVal);
-        const minRaise = 2 * parseInt(this.props.game.amountToCall, 10);
-        const maxRaise = this.props.game.players[this.getActiveIndex(this.props.game.players)].balance;
+        const minRaise = this.getMinRaise();
+        const maxRaise = this.getMaxRaise();
         const raiseValue = newVal < (minRaise) ? minRaise : (newVal > (maxRaise) ? maxRaise : newVal )
         this.setState({raiseValue});
-    }
+    };
+
 
     getTimeLeft = ()=>{
         const {userTimer} = this.state;
@@ -421,7 +446,7 @@ class OnlineGame extends Component {
 
 
                         { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise {this.state.raiseValue}</div>}
-                        { !game.paused &&   <input id="raise-input" type="number" min={bigBlind} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>}
+                        { !game.paused &&   <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>}
 
 
                         { !game.paused &&   <div id="raise-button-add-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> +{game.bigBlind}</div>}

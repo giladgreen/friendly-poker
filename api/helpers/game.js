@@ -45,12 +45,28 @@ function handleCall(game, player) {
   }
 }
 
+function getMinRaise(game, me) {
+  const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
+  if (amountForMeToCall > 0) {
+    const minValue = 2 * game.amountToCall;
+    if (me.balance + me.pot[game.gamePhase] < minValue) {
+      return me.balance + me.pot[game.gamePhase];
+    }
+    return minValue;
+  }
+  return game.bigBlind;
+}
 function handleRaise(game, player, amount) {
   logger.info(`${player.name} raise ${amount}`);
-
-  if (player.balance < amount) {
+  const alreadyInPot = player.pot[game.gamePhase];
+  if (player.balance + alreadyInPot < amount) {
     throw new Error('insufficient funds');
   }
+  const minRaise = getMinRaise(game, player);
+  if (amount < minRaise && amount < player.balance + alreadyInPot) {
+    throw new Error('ilegal raise amount');
+  }
+
   player.status = RAISE;
   player.active = false;
   player.options = [];
@@ -59,18 +75,18 @@ function handleRaise(game, player, amount) {
   });
   player.needToTalk = false;
 
-  player.balance -= amount;
+  const amountToAdd = amount - alreadyInPot;
+  player.balance -= amountToAdd;
 
-  game.pot += amount;
+  game.pot += amountToAdd;
 
-  player.pot[game.gamePhase] = amount;
+  player.pot[game.gamePhase] += amountToAdd;
   game.amountToCall = amount;
   if (player.balance === 0) {
     player.allIn = true;
     player.status = ALL_IN;
   }
 }
-
 
 function getPlayerCopyOfGame(playerId, game, showCards = false) {
   const gameToSend = { ...game };
