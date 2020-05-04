@@ -275,6 +275,12 @@ class App extends Component {
         }
     };
 
+    updateGameSettings = (time,smallBlind,bigBlind) =>{
+        const dateTime =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+        this.socket.emit('updategamesettings', {gameId , dateTime, playerId, time,smallBlind,bigBlind, now: (new Date()).getTime() });
+        this.showAlertMessage('Update Settings Request Sent');
+    }
     pauseGame = () =>{
         const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
@@ -393,6 +399,7 @@ class App extends Component {
                     toggleShowInfo={this.toggleShowInfo}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}
+                    updateGameSettings={this.updateGameSettings}
                     resumeGame={this.resumeGame}
                     showCards={this.showCards}
                     rebuy={this.rebuy}

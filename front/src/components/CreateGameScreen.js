@@ -196,13 +196,14 @@ class CreateGameScreen extends Component {
 
                 </div>
 
+                {this.props.games && (
                 <div id="my-existing-games" className="config-screens-top-level-sections">
                     <div id="my-existing-games-header" className="config-screens-top-level-sections-header">
-                        {this.props.games ? this.props.games.length : 'No' } Existing Game{ this.props.games && this.props.games.length === 1 ? '' : 's' }
+                        {this.props.games.length > 0 ? this.props.games.length : 'No'} Existing Game{ this.props.games.length === 1 ? '' : 's' }
                     </div>
                     <div id="my-existing-games-body" className="config-screens-top-level-sections-body">
                         {
-                            !this.props.games || this.props.games.length === 0 ? '' :
+                            this.props.games.length === 0 ? <div/> :
 
                                 this.props.games.map((game,index)=>{
                                     const creator = game.players.find(p=>p.creator);
@@ -225,7 +226,7 @@ class CreateGameScreen extends Component {
                                 })
                         }
                     </div>
-                </div>
+                </div>)}
 
             </div>
         );

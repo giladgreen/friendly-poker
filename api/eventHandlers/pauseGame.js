@@ -10,6 +10,17 @@ function onPauseGameEvent(socket, { gameId, playerId }) {
     socket.playerId = playerId;
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
+    if (!game) {
+      throw new Error('did not find game');
+    }
+    const player = game.players.find(p => p.id === playerId);
+    if (!player) {
+      throw new Error('did not find player');
+    }
+    if (!player.creator) {
+      throw new Error('non creator player cannot pause game');
+    }
+
     game.paused = true;
     game.messages.push({ action: 'game_paused', popupMessage: 'game paused' });
     GameHelper.pauseHandTimer(game);

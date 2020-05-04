@@ -15,6 +15,7 @@ const { onQuitEvent } = require('./quit');
 const { onUserMessageEvent } = require('./userMessage');
 const { onUserShowedCardsEvent } = require('./showCards');
 const { onDeleteGameEvent } = require('./deleteGame');
+const { onUpdateGameSettingsEvent } = require('./updateGameSettings');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -35,7 +36,7 @@ function onConnection(socket) {
   socket.on('usermessage', data => onUserMessageEvent(socket, data));
   socket.on('showcards', data => onUserShowedCardsEvent(socket, data));
   socket.on('deletegame', data => onDeleteGameEvent(socket, data));
-
+  socket.on('updategamesettings', data => onUpdateGameSettingsEvent(socket, data));
 }
 
 module.exports = {

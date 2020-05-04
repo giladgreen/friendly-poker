@@ -59,10 +59,9 @@ function handleRaise(game, player, amount) {
   });
   player.needToTalk = false;
 
-  const amountToAdd = (amount - player.pot[game.gamePhase]);
-  player.balance -= amountToAdd;
+  player.balance -= amount;
 
-  game.pot += amountToAdd;
+  game.pot += amount;
 
   player.pot[game.gamePhase] = amount;
   game.amountToCall = amount;
@@ -71,6 +70,7 @@ function handleRaise(game, player, amount) {
     player.status = ALL_IN;
   }
 }
+
 
 function getPlayerCopyOfGame(playerId, game, showCards = false) {
   const gameToSend = { ...game };

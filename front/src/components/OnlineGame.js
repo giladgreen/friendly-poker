@@ -8,7 +8,26 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import DnsIcon from '@material-ui/icons/Dns';
 import LinkIcon from '@material-ui/icons/Link';
-import SendIcon from '@material-ui/icons/Send';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}));
 
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
@@ -54,7 +73,14 @@ class OnlineGame extends Component {
     toggleRaiseButton = ()=>{
         this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.state.game ? this.state.game.bigBlind : 1})
     };
+    toggleSettings = ()=>{
+        this.setState({showSettings:!this.state.showSettings})
+    };
 
+    saveSettings = ()=>{
+        this.props.updateGameSettings(this.state.time,this.state.smallBlind,this.state.bigBlind)
+        this.setState({showSettings:false})
+    }
     onSendMessage = ()=>{
         this.props.sendMessage(this.state.chatMessage);
         this.setState({chatMessage:''});
@@ -108,9 +134,13 @@ class OnlineGame extends Component {
             userTimer:0,
             options:[],
             rebuyValue: null,
+            showSettings: false,
             rebuySectionOpen: false,
             showInfoScreen: false,
-            me:{}
+            me:{},
+            time: props.game.time,
+            smallBlind: props.game.smallBlind,
+            bigBlind: props.game.bigBlind
         }
 
         setTimeout(()=>{
@@ -280,6 +310,7 @@ class OnlineGame extends Component {
     };
 
     raise = ()=>{
+        console.log('raise',this.state.raiseValue)
         return this.props.action('Raise',this.state.raiseValue);
     };
 
@@ -376,8 +407,10 @@ class OnlineGame extends Component {
         </div> : <div/>;
 
         const standButton = startDate ? <div id="stand-sit-button" className="active-button" onClick={this.sitStand}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div> : <div/>;
-        const quitButton = <div id="quit-button" className="active-button" onClick={this.props.quitGame}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>;
         const infoButton = <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>;
+
+        const quitButton = <div id="quit-button" className="active-button" onClick={this.props.quitGame}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>;
+        const settingsButton = this.props.isCreator ? <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div> : <div/>;
 
 
         const startGameButton = this.props.isCreator && !startDate && players.length>1 ?
@@ -431,27 +464,26 @@ class OnlineGame extends Component {
                 <div id="buttons">
                     { !game.paused && game.handOver && !this.state.showingCards && <div id="show-cards-button" className="big-button active-button" onClick={this.showCards}> Show Cards </div>}
                     { !game.paused && options.length>0 && <div id="fold-button" className={`big-button ${options.includes('Fold') ? 'active':'inactive'}-button`} onClick={this.fold}> Fold </div>}
-                    { !game.paused && options.length>0 && <div id="check-button" className={`big-button ${options.includes('Check') ? 'active':'inactive'}-button`} onClick={this.check}> Check </div>}
-                    { !game.paused && options.length>0 && <div id="call-button" className={`big-button ${options.includes('Call') ? 'active':'inactive'}-button`} onClick={this.call}> Call {this.state.amountToCall} </div>}
-                    { !game.paused && options.length>0 && <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={this.toggleRaiseButton}> Raise... </div>}
+                    { !game.paused && options.length>0 && <div id="check-button" className={`big-button ${options.includes('Check') ? 'active':'inactive'}-button`} onClick={options.includes('Check') ? this.check : ()=>{}}> Check </div>}
+                    { !game.paused && options.length>0 && <div id="call-button" className={`big-button ${options.includes('Call') ? 'active':'inactive'}-button`} onClick={options.includes('Call') ? this.call : ()=>{}}> Call {options.includes('Call') ? this.state.amountToCall : ''} </div>}
+                    { !game.paused && options.length>0 && <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={options.includes('Raise') ? this.toggleRaiseButton : ()=>{}}> Raise... </div>}
                     { !game.paused && options.length>0 && this.state.raiseEnabled && <div id="raise-buttons">
-                        { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise {this.state.raiseValue}</div>}
-                        { !game.paused &&   <div id="raise-button-add-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> +{game.bigBlind}</div>}
 
+
+                        { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise {this.state.raiseValue}</div>}
                         { !game.paused &&   <input id="raise-input" type="number" min={bigBlind} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>}
 
+
+                        { !game.paused &&   <div id="raise-button-add-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> +{game.bigBlind}</div>}
                         { !game.paused &&   <div id="raise-button-sub-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> -{game.bigBlind}</div>}
+
+
 
                         { !game.paused &&   <div id="raise-button-2-3" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(2* pot / 3)}> 2/3 pot</div>}
                         { !game.paused &&   <div id="raise-button-1-2" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>}
                         { !game.paused &&   <div id="raise-button-1-3" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>}
 
                         { !game.paused && me.balance &&  <div id="all-in-button" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(me.balance)}> All In</div>}
-
-                        {/*{ !game.paused &&   <div id="raise-button-5x" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(bigBlind * 5)}> 5BB</div>}*/}
-                        {/*{ !game.paused &&   <div id="raise-button-3x" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(bigBlind * 3)}> 3BB</div>}*/}
-                        {/*{ !game.paused &&   <div id="raise-button-2x" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(bigBlind * 2)}> 2BB</div>}*/}
-
 
                     </div>}
 
@@ -462,12 +494,66 @@ class OnlineGame extends Component {
                 {actualRebuyButton}
                 {rebuySectionDiv}
                 {standButton}
-                {quitButton}
                 {infoButton}
+                {quitButton}
+                {settingsButton}
+
 
                 {startGameButton}
                 {pauseGameButton}
                 {resumeGameButton}
+
+                <Modal
+                    open={this.state.showSettings}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={this.state.showSettings}>
+                        <div id="game-settings-modal">
+                            <div id="game-settings-modal-close-x" onClick={this.toggleSettings}>X</div>
+                            <div id="game-settings-modal-title">Game Settings</div>
+
+                           <div className="game-settings-item">
+                               <span className="game-settings-label">Player Time To Think:</span>
+                               <input className="game-settings-input"
+                                      type="number"
+                                      min="10"
+                                      value={this.state.time}
+                                      onChange={(e)=>this.setState({time: Math.floor(e.target.value)})}
+                                      step="10"
+                               />
+                               <span className="game-settings-secondary-label"> Seconds</span>
+                           </div>
+                            <div className="game-settings-item">
+                               <span className="game-settings-label">Small Blind:</span>
+                               <input className="game-settings-input"
+                                      type="number"
+                                      min="1"
+                                      value={this.state.smallBlind}
+                                      onChange={(e)=>this.setState({smallBlind: Math.floor(e.target.value)})}
+                                      step="1"
+                               />
+                           </div>
+                            <div className="game-settings-item">
+                               <span className="game-settings-label">Big Blind:</span>
+                               <input className="game-settings-input"
+                                      type="number"
+                                      min={this.state.smallBlind}
+                                      value={this.state.bigBlind}
+                                      onChange={(e)=>this.setState({bigBlind: Math.floor(e.target.value)})}
+                                      step="1"
+                               />
+                           </div>
+                            <div className="game-settings-item">
+                              <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
+                           </div>
+
+                        </div>
+                    </Fade>
+                </Modal>
 
 
                 <input id="chat-input"
@@ -483,9 +569,7 @@ class OnlineGame extends Component {
                         }}
 
                 />
-
                 <div id="send-message-button" onClick={this.onSendMessage} >send</div>
-
                 <div id="messages-box">
                     {messages}
                 </div>
