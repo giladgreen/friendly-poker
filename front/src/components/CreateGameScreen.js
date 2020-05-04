@@ -118,6 +118,7 @@ class CreateGameScreen extends Component {
         return creatorName;
     }
     render() {
+        const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 
         return (
@@ -184,7 +185,7 @@ class CreateGameScreen extends Component {
                                         color="primary"
                                     />
                                 }
-                                label={<span style={{ fontSize: '2em' }}>Private Game</span>}
+                                label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Private Game</span>}
 
                             />
                         </div>
@@ -204,7 +205,8 @@ class CreateGameScreen extends Component {
                             !this.props.games || this.props.games.length === 0 ? '' :
 
                                 this.props.games.map((game,index)=>{
-                                    const isCreator = game.players.find(p=>p.creator).id === this.props.playerId;
+                                    const creator = game.players.find(p=>p.creator);
+                                    const isCreator = creator && creator.id === this.props.playerId;
                                     const gameId = game.id;
                                     const gameCreationTime = gameId.split('_')[1];
                                     const epoc = parseInt(gameCreationTime, 10);

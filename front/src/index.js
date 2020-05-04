@@ -5,7 +5,6 @@ import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import './style/bootstrap.css';
 import './style/onlineGame.css';
-import './style/createGameScreen.css';
 import './style/createNewGameScreen.css';
 import './style/joinGameScreen.css';
 import './style/loader.css';

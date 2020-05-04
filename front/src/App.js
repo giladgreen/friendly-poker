@@ -12,6 +12,7 @@ import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
 
 const endpoint = window.location.origin.indexOf('localhost') >= 0 ?  'http://127.0.0.1:5000' : window.location.origin;
+const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
 const ONLINE_GAME_ID = 'gameid';
 
@@ -242,6 +243,9 @@ class App extends Component {
             const { gameId, playerId } = this.state;
             console.log('emiting quitgame')
             this.socket.emit('quitgame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
+            localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
+
+            window.location = serverPrefix;
         }
     };
 

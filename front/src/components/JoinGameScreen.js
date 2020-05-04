@@ -58,7 +58,7 @@ class JoinGameScreen extends Component {
                             <br/>
                             Time To Action:  {this.props.game.time} seconds
                         </div>
-                        <div id="new-online-game-inputs">
+                        <div id="join-game-inputs">
 
                             <div>
                                 Name: <input disabled={this.props.game.players.length >= 8} className={`name-input ${this.state.showErrors ? 'red-border':''}`} type="text" value={this.state.name} onChange={(e)=>this.setName(e.target.value)} />

@@ -363,7 +363,7 @@ class OnlineGame extends Component {
             this.props.showAlertMessage('link copied')
         };
 
-        const gameLinkDiv = <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Game Link</span></span>:<span>Copy Game Link</span>} </div>;
+        const gameLinkDiv = <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>;
         const rebuyButton = startDate ? <div id="rebuy-button" className={` ${ cheapLeader ? 'disabled-button':'active-button'} `} onClick={()=>this.toggleRebuyButton(cheapLeader)}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div> : <div/>;
         const actualRebuyButton = this.state.rebuySectionOpen ? <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>  </div> : <div/>;
         const rebuySectionDiv = this.state.rebuySectionOpen ? <div id="rebuy-section"  >
@@ -421,8 +421,7 @@ class OnlineGame extends Component {
 
                 {players.map((player,index)=> <PlayerInfo key={player.id} game={game} player={player} index={index} winningHandCards={winningHandCards} />)}
 
-
-                {pot &&  <div id="community-pot">
+                {Boolean(pot) &&  <div id="community-pot">
                     {pot}
                 </div>}
                 {board && <div id="community-cards">
@@ -489,7 +488,7 @@ class OnlineGame extends Component {
 
                 />
 
-                <div id="send-message-button" onClick={this.onSendMessage} ><SendIcon/></div>
+                <div id="send-message-button" onClick={this.onSendMessage} >send</div>
 
                 <div id="messages-box">
                     {messages}

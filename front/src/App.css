@@ -2,55 +2,32 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 #app-version{
   position: fixed;
-  top: 0.6vh;
-  left: 0.9vw;
+  top: 8.6vh;
+  left: 38.3vw;
   z-index: 50;
-  font-size: 1.3em;
-  text-align: center;
   color: #777777;
 }
 #app-name{
   position: fixed;
-  top: 0.6vh;
-  left: 17vw;
-  height: 11vh;
-  width: 21vw;
+  top: 1.6vh;
+  left: 18vw;
+  height: 7.8vh;
+  width: 23vw;
   z-index: 50;
 }
 #connection-status{
   position: fixed;
-  top: 5vh;
-  left: 1vw;
+  top: 2vh;
+  left: 0.8vw;
 
   height: 7vh;
   font-family: "Arial Black";
   z-index: 50;
   font-size: 2em;
   text-align: center;
-  padding: 3px;
+  padding: 3px 10px;
 
   border-radius: 12px;
   border-width: 3px;
@@ -70,4 +47,23 @@
 }
 .red-border{
   border: 2px solid red;
+}
+
+@media only screen and (max-width: 800px) {
+  #app-version{
+    color: #77777700;
+  }
+
+  #app-name{
+    left: 25vw;
+  }
+  #connection-status{
+    top: 1.9vh;
+    left: 1vw;
+    height: 9vh;
+    font-size: 1em;
+    padding: 0px 10px 0px 10px;
+    border-radius: 8px;
+    border-width: 2px;
+  }
 }

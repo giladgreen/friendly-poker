@@ -12,14 +12,14 @@ function onUserShowedCardsEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not found game');
+      throw new Error('did not find game');
     }
     if (!game.handOver) {
       throw new Error('cant show mid-hand');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not found player');
+      throw new Error('did not find player');
     }
 
     game.showPlayersHands.push(playerId);

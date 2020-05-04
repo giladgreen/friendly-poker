@@ -268,3 +268,108 @@
     color: white;
     cursor: revert;
 }
+@media only screen and (max-width: 800px) {
+    .config-screens-top-level-sections{
+        top:13vh;
+        height: 81.8vh;
+        border: 2px solid gray;
+        border-radius: 8px;
+    }
+
+    #create-new-game-section{
+        left:2vw;
+        width: 58vw;
+    }
+
+    #my-existing-games{
+        left:62vw;
+        width: 36vw;
+    }
+
+    .config-screens-top-level-sections-body{
+        height: 66vh;
+        border: 2px solid gray;
+        border-radius: 9px;
+    }
+    #create-new-game-section-body{
+        left: 4vw;
+        width: 54vw;
+    }
+
+    #my-existing-games-body{
+        height: 66vh;
+    }
+
+    #create-new-game-name-div{
+        top:26vh;
+        left: 6vw;
+    }
+    .create-new-game-labels{
+        font-size: 1em;
+    }
+
+    #create-new-game-name-input{
+        border-radius: 8px;
+        margin-left: 1vw;
+        font-size:  1em;
+    }
+    #create-new-game-blinds-div{
+        top:38vh;
+    }
+
+    #create-new-game-small-blind-input{
+        border-radius: 8px;
+        font-size:  1em;
+    }
+    #create-new-game-big-blind-input{
+        border-radius: 8px;
+        font-size:  1em;
+
+    }
+    #create-new-game-action-time-div{
+        top:49vh;
+    }
+    #create-new-game-action-time-input{
+        border-radius: 8px;
+        font-size:  1em;
+    }
+
+    #create-new-game-buy-in-div{
+        top:59vh;
+    }
+    #create-new-game-buy-in-input{
+        border-radius: 8px;
+        font-size:  1em;
+    }
+
+    #create-new-game-private-checkbox{
+        top:66vh;
+        font-size: 1em;
+    }
+
+    #create-game-button{
+        font-size:  1.2em;
+        position: fixed;
+        top:79vh;
+        height: 10vh;
+        left:24vw;
+        width: 15.5vw;
+    }
+
+    .existing-game{
+        padding-left: 5px;
+        font-size: 0.9em;
+    }
+
+    #delete-game-button{
+        margin: 15px;
+        padding: 10px;
+        text-align: center;
+        border: 2px solid black;
+        background: white;
+        color: black;
+        width: 90%;
+        border-radius: 20px;
+    }
+
+}

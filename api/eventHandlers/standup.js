@@ -10,11 +10,11 @@ function onStandupEvent(socket, { playerId, gameId }) {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not found game');
+      throw new Error('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not found player');
+      throw new Error('did not find player');
     }
 
     player.sitOut = true;

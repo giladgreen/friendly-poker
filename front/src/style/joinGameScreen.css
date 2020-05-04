@@ -96,3 +96,60 @@
     margin-top: 1vh;
     font-size: 2em;
 }
+#join-game-inputs input{
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+}
+@media only screen and (max-width: 800px) {
+    #join-screen{
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
+
+    #join-screen #two-sections{
+        margin-top: 8vh;
+    }
+
+    #join-game-section{
+        border: 2px solid grey;
+        height: 82vh;
+        width: 60%;
+        padding: 20px;
+        z-index: 1;
+        margin-right: 2vw;
+    }
+
+    #join-screen #join-button-div{
+        margin-top: 10px;
+        font-size: 1em;
+    }
+
+
+    #join-screen #join-button-full-game-div{
+        font-size: 2em;
+    }
+
+
+    #existing-players{
+        border: 2px solid grey;
+        width: 35%;
+        height: 82vh;
+        padding: 20px;
+        z-index: 1;
+    }
+
+
+    #existing-players-list{
+        font-size: 0.8em;
+    }
+    #join-game-inputs{
+        font-size: 0.8em;
+    }
+    #join-game-inputs input{
+        margin-bottom: 5px;
+        padding-left: 10px;
+        border-radius: 2px;
+
+    }
+}

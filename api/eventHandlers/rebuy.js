@@ -12,11 +12,11 @@ function onRebuyEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not found game');
+      throw new Error('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not found player');
+      throw new Error('did not find player');
     }
     if (!game.paused && !game.handOver && player.balance !== 0 && !player.sitOut && !player.fold) {
       throw new Error('can not perform rebuy mid-hand');

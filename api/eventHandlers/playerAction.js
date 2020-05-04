@@ -22,7 +22,7 @@ function onPlayerActionEvent(socket, {
     }
     game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not found game');
+      throw new Error('did not find game');
     } else if (socket) {
       game.lastAction = (new Date()).getTime();
     }

@@ -229,3 +229,91 @@
     top:11.7vh;
     left:0vw;
 }
+@media only screen and (max-width: 800px) {
+
+
+    .player{
+        width: 13vw;
+        height: 10vh;
+    }
+
+    .active-player{
+        background: rgba(232,174,0,0.53);
+        -webkit-box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
+        -moz-box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
+        box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
+        border-radius: 20%;
+    }
+
+    .player-info{
+        border-radius: 5px;
+        left: 5.2vw;
+        width: 9.7vw;
+        height: 10vh;
+        background: white;
+        font-size: 0.6em;
+        padding-top: 1vh;
+        padding-left: 5vh;
+    }
+
+    #dealer-button{
+        font-size: 0.5em;
+    }
+
+    #small-blind-button{
+        font-size: 0.3em;
+    }
+
+    #big-blind-button{
+        font-size: 0.3em;
+    }
+
+    .player-pot{
+        font-size: 0.5em;
+    }
+
+    .player-status{
+        font-size: 0.5em;
+    }
+
+    .player-offline-indication{
+        padding-top: 0px;
+        font-size: 0.5em;
+    }
+
+    .player-hand-description{
+        padding-top: 0px;
+        font-size: 0.4em;
+        width: 13vw;
+    }
+
+    #player1{
+        top:62vh;
+        left:44vw;
+    }
+
+    #player1-pot{
+        top:-7.4vh;
+        left:3.5vw;
+    }
+
+    #player2{
+        top:58vh;
+        left:23vw;
+    }
+
+    #player2-pot{
+        top:-6.8vh;
+        left:7vw;
+    }
+
+    #player7{
+        top:36vh;
+        left:75vw;
+    }
+
+    #player7-pot{
+        top:5.7vh;
+        left:-9.7vw;
+    }
+}
