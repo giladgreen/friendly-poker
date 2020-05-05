@@ -28,6 +28,7 @@ function onJoinGameEvent(socket, {
       name,
       balance,
       sitOut: true,
+      pot: [],
     });
     game.pendingPlayers.push(playerId);
     game.playersData.push({
