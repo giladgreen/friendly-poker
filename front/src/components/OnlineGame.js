@@ -267,24 +267,21 @@ class OnlineGame extends Component {
 
     getMinRaise=()=>{
         const game = this.props.game;
-        const me = this.state.me;
-        if (game.gamePhase === undefined){
-            console.log('#### getMinRaise game.gamePhase',game.gamePhase)
-            if (game.amountToCall){
-                return game.amountToCall * 2;
-            }else{
-                return game.bigBlind;
+        try {
+            const me = this.state.me;
+            const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
+            if (amountForMeToCall > 0) {
+                const minValue = 2 * game.amountToCall;
+                if (me.balance + me.pot[game.gamePhase] < minValue) {
+                    return me.balance + me.pot[game.gamePhase];
+                }
+                return minValue;
             }
+            return game.bigBlind + me.pot[game.gamePhase];
+        } catch (e) {
+            console.log('getMinRaise error',e);
+            return game.amountToCall ?  2 * game.amountToCall : game.bigBlind;
         }
-        const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
-        if (amountForMeToCall > 0) {
-            const minValue = 2 * game.amountToCall;
-            if (me.balance + me.pot[game.gamePhase] < minValue) {
-                return me.balance + me.pot[game.gamePhase];
-            }
-            return minValue;
-        }
-        return game.bigBlind + me.pot[game.gamePhase];
     }
 
     getMaxRaise=()=>{
