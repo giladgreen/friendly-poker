@@ -82,7 +82,7 @@
     top: 1vh;
     right: 1vw;
     height: 8vh;
-    width: 9vw;
+    width: 11vw;
     text-align: center;
     font-weight: bold;
     font-size: 1.7em;
@@ -112,15 +112,15 @@
 }
 
 #raise-button-add-1{
-    right: 11.5vw;
+    right: 13vw;
 }
 
 #raise-input{
     position: absolute;
     top: 1vh;
-    right: 16vw;
+    right: 17.4vw;
     height: 8vh;
-    width: 9vw;
+    width: 8vw;
     text-align: center;
     font-weight: bold;
     font-size: 3em;
@@ -129,7 +129,7 @@
 }
 
 #raise-button-sub-1{
-    right: 25.5vw;
+    right: 26vw;
 }
 
 #raise-button-2-3{

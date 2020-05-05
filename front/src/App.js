@@ -8,13 +8,19 @@ import CreateGameScreen from "./components/CreateGameScreen";
 import OnlineGame from "./components/OnlineGame";
 import JoinGameScreen from "./components/JoinGameScreen";
 import Loader from "./containers/Loader";
+import NotSupported from "./containers/NotSupported";
 import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
 
-const endpoint = window.location.origin.indexOf('localhost') >= 0 ?  'http://127.0.0.1:5000' : window.location.origin;
-const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
+const localhost = window.location.origin.indexOf('localhost') >= 0;
+const endpoint = localhost ?  'http://127.0.0.1:5000' : window.location.origin;
+const serverPrefix = localhost ?  'http://localhost:3000' : window.location.origin;
 
 const ONLINE_GAME_ID = 'gameid';
+const body = document.getElementsByTagName('body')[0];
+const windowWidth = window.innerWidth || document.documentElement.clientWidth || body.clientWidth;
+const SmartPhoneVertical = (windowWidth < 600);
+
 
 // eslint-disable-next-line
 Date.prototype.AsGameName = function() {
@@ -71,6 +77,21 @@ class App extends Component {
             playerId: localStorage.getItem('playerId'),
             gameId,
         };
+
+        if (!localhost){
+            const THIS = this;
+            setTimeout(async()=>{
+                if ('storage' in navigator && 'estimate' in navigator.storage) {
+                    const { quota } = await navigator.storage.estimate();
+                    if(quota < 120000000){
+                        console.log('Incognito');
+                        THIS.setState({Incognito: true})
+                    }
+                }
+            },100)
+        }
+
+
     }
 
     showAlertMessage = (message)=>{
@@ -426,7 +447,14 @@ class App extends Component {
     };
 
     render() {
-
+        console.log('windowWidth',windowWidth)
+        console.log('SmartPhoneVertical',SmartPhoneVertical)
+        if (SmartPhoneVertical){
+           return <NotSupported message="Smart Phone Vertical view not supported"/>
+        }
+        if (this.state.Incognito){
+           return <NotSupported message="Incognito is not supported"/>
+        }
         if (!this.state.gameId){
             return this.wrapWithAlerts(<CreateGameScreen
                 connected={this.state.connected}

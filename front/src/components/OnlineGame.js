@@ -466,7 +466,7 @@ class OnlineGame extends Component {
                         { !game.paused &&   <div id="raise-button-1-2" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>}
                         { !game.paused &&   <div id="raise-button-1-3" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>}
 
-                        { !game.paused && me.balance &&  <div id="all-in-button" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(me.balance)}> All In</div>}
+                        { !game.paused && me.balance &&  <div id="all-in-button" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>}
 
                     </div>}
 

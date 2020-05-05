@@ -1,7 +1,12 @@
 .App {
   text-align: center;
 }
-
+#not-supported-screen{
+  background: black;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
 #app-version{
   position: fixed;
   top: 8.6vh;
@@ -65,5 +70,10 @@
     padding: 0px 10px 0px 10px;
     border-radius: 8px;
     border-width: 2px;
+  }
+
+  #not-supported-screen{
+padding-top: 10vh;
+    font-size: 1em;
   }
 }
