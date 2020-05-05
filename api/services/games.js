@@ -88,7 +88,7 @@ function startNewHand(game, dateTime) {
     player.options = [];
     player.cards = player.sitOut ? [] : [game.deck.pop(), game.deck.pop()];
   });
-
+  game.pendingPlayers = [];
   const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
   if (playersCount < 2) {
     game.paused = true;

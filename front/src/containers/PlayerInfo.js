@@ -20,7 +20,7 @@ const PlayerInfo = (props) => {
                     {Math.floor(player.balance)}
                 </div>
             </div>
-            { player.dealer && <div id="dealer-button" > D </div>}
+            { player.dealer && <div id={`dealer-button-${index+1}`} className="dealer-button" > D </div>}
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 

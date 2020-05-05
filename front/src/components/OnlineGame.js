@@ -268,8 +268,13 @@ class OnlineGame extends Component {
     getMinRaise=()=>{
         const game = this.props.game;
         const me = this.state.me;
-        if (!game.gamePhase){
-            return game.bigBlind;
+        if (game.gamePhase === undefined){
+            console.log('#### getMinRaise game.gamePhase',game.gamePhase)
+            if (game.amountToCall){
+                return game.amountToCall * 2;
+            }else{
+                return game.bigBlind;
+            }
         }
         const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
         if (amountForMeToCall > 0) {
@@ -279,7 +284,7 @@ class OnlineGame extends Component {
             }
             return minValue;
         }
-        return game.bigBlind;
+        return game.bigBlind + me.pot[game.gamePhase];
     }
 
     getMaxRaise=()=>{
@@ -317,7 +322,13 @@ class OnlineGame extends Component {
     }
 
     fold = ()=>{
-        return this.props.action('Fold');
+        if (this.state.options.includes('Check')){
+            if (confirm("There is no Raise, are you shure you want to Fold?")){
+                return this.props.action('Fold');
+            }
+        }else{
+            return this.props.action('Fold');
+        }
     };
 
     showCards = ()=>{
@@ -445,7 +456,7 @@ class OnlineGame extends Component {
                     { !game.paused && options.length>0 && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
 
 
-                        { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise {this.state.raiseValue}</div>}
+                        { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise to {this.state.raiseValue}</div>}
                         { !game.paused &&   <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>}
 
 

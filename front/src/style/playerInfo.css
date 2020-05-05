@@ -1,11 +1,31 @@
+.dealer-button{
+    position: absolute;
+    z-index: 33;
+    border: 1px solid #00000099;
+    border-radius: 50%;
+    width: 2.2vw;
+    height: 2.2vw;
+    padding-top: 0.24vw;
+text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    background: white;
+    color: black;
+}
+
 #player1{
     top:65vh;
     left:44vw;
 }
 
 #player1-pot{
-    top:-6.4vh;
+    top:-7.4vh;
     left:3.5vw;
+}
+
+#dealer-button-1{
+    top:-6.4vh;
+    left:8.5vw;
 }
 
 #player2{
@@ -14,8 +34,12 @@
 }
 
 #player2-pot{
-    top:-5.8vh;
+    top:-6.8vh;
     left:7vw;
+}
+#dealer-button-2{
+    top:-6.8vh;
+    left:4vw;
 }
 
 #player3{
@@ -27,17 +51,23 @@
     top:10.82vh;
     left:10.4vw;
 }
-
+#dealer-button-3{
+    top:8.82vh;
+    left:15.4vw;
+}
 #player4{
     top:14vh;
     left:23vw;
 }
 
 #player4-pot{
-    top:10.6vh;
+    top:11.6vh;
     left:8.5vw;
 }
-
+#dealer-button-4{
+    top:11.6vh;
+    left:13.5vw;
+}
 #player5{
     top:9vh;
     left:44vw;
@@ -45,9 +75,12 @@
 
 #player5-pot{
     top:11.3vh;
-    left:7.2vw;
+    left:8.2vw;
 }
-
+#dealer-button-5{
+    top:12vh;
+    left:13.2vw;
+}
 #player6{
     top:14vh;
     left:66vw;
@@ -56,17 +89,23 @@
     top:9.5vh;
     left:-4.2vw;
 }
-
+#dealer-button-6{
+    top:14vh;
+    left:0vw;
+}
 #player7{
     top:36vh;
     left:80vw;
 }
 
 #player7-pot{
-    top:5.7vh;
-    left:-4.7vw;
+    top:5.5vh;
+    left:-4.9vw;
 }
-
+#dealer-button-7{
+    top:0.7vh;
+    left:-2.7vw;
+}
 #player8{
     top:61vh;
     left:66vw;
@@ -76,7 +115,10 @@
     top:-6.4vh;
     left:-1.3vw;
 }
-
+#dealer-button-8 {
+    top: -7.4vh;
+    left: 3.3vw;
+}
 .player{
     position: absolute;
     width: 13vw;
@@ -119,20 +161,7 @@
     font-weight: bold;
 }
 
-#dealer-button{
-    z-index: 23;
-    border-radius: 50%;
-    position: absolute;
-    left: 13.6vw;
-    width: 2vw;
-    height: 2vw;
-    padding-top: 0.14vw;
-    padding-left: 0.6vw;
-    font-size: 1.3em;
-    top:-1.5vh;
-    background: mediumpurple;
-    color: white;
-}
+
 
 #small-blind-button{
     z-index: 22;
@@ -174,7 +203,7 @@
     font-weight: bold;
     font-size: 1.9em;
     z-index: 2;
-    padding-top: 6px;
+    padding-top: 1px;
     alignment: center;
     text-align: center;
 }
