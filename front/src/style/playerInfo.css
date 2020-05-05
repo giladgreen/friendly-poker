@@ -241,6 +241,22 @@ text-align: center;
     top:11.7vh;
     left:0vw;
 }
+.player-sitOut-indication{
+    position: absolute;
+    width: 8vw;
+    height: 2.2vw;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    z-index: 11;
+    padding-top: 3px;
+    alignment: center;
+    text-align: center;
+    top:13.7vh;
+    left:0vw;
+}
 
 .player-hand-description{
     position: absolute;
@@ -306,6 +322,10 @@ text-align: center;
     }
 
     .player-offline-indication{
+        padding-top: 0px;
+        font-size: 0.5em;
+    }
+    .player-sitOut-indication{
         padding-top: 0px;
         font-size: 0.5em;
     }
