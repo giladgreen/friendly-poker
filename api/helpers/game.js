@@ -1,6 +1,7 @@
 const Hand = require('pokersolver').Hand;
 const Mappings = require('../Maps');
 const models = require('../models');
+const { getPlayerCopyOfGame } = require('./gameCopy');
 const logger = require('../services/logger');
 const {
   FOLD, CALL, CHECK, RAISE, ALL_IN,
@@ -44,7 +45,6 @@ function handleCall(game, player) {
     player.status = ALL_IN;
   }
 }
-
 function getMinRaise(game, me) {
   const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
   if (amountForMeToCall > 0) {
@@ -88,41 +88,6 @@ function handleRaise(game, player, amount) {
   }
 }
 
-function getPlayerCopyOfGame(playerId, game, showCards = false) {
-  const gameToSend = { ...game };
-  delete gameToSend.deck;
-  delete gameToSend.timerRef;
-  gameToSend.players = gameToSend.players.map((p) => {
-    const player = { ...p, cards: [...(p.cards || [])] };
-    delete player.offline;
-    const userDesc = player.solvedHand ? player.solvedHand.descr : null;
-    delete player.solvedHand;
-    if (!Mappings.GetSocketByPlayerId(player.id)) {
-      player.offline = true;
-    }
-    if (player.id === playerId || gameToSend.showPlayersHands.includes(player.id)) {
-      player.me = player.id === playerId;
-      if (!player.me) {
-        player.showingCards = true;
-      }
-      if (player.cards && player.cards.length === 2 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length > 2) {
-        player.userDesc = Hand.solve([...gameToSend.board, ...player.cards]).descr;
-      }
-      if (player.active) {
-        gameToSend.playersTurn = true;
-      }
-    } else if (!showCards || player.status === FOLD) {
-      delete player.cards;
-    }
-    if (showCards && player.status !== FOLD && userDesc){
-      player.userDesc = userDesc;
-    }
-    return player;
-  });
-
-
-  return gameToSend;
-}
 function deleteGameInDB(gameId) {
   return models.onlineGames.destroy({ where: { id: gameId } }).catch(e => logger.error('failed to delete game', e));
 }
@@ -237,7 +202,7 @@ function givePotMoneyToWinners(game) {
 
     if (winners.length === 1) {
       const msg = {
-        action: 'won_with_showdown', name: winners[0].name, amount, hand: winners[0].handDesc, cards: winners[0], log:true,
+        action: 'won_with_showdown', name: winners[0].name, amount, hand: winners[0].handDesc, cards: winners[0], log: true,
       };
       messages.push(msg);
     } else {
@@ -252,7 +217,7 @@ function givePotMoneyToWinners(game) {
         }
       });
       const msg = {
-        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log:true,
+        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true,
       };
       messages.push(msg);
     }
@@ -298,7 +263,6 @@ module.exports = {
   handleCall,
   handleFold,
   handleRaise,
-  getPlayerCopyOfGame,
   updateGamePlayers,
   handleGameOverWithShowDown,
   loadGamesFromDb,
