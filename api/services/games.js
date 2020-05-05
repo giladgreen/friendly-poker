@@ -77,6 +77,7 @@ function startNewHand(game, dateTime) {
     } else if (game.pendingPlayers.includes(player.id)) {
       delete player.sitOut;
       delete player.sitOutByServer;
+      delete player.justJoined;
     }
     delete player.active;
     delete player.dealer;

@@ -9,7 +9,7 @@ function getNextPlayerIndex(players, index) {
 function getNextActivePlayerIndex(players, index) {
   let nextPlayerIndex = getNextPlayerIndex(players, index);
   let count = 0;
-  while (players[nextPlayerIndex].fold || players[nextPlayerIndex].allIn || players[nextPlayerIndex].sitOut) {
+  while (players[nextPlayerIndex].justJoined || players[nextPlayerIndex].fold || players[nextPlayerIndex].allIn || players[nextPlayerIndex].sitOut) {
     nextPlayerIndex = getNextPlayerIndex(players, nextPlayerIndex);
     count++;
 
@@ -33,7 +33,7 @@ function getNextActivePlayer(players, playerId) {
   let nextPlayerIndex = getNextPlayerIndex(players, playerIndex);
   let count = 0;
 
-  while (players[nextPlayerIndex].fold || players[nextPlayerIndex].allIn || players[nextPlayerIndex].sitOut) {
+  while (players[nextPlayerIndex].justJoined || players[nextPlayerIndex].fold || players[nextPlayerIndex].allIn || players[nextPlayerIndex].sitOut) {
     nextPlayerIndex = getNextPlayerIndex(players, nextPlayerIndex);
     count++;
 
@@ -73,7 +73,7 @@ function getPreviousActivePlayer(players, playerId) {
 }
 
 function getActivePlayersStillInGame(game) {
-  return game.players.filter(player => !player.fold && (!player.sitOut || game.pendingPlayers.includes(player.id)));
+  return game.players.filter(player => !player.justJoined && !player.fold && (!player.sitOut || game.pendingPlayers.includes(player.id)));
 }
 
 

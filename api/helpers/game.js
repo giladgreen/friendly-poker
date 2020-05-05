@@ -144,7 +144,7 @@ function givePotMoneyToWinners(game) {
   const potSizesCount = {};
   const totalPot = [];
   game.players.forEach((p) => {
-    p.totalPot = p.pot.reduce((total, num) => total + num);
+    p.totalPot = p.pot.reduce((total, num) => total + num, 0);
     totalPot.push(p.totalPot);
     if (!p.fold && !p.sitOut) {
       p.solvedHand = Hand.solve([...board, ...p.cards]);
