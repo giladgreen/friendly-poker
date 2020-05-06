@@ -354,6 +354,21 @@ class OnlineGame extends Component {
         this.setState({rebuyValue, rebuySectionOpen:true})
     };
 
+    setSettingsTime = (val) =>{
+        const time = val < 10 ? 10 : (val > 120 ? 120 : val);
+        this.setState({ time});
+    };
+
+    setSettingsSmallBlind = (val) =>{
+        const smallBlind = val < 1 ? 1 : val;
+        const bigBlind = 2 * smallBlind;
+        this.setState({ smallBlind, bigBlind});
+    };
+
+    setSettingsBigBlind = (val) =>{
+        const bigBlind = val < this.state.smallBlind ? this.state.smallBlind : val;
+        this.setState({bigBlind})
+    };
     render() {
         const {clockMessage,handTime, options, cheapLeader, me} = this.state;
         const {game} = this.props;
@@ -508,7 +523,7 @@ class OnlineGame extends Component {
                                       type="number"
                                       min="10"
                                       value={this.state.time}
-                                      onChange={(e)=>this.setState({time: Math.floor(e.target.value)})}
+                                      onChange={(e)=>this.setSettingsTime(Math.floor(e.target.value))}
                                       step="10"
                                />
                                <span className="game-settings-secondary-label"> Seconds</span>
@@ -519,7 +534,7 @@ class OnlineGame extends Component {
                                       type="number"
                                       min="1"
                                       value={this.state.smallBlind}
-                                      onChange={(e)=>this.setState({smallBlind: Math.floor(e.target.value)})}
+                                      onChange={(e)=>this.setSettingsSmallBlind(Math.floor(e.target.value))}
                                       step="1"
                                />
                            </div>
@@ -529,7 +544,7 @@ class OnlineGame extends Component {
                                       type="number"
                                       min={this.state.smallBlind}
                                       value={this.state.bigBlind}
-                                      onChange={(e)=>this.setState({bigBlind: Math.floor(e.target.value)})}
+                                      onChange={(e)=>this.setSettingsBigBlind(Math.floor(e.target.value))}
                                       step="1"
                                />
                            </div>
