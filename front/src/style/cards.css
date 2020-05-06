@@ -17,13 +17,11 @@
 
 @keyframes community-card-1-anim {
     from {
-        opacity: 0%;
+        opacity: 10%;
         left:31vw;
-        transform: rotate(3deg);
     }
     to {
         left:35vw;
-        transform: rotate(0deg);
         opacity: 100%;
     }
 }
@@ -42,13 +40,11 @@
 
 @keyframes community-card-2-anim {
     from {
-        opacity: 0%;
+        opacity: 10%;
         left:31vw;
-        transform: rotate(-3deg);
     }
     to {
         left:40vw;
-        transform: rotate(0deg);
         opacity: 100%;
     }
 }
@@ -62,14 +58,12 @@
     animation-duration: 0.9s;
     animation-delay: 1.3s;
     animation-fill-mode: both;
-
-
 }
 
 @keyframes community-card-3-anim {
     from {
         left:31vw;
-        opacity: 0%;
+        opacity: 10%;
     }
     to {
         left:45vw;
@@ -93,14 +87,13 @@
 @keyframes community-card-4-anim {
     from {
         left:31vw;
-        opacity: 0%;
+        opacity: 10%;
     }
     to {
         left:51vw;
         opacity: 100%;
     }
 }
-
 
 #community-card-4{
     position: fixed;
@@ -112,18 +105,17 @@
     animation-delay: 1.3s;
     animation-fill-mode: both;
 }
+
 @keyframes community-card-5-anim {
     from {
         left:31vw;
-        opacity: 0%;
+        opacity: 10%;
     }
     to {
         left:57vw;
         opacity: 100%;
     }
 }
-
-
 
 #community-card-5{
     position: fixed;

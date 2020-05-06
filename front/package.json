@@ -1,6 +1,6 @@
 {
   "name": "friendly-poker-react-front",
-  "version": "1.0.31",
+  "version": "1.0.34",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.12",
@@ -19,7 +19,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm version patch && react-scripts build && /bin/cp -rf -f ./build/* ../public",
+    "build": "npm version patch && react-scripts build && /bin/cp -rf -f ./build/* ../public && git add . && git commit -am \"a\" && git push",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
