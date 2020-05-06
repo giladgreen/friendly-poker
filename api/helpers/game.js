@@ -10,9 +10,9 @@ const {
 function handleFold(game, player) {
   logger.info(`${player.name} fold`);
   player.status = FOLD;
-  player.needToTalk = false;
-  player.fold = true;
-  player.active = false;
+  delete player.needToTalk;
+  delete player.fold;
+  delete player.active;
   player.options = [];
 }
 
@@ -20,14 +20,14 @@ function handleCheck(player) {
   logger.info(`${player.name} check`);
 
   player.status = CHECK;
-  player.needToTalk = false;
-  player.active = false;
+  delete player.needToTalk;
+  delete player.active;
   player.options = [];
 }
 
 function handleCall(game, player) {
   player.status = CALL;
-  player.needToTalk = false;
+  delete player.needToTalk;
 
   const amountToCall = game.amountToCall - player.pot[game.gamePhase];
   const callingAmount = player.balance > amountToCall ? amountToCall : player.balance;
@@ -37,7 +37,7 @@ function handleCall(game, player) {
   player.pot[game.gamePhase] += callingAmount;
   game.pot += callingAmount;
 
-  player.active = false;
+  delete player.active;
   player.options = [];
 
   if (player.balance === 0) {
@@ -68,12 +68,12 @@ function handleRaise(game, player, amount) {
   }
 
   player.status = RAISE;
-  player.active = false;
+  delete player.active;
   player.options = [];
   game.players.forEach((p) => {
     p.needToTalk = !p.fold && !p.sitOut && !p.allIn;
   });
-  player.needToTalk = false;
+  delete player.needToTalk;
 
   const amountToAdd = amount - alreadyInPot;
   player.balance -= amountToAdd;

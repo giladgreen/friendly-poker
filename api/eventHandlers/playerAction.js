@@ -58,8 +58,8 @@ function handleRountOver(game, player, gameIsOver) {
 
     const fastForwardToShowdown = game.players.filter(p => p.needToTalk).length <= 1;
     if (fastForwardToShowdown) {
-      firstToTalk.active = false;
-      firstToTalk.needToTalk = false;
+      delete firstToTalk.active;
+      delete firstToTalk.needToTalk;
       firstToTalk.options = [];
       gameIsOver = true;
       game.fastForward = true;
@@ -150,7 +150,7 @@ function onPlayerActionEvent(socket, {
         gameIsOver = proceedToNextStreet(game, dateTime, gameIsOver);
       }
     } else {
-      player.active = false;
+      delete player.active;
       player.options = [];
       const nextActivePlayer = PlayerHelper.getNextPlayerToTalk(game.players, playerId);
       if (!nextActivePlayer) {
