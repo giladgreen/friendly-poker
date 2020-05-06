@@ -227,6 +227,23 @@
 
 @media only screen and (max-width: 800px) {
 
+    #community-card-deck1{
+        top: 38vh;
+        left:26vw;
+    }
+
+    #community-card-deck2{
+        top: 38vh;
+        left:26.1vw;
+    }
+
+    #community-card-deck3{
+        position: fixed;
+        top: 38vh;
+        left:26.2vw;
+    }
+
+
     #community-card-1{
         position: fixed;
         top: 38vh;
