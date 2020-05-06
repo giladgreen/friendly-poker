@@ -86,15 +86,13 @@ class OnlineGame extends Component {
         this.setState({chatMessage:''});
     }
 
-    toggleRebuyButton = (ignore)=>{
-        if (ignore){
-            return;
-        }
+    toggleRebuyButton = ()=>{
         if (this.state.rebuySectionOpen){
             this.rebuyValue = null;
             this.setState({rebuySectionOpen:false, rebuyValue: null });
 
         }else{
+
             this.setRebuy(Number.MAX_VALUE);
         }
     };
@@ -389,24 +387,13 @@ class OnlineGame extends Component {
         };
 
         const gameLinkDiv = <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>;
-        const rebuyButton = startDate ? <div id="rebuy-button" className={` ${ cheapLeader ? 'disabled-button':'active-button'} `} onClick={()=>this.toggleRebuyButton(cheapLeader)}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div> : <div/>;
-        const actualRebuyButton = this.state.rebuySectionOpen ? <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>  </div> : <div/>;
-        const rebuySectionDiv = this.state.rebuySectionOpen ? <div id="rebuy-section"  >
-            <div>
-                <span id="rebuy-label" >Amount</span>
-            </div>
-            <div>
-            <input id="rebuy-input"
-                   type="number"
-                   value={this.state.rebuyValue}
-                   onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
-            </div>
-        </div> : <div/>;
 
-        const standButton = startDate ? <div id="stand-sit-button" className="active-button" onClick={this.sitStand}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div> : <div/>;
-        const infoButton = <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>;
 
-        const quitButton = <div id="quit-button" className="active-button" onClick={this.props.quitGame}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>;
+
+        const quitEnabled = !startDate || (me && !me.creator && (me.fold || me.sitOut));
+        const standSitEnabled = startDate && me && (me.sitOut || me.fold);
+
+
         const logsButton = <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>;
         const settingsButton = this.props.isCreator ? <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div> : <div/>;
 
@@ -464,8 +451,8 @@ class OnlineGame extends Component {
                 <div id="buttons">
                     { !game.paused && game.handOver && !this.state.showingCards && <div id="show-cards-button" className="big-button active-button" onClick={this.showCards}> Show Cards </div>}
                     { !game.paused && options.length>0 && !game.handOver && <div id="fold-button" className={`big-button ${options.includes('Fold') ? 'active':'inactive'}-button`} onClick={this.fold}> Fold </div>}
-                    { !game.paused && options.length>0 && !game.handOver && <div id="check-button" className={`big-button ${options.includes('Check') ? 'active':'inactive'}-button`} onClick={options.includes('Check') ? this.check : ()=>{}}> Check </div>}
-                    { !game.paused && options.length>0 && !game.handOver && <div id="call-button" className={`big-button ${options.includes('Call') ? 'active':'inactive'}-button`} onClick={options.includes('Call') ? this.call : ()=>{}}> Call {options.includes('Call') ? this.state.amountToCall : ''} </div>}
+                    { !game.paused && options.length>0 && !game.handOver && options.includes('Check') && <div id="check-button" className={`big-button active-button`} onClick={ this.check}> Check </div>}
+                    { !game.paused && options.length>0 && !game.handOver && options.includes('Call') && <div id="call-button" className={`big-button active-button`} onClick={this.call}> Call { this.state.amountToCall} </div>}
                     { !game.paused && options.length>0 && !game.handOver &&  <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={options.includes('Raise') ? this.toggleRaiseButton : ()=>{}}> Raise... </div>}
                     { !game.paused && options.length>0 && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
 
@@ -490,12 +477,22 @@ class OnlineGame extends Component {
 
                 </div>
                 {gameLinkDiv}
-                {rebuyButton}
-                {actualRebuyButton}
-                {rebuySectionDiv}
-                {standButton}
-                {infoButton}
-                {quitButton}
+                <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>
+                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>  </div>}
+                {this.state.rebuySectionOpen && <div id="rebuy-section"  >
+                    <div>
+                        <span id="rebuy-label" >Amount</span>
+                    </div>
+                    <div>
+                        <input id="rebuy-input"
+                               type="number"
+                               value={this.state.rebuyValue}
+                               onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
+                    </div>
+                </div>}
+                <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>
+                <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>
+                <div id="quit-button" className={ quitEnabled ? "active-button" : "inactive-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>
                 {logsButton}
                 {settingsButton}
 

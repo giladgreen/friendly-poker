@@ -9,21 +9,26 @@ class JoinGameScreen extends Component {
     constructor(props) {
         super(props);
         const maxBuyIn = Math.max(...props.game.players.map(p=>p.balance));
+        this.takenNames = props.game.players.map(p=>p.name);
         const buyIn = props.game.players.length >0 ? maxBuyIn : 100 * props.game.bigBlind;
         this.state = {
             name:'',
             buyIn,
             showErrors:false,
             joinRequestSent: false,
-            maxBuyIn
+            maxBuyIn,
         }
     }
 
     onJoin = ()=>{
         if (!this.state.name || this.state.name.length === 0 ||
             !this.state.buyIn || this.state.buyIn===0){
-
             this.props.showAlertMessage('all fields are mandatory');
+            this.setState({showErrors:true});
+            return;
+        }
+        if (this.takenNames.includes(this.state.name)) {
+            this.props.showAlertMessage('please pick unique name');
             this.setState({showErrors:true});
             return;
         }
@@ -62,28 +67,30 @@ class JoinGameScreen extends Component {
                         </header>
                         <div>
                             Small Blind: {this.props.game.smallBlind}
-                            <br/>
+                        </div>
+                        <div>
                             Big Blind:  {this.props.game.bigBlind}
-                            <br/>
+                        </div>
+                        <div>
                             Time To Action:  {this.props.game.time} seconds
                         </div>
-                        <div id="join-game-inputs">
 
-                            <div>
-                                Name: <input disabled={this.props.game.players.length >= 8} className={`name-input ${this.state.showErrors ? 'red-border':''}`} type="text" value={this.state.name} onChange={(e)=>this.setName(e.target.value)} />
-                                <br/>
-                                Initial Buy-In:  <input
-                                disabled={this.props.game.players.length >= 8}
-                                className={`buy-in ${this.state.showErrors ? 'red-border':''}`}
-                                type="number"
-                                value={this.state.buyIn}
-                                max={Math.max(...this.props.game.players.map(p=>p.balance))}
-                                onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
-                                <br/>
-                            </div>
+                        <div>
+                            Name: <input  disabled={this.props.game.players.length >= 8} className={`join-game-input name-input ${this.state.showErrors ? 'red-border':''}`} type="text" value={this.state.name} onChange={(e)=>this.setName(e.target.value)} />
+                        </div>
+                        <div>
+                            Initial Buy-In:  <input
+                            disabled={this.props.game.players.length >= 8}
+                            className={`join-game-input buy-in ${this.state.showErrors ? 'red-border':''}`}
+                            type="number"
+                            value={this.state.buyIn}
+                            max={Math.max(...this.props.game.players.map(p=>p.balance))}
+                            onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
 
                         </div>
-                        {this.props.game.players.length <8 &&<div id="join-button-div">
+
+
+                        {this.props.game.players.length < 8 &&<div id="join-button-div">
                             <span id="join-button" onClick={this.onJoin}>Join</span>
                         </div>}
                         {this.props.game.players.length >= 8 && <div id="join-button-full-game-div">

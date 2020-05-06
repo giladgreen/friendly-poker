@@ -56,13 +56,13 @@
 #check-button{
     position: absolute;
     top: 0px;
-    right: 8vw;
+    right: 12vw;
 }
 
 #call-button{
     position: absolute;
     top: 0px;
-    right: 16vw;
+    right: 12vw;
 }
 
 #toggle-raise-button{
