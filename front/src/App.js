@@ -4,6 +4,9 @@ import io from 'socket.io-client';
 import './App.css';
 import { version } from '../package.json';
 
+// io.set('heartbeat timeout', 60000);
+// io.set('heartbeat interval', 25000);
+
 import CreateGameScreen from "./components/CreateGameScreen";
 import OnlineGame from "./components/OnlineGame";
 import JoinGameScreen from "./components/JoinGameScreen";
@@ -194,8 +197,17 @@ class App extends Component {
                 }
             } else {//i have gameId
                 if (!this.state.game){
-                    console.log('App on connect. gameId:',this.state.gameId, ' no game, emitting getgamedata');
-                    this.socket.emit('getgamedata',{gameId: this.state.gameId ,playerId: this.state.playerId});
+
+                    if (this.getGamedataEmitedRef){
+                        clearTimeout(this.getGamedataEmitedRef);
+                    }
+                    this.getGamedataEmitedRef = setTimeout(()=>{
+                        console.log('App on connect. gameId:',this.state.gameId, ' no game, emitting getgamedata');
+
+                        this.socket.emit('getgamedata',{gameId: this.state.gameId ,playerId: this.state.playerId});
+                    }, 700)
+
+
                 } else{
                     console.log('App on connect. gameId:',this.state.gameId, ' has game, emitting updateplayerid, playerId:',this.state.playerId);
                     this.socket.emit('updateplayerid', {playerId: this.state.playerId});
