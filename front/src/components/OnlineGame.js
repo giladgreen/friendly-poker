@@ -432,7 +432,7 @@ class OnlineGame extends Component {
                 { game.paused && <div id="game-pause-indication"  >וו</div>}
                 { game.paused && <div id="game-pause-indication-text"  >Game Paused</div>}
 
-                {players.map((player,index)=> <PlayerInfo key={player.id} game={game} player={player} index={index} winningHandCards={winningHandCards} />)}
+                {players.map((player,index)=> <PlayerInfo key={player.id} creator={me.creator} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
 
                 {Boolean(pot) &&  <div id="community-pot">
                     {pot}

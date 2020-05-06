@@ -401,6 +401,15 @@ class App extends Component {
         }
     };
 
+    kickOutPlayer = (playerToKickId) =>{
+        if (confirm("Are you sure?")){
+            const dateTime =(new Date()).getTime();
+            const { gameId, playerId } = this.state;
+            console.log('emiting kickoutplayer');
+            this.socket.emit('kickoutplayer', {gameId , dateTime, playerId, now: (new Date()).getTime(), playerToKickId });
+        }
+    };
+
     deleteGame = (gameId) =>{
         if (confirm("Are you sure?")){
             const { playerId } = this.state;
@@ -573,6 +582,7 @@ class App extends Component {
                     updateGameSettings={this.updateGameSettings}
                     resumeGame={this.resumeGame}
                     showCards={this.showCards}
+                    kickOutPlayer={this.kickOutPlayer}
                     rebuy={this.rebuy}
                     sitBack={this.sitBack}
                     standUp={this.standUp}

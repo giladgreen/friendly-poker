@@ -3,7 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
 function onKickOutEvent(socket, {
-    playerId, gameId, now, playerTokickId,
+    playerId, gameId, now, playerToKickId,
 }) {
     try {
         logger.info('onKickOutEvent');
@@ -23,15 +23,15 @@ function onKickOutEvent(socket, {
             throw new Error('only creator cant kick a user out');
         }
 
-        const playerToKick = game.players.find(p => p.id === playerTokickId);
+        const playerToKick = game.players.find(p => p.id === playerToKickId);
         if (!playerToKick) {
             throw new Error('did not find player to kick');
         }
 
-        const playerData = game.playersData.find(p => p.id === playerTokickId);
+        const playerData = game.playersData.find(p => p.id === playerToKickId);
         playerData.cashOut = { amount: player.balance, time: now };
 
-        game.players = game.players.filter(p => p.id !== playerTokickId);
+        game.players = game.players.filter(p => p.id !== playerToKickId);
         if (game.players.filter(p => !p.sitOut).length < 2) {
             game.paused = true;
         }

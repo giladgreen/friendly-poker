@@ -241,6 +241,25 @@ text-align: center;
     top:11.7vh;
     left:0vw;
 }
+.kickOut-button{
+    position: absolute;
+    width: 3.5vw;
+    height: 1.1vw;
+    font-weight: bold;
+    border-radius: 0px 0px 10px 10px;
+    background: white;
+    color: orangered;
+    font-size: 0.6em;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    z-index: 41;
+    alignment: center;
+    text-align: center;
+    top:9.7vh;
+    left:11.4vw;
+    cursor: pointer;
+}
 .player-sitOut-indication{
     position: absolute;
     width: 12vw;
