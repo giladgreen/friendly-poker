@@ -276,6 +276,9 @@ class App extends Component {
             if (localStorage.getItem('debug')===true){
                 alert('SERVER ERROR. '+JSON.stringify(data));
             }
+            if (data.forceReload){
+                window.location = serverPrefix;
+            }
         });
 
         this.socket.on('gameupdate', (game) => {

@@ -16,7 +16,7 @@ function onGetGameDataEvent(socket, { gameId, playerId }) {
     socket.emit('gameupdate', gamePrivateCopy);
   } catch (e) {
     logger.error('onGetGameDataEvent error:', e.message);
-    if (socket) socket.emit('onerror', { message: 'failed to get game data', reason: e.message });
+    if (socket) socket.emit('onerror', { message: 'failed to get game data', reason: e.message, forceReload: true });
   }
 }
 
