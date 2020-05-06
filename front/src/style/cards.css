@@ -15,16 +15,38 @@
 
 }
 
+#community-card-deck1{
+    position: fixed;
+    top: 32vh;
+    left:26vw;
+    z-index: 15;
+}
+
+#community-card-deck2{
+    position: fixed;
+    top: 32.1vh;
+    left:26.1vw;
+    z-index: 16;
+}
+
+#community-card-deck3{
+    position: fixed;
+    top: 32.2vh;
+    left:26.2vw;
+    z-index: 17;
+}
+
 @keyframes community-card-1-anim {
     from {
-        opacity: 10%;
-        left:31vw;
+
+        left:26vw;
     }
     to {
         left:35vw;
-        opacity: 100%;
+
     }
 }
+
 
 #community-card-1{
     position: fixed;
@@ -40,12 +62,12 @@
 
 @keyframes community-card-2-anim {
     from {
-        opacity: 10%;
-        left:31vw;
+
+        left:26vw;
     }
     to {
         left:40vw;
-        opacity: 100%;
+
     }
 }
 
@@ -62,12 +84,12 @@
 
 @keyframes community-card-3-anim {
     from {
-        left:31vw;
-        opacity: 10%;
+        left:26vw;
+
     }
     to {
         left:45vw;
-        opacity: 100%;
+
     }
 }
 
@@ -86,12 +108,12 @@
 
 @keyframes community-card-4-anim {
     from {
-        left:31vw;
-        opacity: 10%;
+        left:26vw;
+
     }
     to {
         left:51vw;
-        opacity: 100%;
+
     }
 }
 
@@ -108,12 +130,12 @@
 
 @keyframes community-card-5-anim {
     from {
-        left:31vw;
-        opacity: 10%;
+        left:26vw;
+
     }
     to {
         left:57vw;
-        opacity: 100%;
+
     }
 }
 

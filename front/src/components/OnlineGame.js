@@ -436,6 +436,9 @@ class OnlineGame extends Component {
                     {pot}
                 </div>}
                 {board && <div id="community-cards">
+                    {<div id="community-card-deck1" ><Card /></div> }
+                    {<div id="community-card-deck2" ><Card /></div> }
+                    {<div id="community-card-deck3" ><Card /></div> }
                     {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card card={board[0]}/></div> }
                     {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card card={board[1]}/></div> }
                     {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card card={board[2]}/></div> }
