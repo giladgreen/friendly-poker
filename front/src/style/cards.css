@@ -79,17 +79,37 @@
 
 
 }
+
+@keyframes community-card-4-anim {
+    from {left:35vw }
+    to {left:53vw }
+}
+
+
 #community-card-4{
     position: fixed;
     top: 32vh;
     z-index: 10;
     left:53vw;
+    animation-name: community-card-4-anim;
+    animation-duration: 1s;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
 }
+@keyframes community-card-5-anim {
+    from {left:35vw }
+    to {left:59vw }
+}
+
 #community-card-5{
     position: fixed;
     top: 32vh;
     z-index: 10;
     left:59vw;
+    animation-name: community-card-5-anim;
+    animation-duration: 1s;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
 }
 .left-card{
     z-index: 20;

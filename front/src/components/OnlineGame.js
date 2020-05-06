@@ -186,6 +186,7 @@ class OnlineGame extends Component {
             me =  game.players[myIndex];
             options = me.options || [];
             showingCards = me.showingCards;
+
             amountToCall = game.amountToCall - me.pot[game.gamePhase];
             if (me.balance < amountToCall){
                 amountToCall = me.balance;
@@ -241,7 +242,6 @@ class OnlineGame extends Component {
             amountToCall,
             raiseValue: this.getMinRaise(),
         };
-        console.log('## newState ', newState)
         if (!rebuyEnabled){
             newState.rebuyValue = null;
             newState.rebuySectionOpen = false;
@@ -279,7 +279,6 @@ class OnlineGame extends Component {
             }
             return game.bigBlind + me.pot[game.gamePhase];
         } catch (e) {
-            console.log('getMinRaise error',e);
             return game.amountToCall ?  2 * game.amountToCall : game.bigBlind;
         }
     }
@@ -426,7 +425,7 @@ class OnlineGame extends Component {
                 { !game.paused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
                 { !game.paused && hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
 
-                { !game.paused && game.playersTurn && <div id="your-turn-indication"> Your Turn</div>}
+                { !game.paused && game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
                 <img id="table-image" src="table.png" />
                 { game.paused && <div id="game-pause-indication"  >וו</div>}
                 { game.paused && <div id="game-pause-indication-text"  >Game Paused</div>}

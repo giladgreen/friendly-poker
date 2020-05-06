@@ -1,5 +1,4 @@
 const logger = require('../services/logger');
-const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
 function onUpdateGameSettingsEvent(socket, {
@@ -23,15 +22,9 @@ function onUpdateGameSettingsEvent(socket, {
             throw new Error('non creator player cannot change game settings');
         }
 
-        game.time = time;
-        game.smallBlind = smallBlind;
-        game.bigBlind = bigBlind;
-        game.messages.push({
-            action: 'game-settings-change', time, smallBlind, bigBlind, popupMessage: 'Game Settings Changed',
-        });
-
-
-        updateGamePlayers(game);
+        game.timePendingChane = time;
+        game.smallBlindPendingChane = smallBlind;
+        game.bigBlindPendingChane = bigBlind;
     } catch (e) {
         logger.error('failed to join game. ', e.message);
         if (socket) socket.emit('onerror', { message: 'failed to update game settings', reason: e.message });

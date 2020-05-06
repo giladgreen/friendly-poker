@@ -65,7 +65,7 @@ class App extends Component {
             const queryItems = search.substr(1).split('&');
             gameId = queryItems.find(qi=>qi.startsWith(ONLINE_GAME_ID)).split('=')[1] || '';
         }
-
+        console.log('App, constructor, gameId:',gameId);
         this.state = {
             games:null,
             logs:[],
@@ -179,7 +179,6 @@ class App extends Component {
         this.socket = io(endpoint, {origins:"*"});
 
         this.socket.on('gamesdata', (games) => {
-            console.log('------gamesdata',games)
             this.setState({ games, connected:true });
         });
 
@@ -187,19 +186,18 @@ class App extends Component {
             console.log('App on connect.');
             if (!this.state.gameId){
                 if (!this.state.games){
-
                     setTimeout(()=>{
                         this.socket.emit('getgames',{ playerId: this.state.playerId });
                     },2000)
-
-
                 } else{
                     this.socket.emit('updateplayerid', {playerId: this.state.playerId});
                 }
             } else {//i have gameId
                 if (!this.state.game){
+                    console.log('App on connect. gameId:',this.state.gameId, ' no game, emitting getgamedata');
                     this.socket.emit('getgamedata',{gameId: this.state.gameId ,playerId: this.state.playerId});
                 } else{
+                    console.log('App on connect. gameId:',this.state.gameId, ' has game, emitting updateplayerid, playerId:',this.state.playerId);
                     this.socket.emit('updateplayerid', {playerId: this.state.playerId});
                 }
             }
@@ -221,12 +219,11 @@ class App extends Component {
             if (localStorage.getItem('debug')===true){
                 alert('SERVER ERROR. '+JSON.stringify(data));
             }
-            // if (data.popMessage){
-            //     this.setState({showError:message, connected:true})
-            // }
         });
 
         this.socket.on('gameupdate', (game) => {
+            console.log('on gameupdate', game);
+
             const gameClone = this.getGameClone(game);
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
@@ -245,6 +242,8 @@ class App extends Component {
         });
 
         this.socket.on('gamecreated', (game) => {
+            console.log('on gamecreated');
+
             const gameId = game.id;
             const existingGames = (localStorage.getItem('games') || '').split(',');
             existingGames.push(gameId);
@@ -261,7 +260,6 @@ class App extends Component {
             }
             this.getMessage(message);
             if (message.log){
-                console.log('this is a log', message)
                 if (message.div){
                     this.setState({ logs: [...this.state.logs, message.div], connected: true });
                     setTimeout(()=>{
@@ -273,7 +271,6 @@ class App extends Component {
                 }
 
             } else{
-                console.log('this is a message', message)
                 if (message.div){
                     this.setState({ messages: [...this.state.messages, message.div], connected: true });
                     setTimeout(()=>{
@@ -395,9 +392,8 @@ class App extends Component {
     };
 
     createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame }) =>{
-        console.log('this state',this.state)
         const now = (new Date()).getTime();
-        const gameId = `gameId_${now}`;
+        const gameId = `${now}`;
         const playerId = this.state.playerId;
         this.socket.emit('creategame',  {
             now,
@@ -447,13 +443,11 @@ class App extends Component {
     };
 
     render() {
-        console.log('windowWidth',windowWidth)
-        console.log('SmartPhoneVertical',SmartPhoneVertical)
         if (SmartPhoneVertical){
            return <NotSupported message="Smart Phone Vertical view not supported"/>
         }
         if (this.state.Incognito){
-           return <NotSupported message="Incognito is not supported"/>
+           return <NotSupported message="Incognito Mode is not supported"/>
         }
         if (!this.state.gameId){
             return this.wrapWithAlerts(<CreateGameScreen
@@ -467,6 +461,7 @@ class App extends Component {
         } else{
             const {gameId, game, playerId} = this.state;
             if (!game){
+                console.log('App, Render, gameId:',gameId, ' no game, playerId:',playerId, ' returning Loader')
                 return <Loader/>;
             }
             if (this.state.showInfoScreen) {

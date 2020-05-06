@@ -26,7 +26,7 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
       game.paused = true;
     }
     game.messages.push({
-      action: 'quit', name: player.name, popupMessage: `${player.name} is quit te game`,
+      action: 'quit', name: player.name, popupMessage: `${player.name} is quit the game`,
     });
 
     updateGamePlayers(game);

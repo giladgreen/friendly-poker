@@ -30,10 +30,3 @@ process.on('uncaughtException', exitHandler(1, 'Uncaught Exception'));
 process.on('unhandledRejection', exitHandler(1, 'Unhandled Promise'));
 process.on('SIGTERM', exitHandler(0, 'SIGTERM'));
 process.on('SIGINT', exitHandler(0, 'SIGINT'));
-
-// TODOs:
-// mobile friendly (reactive)
-// pre Fold/Check button
-// stradle
-
-// maybe: let the game creator approve players joining and rebuys

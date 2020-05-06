@@ -297,7 +297,7 @@
     z-index: 30;
     font-size: 1.5em;
     position: fixed;
-    top:13vh;
+    top:10vh;
     left:1.5vw;
 }
 #hand-clock{
@@ -305,7 +305,7 @@
     z-index: 30;
     font-size: 2.2em;
     position: fixed;
-    top:17vh;
+    top:15vh;
     left:1.5vw;
     font-weight: bold;
     font-family: "Arial Black"
@@ -313,9 +313,9 @@
 #hand-clock-progress{
     z-index: 30;
     position: fixed;
-    top:23vh;
+    top:21vh;
     left:1.5vw;
-    width: 10vw;
+    width: 11vw;
 
 }
 #player-hand{
@@ -329,7 +329,7 @@
 }
 @keyframes blinker {
     50% {
-        opacity: 40%;
+        opacity: 50%;
     }
 }
 #your-turn-indication{
@@ -337,17 +337,13 @@
     z-index: 30;
     font-size: 2em;
     position: fixed;
-    top: 30vh;
+    top: 21vh;
     left:1vw;
     font-weight: bold;
     font-family: "Arial Black";
-    border: 2px solid yellow;
-    border-radius: 20px;
     padding: 10px;
-    animation: blinker 2s linear infinite;
-    -webkit-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.48);
-    -moz-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.48);
-    box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.48);
+    animation: blinker 1.5s linear infinite;
+
 }
 
 #clock{

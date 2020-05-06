@@ -8,12 +8,14 @@ class JoinGameScreen extends Component {
 
     constructor(props) {
         super(props);
-        const buyIn = props.game.players.length >0 ? Math.max(...props.game.players.map(p=>p.balance)) : 100 * props.game.bigBlind;
+        const maxBuyIn = Math.max(...props.game.players.map(p=>p.balance));
+        const buyIn = props.game.players.length >0 ? maxBuyIn : 100 * props.game.bigBlind;
         this.state = {
             name:'',
             buyIn,
             showErrors:false,
             joinRequestSent: false,
+            maxBuyIn
         }
     }
 
@@ -38,6 +40,12 @@ class JoinGameScreen extends Component {
     setName = (val) =>{
         const name = val.length <= 9 ? val : val.substr(0,9);
         this.setState({name})
+    };
+
+    setBuyIn = (val) =>{
+        const min =  10 * this.props.game.bigBlind;
+        const buyIn = val < this.state.maxBuyIn ? (val > min ? val : min) : this.state.maxBuyIn;
+        this.setState({buyIn})
     };
 
 
@@ -66,11 +74,11 @@ class JoinGameScreen extends Component {
                                 <br/>
                                 Initial Buy-In:  <input
                                 disabled={this.props.game.players.length >= 8}
-                                pattern="\d*"
                                 className={`buy-in ${this.state.showErrors ? 'red-border':''}`}
                                 type="number"
                                 value={this.state.buyIn}
-                                onChange={(e)=>this.setState({buyIn:Math.floor(e.target.value)})} />
+                                max={Math.max(...this.props.game.players.map(p=>p.balance))}
+                                onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
                                 <br/>
                             </div>
 

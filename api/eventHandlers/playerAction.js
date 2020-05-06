@@ -35,7 +35,7 @@ function handlePlayerAction(game, playerId, op, amount, hand) {
   return player;
 }
 
-function handleRountOver(game, player, gameIsOver){
+function handleRountOver(game, player, gameIsOver) {
   const dealerIndex = PlayerHelper.getDealerIndex(game);
   const firstToTalkIndex = PlayerHelper.getNextActivePlayerIndex(game.players, dealerIndex);
   if (firstToTalkIndex === null) {
@@ -67,24 +67,24 @@ function handleRountOver(game, player, gameIsOver){
   return gameIsOver;
 }
 
-function proceedToNextStreet(game, dateTime, gameIsOver){
+function proceedToNextStreet(game, dateTime, gameIsOver) {
   if (game.gamePhase === PRE_FLOP) {
     game.board = [game.deck.pop(), game.deck.pop(), game.deck.pop()];
     game.gamePhase = FLOP;
     game.amountToCall = 0;
-    game.messages.push({ action: 'Flop', board: game.board, log:true });
+    game.messages.push({ action: 'Flop', board: game.board, log: true });
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
     game.board.push(game.deck.pop());
     game.gamePhase = TURN;
     game.amountToCall = 0;
-    game.messages.push({ action: 'Turn', board: [game.board[3]], log:true });
+    game.messages.push({ action: 'Turn', board: [game.board[3]], log: true });
     logger.info('Turn!');
   } else if (game.gamePhase === TURN) {
     game.board.push(game.deck.pop());
     game.gamePhase = RIVER;
     game.amountToCall = 0;
-    game.messages.push({ action: 'River', board: [game.board[4]], log:true });
+    game.messages.push({ action: 'River', board: [game.board[4]], log: true });
 
     logger.info('River!');
   } else if (game.gamePhase === RIVER) {
@@ -94,6 +94,7 @@ function proceedToNextStreet(game, dateTime, gameIsOver){
     delete game.fastForward;
     setTimeout(() => {
       GamesService.startNewHand(game, dateTime);
+      // eslint-disable-next-line no-use-before-define
       GamesService.resetHandTimer(game, onPlayerActionEvent);
       GameHelper.updateGamePlayers(game);
     }, 4000);
@@ -145,7 +146,7 @@ function onPlayerActionEvent(socket, {
       player.active = false;
       player.options = [];
       const nextActivePlayer = PlayerHelper.getNextPlayerToTalk(game.players, playerId);
-      if (!nextActivePlayer){
+      if (!nextActivePlayer) {
         logger.warn('no nextActivePlayer found');
       }
       nextActivePlayer.active = true;
@@ -171,7 +172,9 @@ function onPlayerActionEvent(socket, {
 handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
   player.balance += game.pot;
-  game.messages.push({ action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, });
+  game.messages.push({
+    action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, popupMessage: `${player.name} took the hand with no showdown`,
+  });
   game.pot = 0;
   game.handOver = true;
   setTimeout(() => {

@@ -202,7 +202,13 @@ function givePotMoneyToWinners(game) {
 
     if (winners.length === 1) {
       const msg = {
-        action: 'won_with_showdown', name: winners[0].name, amount, hand: winners[0].handDesc, cards: winners[0], log: true,
+        action: 'won_with_showdown',
+        name: winners[0].name,
+        amount,
+        hand: winners[0].handDesc,
+        cards: winners[0],
+        log: true,
+        popupMessage: `${winners[0].name} won ${amount} with ${winners[0].handDesc}`,
       };
       messages.push(msg);
     } else {
@@ -217,7 +223,7 @@ function givePotMoneyToWinners(game) {
         }
       });
       const msg = {
-        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true,
+        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true, popupMessage: `${namesPart} won ${amount} each with ${winners[0].handDesc}`,
       };
       messages.push(msg);
     }

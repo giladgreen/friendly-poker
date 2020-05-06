@@ -17,6 +17,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
       hand: 0,
+      gamePhase: 0,
       smallBlind: parseInt(gameCreatorData.smallBlind, 10),
       bigBlind: parseInt(gameCreatorData.bigBlind, 10),
       time: parseInt(gameCreatorData.time, 10),
@@ -28,6 +29,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
         balance: amount,
         creator: true,
         sitOut: true,
+        pot: [0],
       }],
       playersData: [{
         id: playerId,

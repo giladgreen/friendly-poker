@@ -243,7 +243,7 @@ text-align: center;
 }
 .player-sitOut-indication{
     position: absolute;
-    width: 8vw;
+    width: 12vw;
     height: 2.2vw;
     border-radius: 10px;
     background: black;

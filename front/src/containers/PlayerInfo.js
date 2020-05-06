@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable jsx-a11y/img-has-alt */
 import React from 'react'
 import Card from "./Card";
 
@@ -27,7 +29,7 @@ const PlayerInfo = (props) => {
             { player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index+1}-pot`} className="player-pot">{(player.pot[game.gamePhase])}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
-            { player.sitOut&& <div  className="player-sitOut-indication">{player.pendingPlayers.includes(player.id) ? 'Joining next hand': 'Sitting Out'}</div>}
+            { player.sitOut&& <div  className="player-sitOut-indication">{game.pendingPlayers.includes(player.id) ? 'Joining next hand': 'Sitting Out'}</div>}
             { player.userDesc && <div  className="player-hand-description">{player.userDesc}</div>}
 
          </div>

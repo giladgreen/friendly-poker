@@ -41,6 +41,10 @@
     right: 0vw;
 }
 
+#fold-button:hover{
+    background: indianred;
+}
+
 #show-cards-button{
     position: absolute;
     top: 0px;
@@ -151,7 +155,7 @@
 
     #buttons{
         position: fixed;
-        top: 82vh;
+        top: 77vh;
         z-index: 30;
         width: 93vw;
         height: 30vh;
@@ -190,7 +194,7 @@
 
 
     #raise-buttons{
-        bottom: 2vh;
+        bottom: 7vh;
         right: 0.3vw;
         border-radius: 8px;
         height: 8vh;

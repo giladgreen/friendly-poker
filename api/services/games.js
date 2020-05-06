@@ -13,7 +13,7 @@ function resetHandTimer(game, cb) {
   if (game.timerRef) {
     clearTimeout(game.timerRef);
   }
-  const time = game.fastForward ? 700 : (game.currentTimerTime) * 1000 + 300;
+  const time = game.fastForward ? 1700 : (game.currentTimerTime) * 1000 + 300;
   game.timerRef = setTimeout(() => {
     if (game.fastForward) {
       return cb(null, {
@@ -58,6 +58,9 @@ function startNewHand(game, dateTime) {
   game.showPlayersHands = [];
   game.messages = [];
   game.deck = Deck.getShuffledDeck();
+  game.time = game.timePendingChane || game.time;
+  game.smallBlind = game.smallBlindPendingChane || game.smallBlind;
+  game.bigBlind = game.bigBlindPendingChane || game.bigBlind;
 
   let dealerIndex = -1;
   game.players.forEach((player, index) => {
@@ -134,6 +137,16 @@ function startNewHand(game, dateTime) {
       game.currentTimerTime = 1;
     }
   }
+
+  if (game.timePendingChane || game.smallBlindPendingChane || game.bigBlindPendingChane) {
+    delete game.timePendingChane;
+    delete game.smallBlindPendingChane;
+    delete game.bigBlindPendingChane;
+    game.messages.push({
+      action: 'game-settings-change', time: game.time, smallBlind: game.smallBlind, bigBlind: game.bigBlind, popupMessage: 'Game Settings Changed',
+    });
+  }
+
 
   return game;
 }

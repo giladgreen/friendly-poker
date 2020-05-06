@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable jsx-a11y/img-has-alt */
 import React from 'react'
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 const GameInfoScreen = (props) => {

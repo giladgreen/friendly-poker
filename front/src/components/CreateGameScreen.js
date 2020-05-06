@@ -90,13 +90,13 @@ class CreateGameScreen extends Component {
 
 
     setTime= (val) =>{
-        const time = val < 10 ? 10 : val;
+        const time = val < 10 ? 10 : (val > 120 ? 120 : val);
         this.setState({time})
     };
 
 
     setBuyIn= (val) =>{
-        const buyIn = val < 10 * this.state.BB ? 10 * this.state.BB : val;
+        const buyIn = val < 10 * this.state.BB ? 10 * this.state.BB : (val > 100000 ? 100000 : val);
         this.setState({buyIn})
     };
 
@@ -171,7 +171,7 @@ class CreateGameScreen extends Component {
                             <input id="create-new-game-buy-in-input"
                                    className={this.state.showErrors ? 'red-border':''}
                                    type="number"
-                                   pattern="\d*"
+                                   max="100000"
                                    value={this.state.buyIn}
                                    onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
                         </div>
@@ -209,8 +209,7 @@ class CreateGameScreen extends Component {
                                     const creator = game.players.find(p=>p.creator);
                                     const isCreator = creator && creator.id === this.props.playerId;
                                     const gameId = game.id;
-                                    const gameCreationTime = gameId.split('_')[1];
-                                    const epoc = parseInt(gameCreationTime, 10);
+                                    const epoc = parseInt(gameId, 10);
                                     const date = new Date(epoc);
                                     return <div key={game.id}
                                                 className={index % 2 ===0 ?'existing-game greyGame':'existing-game whiteGame'}>
