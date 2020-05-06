@@ -17,19 +17,21 @@
 
 @keyframes community-card-1-anim {
     from {
-        left:35vw;
+        opacity: 0%;
+        left:31vw;
         transform: rotate(3deg);
     }
     to {
-        left:37vw;
+        left:35vw;
         transform: rotate(0deg);
+        opacity: 100%;
     }
 }
 
 #community-card-1{
     position: fixed;
     top: 32vh;
-    left:35vw;
+    left:31vw;
     z-index: 10;
     animation-name: community-card-1-anim;
     animation-duration: 0.9s;
@@ -40,12 +42,14 @@
 
 @keyframes community-card-2-anim {
     from {
-        left:35vw;
+        opacity: 0%;
+        left:31vw;
         transform: rotate(-3deg);
     }
     to {
-        left:42vw;
+        left:40vw;
         transform: rotate(0deg);
+        opacity: 100%;
     }
 }
 
@@ -53,7 +57,7 @@
     position: fixed;
     top: 32vh;
     z-index: 10;
-    left:35vw;
+    left:31vw;
     animation-name: community-card-2-anim;
     animation-duration: 0.9s;
     animation-delay: 0.7s;
@@ -63,15 +67,21 @@
 }
 
 @keyframes community-card-3-anim {
-    from {left:35vw }
-    to {left:47vw }
+    from {
+        left:31vw;
+        opacity: 0%;
+    }
+    to {
+        left:45vw;
+        opacity: 100%;
+    }
 }
 
 #community-card-3{
     position: fixed;
     top: 32vh;
     z-index: 10;
-    left:35vw;
+    left:31vw;
     animation-name: community-card-3-anim;
     animation-duration: 0.9s;
     animation-delay: 0.7s;
@@ -81,8 +91,14 @@
 }
 
 @keyframes community-card-4-anim {
-    from {left:35vw }
-    to {left:53vw }
+    from {
+        left:31vw;
+        opacity: 0%;
+    }
+    to {
+        left:51vw;
+        opacity: 100%;
+    }
 }
 
 
@@ -90,22 +106,30 @@
     position: fixed;
     top: 32vh;
     z-index: 10;
-    left:53vw;
+    left:31vw;
     animation-name: community-card-4-anim;
     animation-duration: 1s;
     animation-delay: 0.3s;
     animation-fill-mode: both;
 }
 @keyframes community-card-5-anim {
-    from {left:35vw }
-    to {left:59vw }
+    from {
+        left:31vw;
+        opacity: 0%;
+    }
+    to {
+        left:57vw;
+        opacity: 100%;
+    }
 }
+
+
 
 #community-card-5{
     position: fixed;
     top: 32vh;
     z-index: 10;
-    left:59vw;
+    left:31vw;
     animation-name: community-card-5-anim;
     animation-duration: 1s;
     animation-delay: 0.3s;
