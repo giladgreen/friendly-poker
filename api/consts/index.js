@@ -19,4 +19,7 @@ module.exports = {
   MAX_TABLE_PLAYERS,
   ...ops,
   ...gameStates,
+  BEEP: 'Beep',
+  CARD: 'Card',
+  CARDS: 'Cards',
 };

@@ -35,7 +35,7 @@
     z-index: 10;
     animation-name: community-card-1-anim;
     animation-duration: 0.9s;
-    animation-delay: 0.7s;
+    animation-delay: 1.3s;
     animation-fill-mode: both;
 
 }
@@ -60,7 +60,7 @@
     left:31vw;
     animation-name: community-card-2-anim;
     animation-duration: 0.9s;
-    animation-delay: 0.7s;
+    animation-delay: 1.3s;
     animation-fill-mode: both;
 
 
@@ -84,7 +84,7 @@
     left:31vw;
     animation-name: community-card-3-anim;
     animation-duration: 0.9s;
-    animation-delay: 0.7s;
+    animation-delay: 1.3s;
     animation-fill-mode: both;
 
 
@@ -109,7 +109,7 @@
     left:31vw;
     animation-name: community-card-4-anim;
     animation-duration: 1s;
-    animation-delay: 0.3s;
+    animation-delay: 1.3s;
     animation-fill-mode: both;
 }
 @keyframes community-card-5-anim {
@@ -132,7 +132,7 @@
     left:31vw;
     animation-name: community-card-5-anim;
     animation-duration: 1s;
-    animation-delay: 0.3s;
+    animation-delay: 1.3s;
     animation-fill-mode: both;
 }
 .left-card{

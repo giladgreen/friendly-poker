@@ -25,6 +25,7 @@ const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
 const SmartPhoneVertical = (windowWidth < 600);
 
 
+
 // eslint-disable-next-line
 Date.prototype.AsGameName = function() {
     const stringValue = this.toISOString().substr(0,10);
@@ -177,8 +178,52 @@ class App extends Component {
         }
     }
 
+    playFold = () => {
+        document.getElementById("fold-audio").play();
+    };
+
+    playTwoTaps = () => {
+        document.getElementById("two-taps-audio").play();
+    };
+
+    playBeep = () => {
+        document.getElementById("beep-audio").play();
+    };
+
+    playCardPlace = () => {
+        setTimeout(()=>{
+            document.getElementById("card-place-audio45").play();
+        },1400)
+    };
+
+    playThreeCardPlacing = () => {
+        setTimeout(()=>{
+            document.getElementById("card-place-audio1").play();
+        },1400)
+        setTimeout(()=>{
+            document.getElementById("card-place-audio2").play();
+        },1600)
+        setTimeout(()=>{
+            document.getElementById("card-place-audio3").play();
+        },1800)
+    };
+
+    playChips = () => {
+        document.getElementById("chips-audio").play();
+    };
+
 
     componentDidMount() {
+        this.actioToMethodMap = {
+            Fold: this.playFold,
+            Call: this.playChips,
+            Check: this.playTwoTaps,
+            Raise: this.playChips,
+            Beep: this.playBeep,
+            Card: this.playCardPlace,
+            Cards: this.playThreeCardPlacing,
+        }
+
         this.socket = io(endpoint, {origins:"*"});
 
         this.socket.on('gamesdata', (games) => {
@@ -235,11 +280,23 @@ class App extends Component {
 
         this.socket.on('gameupdate', (game) => {
             console.log('on gameupdate', game);
-
+            console.log('game.audioableAction',game.audioableAction);
+            if (game.audioableAction){
+                game.audioableAction.forEach((action)=>{
+                    const sound = this.actioToMethodMap[action];
+                    sound && sound();
+                })
+            }
             const gameClone = this.getGameClone(game);
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
                 const newActivePlayerIndex = gameClone.players.findIndex(p=>p.active);
+                if (activePlayerIndex !== newActivePlayerIndex){
+                    const myIndex = this.getMyIndex(this.state.game.players);
+                    if (myIndex === newActivePlayerIndex){
+                        this.playBeep();
+                    }
+                }
                 if (this.GameUpdatedCallback){
                     if (gameClone.hand !== this.state.game.hand ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
@@ -446,15 +503,24 @@ class App extends Component {
             <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
             <img id="app-name" src="./friendly-poker.png"/>
             <div id="app-version" > v{ version }</div>
+            <audio id='fold-audio' src="./fold.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='two-taps-audio' src="./two-taps.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='beep-audio' src="./beep.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio1' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio2' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio3' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio45' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='chips-audio' src="./chips.mp3" preload="auto" controls="none" style={{display:'none'}}/>
             <div id="connection-status" className={this.state.connected ? 'connected-to-server':'connecting-to-server'}> { this.state.connected ? 'Connected' : 'Connecting..'}</div>
         </div>
     };
 
-    toggleShowInfo = ()=>{
+    toggleShowInfo = () => {
         this.setState({showInfoScreen: !this.state.showInfoScreen})
     };
 
     render() {
+
         if (SmartPhoneVertical){
            return <NotSupported message="Smart Phone Vertical view not supported"/>
         }
@@ -472,6 +538,10 @@ class App extends Component {
                 games={this.state.games} />);
         } else{
             const {gameId, game, playerId} = this.state;
+
+
+
+
             if (!game){
                 console.log('App, Render, gameId:',gameId, ' no game, playerId:',playerId, ' returning Loader')
                 return <Loader/>;

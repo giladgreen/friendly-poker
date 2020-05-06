@@ -137,6 +137,7 @@ function updateGamePlayers(game, showCards = false) {
       socket.emit('gameupdate', gamePrivateCopy);
     }
   });
+  game.audioableAction = [];
 }
 
 function givePotMoneyToWinners(game) {

@@ -4,7 +4,7 @@ const Mappings = require('../Maps');
 const PlayerHelper = require('../helpers/players');
 const GameHelper = require('../helpers/game');
 const {
-  FOLD, CALL, CHECK, RAISE, PRE_FLOP, FLOP, TURN, RIVER,
+  FOLD, CALL, CHECK, RAISE, PRE_FLOP, FLOP, TURN, RIVER, CARD, CARDS,
 } = require('../consts');
 
 let handlePlayerWonHandWithoutShowdown;
@@ -32,6 +32,8 @@ function handlePlayerAction(game, playerId, op, amount, hand) {
   if (op === RAISE) {
     GameHelper.handleRaise(game, player, amount);
   }
+  game.audioableAction.push(op);
+
   return player;
 }
 
@@ -73,18 +75,21 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
     game.gamePhase = FLOP;
     game.amountToCall = 0;
     game.messages.push({ action: 'Flop', board: game.board, log: true });
+    game.audioableAction.push(CARDS);
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
     game.board.push(game.deck.pop());
     game.gamePhase = TURN;
     game.amountToCall = 0;
     game.messages.push({ action: 'Turn', board: [game.board[3]], log: true });
+    game.audioableAction.push(CARD);
     logger.info('Turn!');
   } else if (game.gamePhase === TURN) {
     game.board.push(game.deck.pop());
     game.gamePhase = RIVER;
     game.amountToCall = 0;
     game.messages.push({ action: 'River', board: [game.board[4]], log: true });
+    game.audioableAction.push(CARD);
 
     logger.info('River!');
   } else if (game.gamePhase === RIVER) {
@@ -121,6 +126,8 @@ function onPlayerActionEvent(socket, {
     } else if (socket) {
       game.lastAction = (new Date()).getTime();
     }
+    game.audioableAction = [];
+
     if (!game.fastForward) {
       player = handlePlayerAction(game, playerId, op, amount, hand);
     }

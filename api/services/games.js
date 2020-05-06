@@ -6,7 +6,7 @@ const PlayerHelper = require('../helpers/players');
 
 const MINUTE = 60 * 1000;
 const {
-  FOLD, CALL, RAISE, PRE_FLOP, CHECK,
+  FOLD, CALL, RAISE, PRE_FLOP, CHECK, BEEP,
 } = require('../consts');
 
 function resetHandTimer(game, cb) {
@@ -46,6 +46,7 @@ function resumeHandTimer(game) {
 function startNewHand(game, dateTime) {
   logger.info('startNewHand');
   game.handStartDate = dateTime;
+  game.audioableAction = [BEEP];
   delete game.fastForward;
   delete game.handOver;
   delete game.winningHandCards;
