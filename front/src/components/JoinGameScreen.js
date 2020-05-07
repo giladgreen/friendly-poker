@@ -8,11 +8,12 @@ class JoinGameScreen extends Component {
 
     constructor(props) {
         super(props);
+        const name = localStorage.getItem('myName') || '';
         const maxBuyIn = Math.max(...props.game.players.map(p=>p.balance));
         this.takenNames = props.game.players.map(p=>p.name);
         const buyIn = props.game.players.length >0 ? maxBuyIn : 100 * props.game.bigBlind;
         this.state = {
-            name:'',
+            name,
             buyIn,
             showErrors:false,
             joinRequestSent: false,
@@ -32,7 +33,7 @@ class JoinGameScreen extends Component {
             this.setState({showErrors:true});
             return;
         }
-
+        localStorage.setItem('myName',this.state.name);
         this.props.joinGame({
             name: this.state.name,
             balance:parseInt(this.state.buyIn, 10)

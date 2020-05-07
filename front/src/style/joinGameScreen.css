@@ -115,6 +115,14 @@ margin-top: 2vh
         padding-left: 2vw;
         padding-right: 2vw;
     }
+    #join-game-section header{
+        font-size: 1em;
+    }
+
+    #join-game-section div{
+        margin-top: 0.2vh;
+        font-size: 0.5em;
+    }
 
     #join-screen #two-sections{
         margin-top: 8vh;
@@ -131,7 +139,7 @@ margin-top: 2vh
 
     #join-screen #join-button-div{
         margin-top: 10px;
-        font-size: 1em;
+        font-size: 1.8em;
     }
 
 
@@ -150,7 +158,7 @@ margin-top: 2vh
 
 
     #existing-players-list{
-        font-size: 0.8em;
+        font-size: 1em;
     }
     #join-game-inputs{
         font-size: 0.8em;

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/onlineGame.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/joinGameScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/joinGameScreen.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="120" column="14" selection-start-line="120" selection-end-line="121" />
+            <state relative-caret-position="226">
+              <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="55" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#140#0" expanded="true" />
@@ -67,12 +68,12 @@
         <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="231" column="20" lean-forward="true" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
+              <caret line="231" column="20" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="244">
@@ -93,6 +94,27 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/joinGameScreen.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="160" column="23" lean-forward="true" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/components/JoinGameScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -105,10 +127,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cheapLeader</find>
-      <find>toggleRebuyButton</find>
       <find>check-button</find>
-      <find>join-button</find>
       <find>join-game-inputs</find>
       <find>showErrors</find>
       <find>join-game-section</find>
@@ -135,6 +154,9 @@
       <find>mobile</find>
       <find>indica</find>
       <find>action-button</find>
+      <find>join-screen #join-button-div</find>
+      <find>join-button</find>
+      <find>myName</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
@@ -180,8 +202,6 @@
         <option value="$PROJECT_DIR$/api/consts/index.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/getGameData.js" />
         <option value="$PROJECT_DIR$/front/package.json" />
-        <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
-        <option value="$PROJECT_DIR$/front/src/style/joinGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/index.js" />
         <option value="$PROJECT_DIR$/front/src/App.js" />
@@ -196,6 +216,8 @@
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/style/game-action-buttons.css" />
         <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
+        <option value="$PROJECT_DIR$/front/src/style/joinGameScreen.css" />
+        <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
       </list>
     </option>
   </component>
@@ -338,18 +360,18 @@
       <workItem from="1588621582361" duration="18958000" />
       <workItem from="1588744448094" duration="11899000" />
       <workItem from="1588762236997" duration="5519000" />
-      <workItem from="1588770988061" duration="14166000" />
+      <workItem from="1588770988061" duration="14739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80195000" />
+    <option name="totallyTimeSpent" value="80768000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="23" width="1920" height="973" extended-state="6" />
+    <frame x="-1920" y="23" width="1920" height="971" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21938232" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21938232" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -363,7 +385,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.41958043" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.1203271" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -640,23 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/JoinGameScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="63" column="46" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/joinGameScreen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/eventHandlers/kickout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="606">
@@ -712,17 +717,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="120" column="14" selection-start-line="120" selection-end-line="121" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#140#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -755,7 +749,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="231" column="20" lean-forward="true" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
+          <caret line="231" column="20" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -774,6 +768,34 @@
             <element signature="e#4862#4932#0" />
             <element signature="e#4953#5066#0" />
             <element signature="e#5093#5318#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/joinGameScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="160" column="23" lean-forward="true" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="55" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#140#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/JoinGameScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
