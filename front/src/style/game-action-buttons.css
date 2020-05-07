@@ -178,7 +178,7 @@
     }
 
     .action-button{
-        top: 81vh;
+        top: 75vh;
         border-radius: 10px;
         height: 7vh;
         width: 7.5vw;
@@ -210,7 +210,7 @@
     }
 
     #raise-input{
-        top: 81vh;
+        top: 75vh;
         right: 24.5vw;
         height: 4vh;
         width: 8vw;
@@ -218,7 +218,7 @@
         border-radius: 0px;
     }
     #raise-input-slider{
-        top: 79.8vh;
+        top: 73.8vh;
     }
 
     .pot-raise-smaller-font{
