@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-action-buttons.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/game-action-buttons.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/onlineGame.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/api/helpers/game.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="38" />
+              <caret column="38" selection-start-column="38" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -63,11 +63,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="222" lean-forward="true" selection-start-line="222" selection-end-line="222" />
+            <state relative-caret-position="260">
+              <caret line="231" column="20" lean-forward="true" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="728" column="18" selection-start-line="728" selection-start-column="18" selection-end-line="728" selection-end-column="18" />
+              <folding>
+                <element signature="e#3718#3949#0" />
+                <element signature="e#3974#4155#0" />
+                <element signature="e#4177#4401#0" />
+                <element signature="e#4430#4523#0" />
+                <element signature="e#4550#4694#0" />
+                <element signature="e#4714#4742#0" />
+                <element signature="e#4763#4831#0" />
+                <element signature="e#4862#4932#0" />
+                <element signature="e#4953#5066#0" />
+                <element signature="e#5093#5318#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,7 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>stilling</find>
       <find>cheapLeader</find>
       <find>toggleRebuyButton</find>
       <find>check-button</find>
@@ -113,6 +133,7 @@
       <find>input</find>
       <find>slider</find>
       <find>mobile</find>
+      <find>indica</find>
       <find>action-button</find>
     </findStrings>
     <dirStrings>
@@ -142,7 +163,6 @@
         <option value="$PROJECT_DIR$/front/src/style/bootstrap.css" />
         <option value="$PROJECT_DIR$/api/helpers/players.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/quit.js" />
-        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/App.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/updateGameSettings.js" />
         <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
@@ -175,6 +195,7 @@
         <option value="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" />
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/style/game-action-buttons.css" />
+        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
       </list>
     </option>
   </component>
@@ -317,15 +338,15 @@
       <workItem from="1588621582361" duration="18958000" />
       <workItem from="1588744448094" duration="11899000" />
       <workItem from="1588762236997" duration="5519000" />
-      <workItem from="1588770988061" duration="14023000" />
+      <workItem from="1588770988061" duration="14166000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80052000" />
+    <option name="totallyTimeSpent" value="80195000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="23" width="1920" height="1057" extended-state="6" />
+    <frame x="-1920" y="23" width="1920" height="973" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21938232" />
@@ -342,7 +363,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.30042464" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.41958043" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -430,25 +451,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="46" column="28" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4320">
-          <caret line="315" column="13" selection-start-line="315" selection-start-column="13" selection-end-line="315" selection-end-column="13" />
-          <folding>
-            <element signature="e#3718#3949#0" />
-            <element signature="e#3974#4155#0" />
-            <element signature="e#4177#4401#0" />
-            <element signature="e#4430#4523#0" />
-            <element signature="e#4550#4694#0" />
-            <element signature="e#4714#4742#0" />
-            <element signature="e#4763#4831#0" />
-            <element signature="e#4862#4932#0" />
-            <element signature="e#4953#5066#0" />
-            <element signature="e#5093#5318#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -746,14 +748,33 @@
     <entry file="file://$PROJECT_DIR$/api/helpers/game.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="38" />
+          <caret column="38" selection-start-column="38" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="222" lean-forward="true" selection-start-line="222" selection-end-line="222" />
+        <state relative-caret-position="260">
+          <caret line="231" column="20" lean-forward="true" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="728" column="18" selection-start-line="728" selection-start-column="18" selection-end-line="728" selection-end-column="18" />
+          <folding>
+            <element signature="e#3718#3949#0" />
+            <element signature="e#3974#4155#0" />
+            <element signature="e#4177#4401#0" />
+            <element signature="e#4430#4523#0" />
+            <element signature="e#4550#4694#0" />
+            <element signature="e#4714#4742#0" />
+            <element signature="e#4763#4831#0" />
+            <element signature="e#4862#4932#0" />
+            <element signature="e#4953#5066#0" />
+            <element signature="e#5093#5318#0" />
+          </folding>
         </state>
       </provider>
     </entry>
