@@ -11,7 +11,7 @@ function handleFold(game, player) {
   logger.info(`${player.name} fold`);
   player.status = FOLD;
   delete player.needToTalk;
-  delete player.fold;
+  player.fold = true;
   delete player.active;
   player.options = [];
 }
@@ -100,15 +100,15 @@ async function saveGameToDB(g) {
 
 
     return await models.onlineGames
-        .findOne({ where: { id } })
-        .then((obj) => {
-          // update
-          if (obj) {
-            return obj.update({ data: { ...game } });
-          }
-          // insert
-          return models.onlineGames.create({ id, data: { ...game } });
-        });
+      .findOne({ where: { id } })
+      .then((obj) => {
+        // update
+        if (obj) {
+          return obj.update({ data: { ...game } });
+        }
+        // insert
+        return models.onlineGames.create({ id, data: { ...game } });
+      });
   } catch (e) {
     logger.error('saveGameToDB ', e.message);
   }
@@ -178,21 +178,21 @@ function givePotMoneyToWinners(game) {
       const amountWon = Math.floor(totalSidePotMoney / winnerHands.length);
 
       relevantPlayers.filter(p => winnerHands.some(winnerHand => winnerHand.cards.join('') === p.solvedHand.cards.join('')))
-          .forEach((p) => {
-            if (!winnings[p.id]) {
-              winnings[p.id] = {
-                amount: 0,
-                name: p.name,
-                handDesc: winnerHands[0].descr,
-                cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
-              };
-            }
-            p.balance += amountWon;
-            game.pot -= amountWon;
+        .forEach((p) => {
+          if (!winnings[p.id]) {
+            winnings[p.id] = {
+              amount: 0,
+              name: p.name,
+              handDesc: winnerHands[0].descr,
+              cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
+            };
+          }
+          p.balance += amountWon;
+          game.pot -= amountWon;
 
 
-            winnings[p.id].amount += amountWon;
-          });
+          winnings[p.id].amount += amountWon;
+        });
     }
   });
   const messages = [];

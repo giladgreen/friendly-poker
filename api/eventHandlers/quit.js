@@ -17,16 +17,19 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
       throw new Error('did not find player');
     }
 
+    if (player.creator && game.players.length > 1) {
+      throw new Error('creator cant quit yet');
+    }
+
     const playerData = game.playersData.find(p => p.id === playerId);
     playerData.cashOut = { amount: player.balance, time: now };
-
-
+    game.moneyInGame -= player.balance;
     game.players = game.players.filter(p => p.id !== playerId);
     if (game.players.filter(p => !p.sitOut).length < 2) {
       game.paused = true;
     }
     game.messages.push({
-      action: 'quit', name: player.name, popupMessage: `${player.name} is quit the game`,
+      action: 'quit', name: player.name, popupMessage: `${player.name} has quit the game`,
     });
 
     updateGamePlayers(game);

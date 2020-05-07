@@ -16,6 +16,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
+      moneyInGame: amount,
       hand: 0,
       gamePhase: 0,
       smallBlind: parseInt(gameCreatorData.smallBlind, 10),

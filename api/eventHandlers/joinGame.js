@@ -31,6 +31,7 @@ function onJoinGameEvent(socket, {
       pot: [0],
       justJoined: true,
     });
+    game.moneyInGame += balance;
     game.pendingPlayers.push(playerId);
     game.playersData.push({
       id: playerId,
