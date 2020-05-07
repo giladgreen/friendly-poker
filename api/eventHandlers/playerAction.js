@@ -8,7 +8,24 @@ const {
 } = require('../consts');
 
 let handlePlayerWonHandWithoutShowdown;
+function validateGame(game) {
+  try {
+    const activePlayerBalances = game.players.map(p => p.balance);
+    const activePlayerBalancesSum = activePlayerBalances.reduce((all, one) => all + one, 0);
 
+    const quitPlayerBottomLines = game.playersData.filter(pd => pd.cashOut).map((pd) => {
+      const totalBuyIn = pd.buyIns.map(bi => bi.amount).reduce((all, one) => all + one, 0);
+      return pd.cashOut.amount - totalBuyIn;
+    });
+    const quitPlayerBottomLinesSum = quitPlayerBottomLines.reduce((all, one) => all + one, 0);
+
+    if (activePlayerBalancesSum + game.pot + quitPlayerBottomLinesSum !== game.moneyInGame) {
+      throw new Error("numbers don't add up");
+    }
+  } catch (e) {
+    logger.warn('validateGame failed', e);
+  }
+}
 function handlePlayerAction(game, playerId, op, amount, hand) {
   const player = game.players.find(p => p.id === playerId);
   if (!player) {
@@ -126,6 +143,7 @@ function onPlayerActionEvent(socket, {
     } else if (socket) {
       game.lastAction = (new Date()).getTime();
     }
+
     game.audioableAction = [];
 
     if (!game.fastForward) {
@@ -163,6 +181,7 @@ function onPlayerActionEvent(socket, {
       }
     }
 
+    validateGame(game);
     GameHelper.updateGamePlayers(game, gameIsOver);
   } catch (e) {
     logger.error('onPlayerActionEvent error', e.message);

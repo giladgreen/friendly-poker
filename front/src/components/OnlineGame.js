@@ -500,7 +500,7 @@ class OnlineGame extends Component {
                                 {/* Subtract to Raise */}
                                 <div id="raise-button-sub-1" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
 
-                            {/* 2/3 pot */}
+                                {/* 2/3 pot */}
                                 <div id="raise-button-2-3" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(2* pot / 3)}> 2/3 pot</div>
                                 {/* 1/2 pot */}
                                 <div id="raise-button-1-2" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>
@@ -516,18 +516,16 @@ class OnlineGame extends Component {
 
                     </div>}
 
-                    { options.includes('Raise') && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
-
-
-
-
-                    </div>}
-
-
                 </div>}
-                { <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>}
+                {/* Game Link */}
+                <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>
+                {/* rebuy.. button */}
                 <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>
-                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>  </div>}
+
+                {/* opened rebuy section */}
+                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}>
+                    <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>
+                </div>}
                 {this.state.rebuySectionOpen && <div id="rebuy-section"  >
                     <div>
                         <span id="rebuy-label" >Amount</span>
@@ -539,19 +537,25 @@ class OnlineGame extends Component {
                                onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
                     </div>
                 </div>}
+                {/* stand-sit button */}
                 <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>
+                {/* info button */}
                 <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>
+                {/* quit button */}
                 <div id="quit-button" className={ quitEnabled ? "active-button" : "inactive-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>
-
+                {/* logs button */}
                 <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
-
+                {/* settings button */}
                 { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
 
-
+                {/* start game button */}
                 { startButtonEnabled && <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>}
+                {/* pause button */}
                 { pauseButtonEnabled && <div id="start-pause-game-button" className="big-button active-button" onClick={this.props.pauseGame}> Pause Game </div>}
+                {/* resume button */}
                 { resumeButtonEnabled && <div id="start-pause-game-button" className="big-button active-button"  onClick={this.props.resumeGame}> Resume Game </div>}
 
+                {/* settings screen popup */}
                 <Modal
                     open={this.state.showSettings}
                     closeAfterTransition
@@ -604,6 +608,7 @@ class OnlineGame extends Component {
                     </Fade>
                 </Modal>
 
+                {/* logs screen popup */}
                 <Modal
                     open={this.state.showLogs}
                     closeAfterTransition
@@ -620,8 +625,7 @@ class OnlineGame extends Component {
                     </Fade>
                 </Modal>
 
-
-
+                {/* chat box input */}
                 <input id="chat-input"
                        type="text"
                        value={this.state.chatMessage}
@@ -634,7 +638,9 @@ class OnlineGame extends Component {
                             }
                         }}
                 />
+                {/* chat box send button */}
                 <div id="send-message-button" onClick={this.onSendMessage} >send</div>
+                {/* chat box input */}
                 <div id="messages-box">
                     {messages}
                 </div>
