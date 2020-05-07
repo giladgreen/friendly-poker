@@ -10,14 +10,48 @@ import DnsIcon from '@material-ui/icons/Dns';
 import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import { withStyles } from '@material-ui/core/styles';
 
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Slider from '@material-ui/core/Slider';
 
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import CancelIcon from '@material-ui/icons/Cancel';
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+
+const PrettoSlider = withStyles({
+    root: {
+        color: isMobile ? '#888888': '#444444',
+        height: 8,
+    },
+    thumb: {
+        height: isMobile ? 12 : 24,
+        width: isMobile ? 12 : 24,
+        backgroundColor: '#fff',
+        border: '2px solid currentColor',
+        marginTop: isMobile ? 1 : -2,
+        marginLeft: isMobile ? -6 : -12,
+        '&:focus, &:hover, &$active': {
+            boxShadow: 'inherit',
+        },
+    },
+    active: {},
+    valueLabel: {
+        left: 'calc(-50% + 4px)',
+        color: 'transparent'
+    },
+    track: {
+        height: isMobile ? 12 : 24,
+        borderRadius: 0,
+    },
+    rail: {
+        height: isMobile ? 12 : 24,
+        borderRadius: 0,
+    },
+})(Slider);
 
 
 const SECOND = 1000;
@@ -371,14 +405,12 @@ class OnlineGame extends Component {
         const {clockMessage,handTime, options, cheapLeader, me} = this.state;
         const {game} = this.props;
 
-        const { pot, smallBlind, bigBlind, players, time, startDate,hand, board} = game;
+        const { pot, smallBlind, bigBlind, players, startDate,hand, board} = game;
         const winningHandCards = game.handOver && game.winningHandCards && game.winningHandCards.cards ? game.winningHandCards.cards : [];
-        //const pres = (100 * userTimer / time).toFixed(0) - 1;
-        const gameLink = `${serverPrefix}?gameid=${game.id}`;
 
         const linkOnClick = ()=>{
             const el = document.createElement('textarea');
-            el.value = gameLink;
+            el.value = `${serverPrefix}?gameid=${game.id}`;
             document.body.appendChild(el);
             el.select();
             document.execCommand('copy');
@@ -386,97 +418,114 @@ class OnlineGame extends Component {
             this.props.showAlertMessage('link copied')
         };
 
-        const gameLinkDiv = <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>;
-
-
-
-        const quitEnabled = !startDate || (me && !me.creator && (me.fold || me.sitOut));
+        const quitEnabled = (me && !me.creator && (me.fold || me.sitOut || !startDate)) || (me && me.creator && (game.players.length === 1));
         const standSitEnabled = startDate && me && (me.sitOut || me.fold);
 
-
-        const logsButton = <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>;
-        const settingsButton = this.props.isCreator ? <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div> : <div/>;
-
-
-        const startGameButton = this.props.isCreator && !startDate && players.length>1 ?
-            <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>
-            : <div/>;
-
-        const pauseGameButton = this.props.isCreator && startDate && !game.paused && game.handOver ?
-            <div id="start-pause-game-button" className="big-button active-button" onClick={this.props.pauseGame}> Pause Game </div>
-            : <div/>;
-
-
-        const resumeGameButton = this.props.isCreator && game.paused ?
-            <div id="start-pause-game-button" className="big-button active-button"  onClick={this.props.resumeGame}> Resume Game </div>
-            : <div/>;
-
-
+        const startButtonEnabled = this.props.isCreator && !startDate && players.length>1;
+        const pauseButtonEnabled = this.props.isCreator && startDate && !game.paused && game.handOver;
+        const resumeButtonEnabled = this.props.isCreator && game.paused;
+        const gamePaused = game.paused;
         const messages = this.props.messages;
         return (
             <div id="online-game-screen" >
+                {/* game time */}
                 <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
+                {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
-
-
-                {!game.paused && <div id="hand-time">
+                {/* hand count + time */}
+                {!gamePaused && <div id="hand-time">
                     {hand && hand >0 ? <span>Hand #{hand} </span> :<div/> }
                     {handTime ? <span>: { handTime }</span> : <div/>}
                 </div>}
-
-                { !game.paused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
-                { !game.paused && hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
-
-                { !game.paused && game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
+                {/* time left to talk */}
+                { !gamePaused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
+                {/* time left to talk progess bar */}
+                { !gamePaused && hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
+                {/* your turn indication */}
+                { !gamePaused && game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
+                {/* table image */}
                 <img id="table-image" src="table.png" />
-                { game.paused && <div id="game-pause-indication"  >וו</div>}
-                { game.paused && <div id="game-pause-indication-text"  >Game Paused</div>}
+                {/* pause game */}
+                { gamePaused && <div><div id="game-pause-indication"  >וו</div><div id="game-pause-indication-text"  >Game Paused</div></div>}
 
+                {/* players */}
                 {players.map((player,index)=> <PlayerInfo key={player.id} creator={me.creator} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
-
-                {Boolean(pot) &&  <div id="community-pot">
-                    {pot}
-                </div>}
+                {/* game pot */}
+                {Boolean(pot) &&  <div id="community-pot">{pot}</div>}
+                {/* game board */}
                 {board && <div id="community-cards">
-                    {<div id="community-card-deck1" ><Card /></div> }
-                    {<div id="community-card-deck2" ><Card /></div> }
-                    {<div id="community-card-deck3" ><Card /></div> }
+                    <div id="community-card-deck1" ><Card /></div>
+                    <div id="community-card-deck2" ><Card /></div>
+                    <div id="community-card-deck3" ><Card /></div>
                     {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card card={board[0]}/></div> }
                     {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card card={board[1]}/></div> }
                     {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card card={board[2]}/></div> }
                     {board[3] && <div id="community-card-4" className={winningHandCards.includes(board[3]) ? 'highlight-card':''}><Card card={board[3]}/></div> }
                     {board[4] && <div id="community-card-5" className={winningHandCards.includes(board[4]) ? 'highlight-card':''}><Card card={board[4]}/></div> }
-
                 </div>}
-                <div id="buttons">
-                    { !game.paused && game.handOver && !this.state.showingCards && <div id="show-cards-button" className="big-button active-button" onClick={this.showCards}> Show Cards </div>}
-                    { !game.paused && options.length>0 && !game.handOver && <div id="fold-button" className={`big-button ${options.includes('Fold') ? 'active':'inactive'}-button`} onClick={this.fold}> Fold </div>}
-                    { !game.paused && options.length>0 && !game.handOver && options.includes('Check') && <div id="check-button" className={`big-button active-button`} onClick={ this.check}> Check </div>}
-                    { !game.paused && options.length>0 && !game.handOver && options.includes('Call') && <div id="call-button" className={`big-button active-button`} onClick={this.call}> Call { this.state.amountToCall} </div>}
-                    { !game.paused && options.length>0 && !game.handOver &&  <div id="toggle-raise-button" className={`big-button ${options.includes('Raise') ? 'active':'inactive'}-button`} onClick={options.includes('Raise') ? this.toggleRaiseButton : ()=>{}}> Raise... </div>}
-                    { !game.paused && options.length>0 && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
+
+                {/* action buttons */}
+                { !gamePaused && <div>
+                    {/* show cards button */}
+                    { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
+
+                    { !game.handOver &&
+                    <div>
+                        {/* basic options */}
+                        { !this.state.raiseEnabled && <div>
+                            {/* Fold button */}
+                            { options.includes('Fold') && <div id="fold-button" className="action-button " onClick={this.fold}> Fold </div>}
+                            {/* Check button */}
+                            { options.includes('Check') && <div id="check-button" className="action-button " onClick={ this.check}> Check </div>}
+                            {/* Call button */}
+                            { options.includes('Call') && <div id="call-button" className="action-button " onClick={this.call}> Call { this.state.amountToCall} </div>}
+                            {/* Raise.. button */}
+                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> Raise.. </div>}
+
+                        </div> }
+
+                        {/* Raise options */}
+                        { this.state.raiseEnabled && options.includes('Raise') && <div>
+                                {/* Cancel Raise button */}
+                                <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}> Cancel </div>
+                                {/* Raise button */}
+                                 <div id="raise-button" className="action-button" onClick={this.raise}> Raise to {this.state.raiseValue}</div>
+                                {/* Add to Raise */}
+                                <div id="raise-button-add-1" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> + </div>
+                                {/* Raise Input */}
+                                <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>
+                                {/* Raise Input Slider */}
+                                <PrettoSlider id="raise-input-slider" valueLabelDisplay="auto" aria-label="pretto slider"   step={1} min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e,val)=> this.setRaiseValue(parseInt(val),10)} />
+
+                                {/* Subtract to Raise */}
+                                <div id="raise-button-sub-1" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
+
+                            {/* 2/3 pot */}
+                                <div id="raise-button-2-3" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(2* pot / 3)}> 2/3 pot</div>
+                                {/* 1/2 pot */}
+                                <div id="raise-button-1-2" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>
+                                {/* 1/3 pot */}
+                                <div id="raise-button-1-3" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>
+                                {/* all in */}
+                                <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>
 
 
-                        { !game.paused &&    <div id="raise-button" className="big-button active-button" onClick={this.raise}> Raise to {this.state.raiseValue}</div>}
-                        { !game.paused &&   <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>}
+                            </div>
+                        }
 
 
-                        { !game.paused &&   <div id="raise-button-add-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> +{game.bigBlind}</div>}
-                        { !game.paused &&   <div id="raise-button-sub-1" className="big-button active-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> -{game.bigBlind}</div>}
+                    </div>}
+
+                    { options.includes('Raise') && this.state.raiseEnabled && !game.handOver && <div id="raise-buttons">
 
 
 
-                        { !game.paused &&   <div id="raise-button-2-3" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(2* pot / 3)}> 2/3 pot</div>}
-                        { !game.paused &&   <div id="raise-button-1-2" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>}
-                        { !game.paused &&   <div id="raise-button-1-3" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>}
-
-                        { !game.paused && me.balance &&  <div id="all-in-button" className="big-button active-button raise-button-pot-ref" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>}
 
                     </div>}
 
 
-                </div>
-                {gameLinkDiv}
+                </div>}
+                { <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>}
                 <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>
                 {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>  </div>}
                 {this.state.rebuySectionOpen && <div id="rebuy-section"  >
@@ -493,13 +542,15 @@ class OnlineGame extends Component {
                 <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>
                 <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>
                 <div id="quit-button" className={ quitEnabled ? "active-button" : "inactive-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>
-                {logsButton}
-                {settingsButton}
+
+                <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
+
+                { this.props.isCreator && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
 
 
-                {startGameButton}
-                {pauseGameButton}
-                {resumeGameButton}
+                { startButtonEnabled && <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>}
+                { pauseButtonEnabled && <div id="start-pause-game-button" className="big-button active-button" onClick={this.props.pauseGame}> Pause Game </div>}
+                { resumeButtonEnabled && <div id="start-pause-game-button" className="big-button active-button"  onClick={this.props.resumeGame}> Resume Game </div>}
 
                 <Modal
                     open={this.state.showSettings}

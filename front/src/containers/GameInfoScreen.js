@@ -6,12 +6,13 @@ import React from 'react'
 const GameInfoScreen = (props) => {
 
     const {game} = props;
-    const {playersData} = game;
+    const {playersData, moneyInGame} = game;
 
     return  <div  id="game-info-screen">
         <div id="exit-game-info-screen-button" onClick={props.onClose}>X</div>
         <div id="buy-ins-section">
             <div id="info-screen-header"> Players BuyIn/CashOut Info</div>
+            <div id="info-screen-total-amount"> Total amount still in game: {moneyInGame}</div>
             <div id="info-screen-body">
                 {
                     playersData.map(pd=>{
@@ -20,7 +21,7 @@ const GameInfoScreen = (props) => {
                         if (bottomLine>0){
                             bottomLine = `+${bottomLine}`;
                         }
-                        return <div className="player-screen-player-info">
+                        return <div key={pd.id} className="player-screen-player-info">
                             <div className="player-info-player-name"> {pd.name}</div>
                             Buy-Ins:
                                 {

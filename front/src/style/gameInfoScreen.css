@@ -44,6 +44,11 @@
     font-size: 1.9em;
     border-bottom: 2px solid #5a6268;
 }
+#info-screen-total-amount{
+    width: 100%;
+    text-align: left;
+    font-size: 1.2em;
+}
 #info-screen-body{
     width: 100%;
     padding-top: 10px;
