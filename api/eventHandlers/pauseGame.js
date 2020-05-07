@@ -17,8 +17,8 @@ function onPauseGameEvent(socket, { gameId, playerId }) {
     if (!player) {
       throw new Error('did not find player');
     }
-    if (!player.creator) {
-      throw new Error('non creator player cannot pause game');
+    if (!player.admin) {
+      throw new Error('non admin player cannot pause game');
     }
 
     game.paused = true;

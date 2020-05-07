@@ -13,9 +13,9 @@ function onDeleteGameEvent(socket, { playerId, gameId }) {
     if (!game) {
       throw new Error('game not found');
     }
-    const creator = game.players.find(p => p.creator);
-    if (creator.id !== playerId) {
-      throw new Error('only creator cab delete game');
+    const admin = game.players.find(p => p.admin);
+    if (admin.id !== playerId) {
+      throw new Error('only admin can delete game');
     }
     GameHelper.deleteGameInDB(gameId);
     Mappings.DeleteGameByGameId(gameId);

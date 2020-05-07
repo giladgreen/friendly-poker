@@ -18,8 +18,8 @@ function onUpdateGameSettingsEvent(socket, {
     if (!player) {
       throw new Error('did not find player');
     }
-    if (!player.creator) {
-      throw new Error('non creator player cannot change game settings');
+    if (!player.admin) {
+      throw new Error('non admin player cannot change game settings');
     }
 
     game.timePendingChane = time;

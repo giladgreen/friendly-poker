@@ -19,8 +19,8 @@ function onKickOutEvent(socket, {
       throw new Error('did not find player');
     }
 
-    if (!player.creator) {
-      throw new Error('only creator cant kick a user out');
+    if (!player.admin) {
+      throw new Error('only admin can kick a user out');
     }
 
     const playerToKick = game.players.find(p => p.id === playerToKickId);

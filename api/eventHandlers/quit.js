@@ -17,8 +17,8 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
       throw new Error('did not find player');
     }
 
-    if (player.creator && game.players.length > 1) {
-      throw new Error('creator cant quit yet');
+    if (player.admin && game.players.length > 1) {
+      throw new Error("admin can't quit yet");
     }
 
     const playerData = game.playersData.find(p => p.id === playerId);
