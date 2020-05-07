@@ -206,8 +206,8 @@ class CreateGameScreen extends Component {
                             this.props.games.length === 0 ? <div/> :
 
                                 this.props.games.map((game,index)=>{
-                                    const creator = game.players.find(p=>p.creator);
-                                    const isCreator = creator && creator.id === this.props.playerId;
+                                    const admin = game.players.find(p=>p.admin);
+                                    const isAdmin = admin && admin.id === this.props.playerId;
                                     const gameId = game.id;
                                     const epoc = parseInt(gameId, 10);
                                     const date = new Date(epoc);
@@ -220,7 +220,7 @@ class CreateGameScreen extends Component {
                                             <div>{date.AsGameName()} {date.AsExactTime()}</div>
                                             <div>{game.players.length} players</div>
                                         </div>
-                                        {isCreator && <div id="delete-game-button" onClick={()=>this.props.deleteGame(game.id)}>Delete Game</div>}
+                                        {isAdmin && <div id="delete-game-button" onClick={()=>this.props.deleteGame(game.id)}>Delete Game</div>}
                                     </div>
                                 })
                         }

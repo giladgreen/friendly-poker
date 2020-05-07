@@ -418,12 +418,12 @@ class OnlineGame extends Component {
             this.props.showAlertMessage('link copied')
         };
 
-        const quitEnabled = (me && !me.creator && (me.fold || me.sitOut || !startDate)) || (me && me.creator && (game.players.length === 1));
+        const quitEnabled = (me && !me.admin && (me.fold || me.sitOut || !startDate)) || (me && me.admin && (game.players.length === 1));
         const standSitEnabled = startDate && me && (me.sitOut || me.fold);
 
-        const startButtonEnabled = this.props.isCreator && !startDate && players.length>1;
-        const pauseButtonEnabled = this.props.isCreator && startDate && !game.paused && game.handOver;
-        const resumeButtonEnabled = this.props.isCreator && game.paused;
+        const startButtonEnabled = this.props.isAdmin && !startDate && players.length>1;
+        const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && game.handOver;
+        const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const gamePaused = game.paused;
         const messages = this.props.messages;
         return (
@@ -449,7 +449,7 @@ class OnlineGame extends Component {
                 { gamePaused && <div><div id="game-pause-indication"  >וו</div><div id="game-pause-indication-text"  >Game Paused</div></div>}
 
                 {/* players */}
-                {players.map((player,index)=> <PlayerInfo key={player.id} creator={me.creator} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player,index)=> <PlayerInfo key={player.id} admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) &&  <div id="community-pot">{pot}</div>}
                 {/* game board */}
@@ -545,7 +545,7 @@ class OnlineGame extends Component {
 
                 <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
 
-                { this.props.isCreator && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
+                { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
 
 
                 { startButtonEnabled && <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>}

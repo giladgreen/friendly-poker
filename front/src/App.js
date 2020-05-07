@@ -430,8 +430,8 @@ class App extends Component {
     startGame = () =>{
         const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const creator = this.state.game.players.find(p=>p.creator);
-        if (creator.id === playerId){
+        const admin = this.state.game.players.find(p=>p.admin);
+        if (admin.id === playerId){
             this.socket.emit('startgame', {gameId , dateTime, playerId });
         }
     };
@@ -445,8 +445,8 @@ class App extends Component {
     pauseGame = () =>{
         const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const creator = this.state.game.players.find(p=>p.creator);
-        if (creator.id === playerId){
+        const admin = this.state.game.players.find(p=>p.admin);
+        if (admin.id === playerId){
             this.socket.emit('pausegame', {gameId , dateTime, playerId });
         }
     };
@@ -460,8 +460,8 @@ class App extends Component {
     resumeGame = () =>{
         const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const creator = this.state.game.players.find(p=>p.creator);
-        if (creator.id === playerId){
+        const admin = this.state.game.players.find(p=>p.admin);
+        if (admin.id === playerId){
             this.socket.emit('resumegame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
         }
     };
@@ -563,8 +563,8 @@ class App extends Component {
             }
 
 
-            const creator = game.players.find(p=>p.creator);
-            const isCreator =  (creator.id === playerId);
+            const admin = game.players.find(p=>p.admin);
+            const isAdmin =  (admin.id === playerId);
 
             const gamePlayer =  game.players.find(p=>p.id === playerId);
 
@@ -575,7 +575,7 @@ class App extends Component {
                     logs={this.state.logs}
                     showAlertMessage={this.showAlertMessage}
                     registerGameUpdatedCallback={this.registerGameUpdatedCallback}
-                    isCreator={isCreator}
+                    isAdmin={isAdmin}
                     toggleShowInfo={this.toggleShowInfo}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}

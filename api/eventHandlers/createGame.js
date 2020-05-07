@@ -29,6 +29,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
         name: gameCreatorData.name,
         balance: amount,
         admin: true,
+        creator: true,
         sitOut: true,
         pot: [0],
       }],
