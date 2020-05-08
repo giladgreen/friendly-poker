@@ -18,6 +18,7 @@ const { onDeleteGameEvent } = require('./deleteGame');
 const { onUpdateGameSettingsEvent } = require('./updateGameSettings');
 const { onKickOutEvent } = require('./kickout');
 const { onChangeAdminEvent } = require('./changeAdmin');
+const { onSkipHandEvent } = require('./skipHand');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -41,6 +42,7 @@ function onConnection(socket) {
   socket.on('deletegame', data => onDeleteGameEvent(socket, data));
   socket.on('updategamesettings', data => onUpdateGameSettingsEvent(socket, data));
   socket.on('changeadmin', data => onChangeAdminEvent(socket, data));
+  socket.on('skiphand', data => onSkipHandEvent(socket, data));
 }
 
 module.exports = {

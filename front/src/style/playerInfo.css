@@ -128,10 +128,10 @@
 
 .active-player{
     background: rgba(232,174,0,0.53);
-    -webkit-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
-    -moz-box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
-    box-shadow: -6px 8px 35px 24px rgba(232,174,0,0.58);
-    border-radius: 30%;
+    -webkit-box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+    -moz-box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+    box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+    border-radius: 35%;
 }
 
 .player-div{
@@ -147,18 +147,25 @@
     height: 10vh;
     background: white;
     font-size: 1.3em;
-    padding-top: 2vh;
+    padding-top: 1vh;
     padding-left: 6vh;
     border: 1px solid black;
+    color: #6c757d;;
 }
-
-.player-name{
-    color: #6c757d;
-}
-
-.player-balance{
-    color: #4a535b;
+.active-player-info{
+    background: #ffff3399;
+    border: 4px solid black;
+    color: black;
     font-weight: bold;
+    border-radius: 15px;
+
+}
+.winner-player{
+    background: #44ffff99;
+    border: 4px solid #3333ff;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px;
 }
 
 
@@ -280,7 +287,7 @@
 .player-hand-description{
     position: absolute;
     width: 11vw;
-    height: 2.2vw;
+    height: 2vw;
     border-radius: 10px;
     background: white;
     color: black;
@@ -290,7 +297,7 @@
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:12.2vh;
+    top:11.6vh;
     left:0vw;
 }
 @media only screen and (max-width: 800px) {

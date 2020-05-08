@@ -198,6 +198,7 @@ function onPlayerActionEvent(socket, {
 handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
   player.balance += game.pot;
+  player.winner = true;;
   game.messages.push({
     action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, popupMessage: `${player.name} took the hand with no showdown`,
   });

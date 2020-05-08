@@ -23,7 +23,7 @@ class CreateGameScreen extends Component {
     constructor(props) {
         super(props);
         const name = localStorage.getItem('myName') || '';
-        const privateGame = (localStorage.getItem('private-game') || 'false') === 'false';
+        const privateGame = (localStorage.getItem('private-game') === 'true');
         const SB = parseInt((localStorage.getItem('create-game-sb') || '1'), 10);
         const BB = parseInt((localStorage.getItem('create-game-bb') || '2'), 10);
         const time = parseInt((localStorage.getItem('create-game-time') || '40'), 10);

@@ -11,11 +11,15 @@ import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { withStyles } from '@material-ui/core/styles';
-
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
+
 
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
@@ -63,6 +67,11 @@ const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http:/
 
 class OnlineGame extends Component {
 
+    onAdminChange = (adminId)=>{
+        const adminName = this.props.game.players.find(p=>p.id === adminId).name;
+
+        this.setState({adminId, adminName})
+    }
     getShowableTime = (startDate) =>{
         if (!startDate){
             return null;
@@ -111,7 +120,7 @@ class OnlineGame extends Component {
     };
 
     saveSettings = ()=>{
-        this.props.updateGameSettings(this.state.time,this.state.smallBlind,this.state.bigBlind)
+        this.props.updateGameSettings(this.state.time,this.state.smallBlind,this.state.bigBlind, this.state.adminId);
         this.setState({showSettings:false})
     }
 
@@ -173,7 +182,9 @@ class OnlineGame extends Component {
             me:{},
             time: props.game.time,
             smallBlind: props.game.smallBlind,
-            bigBlind: props.game.bigBlind
+            bigBlind: props.game.bigBlind,
+            adminId: props.game.players.find(p=>p.admin).id,
+            adminName: props.game.players.find(p=>p.admin).name,
         }
 
         setTimeout(()=>{
@@ -273,6 +284,9 @@ class OnlineGame extends Component {
             rebuyEnabled,
             amountToCall,
             raiseValue: this.getMinRaise(),
+            adminId: this.props.game.players.find(p=>p.admin).id,
+            adminName: this.props.game.players.find(p=>p.admin).name,
+
         };
         if (!rebuyEnabled){
             newState.rebuyValue = null;
@@ -320,10 +334,15 @@ class OnlineGame extends Component {
     };
 
     setRaiseValue = (newVal) =>{
+        console.log('setRaiseValue, newVal:',newVal)
         newVal = Math.floor(newVal);
         const minRaise = this.getMinRaise();
         const maxRaise = this.getMaxRaise();
         const raiseValue = newVal < (minRaise) ? minRaise : (newVal > (maxRaise) ? maxRaise : newVal )
+        console.log('setRaiseValue, minRaise:',minRaise)
+        console.log('setRaiseValue, maxRaise:',maxRaise)
+        console.log('setRaiseValue, raiseValue:',raiseValue)
+
         this.setState({raiseValue});
     };
 
@@ -479,8 +498,8 @@ class OnlineGame extends Component {
                             { options.includes('Check') && <div id="check-button" className="action-button " onClick={ this.check}> Check </div>}
                             {/* Call button */}
                             { options.includes('Call') && <div id="call-button" className="action-button " onClick={this.call}> Call { this.state.amountToCall} </div>}
-                            {/* Raise.. button */}
-                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> Raise.. </div>}
+                            {/* Raise../Bet.. button */}
+                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') ? 'Raise..' :'Bet..'} </div>}
 
                         </div> }
 
@@ -489,23 +508,23 @@ class OnlineGame extends Component {
                                 {/* Cancel Raise button */}
                                 <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}> Cancel </div>
                                 {/* Raise button */}
-                                 <div id="raise-button" className="action-button" onClick={this.raise}> Raise to {this.state.raiseValue}</div>
+                                 <div id="raise-button" className="action-button" onClick={this.raise}> {options.includes('Call') ? 'Raise to ' :'Bet'}  {this.state.raiseValue}</div>
                                 {/* Add to Raise */}
-                                <div id="raise-button-add-1" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> + </div>
+                                <div id="raise-button-add" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> + </div>
                                 {/* Raise Input */}
                                 <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>
                                 {/* Raise Input Slider */}
                                 <PrettoSlider id="raise-input-slider" valueLabelDisplay="auto" aria-label="pretto slider"   step={1} min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e,val)=> this.setRaiseValue(parseInt(val),10)} />
 
                                 {/* Subtract to Raise */}
-                                <div id="raise-button-sub-1" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
+                                <div id="raise-button-sub" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
 
-                                {/* 2/3 pot */}
-                                <div id="raise-button-2-3" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(2* pot / 3)}> 2/3 pot</div>
-                                {/* 1/2 pot */}
-                                <div id="raise-button-1-2" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>
-                                {/* 1/3 pot */}
-                                <div id="raise-button-1-3" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>
+                                {/* pot */}
+                                {/*<div id="raise-button-pot" className={`action-button pot-raise-smaller-font`} onClick={()=> this.setRaiseValue(pot + (2*game.amountToCall))}> pot</div>*/}
+                                {/*/!* 1/2 pot *!/*/}
+                                {/*<div id="raise-button-1-2" className={`action-button pot-raise-smaller-font ${game.amountToCall > 0 ? 'inactive-button':''} `}  onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>*/}
+                                {/*/!* 1/3 pot *!/*/}
+                                {/*<div id="raise-button-1-3" className={`action-button pot-raise-smaller-font ${game.amountToCall > 0 ? 'inactive-button':''} `}  onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>*/}
                                 {/* all in */}
                                 <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>
 
@@ -600,6 +619,21 @@ class OnlineGame extends Component {
                                       step="1"
                                />
                            </div>
+                            <div className="game-settings-item">
+                                <span className="game-settings-label">Select Game Admin:</span>
+                                <Select
+
+                                    id="select-admin-dropdown"
+                                    value={this.state.adminId}
+                                    onChange={(e) => this.onAdminChange(e.target.value)}
+                                >
+                                    {this.props.game.players.map(player => {
+                                        return  <MenuItem value={player.id}>{ player.name}</MenuItem>
+                                    })}
+
+                                </Select>
+                           </div>
+
                             <div className="game-settings-item">
                               <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
                            </div>

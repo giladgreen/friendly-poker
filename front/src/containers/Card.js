@@ -15,14 +15,14 @@ const Card = (props) => {
         'C':club,
     }
 
-    const { card, folded, left, right, highlight, shown } = props;
+    const { card, folded, left, right, highlight, shown, isMe } = props;
 
-    const number = card && !folded ? card[0].replace('T','10') : '';
-    const sign = card && !folded ? signToSignmap[card[1]] : '';
+    const number = card && (isMe || !folded) ? card[0].replace('T','10') : '';
+    const sign = card && (isMe || !folded) ? signToSignmap[card[1]] : '';
     const color = card ? (['D','H'].includes(card[1]) ? 'red-card' : 'black-card' ) : '';
 
     return  <div key={`card_${card}`} className={`simple-card-base ${left ? 'left-card':'' } ${right ? 'right-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`}>
-                <div className={folded ? 'simple-card-folded' : (card ? 'simple-card-front':'simple-card-back') }>
+                <div className={folded ? (isMe ? 'my-folded-card' :'simple-card-folded') : (card ? 'simple-card-front':'simple-card-back') }>
                     <div className={`card-number ${color}`}>
                         {number}
                     </div>

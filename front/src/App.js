@@ -162,6 +162,10 @@ class App extends Component {
             messageObject.message = `${name} did a rebuy of ${amount}`;
         }
 
+        if (messageObject.action === 'log'){
+            messageObject.message = text;
+        }
+
         if (['Flop','Turn','River'].includes(messageObject.action)){
             messageObject.message = `${messageObject.action}. ${messageObject.board.map(card=> card.replace('T','10')).join(',')}`;
         }
@@ -436,10 +440,17 @@ class App extends Component {
         }
     };
 
-    updateGameSettings = (time,smallBlind,bigBlind) =>{
+    updateGameSettings = (time,smallBlind,bigBlind, adminId) =>{
         const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
+        console.log('emiting updategamesettings')
         this.socket.emit('updategamesettings', {gameId , dateTime, playerId, time,smallBlind,bigBlind, now: (new Date()).getTime() });
+        if (adminId !== playerId){
+            console.log('emiting changeadmin')
+
+            this.socket.emit('changeadmin', {gameId , dateTime, playerId, newAdminId: adminId, now: (new Date()).getTime() });
+        }
+
         this.showAlertMessage('Update Settings Request Sent');
     }
     pauseGame = () =>{

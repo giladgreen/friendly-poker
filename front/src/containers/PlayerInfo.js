@@ -5,20 +5,20 @@ import Card from "./Card";
 
 const PlayerInfo = (props) => {
 
-    const {game, player, index, winningHandCards} = props;
+    const {game, player, index, winningHandCards, isMe} = props;
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
     const card2 = player.cards ? player.cards[1] : null;
     return  <div key={`player_${index}`} id={`player${index+1}`} className={`player ${player.active ? 'active-player' : ''}`}>
-        <div className="player-div">
-            <Card card={card1} folded={!showCards && (player.fold || !game.startDate)} left={true} shown={showCards} highlight={winningHandCards.includes(card1)}/>
-            <Card card={card2} folded={!showCards && (player.fold || !game.startDate)} right={true} shown={showCards} highlight={winningHandCards.includes(card2)}/>
+        <div className={`player-div`}>
+            <Card isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} left={true} shown={showCards} highlight={winningHandCards.includes(card1)}/>
+            <Card isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} right={true} shown={showCards} highlight={winningHandCards.includes(card2)}/>
 
-            <div className="player-info" >
-                <div className="player-name">
+            <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
+                <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
                     {player.name}
                 </div>
-                <div className="player-balance">
+                <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
                     {Math.floor(player.balance)}
                 </div>
             </div>

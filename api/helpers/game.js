@@ -171,6 +171,7 @@ function givePotMoneyToWinners(game) {
       if (relevantPlayers.length === 1) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
+        relevantPlayers[0].winner = true;
         return;
       }
       const winnerHands = Hand.winners(relevantPlayers.map(p => p.solvedHand));
@@ -188,6 +189,7 @@ function givePotMoneyToWinners(game) {
             };
           }
           p.balance += amountWon;
+          p.winner = true;
           game.pot -= amountWon;
 
 

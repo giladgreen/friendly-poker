@@ -70,6 +70,7 @@ function startNewHand(game, dateTime) {
     }
     player.pot = [0, 0, 0, 0];
 
+    delete player.winner;
     delete player.showingCards;
     delete player.totalPot;
     delete player.allIn;
