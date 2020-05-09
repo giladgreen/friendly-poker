@@ -22,6 +22,7 @@ function onSkipHandEvent(socket, { gameId, dateTime, playerId }) {
       throw new Error('non admin player cannot skip hand');
     }
 
+    game.players.forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
     GamesService.startNewHand(game, dateTime);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
 

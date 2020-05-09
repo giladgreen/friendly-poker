@@ -1,6 +1,9 @@
 const logger = require('../services/logger');
+const GamesService = require('../services/games');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const { onPlayerActionEvent } = require('./playerAction');
+const { CHECK, FOLD } = require('../consts');
 
 function onKickOutEvent(socket, {
   playerId, gameId, now, playerToKickId,
@@ -28,17 +31,45 @@ function onKickOutEvent(socket, {
       throw new Error('did not find player to kick');
     }
 
-    const playerData = game.playersData.find(p => p.id === playerToKickId);
-    playerData.cashOut = { amount: player.balance, time: now };
-    game.moneyInGame -= player.balance;
+    if (playerToKick.active) {
+      if (playerToKick.options.includes(CHECK)) {
+        onPlayerActionEvent(null, {
+          dateTime: now,
+          op: CHECK,
+          gameId,
+          hand: game.hand,
+          playerId: playerToKickId,
+        });
+        game.messages.push({
+          action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was Checked by admin`,
+        });
+      } else {
+        onPlayerActionEvent(null, {
+          dateTime: now,
+          op: FOLD,
+          gameId,
+          hand: game.hand,
+          playerId: playerToKickId,
+        });
+        game.messages.push({
+          action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was Folded by admin`,
+        });
+      }
+      GamesService.resetHandTimer(game, onPlayerActionEvent);
+    } else {
+      const playerData = game.playersData.find(p => p.id === playerToKickId);
+      playerData.cashOut = { amount: player.balance, time: now };
+      game.moneyInGame -= player.balance;
 
-    game.players = game.players.filter(p => p.id !== playerToKickId);
-    if (game.players.filter(p => !p.sitOut).length < 2) {
-      game.paused = true;
+      game.players = game.players.filter(p => p.id !== playerToKickId);
+      if (game.players.filter(p => !p.sitOut).length < 2) {
+        game.paused = true;
+      }
+      game.messages.push({
+        action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was removed from the game`,
+      });
     }
-    game.messages.push({
-      action: 'kickout', name: player.name, popupMessage: `${playerToKick.name} was removed from the game`,
-    });
+
 
     updateGamePlayers(game);
   } catch (e) {
