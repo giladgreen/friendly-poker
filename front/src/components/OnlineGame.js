@@ -124,6 +124,11 @@ class OnlineGame extends Component {
         this.setState({showSettings:false})
     }
 
+    SkipHand = ()=>{
+        this.props.SkipHand();
+        this.setState({showSettings:false})
+    }
+
     onSendMessage = ()=>{
         this.props.sendMessage(this.state.chatMessage);
         this.setState({chatMessage:''});
@@ -437,7 +442,8 @@ class OnlineGame extends Component {
             this.props.showAlertMessage('link copied')
         };
 
-        const quitEnabled = (me && !me.admin && (me.fold || me.sitOut || !startDate)) || (me && me.admin && (game.players.length === 1));
+        const skipHandEnabled = me && me.admin && startDate;
+        const quitEnabled = me && ((!me.admin && (me.fold || me.sitOut || !startDate)) || (me.admin && (game.players.length === 1)));
         const standSitEnabled = startDate && me && (me.sitOut || me.fold);
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.length>1;
@@ -567,6 +573,7 @@ class OnlineGame extends Component {
                 {/* settings button */}
                 { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
 
+
                 {/* start game button */}
                 { startButtonEnabled && <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>}
                 {/* pause button */}
@@ -637,6 +644,8 @@ class OnlineGame extends Component {
                             <div className="game-settings-item">
                               <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
                            </div>
+
+                            {skipHandEnabled && <div id="force-skip-hand-button" className="active-button" onClick={this.SkipHand}>Force Skip Hand</div>}
 
                         </div>
                     </Fade>

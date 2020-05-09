@@ -515,6 +515,16 @@
 
     margin-bottom: 3vh;
 }
+#force-skip-hand-button{
+    background: orangered;
+    color: white;
+    width: 15vw;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1.5em;
+    margin-left: 20vw;
+}
 .game-settings-label{
     font-size: 2em;
     margin-left: 2vw;

@@ -414,6 +414,15 @@ class App extends Component {
         }
     };
 
+    SkipHand = () =>{
+        if (confirm("Are you sure?")){
+            const dateTime =(new Date()).getTime();
+            const { gameId, playerId } = this.state;
+            console.log('emiting skiphand');
+            this.socket.emit('skiphand', {gameId , dateTime, playerId });
+        }
+    };
+
     deleteGame = (gameId) =>{
         if (confirm("Are you sure?")){
             const { playerId } = this.state;
@@ -597,6 +606,7 @@ class App extends Component {
                     rebuy={this.rebuy}
                     sitBack={this.sitBack}
                     standUp={this.standUp}
+                    SkipHand={this.SkipHand}
                     quitGame={this.quitGame}
                     sendMessage={this.sendMessage}
                     action={this.action}

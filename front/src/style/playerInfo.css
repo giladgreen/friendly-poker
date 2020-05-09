@@ -250,7 +250,7 @@
 }
 .kickOut-button{
     position: absolute;
-    width: 3.5vw;
+    width: 5.5vw;
     height: 1.1vw;
     font-weight: bold;
     border-radius: 0px 0px 10px 10px;
@@ -264,12 +264,20 @@
     alignment: center;
     text-align: center;
     top:9.7vh;
-    left:11.4vw;
+    left:9.4vw;
     cursor: pointer;
+}
+.force-action-button{
+    color: black;
+    background: #ffff3399;
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    padding-top: 0.4vh;
 }
 .player-sitOut-indication{
     position: absolute;
-    width: 12vw;
+    width: 15vw;
     height: 2.2vw;
     border-radius: 10px;
     background: black;
