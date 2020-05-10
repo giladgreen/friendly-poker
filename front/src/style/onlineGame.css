@@ -512,19 +512,9 @@
     margin-bottom: 4vh;
 }
 .game-settings-item{
-
     margin-bottom: 3vh;
 }
-#force-skip-hand-button{
-    background: orangered;
-    color: white;
-    width: 15vw;
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 10px;
-    font-size: 1.5em;
-    margin-left: 20vw;
-}
+
 .game-settings-label{
     font-size: 2em;
     margin-left: 2vw;
@@ -554,7 +544,16 @@
     border: 1px solid white;
     border-radius: 8px;
 }
-
+#force-skip-hand-button{
+    background: orangered;
+    color: white;
+    width: 15vw;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1.5em;
+    margin-left: 20vw;
+}
 #select-admin-label{
     color: white;
     font-size: 2em;
@@ -756,7 +755,8 @@
 
     #your-turn-indication{
         font-size: 0.7em;
-        top: 45vh;
+        top: 27vh;
+        left:-3vw;
     }
 
     #table-image{
@@ -867,4 +867,27 @@
         color: black;
     }
 
+    #game-settings-save-button{
+        margin-top: 1vw;
+        margin-left: 15vw;
+        cursor: pointer;
+        width: 49vw;
+        font-size: 1.5em;
+        background: green;
+        color: white;
+        text-align: center;
+        border: 1px solid white;
+        border-radius: 8px;
+    }
+    #force-skip-hand-button{
+        background: orangered;
+        color: white;
+        width: 27vw;
+        text-align: center;
+        border: 2px solid white;
+        border-radius: 10px;
+        font-size: 1em;
+        margin-left: 50vw;
+
+    }
 }

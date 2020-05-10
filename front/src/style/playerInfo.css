@@ -318,12 +318,11 @@
 
     .active-player{
         background: rgba(232,174,0,0.53);
-        -webkit-box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
-        -moz-box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
-        box-shadow: -3px 4px 15px 12px rgba(232,174,0,0.58);
-        border-radius: 20%;
+        -webkit-box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+        -moz-box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+        box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
+        border-radius: 35%;
     }
-
     .player-info{
         border-radius: 5px;
         left: 5.2vw;
@@ -334,6 +333,22 @@
         padding-top: 1vh;
         padding-left: 5vh;
     }
+    .active-player-info{
+        background: #ffff33;
+        border: 1px solid black;
+        color: black;
+        font-weight: bold;
+        border-radius: 15px;
+
+    }
+    .winner-player{
+        background: #44ffff99;
+        border: 1px solid #3333ff;
+        color: black;
+        font-weight: bold;
+        border-radius: 15px;
+    }
+
 
     .dealer-button{
         font-size: 0.5em;
@@ -352,7 +367,19 @@
     }
 
     .player-status{
-        font-size: 0.5em;
+        width: 5vw;
+        height: 1.9vw;
+        border-radius: 20px;
+        background: #117a8b;
+        color: white;
+        font-weight: bold;
+        font-size: 0.4em;
+        z-index: 30;
+        padding-top: 0px;
+        alignment: center;
+        text-align: center;
+        top:9.2vh;
+        left:1.1vw;
     }
 
     .player-offline-indication{
@@ -400,4 +427,62 @@
         top:5.7vh;
         left:-9.7vw;
     }
+
+
+    .kickOut-button{
+        position: absolute;
+        width: 6.9vw;
+        height: 2.4vw;
+        font-weight: bold;
+        border-radius: 0px 0px 3px 3px;
+        background: white;
+        color: brown;
+        font-size: 0.1em;
+        border-bottom: 1px solid black;
+        border-left: 1px solid transparent;
+        border-right: 1px solid black;
+        z-index: 41;
+        alignment: center;
+        text-align: center;
+        top:9.3vh;
+        left:8vw;
+        cursor: pointer;
+        padding-top: 4px;
+    }
+    .force-action-button{
+        width: 8.5vw;
+        height: 3.3vw;
+        font-weight: bold;
+        color: black;
+        background: #ffff33;
+        border-radius: 0px 0px 3px 3px;
+        font-size: 0.1em;
+        border-bottom: 1px solid black;
+        border-left: 1px solid transparent;
+        border-right: 1px solid black;
+        z-index: 41;
+        alignment: center;
+        text-align: center;
+        top:7.5vh;
+        left:6.5vw;
+        cursor: pointer;
+        padding-top: 8px;
+    }
+    .player-sitOut-indication{
+        position: absolute;
+        width: 15vw;
+        height: 2.2vw;
+        border-radius: 10px;
+        background: black;
+        color: white;
+        font-weight: normal;
+        font-size: 0.3em;
+        z-index: 12;
+        padding-top: 3px;
+        alignment: center;
+        text-align: center;
+        top:13.7vh;
+        left:0vw;
+    }
+
 }

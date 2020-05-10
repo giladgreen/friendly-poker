@@ -167,12 +167,12 @@
     }
 
     .action-button{
-        top: 75vh;
+        top: 81vh;
         border-radius: 10px;
-        height: 7vh;
+        height: 7.8vh;
         width: 7.5vw;
         font-size: 0.6em;
-        padding-top: 1vh;
+        padding-top: 1.3vh;
     }
 
     #show-cards-button{
@@ -183,49 +183,41 @@
     #raise-button{
         right: 9vw;
         background: #9fffbb77;
-        width: 10.5vw;
+        width: 16vw;
     }
 
     .raise-button-add-remove{
-        height: 7vh;
-        width: 4vw;
+        height: 7.8vh;
+        width: 6vw;
         font-size: 1em;
         padding-top: 0.1vh;
     }
 
-    #raise-button-add-1{
-        right: 20.5vw;
-        border-radius: 0px 10px 10px 0px;
+    #raise-button-add{
+        right: 22vw;
     }
-
     #raise-input{
-        top: 75vh;
-        right: 24.5vw;
+        top: 81vh;
+        right: 27.5vw;
         height: 4vh;
-        width: 8vw;
+        width: 10vw;
         font-size: 0.8em;
         border-radius: 0px;
     }
     #raise-input-slider{
-        top: 73.8vh;
+        top: 80vh;
+        right: 27.5vw;
+
+        width: 10vw;
+    }
+    #raise-button-sub{
+        right: 37.5vw;
     }
 
-    .pot-raise-smaller-font{
-        font-size: 0.6em;
-        width: 7vw;
-    }
-    #raise-button-2-3{
-        right: 37vw;
-    }
-    #raise-button-1-2{
-        right: 45vw;
-    }
-    #raise-button-1-3{
-        right: 53vw;
-    }
+
     #all-in-button{
-        right: 61vw;
-        width: 5.5vw;
+        right: 45vw;
+        width: 7.5vw;
         font-size: 0.5em;
     }
 

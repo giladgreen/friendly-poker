@@ -29,7 +29,7 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
     } else {
       delete game.paused;
       GamesService.resetHandTimer(game, onPlayerActionEvent);
-      game.messages.push({ action: 'game_resumed', popupMessage: 'game resumed' });
+      game.messages.push({ action: 'game_resumed', popupMessage: 'game resumed', log: true });
     }
 
 

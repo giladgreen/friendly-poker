@@ -271,8 +271,8 @@
 }
 @media only screen and (max-width: 800px) {
     .config-screens-top-level-sections{
-        top:13vh;
-        height: 81.8vh;
+        top:12vh;
+        height: 81.4vh;
         border: 2px solid gray;
         border-radius: 8px;
     }
@@ -286,8 +286,15 @@
         left:62vw;
         width: 36vw;
     }
+    .config-screens-top-level-sections-header{
+        top:14vh;
+        height: 3vh;
+        font-size: 3vw;
+
+    }
 
     .config-screens-top-level-sections-body{
+        top:23vh;
         height: 66vh;
         border: 2px solid gray;
         border-radius: 9px;
@@ -351,7 +358,7 @@
     #create-game-button{
         font-size:  1.2em;
         position: fixed;
-        top:79vh;
+        top:76.3vh;
         height: 10vh;
         left:24vw;
         width: 15.5vw;

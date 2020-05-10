@@ -3,26 +3,21 @@
     background: transparent;
     color: white;
     width: 100vw;
-    padding-left: 7vw;
-    padding-right: 15vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
     padding-top: 10px;
-
-    position:relative;
-}
-
-
-#join-screen #two-sections{
-    margin-top: 10vh;
-    border: 5px solid transparent;
-    height: 80vh;
+    position:fixed;
 }
 
 #join-game-section{
+    position: fixed;
+    top: 13vh;
+    left: 2vw;
     background: #111111;
     border: 4px solid grey;
-    border-radius: 10px;
-    height: 76vh;
-    width: 60%;
+    border-radius: 25px;
+    height: 70vh;
+    width: 50vw;
     padding: 20px;
     z-index: 1;
     margin-right: 2vw;
@@ -31,10 +26,11 @@
 
 #join-game-section header{
    font-size: 2.6em;
+    text-align: center;
 }
 
 #join-game-section div{
-margin-top: 2vh
+    margin-top: 2vh
 }
 
 #join-screen #join-button-div{
@@ -54,7 +50,6 @@ margin-top: 2vh
     font-weight: bold;
     font-size: 3.8em;
     text-align: center;
-
 }
 
 #join-screen #join-button-full-game{
@@ -71,12 +66,14 @@ margin-top: 2vh
 }
 
 #existing-players{
+    position: fixed;
+    top: 13vh;
+    left: 57vw;
+    height: 70vh;
+    width: 40vw;
     background: #111111;
     border: 4px solid grey;
-    border-radius: 10px;
-
-    width: 33%;
-    height: 76vh;
+    border-radius: 25px;
     padding: 20px;
     z-index: 1;
 }
@@ -111,62 +108,67 @@ margin-top: 2vh
     border-radius: 6px;
 }
 @media only screen and (max-width: 800px) {
+
     #join-screen{
-        padding-left: 2vw;
-        padding-right: 2vw;
-    }
-    #join-game-section header{
-        font-size: 1em;
-    }
-
-    #join-game-section div{
-        margin-top: 0.2vh;
-        font-size: 0.5em;
-    }
-
-    #join-screen #two-sections{
-        margin-top: 8vh;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-top: 10px;
     }
 
     #join-game-section{
-        border: 2px solid grey;
-        height: 82vh;
-        width: 60%;
-        padding: 20px;
-        z-index: 1;
+
+        top: 13vh;
+        left: 2vw;
+        border-radius: 25px;
+        height: 80vh;
+        width: 50vw;
+        padding: 10px;
         margin-right: 2vw;
+        font-size: 1em;
+    }
+
+    #join-game-section header{
+        font-size: 1.6em;
+    }
+
+    #join-game-section div{
+        margin-top: 1.8vh
     }
 
     #join-screen #join-button-div{
-        margin-top: 10px;
-        font-size: 1.8em;
+        font-size: 1.3em;
     }
 
-
+    #join-screen #join-button{
+        border-radius: 10px;
+    }
     #join-screen #join-button-full-game-div{
-        font-size: 2em;
+
+        font-size: 3.8em;
     }
 
+    #join-screen #join-button-full-game{
+        border-radius: 10px;
+    }
 
     #existing-players{
-        border: 2px solid grey;
-        width: 35%;
-        height: 82vh;
-        padding: 20px;
-        z-index: 1;
-    }
 
+        top: 13vh;
+        left: 57vw;
+        height: 80vh;
+        width: 40vw;
+
+        border-radius: 25px;
+        padding: 10px;
+
+    }
 
     #existing-players-list{
-        font-size: 1em;
+        font-size: 1.4em;
     }
-    #join-game-inputs{
-        font-size: 0.8em;
-    }
-    #join-game-inputs input{
-        margin-bottom: 5px;
-        padding-left: 10px;
-        border-radius: 2px;
-
+    .join-game-input{
+        margin-bottom: 15px;
+        padding-left: 15px;
+        border-radius: 6px;
     }
 }

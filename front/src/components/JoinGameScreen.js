@@ -60,9 +60,9 @@ class JoinGameScreen extends Component {
             return <Loader/>;
         }
         return (
-            <div id="join-screen"  className="container">
-                <div id="two-sections" className="row">
-                    <div id="join-game-section" className="col-xs-7" >
+            <div id="join-screen"  >
+
+                    <div id="join-game-section"  >
                         <header>
                             Join Game
                         </header>
@@ -101,7 +101,7 @@ class JoinGameScreen extends Component {
 
                     </div>
 
-                    <div id="existing-players" className="col-xs-4">
+                    <div id="existing-players">
                         <header>
                             {this.props.game.players.length} Player{this.props.game.players.length>1 ? 's':''}
                         </header>
@@ -119,7 +119,7 @@ class JoinGameScreen extends Component {
                             }
                         </div>
                     </div>
-                </div>
+
             </div>
         );
 
