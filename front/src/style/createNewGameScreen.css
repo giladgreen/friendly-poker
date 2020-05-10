@@ -358,8 +358,8 @@
     #create-game-button{
         font-size:  1.2em;
         position: fixed;
-        top:76.3vh;
-        height: 10vh;
+        top:75vh;
+        height: 9vh;
         left:24vw;
         width: 15.5vw;
     }

@@ -48,11 +48,11 @@ const PrettoSlider = withStyles({
         color: 'transparent'
     },
     track: {
-        height: isMobile ? 12 : 24,
+        height: isMobile ? 11 : 24,
         borderRadius: 0,
     },
     rail: {
-        height: isMobile ? 12 : 24,
+        height: isMobile ? 11 : 24,
         borderRadius: 0,
     },
 })(Slider);

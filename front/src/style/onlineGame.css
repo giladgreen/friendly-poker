@@ -636,7 +636,7 @@
 
     #rebuy-button{                                            /*<---*/
         border-radius: 8px;
-        top:22vh;
+        top:21vh;
         padding-top: 0vh;
         right:1vw;
         font-size: 0.4em;
@@ -646,7 +646,7 @@
 
     #stand-sit-button{                                          /*<---*/
         border-radius: 8px;
-        top:32vh;
+        top:30vh;
         right:1vw;
         font-size: 0.2em;
         height: 8vh;
@@ -658,7 +658,7 @@
 
     #info-button{
         border-radius: 8px;
-        top:42vh;
+        top:39vh;
         font-size: 0.4em;
         height: 8vh;
         width: 12vw;
@@ -667,7 +667,7 @@
     }
     #quit-button{
         border-radius: 8px;
-        top:52vh;
+        top:48vh;
         right:1vw;
         font-size: 0.4em;
         height: 8vh;
@@ -677,10 +677,9 @@
 
     }
 
-
     #game-logs-button{
         border-radius: 8px;
-        top:62vh;
+        top:57vh;
         font-size: 0.4em;
         height: 8vh;
         width: 12vw;
@@ -689,7 +688,7 @@
     }
     #game-settings-button{
         border-radius: 8px;
-        top:72vh;
+        top:66vh;
         font-size: 0.4em;
         height: 8vh;
         width: 12vw;
@@ -698,7 +697,7 @@
     }
 
     #actual-rebuy-button{
-        top:54vh;
+        top:52vh;
         font-size: 0.4em;
         height: 8vh;
         width: 12vw;
@@ -707,21 +706,37 @@
     }
 
     #rebuy-section{
-        top:20.5vh;
+        top:10vh;
         border-radius: 5px;
         padding: 10px;
         padding-top: 11vh;
         padding-right: 1.3vh;
         right:0.5vw;
         width: 13vw;
-        height: 43vh;
+        height: 59vh;
         font-size: 1em;
         text-align: center;
+        background-image: linear-gradient(red, yellow);
+
     }
 
+    #rebuy-label{
+        position: fixed;
+        top: 30vh;
+        right:0.5vw;
+        width: 13vw;
+        text-align: center;
+    }
     #rebuy-input{
-        width: 10vw;
-        border-radius: 7px;
+        position: fixed;
+        top: 30vh;
+        right: 2vw;
+        margin-top: 10vh;
+        width: 9.5vw;
+        padding-left: 0.5vw;
+        text-align: center;
+        border-radius: 10px;
+
     }
 
     #clock{

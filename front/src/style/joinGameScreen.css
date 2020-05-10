@@ -34,10 +34,15 @@
 }
 
 #join-screen #join-button-div{
+    position: fixed;
+    top: 65vh;
+    height: 10vh;
     margin-top: 10px;
     font-weight: bold;
     font-size: 2em;
     text-align: center;
+    width: 50vw;
+    left: 2vw;
 }
 
 #join-screen #join-button{
@@ -46,10 +51,15 @@
     border-radius: 10px;
 }
 #join-screen #join-button-full-game-div{
+    position: fixed;
+    top: 65vh;
+    height: 10vh;
     margin-top: 10px;
     font-weight: bold;
-    font-size: 3.8em;
+    font-size: 3em;
     text-align: center;
+    width: 50vw;
+    left: 2vw;
 }
 
 #join-screen #join-button-full-game{
@@ -132,42 +142,39 @@
     }
 
     #join-game-section div{
-        margin-top: 1.8vh
+        margin-top: 1.4vh
     }
 
     #join-screen #join-button-div{
         font-size: 1.3em;
+        top: 74vh;
     }
 
     #join-screen #join-button{
         border-radius: 10px;
     }
     #join-screen #join-button-full-game-div{
-
-        font-size: 3.8em;
+        font-size: 1.1em;
+        top: 74vh;
+        height: 10vh;
     }
 
-    #join-screen #join-button-full-game{
-        border-radius: 10px;
-    }
 
     #existing-players{
-
         top: 13vh;
         left: 57vw;
         height: 80vh;
         width: 40vw;
-
         border-radius: 25px;
         padding: 10px;
 
     }
 
     #existing-players-list{
-        font-size: 1.4em;
+        font-size: 1em;
     }
     .join-game-input{
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         padding-left: 15px;
         border-radius: 6px;
     }
