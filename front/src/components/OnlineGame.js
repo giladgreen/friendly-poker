@@ -180,6 +180,7 @@ class OnlineGame extends Component {
             userTimer:0,
             options:[],
             rebuyValue: null,
+            checkFoldPressed: false,
             showSettings: false,
             rebuySectionOpen: false,
             showInfoScreen: false,
@@ -276,7 +277,17 @@ class OnlineGame extends Component {
                 }
             },1000)
         }
-
+        let checkFoldPressed = this.state.checkFoldPressed;
+        if (isMyTurn){
+            if (this.state.checkFoldPressed){
+                if (options.includes('Check')){
+                    this.check();
+                } else{
+                    this.fold();
+                }
+                checkFoldPressed = false;
+            }
+        }
         const newState = {
             me,
             showingCards,
@@ -291,7 +302,7 @@ class OnlineGame extends Component {
             raiseValue: this.getMinRaise(),
             adminId: this.props.game.players.find(p=>p.admin).id,
             adminName: this.props.game.players.find(p=>p.admin).name,
-
+            checkFoldPressed,
         };
         if (!rebuyEnabled){
             newState.rebuyValue = null;
@@ -373,6 +384,10 @@ class OnlineGame extends Component {
         return val < 0 ? 0 : (val > 100 ? 100 : val)
     }
 
+    checkFold = ()=>{
+        console.log('### setting checkFoldPressed:', !this.state.checkFoldPressed)
+        this.setState({checkFoldPressed: !this.state.checkFoldPressed});
+    }
     fold = ()=>{
         if (this.state.options.includes('Check')){
             if (confirm("There is no Raise, are you shure you want to Fold?")){
@@ -507,6 +522,11 @@ class OnlineGame extends Component {
                             {/* Raise../Bet.. button */}
                             { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') ? 'Raise..' :'Bet..'} </div>}
 
+                        </div> }
+                        {/* Check/Fold */}
+                        { me && !me.active && !me.sitOut && !me.fold && !me.allIn && game.startDate && <div>
+                            {/* Check/Fold button */}
+                            <div id="check-fold-button" className={`${this.state.checkFoldPressed ? 'check-fold-button-pressed' : 'check-fold-button-not-pressed'}`} onClick={this.checkFold}> Check/Fold </div>
                         </div> }
 
                         {/* Raise options */}

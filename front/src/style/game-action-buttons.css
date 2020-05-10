@@ -53,6 +53,30 @@
     background: #cd5c5cDD;
 }
 
+#check-fold-button{
+    right: 2vw;
+    width: 12.5vw;
+    position: fixed;
+    top: 81vh;
+    border: 2px solid grey;
+    border-radius: 15px;
+    height: 7vh;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 0.7vh;
+    cursor: pointer;
+}
+
+#check-fold-button:hover{
+    background: #cd5c5cCC;
+}
+.check-fold-button-pressed{
+    background: #cd5c5cFF;
+}
+.check-fold-button-not-pressed{
+    background: #66666666;
+}
 #toggle-raise-button{
     right: 11vw;
     background: #9fcdbb77
@@ -219,6 +243,22 @@
         right: 45vw;
         width: 7.5vw;
         font-size: 0.5em;
+    }
+
+
+    #check-fold-button{
+        right: 3vw;
+        width: 20.5vw;
+        position: fixed;
+        top: 81vh;
+        border: 2px solid grey;
+        border-radius: 15px;
+        height: 8vh;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        padding-top: 0.3vh;
+        cursor: pointer;
     }
 
 }

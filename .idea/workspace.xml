@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="" />
+    <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/cards.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/cards.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/game-action-buttons.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/game-action-buttons.css" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +20,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="310" column="7" selection-start-line="310" selection-end-line="311" />
+            <state relative-caret-position="181">
+              <caret line="311" lean-forward="true" selection-start-line="311" selection-end-line="311" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="293" column="22" selection-start-line="293" selection-start-column="22" selection-end-line="293" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -52,10 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
+            <state relative-caret-position="238">
               <caret line="21" column="105" selection-start-line="21" selection-start-column="105" selection-end-line="21" selection-end-column="105" />
             </state>
           </provider>
@@ -64,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="219" column="16" selection-start-line="219" selection-start-column="16" selection-end-line="219" selection-end-column="16" />
+            <state relative-caret-position="432">
+              <caret line="261" column="5" lean-forward="true" selection-start-line="261" selection-start-column="5" selection-end-line="261" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -86,13 +99,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="567" column="98" selection-start-line="567" selection-start-column="84" selection-end-line="567" selection-end-column="98" />
+            <state relative-caret-position="257">
+              <caret line="458" lean-forward="true" selection-start-line="458" selection-end-line="458" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#131#0" expanded="true" />
                 <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
                 <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+                <element signature="e#7553#8535#0" />
               </folding>
             </state>
           </provider>
@@ -103,18 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="413">
               <caret line="169" column="28" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/components/JoinGameScreen.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="103" column="46" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -131,12 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>player.options.</find>
-      <find>active</find>
-      <find>log)</find>
-      <find>game-settings-item</find>
-      <find>quitEnabled</find>
-      <find>next hand</find>
       <find>player-sitOut-indication</find>
       <find>private-game</find>
       <find>create-new-game-section-body</find>
@@ -146,7 +142,6 @@
       <find>raise-button-add-1</find>
       <find>raise-button-add</find>
       <find>raise-input-slider</find>
-      <find>raise-button</find>
       <find>active-player-info</find>
       <find>active-player</find>
       <find>kickOut-button</find>
@@ -159,8 +154,15 @@
       <find>info</find>
       <find>toggleShowInfo</find>
       <find>exit-game-info-screen-button</find>
-      <find>player-status</find>
       <find>game resumed</find>
+      <find>raiseEnabled</find>
+      <find>fold-button</find>
+      <find>checkFold</find>
+      <find>checkFoldPressed</find>
+      <find>raise-button</find>
+      <find>player-status</find>
+      <find>simple-card-folded</find>
+      <find>folded</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
@@ -208,20 +210,20 @@
         <option value="$PROJECT_DIR$/api/eventHandlers/createGame.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/playerAction.js" />
         <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
-        <option value="$PROJECT_DIR$/front/src/style/cards.css" />
         <option value="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" />
         <option value="$PROJECT_DIR$/api/services/games.js" />
         <option value="$PROJECT_DIR$/front/src/App.js" />
         <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
-        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
         <option value="$PROJECT_DIR$/front/src/style/joinGameScreen.css" />
-        <option value="$PROJECT_DIR$/front/src/style/game-action-buttons.css" />
         <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
         <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/resumeGame.js" />
+        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
+        <option value="$PROJECT_DIR$/front/src/style/game-action-buttons.css" />
+        <option value="$PROJECT_DIR$/front/src/style/cards.css" />
       </list>
     </option>
   </component>
@@ -254,6 +256,26 @@
               <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
               <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
               <item name="front" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="style" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -322,15 +344,15 @@
       <workItem from="1588762236997" duration="5519000" />
       <workItem from="1588770988061" duration="14981000" />
       <workItem from="1588848253129" duration="3665000" />
-      <workItem from="1588874263942" duration="19106000" />
+      <workItem from="1588874263942" duration="21694000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103781000" />
+    <option name="totallyTimeSpent" value="106369000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="952" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24786325" />
@@ -347,7 +369,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.69350964" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.20071685" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -602,13 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="212" column="14" selection-start-line="212" selection-start-column="14" selection-end-line="212" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/services/games.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -683,13 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="219" column="16" selection-start-line="219" selection-start-column="16" selection-end-line="219" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -701,19 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="567" column="98" selection-start-line="567" selection-start-column="84" selection-end-line="567" selection-end-column="98" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#131#0" expanded="true" />
-            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
-            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -721,13 +716,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="310" column="7" selection-start-line="310" selection-end-line="311" />
         </state>
       </provider>
     </entry>
@@ -747,8 +735,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/front/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
+        <state relative-caret-position="238">
           <caret line="21" column="105" selection-start-line="21" selection-start-column="105" selection-end-line="21" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="458" lean-forward="true" selection-start-line="458" selection-end-line="458" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#131#0" expanded="true" />
+            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+            <element signature="e#7553#8535#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="261" column="5" lean-forward="true" selection-start-line="261" selection-start-column="5" selection-end-line="261" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="311" lean-forward="true" selection-start-line="311" selection-end-line="311" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="293" column="22" selection-start-line="293" selection-start-column="22" selection-end-line="293" selection-end-column="22" />
         </state>
       </provider>
     </entry>
