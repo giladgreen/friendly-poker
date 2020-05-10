@@ -47,8 +47,9 @@
 
 #join-screen #join-button{
     padding: 5px 10px;
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 10px;
+    background: #155724;
 }
 #join-screen #join-button-full-game-div{
     position: fixed;
@@ -147,11 +148,14 @@
 
     #join-screen #join-button-div{
         font-size: 1.3em;
-        top: 74vh;
+        top: 27vh;
+        left:19vw;
     }
 
     #join-screen #join-button{
         border-radius: 10px;
+        background-image: linear-gradient(green, #155724);
+
     }
     #join-screen #join-button-full-game-div{
         font-size: 1.1em;

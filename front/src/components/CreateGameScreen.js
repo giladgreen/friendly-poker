@@ -134,6 +134,14 @@ class CreateGameScreen extends Component {
                                    className={this.state.showErrors ? 'red-border':''}
                                    type="text"
                                    value={this.state.name}
+                                   onKeyUp={(event)=>{
+
+                                       event.preventDefault();
+                                       if (event.keyCode === 13) {
+                                           this.onCreate();
+                                       }
+                                   }}
+
                                    onChange={(e)=>this.setName(e.target.value)} />
 
                         </div>

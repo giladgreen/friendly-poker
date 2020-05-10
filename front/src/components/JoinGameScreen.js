@@ -77,7 +77,20 @@ class JoinGameScreen extends Component {
                         </div>
 
                         <div>
-                            Name: <input  disabled={this.props.game.players.length >= 8} className={`join-game-input name-input ${this.state.showErrors ? 'red-border':''}`} type="text" value={this.state.name} onChange={(e)=>this.setName(e.target.value)} />
+                            Name: <input
+                            disabled={this.props.game.players.length >= 8}
+                            className={`join-game-input name-input 
+                            ${this.state.showErrors ? 'red-border':''}`}
+                            type="text" value={this.state.name}
+                            onKeyUp={(event)=>{
+
+                                event.preventDefault();
+                                if (event.keyCode === 13) {
+                                    this.onJoin();
+                                }
+                            }}
+
+                            onChange={(e)=>this.setName(e.target.value)} />
                         </div>
                         <div>
                             Initial Buy-In:  <input
