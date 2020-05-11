@@ -19,26 +19,44 @@ function onJoinGameEvent(socket, {
     if (game.players.some(p => p.id === playerId)) {
       throw new Error('already joined game');
     }
-    game.messages.push({
-      action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
-    });
 
-    game.players.push({
-      id: playerId,
-      name,
-      balance,
-      sitOut: true,
-      pot: [0],
-      justJoined: true,
-    });
-    game.moneyInGame += balance;
-    game.pendingPlayers.push(playerId);
-    game.playersData.push({
-      id: playerId,
-      name,
-      buyIns: [{ amount: balance, time: now }],
-    });
+    const adminPlayer = game.players.find(p => p.admin);
+    if (!adminPlayer) {
+      throw new Error('did not find admin player');
+    }
+    if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
+      const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
+      if (!adminSocket) {
+        throw new Error('did not find admin socket');
+      }
+      game.pendingJoin.push({
+        playerId, name, balance,
+      });
+      socket.emit('operationpendingaproval');
+      game.messages.push({
+        action: 'pendingjoin', name, balance, log: true, popupMessage: `${name} has requested to join the game`,
+      });
+    } else {
+      game.messages.push({
+        action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
+      });
 
+      game.players.push({
+        id: playerId,
+        name,
+        balance,
+        sitOut: true,
+        pot: [0],
+        justJoined: true,
+      });
+      game.moneyInGame += balance;
+      game.pendingPlayers.push(playerId);
+      game.playersData.push({
+        id: playerId,
+        name,
+        buyIns: [{ amount: balance, time: now }],
+      });
+    }
     updateGamePlayers(game);
   } catch (e) {
     logger.error('failed to join game. ', e.message);

@@ -21,18 +21,37 @@ function onRebuyEvent(socket, {
     if (!game.paused && !game.handOver && player.balance !== 0 && !player.sitOut && !player.fold) {
       throw new Error('can not perform rebuy mid-hand');
     }
-    player.balance += amount;
-    if (player.sitOut && player.sitOutByServer) {
-      game.pendingPlayers.push(playerId);
-      delete player.sitOutByServer;
-    }
-    const playerData = game.playersData.find(p => p.id === playerId);
-    playerData.buyIns.push({ amount, time: now });
-    game.moneyInGame += amount;
 
-    game.messages.push({
-      action: 'rebuy', name: player.name, amount, popupMessage: `${player.name}, rebuy: ${amount}`, log: true,
-    });
+    const adminPlayer = game.players.find(p => p.admin);
+    if (!adminPlayer) {
+      throw new Error('did not find admin player');
+    }
+    if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
+      const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
+      if (!adminSocket) {
+        throw new Error('did not find admin socket');
+      }
+
+      game.pendingRebuy.push({
+        playerId, amount, name: player.name,
+      });
+      game.messages.push({
+        action: 'pendingrebuy', name: player.name, amount, log: true, popupMessage: `${player.name} has requested to rebuy: ${amount}`,
+      });
+    } else {
+      player.balance += amount;
+      if (player.sitOut && player.sitOutByServer) {
+        game.pendingPlayers.push(playerId);
+        delete player.sitOutByServer;
+      }
+      const playerData = game.playersData.find(p => p.id === playerId);
+      playerData.buyIns.push({ amount, time: now });
+      game.moneyInGame += amount;
+
+      game.messages.push({
+        action: 'rebuy', name: player.name, amount, popupMessage: `${player.name}, rebuy: ${amount}`, log: true,
+      });
+    }
 
     updateGamePlayers(game);
   } catch (e) {

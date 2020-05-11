@@ -19,6 +19,10 @@ const { onUpdateGameSettingsEvent } = require('./updateGameSettings');
 const { onKickOutEvent } = require('./kickout');
 const { onChangeAdminEvent } = require('./changeAdmin');
 const { onSkipHandEvent } = require('./skipHand');
+const { onApproveJoinEvent } = require('./approveJoin');
+const { onApproveRebuyEvent } = require('./approveRebuy');
+const { onDeclineJoinEvent } = require('./declineJoin');
+const { onDeclineRebuyEvent } = require('./declineRebuy');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -43,6 +47,10 @@ function onConnection(socket) {
   socket.on('updategamesettings', data => onUpdateGameSettingsEvent(socket, data));
   socket.on('changeadmin', data => onChangeAdminEvent(socket, data));
   socket.on('skiphand', data => onSkipHandEvent(socket, data));
+  socket.on('approvejoin', data => onApproveJoinEvent(socket, data));
+  socket.on('declinejoin', data => onDeclineJoinEvent(socket, data));
+  socket.on('approverebuy', data => onApproveRebuyEvent(socket, data));
+  socket.on('declinerebuy', data => onDeclineRebuyEvent(socket, data));
 }
 
 module.exports = {

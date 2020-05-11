@@ -63,6 +63,58 @@ function startNewHand(game, dateTime) {
   game.smallBlind = game.smallBlindPendingChane || game.smallBlind;
   game.bigBlind = game.bigBlindPendingChane || game.bigBlind;
 
+
+  if (game.pendingJoin && game.pendingJoin.length > 0) {
+    game.pendingJoin.filter(data => data.approved).forEach(({
+      playerId, name, balance,
+    }) => {
+      game.messages.push({
+        action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
+      });
+
+      game.players.push({
+        id: playerId,
+        name,
+        balance,
+        sitOut: true,
+        pot: [0],
+        justJoined: true,
+      });
+      game.moneyInGame += balance;
+      game.pendingPlayers.push(playerId);
+      game.playersData.push({
+        id: playerId,
+        name,
+        buyIns: [{ amount: balance, time: dateTime }],
+      });
+    });
+  }
+  game.pendingJoin = game.pendingJoin.filter(data => !data.approved);
+
+  if (game.pendingRebuy && game.pendingRebuy.length > 0) {
+    game.pendingRebuy.filter(data => data.approved).forEach(({
+      playerId, amount,
+    }) => {
+      const playerToAddMoneyTo = game.players.find(p => p.id === playerId);
+      if (playerToAddMoneyTo) {
+        playerToAddMoneyTo.balance += amount;
+        if (playerToAddMoneyTo.sitOut && playerToAddMoneyTo.sitOutByServer) {
+          game.pendingPlayers.push(playerId);
+          delete playerToAddMoneyTo.sitOutByServer;
+        }
+        const playerData = game.playersData.find(p => p.id === playerId);
+        playerData.buyIns.push({ amount, time: dateTime });
+        game.moneyInGame += amount;
+
+        game.messages.push({
+          action: 'rebuy', name: playerToAddMoneyTo.name, amount, popupMessage: `${playerToAddMoneyTo.name}, rebuy: ${amount}`, log: true,
+        });
+      }
+    });
+  }
+  game.pendingRebuy = game.pendingRebuy.filter(data => !data.approved);
+
+
   let dealerIndex = -1;
   game.players.forEach((player, index) => {
     if (player.dealer) {

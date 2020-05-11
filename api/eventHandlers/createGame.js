@@ -13,6 +13,9 @@ function onCreateGameEvent(socket, gameCreatorData) {
   try {
     const newGame = {
       id: gameCreatorData.id,
+      pendingJoin: [],
+      pendingRebuy: [],
+      requireRebuyAproval: gameCreatorData.requireRebuyAproval || false,
       pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
