@@ -2,17 +2,127 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/src/style/game-settings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/containers/Loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/Loader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/loader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/onlineGame.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.02498321.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.02498321.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.0c46c4e1.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.0c46c4e1.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.0e891ecf.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.0e891ecf.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.366a1211.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.366a1211.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.5dec9204.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.5dec9204.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.5f9e472f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.5f9e472f.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.60c2f512.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.60c2f512.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.76aa0c65.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.76aa0c65.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.833cd230.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.833cd230.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.8c5c309b.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.8c5c309b.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.9647527c.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.9647527c.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.97c15ba7.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.97c15ba7.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.9ae0ac84.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.9ae0ac84.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.a921660e.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.a921660e.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c2a471e9.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c2a471e9.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c48a85a7.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c48a85a7.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c605187e.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.c605187e.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.cd803a4f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.cd803a4f.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.d3ba7aa4.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.d3ba7aa4.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.d64cdb0a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.d64cdb0a.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.e7618374.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.e7618374.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.f330b20d.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.f330b20d.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.fd596276.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/css/main.fd596276.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.0a42f9a3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.0a42f9a3.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.1623776f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.1623776f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.29275dad.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.29275dad.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.31d7fc70.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.31d7fc70.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.42307594.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.42307594.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.465f6f10.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.465f6f10.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.4c7f5a80.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.4c7f5a80.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.4d4c79f6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.4d4c79f6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.5064d569.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.5064d569.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.528a341a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.528a341a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.550b32ec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.550b32ec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7e2704a5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7e2704a5.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7e802d9e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7e802d9e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7eefde9c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.7eefde9c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9a71a7f7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9a71a7f7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9ae94413.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9ae94413.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9e003634.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.9e003634.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.a04538e9.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.a04538e9.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.a0afe3f8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.a0afe3f8.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.aa5861f8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.aa5861f8.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.b4252724.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.b4252724.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c101916b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c101916b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c3fb7dd6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c3fb7dd6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c4fb18e6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.c4fb18e6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.ccfb7217.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.ccfb7217.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cd26669d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cd26669d.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cd37333a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cd37333a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cddf1b83.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.cddf1b83.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.d423da8b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.d423da8b.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.d5f826c1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.d5f826c1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.dc56fd6f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.dc56fd6f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.dcbf06fd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.dcbf06fd.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.e6347d32.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.e6347d32.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.e860a63f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.e860a63f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.eacb9de7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.eacb9de7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.fad04d35.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.fad04d35.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.ff6d4034.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/main.ff6d4034.js.map" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,20 +138,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="310" selection-start-line="310" selection-end-line="312" />
+            <state relative-caret-position="406">
+              <caret line="262" column="16" lean-forward="true" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="179" column="105" selection-start-line="179" selection-start-column="105" selection-end-line="179" selection-end-column="105" />
+            <state relative-caret-position="269">
+              <caret line="660" column="39" selection-start-line="660" selection-start-column="39" selection-end-line="660" selection-end-column="39" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#2960#3400#0" />
+                <element signature="e#3444#3572#0" />
+                <element signature="e#3602#3728#0" />
+                <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
+                <element signature="e#3956#4217#0" />
+                <element signature="e#4254#6319#0" />
+                <element signature="e#7708#9064#0" />
               </folding>
             </state>
           </provider>
@@ -72,10 +188,23 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
-              <caret line="51" column="68" lean-forward="true" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="68" />
+              <caret line="51" column="68" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="68" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#140#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="31" column="76" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="76" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#90#115#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,8 +222,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="721" column="39" lean-forward="true" selection-start-line="721" selection-start-column="39" selection-end-line="721" selection-end-column="39" />
+            <state relative-caret-position="176">
+              <caret line="490" column="67" selection-start-line="490" selection-start-column="46" selection-end-line="490" selection-end-column="67" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#131#0" expanded="true" />
@@ -103,6 +232,15 @@
                 <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
                 <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="338" column="15" selection-start-line="338" selection-start-column="15" selection-end-line="338" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -128,20 +266,13 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cancel</find>
-      <find>cance</find>
-      <find>#join-button</find>
-      <find>type=&quot;text&quot;</find>
-      <find>CancelIcon</find>
       <find>privateGame</find>
       <find>create-new-game-private-checkbox</find>
       <find>setAprovalRequired</find>
       <find>#app-name</find>
       <find>settings-pending-indication</find>
       <find>game-settings-button</find>
-      <find>pendingJoin</find>
       <find>create-new-game-section-body</find>
-      <find>app-name</find>
       <find>select game a</find>
       <find>indi</find>
       <find>force</find>
@@ -158,11 +289,18 @@
       <find>alert</find>
       <find>joingame</find>
       <find>showPendingIndication</find>
+      <find>pause</find>
+      <find>game paused</find>
+      <find>game-pause-indication</find>
+      <find>pendingJoin</find>
+      <find>kick out</find>
+      <find>kickOut-button</find>
+      <find>app-name</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
-      <dir>$PROJECT_DIR$/front/src/style</dir>
       <dir>$PROJECT_DIR$/front/src</dir>
+      <dir>$PROJECT_DIR$/front/src/style</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -204,7 +342,6 @@
         <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
         <option value="$PROJECT_DIR$/api/services/games.js" />
         <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
-        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
         <option value="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/resumeGame.js" />
         <option value="$PROJECT_DIR$/front/src/style/cards.css" />
@@ -216,11 +353,12 @@
         <option value="$PROJECT_DIR$/front/src/style/loader.css" />
         <option value="$PROJECT_DIR$/front/src/App.css" />
         <option value="$PROJECT_DIR$/front/src/index.js" />
-        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/style/game-settings.css" />
-        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/App.js" />
+        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
+        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
+        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
       </list>
     </option>
   </component>
@@ -231,8 +369,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1936" />
-    <option name="y" value="31" />
+    <option name="x" value="-1939" />
+    <option name="y" value="26" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
   </component>
@@ -297,15 +435,7 @@
               <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="main.9e003634.js" type="620a8d5e:NestingTreeNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -376,15 +506,15 @@
       <workItem from="1588770988061" duration="14981000" />
       <workItem from="1588848253129" duration="3665000" />
       <workItem from="1588874263942" duration="22005000" />
-      <workItem from="1589116090105" duration="15370000" />
+      <workItem from="1589116090105" duration="17073000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122050000" />
+    <option name="totallyTimeSpent" value="123753000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1952" y="27" width="1920" height="1057" extended-state="0" />
+    <frame x="-1939" y="26" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1682641" />
@@ -393,7 +523,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.537155" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.098726116" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5552017" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -401,7 +531,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.13481954" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3046709" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -622,17 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="32" column="72" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="72" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -705,24 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="310" selection-start-line="310" selection-end-line="312" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/loader.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -737,13 +842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="495" selection-start-line="495" selection-end-line="495" />
         </state>
       </provider>
     </entry>
@@ -764,7 +862,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="51" column="68" lean-forward="true" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="68" />
+          <caret line="51" column="68" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="68" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#140#0" expanded="true" />
@@ -772,10 +870,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="660" column="39" selection-start-line="660" selection-start-column="39" selection-end-line="660" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#2960#3400#0" />
+            <element signature="e#3444#3572#0" />
+            <element signature="e#3602#3728#0" />
+            <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
+            <element signature="e#3956#4217#0" />
+            <element signature="e#4254#6319#0" />
+            <element signature="e#7708#9064#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="721" column="39" lean-forward="true" selection-start-line="721" selection-start-column="39" selection-end-line="721" selection-end-column="39" />
+        <state relative-caret-position="176">
+          <caret line="490" column="67" selection-start-line="490" selection-start-column="46" selection-end-line="490" selection-end-column="67" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#131#0" expanded="true" />
@@ -787,14 +902,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/App.js">
+    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="179" column="105" selection-start-line="179" selection-start-column="105" selection-end-line="179" selection-end-column="105" />
+        <state relative-caret-position="308">
+          <caret line="31" column="76" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="76" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#2960#3400#0" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#115#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="262" column="16" lean-forward="true" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="338" column="15" selection-start-line="338" selection-start-column="15" selection-end-line="338" selection-end-column="15" />
         </state>
       </provider>
     </entry>
