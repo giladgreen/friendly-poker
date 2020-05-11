@@ -299,14 +299,7 @@ class App extends Component {
                 })
             }
             const gameClone = this.getGameClone(game);
-            this.socket.on('joinrequest', ({ playerId, name, balance}) => {
-                this.setState({ pendingJoin: [...this.state.pendingJoin, { playerId, name, balance}] });
-            })
-            this.socket.on('rebuyrequest', ({ playerId, name, amount}) => {
-                this.setState({ pendingRebuy: [...this.state.pendingRebuy, { playerId, name, amount}] });
-            })
-            const pendingJoin = game.pendingJoin || [];
-            const pendingRebuy = game.pendingRebuy || [];
+
 
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
@@ -327,7 +320,7 @@ class App extends Component {
 
                 }
             }
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true, pendingJoin, pendingRebuy});
+            this.setState({game: gameClone, gameId:gameClone.id, connected:true});
         });
 
         this.socket.on('gamecreated', (game) => {
@@ -666,8 +659,6 @@ class App extends Component {
                     declineJoin={this.declineJoin}
                     declineRebuy={this.declineRebuy}
                     playerId={playerId}
-                    pendingJoin={this.state.pendingJoin}
-                    pendingRebuy={this.state.pendingRebuy}
                     game={this.state.game}
                     gameId={gameId}
                     socket={this.socket}/>);

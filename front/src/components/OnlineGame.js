@@ -442,7 +442,8 @@ class OnlineGame extends Component {
     };
     render() {
         const {clockMessage,handTime, options, cheapLeader, me} = this.state;
-        const {game, pendingJoin, pendingRebuy} = this.props;
+        const {game} = this.props;
+        const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
         const { pot, smallBlind, bigBlind, players, startDate,hand, board} = game;
