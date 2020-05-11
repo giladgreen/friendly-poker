@@ -74,6 +74,8 @@ class App extends Component {
             games:null,
             logs:[],
             messages:[],
+            pendingJoin:[],
+            pendingRebuy:[],
             game:null,
             showAlert:false,
             connected:false,
@@ -136,7 +138,7 @@ class App extends Component {
     getMessage = (messageObject)=>{
         const {time, name, names, balance, amount, hand, text,playerIndex} = messageObject;
         if (messageObject.action === 'usermessage'){
-            messageObject.div = <div key={`msg_${time}_${text}`}>
+            messageObject.div = <div key={`msg_${time}_${text}_${(new Date()).getTime()}`}>
                 <span className="msg-time" >{time}</span>
                 <span className={`msg-text-player-name msg-text-player-name-color${playerIndex}`}>{name}:</span>
                 <span className="msg-text">{text}</span>  </div>;
@@ -175,7 +177,7 @@ class App extends Component {
         }
 
         if (messageObject.message){
-            messageObject.div = <div key={`msg_${time}_${messageObject.message}`}>
+            messageObject.div = <div key={`msg_${time}_${messageObject.message}_${(new Date()).getTime()}`}>
                 <span className="msg-time" >{time}</span>
                 <span className="msg-text">{messageObject.message}</span>
             </div>
@@ -288,6 +290,8 @@ class App extends Component {
         this.socket.on('gameupdate', (game) => {
             console.log('on gameupdate', game);
             console.log('game.audioableAction',game.audioableAction);
+
+
             if (game.audioableAction){
                 game.audioableAction.forEach((action)=>{
                     const sound = this.actioToMethodMap[action];
@@ -295,6 +299,15 @@ class App extends Component {
                 })
             }
             const gameClone = this.getGameClone(game);
+            this.socket.on('joinrequest', ({ playerId, name, balance}) => {
+                this.setState({ pendingJoin: [...this.state.pendingJoin, { playerId, name, balance}] });
+            })
+            this.socket.on('rebuyrequest', ({ playerId, name, amount}) => {
+                this.setState({ pendingRebuy: [...this.state.pendingRebuy, { playerId, name, amount}] });
+            })
+            const pendingJoin = game.pendingJoin || [];
+            const pendingRebuy = game.pendingRebuy || [];
+
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
                 const newActivePlayerIndex = gameClone.players.findIndex(p=>p.active);
@@ -314,7 +327,7 @@ class App extends Component {
 
                 }
             }
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true});
+            this.setState({game: gameClone, gameId:gameClone.id, connected:true, pendingJoin, pendingRebuy});
         });
 
         this.socket.on('gamecreated', (game) => {
@@ -325,6 +338,22 @@ class App extends Component {
             existingGames.push(gameId);
             localStorage.setItem('games', existingGames.join(','));
             this.setState({ game, gameId, connected: true });
+        });
+
+        this.socket.on('operationpendingaproval', () => {
+            console.log('on operationpendingaproval');
+            this.setState({ operationpendingaproval: true });
+        });
+
+        this.socket.on('joinrequestdeclined', (game) => {
+            console.log('on joinrequestdeclined');
+            this.setState({ operationpendingaproval: false, game });
+            this.showAlertMessage('join request declined');
+        });
+
+        this.socket.on('rebuyrequestdeclined', () => {
+            console.log('on rebuyrequestdeclined');
+            this.showAlertMessage('rebuy request declined');
         });
 
         this.socket.on('onmessage', (message) => {
@@ -492,7 +521,31 @@ class App extends Component {
         this.socket.emit('rebuy', {gameId , dateTime, playerId, amount, now: (new Date()).getTime() });
     };
 
-    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame }) =>{
+    approveJoin = (data) =>{
+        const { gameId, playerId } = this.state;
+        console.log('emiting approvejoin')
+        this.socket.emit('approvejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
+    };
+
+    approveRebuy = (data) =>{
+        const { gameId, playerId } = this.state;
+        console.log('emiting approverebuy')
+        this.socket.emit('approverebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
+    };
+
+    declineJoin = (data) =>{
+        const { gameId, playerId } = this.state;
+        console.log('emiting declinejoin')
+        this.socket.emit('declinejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
+    };
+
+    declineRebuy = (data) =>{
+        const { gameId, playerId } = this.state;
+        console.log('emiting declinerebuy')
+        this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
+    };
+
+    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval }) =>{
         const now = (new Date()).getTime();
         const gameId = `${now}`;
         const playerId = this.state.playerId;
@@ -506,6 +559,7 @@ class App extends Component {
             name,
             balance,
             privateGame,
+            requireRebuyAproval,
         });
 
         this.setState({ gameId, game: null })
@@ -569,19 +623,15 @@ class App extends Component {
                 showAlertMessage={this.showAlertMessage}
                 games={this.state.games} />);
         } else{
-            const {gameId, game, playerId} = this.state;
-
-
-
+            const {gameId, game, playerId, operationpendingaproval} = this.state;
 
             if (!game){
                 console.log('App, Render, gameId:',gameId, ' no game, playerId:',playerId, ' returning Loader')
-                return <Loader/>;
+                return <Loader waitingAproval={operationpendingaproval}/>;
             }
             if (this.state.showInfoScreen) {
                 return <GameInfoScreen game={game} onClose={this.toggleShowInfo}/>
             }
-
 
             const admin = game.players.find(p=>p.admin);
             const isAdmin =  (admin.id === playerId);
@@ -589,6 +639,7 @@ class App extends Component {
             const gamePlayer =  game.players.find(p=>p.id === playerId);
 
             if (gamePlayer){
+                console.log('App, Render, gameId:',gameId, ' game,',game,' playerId:',playerId, ' returning OnlineGame')
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}
@@ -610,11 +661,18 @@ class App extends Component {
                     quitGame={this.quitGame}
                     sendMessage={this.sendMessage}
                     action={this.action}
+                    approveJoin={this.approveJoin}
+                    approveRebuy={this.approveRebuy}
+                    declineJoin={this.declineJoin}
+                    declineRebuy={this.declineRebuy}
                     playerId={playerId}
+                    pendingJoin={this.state.pendingJoin}
+                    pendingRebuy={this.state.pendingRebuy}
                     game={this.state.game}
                     gameId={gameId}
                     socket={this.socket}/>);
             } else{
+                console.log('App, Render, gameId:',gameId, ' game,',game,' playerId:',playerId, ' returning JoinGameScreen')
                 return this.wrapWithAlerts(<JoinGameScreen
                     connected={this.state.connected}
                     showAlertMessage={this.showAlertMessage}

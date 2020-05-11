@@ -22,6 +22,14 @@
   width: 23vw;
   z-index: 50;
 }
+#app-name-loader-screen{
+  position: fixed;
+  top: 1.6vh;
+  left: 38vw;
+  height: 7.8vh;
+  width: 23vw;
+  z-index: 50;
+}
 #connection-status{
   position: fixed;
   top: 2vh;
@@ -61,6 +69,10 @@
 
   #app-name{
     left: 25vw;
+  }
+  #app-name-loader-screen{
+    left: 37vw;
+    top: 5.6vh;
   }
   #connection-status{
     top: 1.9vh;

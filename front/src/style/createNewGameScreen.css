@@ -54,7 +54,7 @@
 .config-screens-top-level-sections-body{
     position: fixed;
     top:25vh;
-    height: 47.5vh;
+    height: 50.5vh;
     z-index: 2;
     border: 2px solid gray;
     border-radius: 12px;
@@ -183,7 +183,7 @@
 
 #create-new-game-private-checkbox{
     position: fixed;
-    top:66vh;
+    top:65vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -196,6 +196,23 @@
     font-size: 2em;
 }
 #create-new-game-private-checkbox label{
+    font-size:  2.3em;
+}
+#create-new-game-aproval-required-checkbox{
+    position: fixed;
+    top:69.6vh;
+    height: 6vh;
+    left: 6vw;
+    width: 51vw;
+    z-index: 3;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0px;
+    color: white;
+    font-size: 2em;
+}
+#create-new-game-aproval-required-checkbox label{
     font-size:  2.3em;
 }
 #create-new-game-signs-div{
@@ -271,7 +288,7 @@
 }
 @media only screen and (max-width: 800px) {
     .config-screens-top-level-sections{
-        top:12vh;
+        top:11.4vh;
         height: 81.4vh;
         border: 2px solid gray;
         border-radius: 8px;
@@ -287,15 +304,14 @@
         width: 36vw;
     }
     .config-screens-top-level-sections-header{
-        top:14vh;
-        height: 3vh;
-        font-size: 3vw;
+        top:12vh;
 
+        font-size: 2.8vw;
     }
 
     .config-screens-top-level-sections-body{
-        top:23vh;
-        height: 66vh;
+        top:20.3vh;
+        height: 69vh;
         border: 2px solid gray;
         border-radius: 9px;
     }
@@ -305,11 +321,11 @@
     }
 
     #my-existing-games-body{
-        height: 66vh;
+        height: 69vh;
     }
 
     #create-new-game-name-div{
-        top:26vh;
+        top:23.4vh;
         left: 6vw;
     }
     .create-new-game-labels{
@@ -322,7 +338,7 @@
         font-size:  1em;
     }
     #create-new-game-blinds-div{
-        top:38vh;
+        top:34.5vh;
     }
 
     #create-new-game-small-blind-input{
@@ -335,7 +351,7 @@
 
     }
     #create-new-game-action-time-div{
-        top:49vh;
+        top:45vh;
     }
     #create-new-game-action-time-input{
         border-radius: 8px;
@@ -343,7 +359,7 @@
     }
 
     #create-new-game-buy-in-div{
-        top:59vh;
+        top:55vh;
     }
     #create-new-game-buy-in-input{
         border-radius: 8px;
@@ -351,6 +367,11 @@
     }
 
     #create-new-game-private-checkbox{
+        top:61vh;
+        font-size: 1em;
+    }
+
+    #create-new-game-aproval-required-checkbox{
         top:66vh;
         font-size: 1em;
     }

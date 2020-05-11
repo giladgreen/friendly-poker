@@ -12,6 +12,7 @@ import './style/cards.css';
 import './style/playerInfo.css';
 import './style/gameInfoScreen.css';
 import './style/game-action-buttons.css';
+import './style/game-settings.css';
 
 const options = {
     // you can also just use 'bottom center'

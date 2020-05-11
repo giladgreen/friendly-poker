@@ -139,7 +139,22 @@
     text-align: center;
     padding-top: 1vh;
 }
+#settings-pending-indication{
+    border-radius: 50%;
+    border: 1px solid white;
+    color: white;
+    background: red;
+    position: fixed;
+    z-index: 104;
+    top:57vh;
+    right:8.7vw;
+    font-size: 1.3em;
+    font-weight: bold;
+    height: 2vw;
+    width: 2vw;
+    text-align: center;
 
+}
 #actual-rebuy-button{
     border: 1px solid white;
     border-radius: 15px;
@@ -479,98 +494,6 @@
     color: dodgerblue;
 }
 
-
-#game-settings-modal{
-    z-index: 99;
-    position: fixed;
-    width: 85vw;
-    height: 89vh;
-    top: 10vh;
-    left: 1vw;
-    background: #000000BB;
-    padding: 20px;
-    border: 2px solid white;
-    border-radius: 20px;
-    color: white;
-}
-#game-settings-modal-close-x{
-    font-size: 3em;
-    font-weight: bold;
-    font-family: fantasy;
-    cursor: pointer;
-    z-index: 100;
-    position: fixed;
-    top: 11vh;
-    left: 2vw;
-}
-#game-settings-modal-title{
-    font-size: 3em;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    text-decoration: underline;
-    margin-bottom: 4vh;
-}
-.game-settings-item{
-    margin-bottom: 3vh;
-}
-
-.game-settings-label{
-    font-size: 2em;
-    margin-left: 2vw;
-    margin-right: 2vw;
-}
-.game-settings-secondary-label{
-    font-size: 2em;
-    margin-left: 0.5vw;
-    margin-right: 2vw;
-}
-.game-settings-input{
-    font-size: 2em;
-    margin-right: 0.5vw;
-    width: 7vw;
-    text-align: center;
-    border-radius: 10px;
-}
-#game-settings-save-button{
-    margin-top: 5vw;
-    margin-left: 15vw;
-    cursor: pointer;
-    width: 23vw;
-    font-size: 2.5em;
-    background: green;
-    color: white;
-    text-align: center;
-    border: 1px solid white;
-    border-radius: 8px;
-}
-#force-skip-hand-button{
-    background: orangered;
-    color: white;
-    width: 15vw;
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 10px;
-    font-size: 1.5em;
-    margin-left: 20vw;
-}
-#select-admin-label{
-    color: white;
-    font-size: 2em;
-}
-#select-admin-dropdown{
-    background: white;
-    color: black;
-    width: 7vw;
-    border-radius: 8px;
-    padding: 10px 0px 5px 20px;
-    height: 3.5vh;
-    font-size: 2em;
-}
-#move-admin-section{
-    background: white;
-    color: black;
-}
 @media only screen and (max-width: 800px) {
 
     .copy-game-link{
@@ -695,7 +618,22 @@
         right: 1vw;
         padding-top: 0vh;
     }
+    #settings-pending-indication{
+        border-radius: 50%;
+        border: 1px solid white;
+        color: white;
+        background: red;
+        position: fixed;
+        z-index: 104;
+        top:65vh;
+        right:11.7vw;
+        font-size: 0.8em;
+        font-weight: bold;
+        height: 3vw;
+        width: 3vw;
+        text-align: center;
 
+    }
     #actual-rebuy-button{
         top:52vh;
         font-size: 0.4em;
@@ -827,82 +765,5 @@
     .left-margin{
         margin-left: 2px;
         margin-right: 2px;
-    }
-
-
-
-
-    #game-settings-modal{
-        position: fixed;
-        width: 85vw;
-        height: 99vh;
-        top: 0.2vh;
-        left: 1vw;
-        padding: 13px;
-        border-radius: 10px;
-    }
-    #game-settings-modal-close-x{
-        font-size: 3em;
-        top: 1.4vh;
-        left: 2.4vw;
-    }
-    #game-settings-modal-title{
-        font-size: 2em;
-        margin-bottom: 3vh;
-    }
-    .game-settings-item{
-        margin-bottom: 2vh;
-    }
-    .game-settings-label{
-        font-size: 1.7em;
-    }
-    .game-settings-secondary-label{
-        font-size: 1.7em;
-    }
-    .game-settings-input{
-        font-size: 1.7em;
-        width: 11vw;
-    }
-    #game-settings-save-button{
-        margin-top: 3vw;
-        margin-left: 15vw;
-        cursor: pointer;
-        width: 43vw;
-        font-size: 2.4em;
-    }
-
-    #select-admin-dropdown{
-        width: 19vw;
-        padding: 10px 0px 15px 20px;
-        height: 3.6vh;
-        font-size: 1.7em;
-    }
-    #move-admin-section{
-        background: white;
-        color: black;
-    }
-
-    #game-settings-save-button{
-        margin-top: 1vw;
-        margin-left: 15vw;
-        cursor: pointer;
-        width: 49vw;
-        font-size: 1.5em;
-        background: green;
-        color: white;
-        text-align: center;
-        border: 1px solid white;
-        border-radius: 8px;
-    }
-    #force-skip-hand-button{
-        background: orangered;
-        color: white;
-        width: 27vw;
-        text-align: center;
-        border: 2px solid white;
-        border-radius: 10px;
-        font-size: 1em;
-        margin-left: 50vw;
-
     }
 }

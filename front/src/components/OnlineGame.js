@@ -442,8 +442,9 @@ class OnlineGame extends Component {
     };
     render() {
         const {clockMessage,handTime, options, cheapLeader, me} = this.state;
-        const {game} = this.props;
-
+        const {game, pendingJoin, pendingRebuy} = this.props;
+        const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
+        const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
         const { pot, smallBlind, bigBlind, players, startDate,hand, board} = game;
         const winningHandCards = game.handOver && game.winningHandCards && game.winningHandCards.cards ? game.winningHandCards.cards : [];
 
@@ -592,6 +593,8 @@ class OnlineGame extends Component {
                 <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
                 {/* settings button */}
                 { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
+                {/* Pending Joing/rebuy Indication */}
+                { showPendingIndication && <div id="settings-pending-indication" > {pendingIndicationCount} </div>}
 
 
                 {/* start game button */}
@@ -646,27 +649,39 @@ class OnlineGame extends Component {
                                       step="1"
                                />
                            </div>
-                            <div className="game-settings-item">
+                            {(this.props.game.players.length >1) &&  <div className="game-settings-item">
                                 <span className="game-settings-label">Select Game Admin:</span>
                                 <Select
 
                                     id="select-admin-dropdown"
                                     value={this.state.adminId}
-                                    onChange={(e) => this.onAdminChange(e.target.value)}
-                                >
+                                    onChange={(e) => this.onAdminChange(e.target.value)} >
                                     {this.props.game.players.map(player => {
                                         return  <MenuItem value={player.id}>{ player.name}</MenuItem>
                                     })}
 
                                 </Select>
-                           </div>
+                           </div>}
 
-                            <div className="game-settings-item">
-                              <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
-                           </div>
+                           <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
 
-                            {skipHandEnabled && <div id="force-skip-hand-button" className="active-button" onClick={this.SkipHand}>Force Skip Hand</div>}
 
+                            {(skipHandEnabled) && <div id="force-skip-hand-button" className="active-button" onClick={this.SkipHand}>Force Skip Hand</div>}
+
+                            {showPendingIndication && <div id="pending-requests">
+                                <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
+                                <div id="pending-requests-body">
+                                    {pendingJoin.map(joinData =>{
+                                        return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.props.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineJoin(joinData)}> Decline</span>   </div>
+                                    }) }
+                                    {pendingRebuy.map(rebuyData =>{
+                                        console.log('rebuyData',rebuyData)
+                                        return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.props.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineRebuy(rebuyData)}> Decline</span>  </div>
+                                    }) }
+
+
+                                </div>
+                            </div>}
                         </div>
                     </Fade>
                 </Modal>

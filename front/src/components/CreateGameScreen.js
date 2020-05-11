@@ -24,6 +24,7 @@ class CreateGameScreen extends Component {
         super(props);
         const name = localStorage.getItem('myName') || '';
         const privateGame = (localStorage.getItem('private-game') === 'true');
+        const aprovalRequired = (localStorage.getItem('rebuy-aproval-required') === 'true');
         const SB = parseInt((localStorage.getItem('create-game-sb') || '1'), 10);
         const BB = parseInt((localStorage.getItem('create-game-bb') || '2'), 10);
         const time = parseInt((localStorage.getItem('create-game-time') || '40'), 10);
@@ -31,6 +32,7 @@ class CreateGameScreen extends Component {
         this.state = {
             name,
             privateGame,
+            aprovalRequired,
             SB,
             BB,
             time,
@@ -53,6 +55,7 @@ class CreateGameScreen extends Component {
         }
         localStorage.setItem('myName',this.state.name);
         localStorage.setItem('private-game',this.state.privateGame ? 'true':'false');
+        localStorage.setItem('rebuy-aproval-required',this.state.aprovalRequired ? 'true':'false');
         localStorage.setItem('create-game-sb',this.state.SB);
         localStorage.setItem('create-game-bb',this.state.BB);
         localStorage.setItem('create-game-time',this.state.time) ;
@@ -65,6 +68,7 @@ class CreateGameScreen extends Component {
             name:this.state.name,
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
+            requireRebuyAproval: this.state.aprovalRequired,
         });
 
         this.setState({showErrors:false});
@@ -103,6 +107,10 @@ class CreateGameScreen extends Component {
 
     setPrivate= (e) =>{
         this.setState({privateGame: e.target.checked })
+    };
+
+    setAprovalRequired= (e) =>{
+        this.setState({aprovalRequired: e.target.checked })
     };
 
     getGameCreator(game){
@@ -194,6 +202,20 @@ class CreateGameScreen extends Component {
                                     />
                                 }
                                 label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Private Game</span>}
+
+                            />
+                        </div>
+                        <div id="create-new-game-aproval-required-checkbox">
+                            <FormControlLabel
+                                control={
+                                    <WhiteCheckbox
+                                        checked={this.state.aprovalRequired}
+                                        onChange={this.setAprovalRequired}
+                                        name="checkedB"
+                                        color="primary"
+                                    />
+                                }
+                                label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Join/Rebuy Approvals Required</span>}
 
                             />
                         </div>
