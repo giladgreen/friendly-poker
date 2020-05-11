@@ -57,7 +57,11 @@ function startNewHand(game, dateTime) {
   game.currentTimerTime = game.time;
   game.board = [];
   game.showPlayersHands = [];
-  game.messages = [];
+  game.messages = [{
+    action: 'log',
+    log: true,
+    text: `starting hand #${game.hand}`,
+  }];
   game.deck = Deck.getShuffledDeck();
   game.time = game.timePendingChane || game.time;
   game.smallBlind = game.smallBlindPendingChane || game.smallBlind;
@@ -66,8 +70,8 @@ function startNewHand(game, dateTime) {
 
   if (game.pendingJoin && game.pendingJoin.length > 0) {
     game.pendingJoin.filter(data => data.approved).forEach(({
-      playerId, name, balance,
-    }) => {
+                                                              playerId, name, balance,
+                                                            }) => {
       game.messages.push({
         action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
       });
@@ -93,8 +97,8 @@ function startNewHand(game, dateTime) {
 
   if (game.pendingRebuy && game.pendingRebuy.length > 0) {
     game.pendingRebuy.filter(data => data.approved).forEach(({
-      playerId, amount,
-    }) => {
+                                                               playerId, amount,
+                                                             }) => {
       const playerToAddMoneyTo = game.players.find(p => p.id === playerId);
       if (playerToAddMoneyTo) {
         playerToAddMoneyTo.balance += amount;
