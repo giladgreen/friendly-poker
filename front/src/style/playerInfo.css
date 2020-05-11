@@ -312,12 +312,16 @@
     from {
         top:0.6vh;
         left:0vw;
-        opacity: 0%;
+        width: 1vw;
+        font-size: 0.01em;
+        color: white;
     }
     to {
         top:11.6vh;
         left:0vw;
-        opacity: 100%;
+        width: 11vw;
+        font-size: 1.2em;
+        color: black;
     }
 }
 
