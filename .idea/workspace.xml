@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/eventHandlers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/eventHandlers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/playerInfo.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,51 +19,59 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="262" column="16" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="660" column="39" selection-start-line="660" selection-start-column="39" selection-end-line="660" selection-end-column="39" />
+            <state relative-caret-position="440">
+              <caret line="665" column="37" selection-start-line="665" selection-start-column="37" selection-end-line="665" selection-end-column="37" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#2960#3400#0" />
-                <element signature="e#3444#3572#0" />
-                <element signature="e#3602#3728#0" />
                 <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
-                <element signature="e#3956#4217#0" />
-                <element signature="e#4254#6319#0" />
-                <element signature="e#7708#9064#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/App.css">
+        <entry file="file://$PROJECT_DIR$/api/eventHandlers/showCards.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+            <state relative-caret-position="393">
+              <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
+        <entry file="file://$PROJECT_DIR$/api/eventHandlers/setCreatorAsAdmin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="51" column="68" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="68" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#90#140#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="864">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="317" column="19" lean-forward="true" selection-start-line="317" selection-start-column="19" selection-end-line="317" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/eventHandlers/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="54" column="30" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="424">
+              <caret line="55" column="30" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="55" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -69,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="31" column="76" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="76" />
+            <state relative-caret-position="501">
+              <caret line="35" column="138" selection-start-line="35" selection-start-column="138" selection-end-line="35" selection-end-column="138" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#115#0" expanded="true" />
@@ -79,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="490" column="67" selection-start-line="490" selection-start-column="46" selection-end-line="490" selection-end-column="67" />
+            <state relative-caret-position="187">
+              <caret line="597" column="165" selection-start-line="597" selection-start-column="165" selection-end-line="597" selection-end-column="165" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#131#0" expanded="true" />
@@ -92,42 +102,6 @@
                 <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
                 <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="333" column="20" lean-forward="true" selection-start-line="333" selection-start-column="20" selection-end-line="333" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/eventHandlers/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api/eventHandlers/setCreatorAsAdmin.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/style/game-settings.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="255" selection-start-line="255" selection-end-line="255" />
             </state>
           </provider>
         </entry>
@@ -144,7 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>privateGame</find>
       <find>create-new-game-private-checkbox</find>
       <find>setAprovalRequired</find>
       <find>#app-name</find>
@@ -170,10 +143,11 @@
       <find>pause</find>
       <find>game paused</find>
       <find>game-pause-indication</find>
-      <find>pendingJoin</find>
       <find>kick out</find>
       <find>kickOut-button</find>
       <find>app-name</find>
+      <find>pendingJoin</find>
+      <find>player-hand-description</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
@@ -218,7 +192,6 @@
         <option value="$PROJECT_DIR$/api/eventHandlers/playerAction.js" />
         <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
         <option value="$PROJECT_DIR$/api/services/games.js" />
-        <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
         <option value="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/resumeGame.js" />
         <option value="$PROJECT_DIR$/front/src/style/cards.css" />
@@ -232,12 +205,13 @@
         <option value="$PROJECT_DIR$/front/src/index.js" />
         <option value="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/style/game-settings.css" />
-        <option value="$PROJECT_DIR$/front/src/App.js" />
-        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
-        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
         <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/index.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/setCreatorAsAdmin.js" />
+        <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
+        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
+        <option value="$PROJECT_DIR$/front/src/App.js" />
+        <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
       </list>
     </option>
   </component>
@@ -247,11 +221,10 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1939" />
-    <option name="y" value="26" />
-    <option name="width" value="1920" />
-    <option name="height" value="1057" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="941" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -327,6 +300,14 @@
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="main.b903084f.css" type="620a8d5e:NestingTreeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -396,24 +377,24 @@
       <workItem from="1588770988061" duration="14981000" />
       <workItem from="1588848253129" duration="3665000" />
       <workItem from="1588874263942" duration="22005000" />
-      <workItem from="1589116090105" duration="17628000" />
+      <workItem from="1589116090105" duration="18802000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124308000" />
+    <option name="totallyTimeSpent" value="125482000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1939" y="26" width="1920" height="1057" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="941" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1682641" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1929182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.537155" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5552017" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49757868" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -421,7 +402,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3046709" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2409201" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -432,13 +413,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/api/eventHandlers/deleteGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/eventHandlers/sitback.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -507,13 +481,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="23" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/eventHandlers/showCards.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -659,13 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="276" selection-start-line="276" selection-end-line="276" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/game-action-buttons.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="826">
@@ -746,27 +706,104 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="333" column="20" selection-start-line="333" selection-start-column="20" selection-end-line="333" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/css/main.b903084f.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25660">
+          <caret line="5" column="186667" selection-start-line="5" selection-start-column="186667" selection-end-line="5" selection-end-column="186667" />
+          <folding>
+            <element signature="e#26211#26459#2" expanded="true" />
+            <element signature="e#27255#27422#1" expanded="true" />
+            <element signature="e#27462#27710#1" expanded="true" />
+            <element signature="e#30673#30963#2" expanded="true" />
+            <element signature="e#31787#31954#1" expanded="true" />
+            <element signature="e#31994#32284#1" expanded="true" />
+            <element signature="e#61365#61566#2" expanded="true" />
+            <element signature="e#61793#61943#2" expanded="true" />
+            <element signature="e#62342#62489#2" expanded="true" />
+            <element signature="e#63658#63825#1" expanded="true" />
+            <element signature="e#75535#75779#2" expanded="true" />
+            <element signature="e#76604#76854#2" expanded="true" />
+            <element signature="e#105588#105777#2" expanded="true" />
+            <element signature="e#105823#106013#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="55" column="30" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="55" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="35" column="138" selection-start-line="35" selection-start-column="138" selection-end-line="35" selection-end-column="138" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="317" column="19" lean-forward="true" selection-start-line="317" selection-start-column="19" selection-end-line="317" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/eventHandlers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="54" column="30" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/eventHandlers/showCards.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/eventHandlers/setCreatorAsAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="660" column="39" selection-start-line="660" selection-start-column="39" selection-end-line="660" selection-end-column="39" />
+        <state relative-caret-position="440">
+          <caret line="665" column="37" selection-start-line="665" selection-start-column="37" selection-end-line="665" selection-end-column="37" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#2960#3400#0" />
-            <element signature="e#3444#3572#0" />
-            <element signature="e#3602#3728#0" />
             <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
-            <element signature="e#3956#4217#0" />
-            <element signature="e#4254#6319#0" />
-            <element signature="e#7708#9064#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="490" column="67" selection-start-line="490" selection-start-column="46" selection-end-line="490" selection-end-column="67" />
+        <state relative-caret-position="187">
+          <caret line="597" column="165" selection-start-line="597" selection-start-column="165" selection-end-line="597" selection-end-column="165" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#131#0" expanded="true" />
@@ -775,52 +812,6 @@
             <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
             <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="31" column="76" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="76" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="262" column="16" selection-start-line="262" selection-start-column="16" selection-end-line="262" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="333" column="20" lean-forward="true" selection-start-line="333" selection-start-column="20" selection-end-line="333" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/eventHandlers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/eventHandlers/setCreatorAsAdmin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>

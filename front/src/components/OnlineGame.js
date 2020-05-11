@@ -522,7 +522,7 @@ class OnlineGame extends Component {
                             {/* Call button */}
                             { options.includes('Call') && <div id="call-button" className="action-button " onClick={this.call}> Call { this.state.amountToCall} </div>}
                             {/* Raise../Bet.. button */}
-                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') ? 'Raise..' :'Bet..'} </div>}
+                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') || game.gamePhase === 0 ? 'Raise..' :'Bet..'} </div>}
 
                         </div> }
                         {/* Check/Fold */}
@@ -594,6 +594,10 @@ class OnlineGame extends Component {
                 <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
                 {/* settings button */}
                 { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
+                {/* creator get back his admin button */}
+                { !this.props.isAdmin && me.creator && <div id="game-settings-button" className="active-button" onClick={this.props.setCreatorAsAdmin}>retrieve admin </div>}
+
+
                 {/* Pending Joing/rebuy Indication */}
                 { showPendingIndication && <div id="settings-pending-indication" > {pendingIndicationCount} </div>}
 

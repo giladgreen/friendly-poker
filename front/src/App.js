@@ -537,6 +537,11 @@ class App extends Component {
         console.log('emiting declinerebuy')
         this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
     };
+    setCreatorAsAdmin = () =>{
+        const { gameId, playerId } = this.state;
+        console.log('emiting setcreatorasadmin')
+        this.socket.emit('setcreatorasadmin', {gameId , playerId, now: (new Date()).getTime() });
+    };
 
     createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval }) =>{
         const now = (new Date()).getTime();
@@ -658,6 +663,7 @@ class App extends Component {
                     approveRebuy={this.approveRebuy}
                     declineJoin={this.declineJoin}
                     declineRebuy={this.declineRebuy}
+                    setCreatorAsAdmin={this.setCreatorAsAdmin}
                     playerId={playerId}
                     game={this.state.game}
                     gameId={gameId}
