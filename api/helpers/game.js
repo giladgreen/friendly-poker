@@ -100,15 +100,15 @@ async function saveGameToDB(g) {
 
 
     return await models.onlineGames
-      .findOne({ where: { id } })
-      .then((obj) => {
-        // update
-        if (obj) {
-          return obj.update({ data: { ...game } });
-        }
-        // insert
-        return models.onlineGames.create({ id, data: { ...game } });
-      });
+        .findOne({ where: { id } })
+        .then((obj) => {
+          // update
+          if (obj) {
+            return obj.update({ data: { ...game } });
+          }
+          // insert
+          return models.onlineGames.create({ id, data: { ...game } });
+        });
   } catch (e) {
     logger.error('saveGameToDB ', e.message);
   }
@@ -179,28 +179,28 @@ function givePotMoneyToWinners(game) {
       const amountWon = Math.floor(totalSidePotMoney / winnerHands.length);
 
       relevantPlayers.filter(p => winnerHands.some(winnerHand => winnerHand.cards.join('') === p.solvedHand.cards.join('')))
-        .forEach((p) => {
-          if (!winnings[p.id]) {
-            winnings[p.id] = {
-              amount: 0,
-              name: p.name,
-              handDesc: winnerHands[0].descr,
-              cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
-            };
-          }
-          p.balance += amountWon;
-          p.winner = true;
-          game.pot -= amountWon;
+          .forEach((p) => {
+            if (!winnings[p.id]) {
+              winnings[p.id] = {
+                amount: 0,
+                name: p.name,
+                handDesc: winnerHands[0].descr,
+                cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
+              };
+            }
+            p.balance += amountWon;
+            p.winner = true;
+            game.pot -= amountWon;
 
 
-          winnings[p.id].amount += amountWon;
-        });
+            winnings[p.id].amount += amountWon;
+          });
     }
   });
   const messages = [];
   const winningsDetails = Object.values(winnings).sort((a, b) => (a.amount < b.amount ? -1 : 1));
   const uniqueValuesDesc = [...new Set(winningsDetails.map(details => details.amount))].sort((a, b) => (a.amount < b.amount ? 1 : -1));
-  uniqueValuesDesc.forEach((amount) => {
+  uniqueValuesDesc.forEach((amount, potIndex) => {
     const winners = winningsDetails.filter(details => details.amount === amount);
 
     if (winners.length === 1) {
@@ -211,7 +211,7 @@ function givePotMoneyToWinners(game) {
         hand: winners[0].handDesc,
         cards: winners[0],
         log: true,
-        popupMessage: `${winners[0].name} won ${amount} with ${winners[0].handDesc}`,
+        popupMessage: `${winners[0].name} won ${amount} ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
       };
       messages.push(msg);
     } else {
@@ -226,7 +226,7 @@ function givePotMoneyToWinners(game) {
         }
       });
       const msg = {
-        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true, popupMessage: `${namesPart} won ${amount} each with ${winners[0].handDesc}`,
+        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true, popupMessage: `${namesPart} won ${amount} each ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
       };
       messages.push(msg);
     }
