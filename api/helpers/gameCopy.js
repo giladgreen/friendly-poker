@@ -1,6 +1,7 @@
 const Hand = require('pokersolver').Hand;
 const { FOLD } = require('../consts');
 const Mappings = require('../Maps');
+const { getUserHandObject } = require('./deck');
 
 function getPlayerCopyOfGame(playerId, game, showCards = false) {
     const gameToSend = { ...game };
@@ -19,9 +20,11 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
             if (!player.me) {
                 player.showingCards = true;
             }
-            if (player.cards && player.cards.length === 2 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length > 2) {
-                player.userDesc = Hand.solve([...gameToSend.board, ...player.cards]).descr;
+            if (player.cards && player.cards.length > 0 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length > 2) {
+                player.hand = getUserHandObject(gameToSend, player.cards, gameToSend.board);
+                player.userDesc = player.hand.descr;
             }
+
             if (player.active) {
                 gameToSend.playersTurn = true;
             }
