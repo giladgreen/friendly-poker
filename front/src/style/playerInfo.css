@@ -428,9 +428,10 @@
 
     .player-hand-description{
         top:12vh;
-        padding-top: 0px;
-        font-size: 0.4em;
+        padding-top: 1px;
+        font-size: 0.3em;
         width: 13vw;
+        color: black;
     }
 
     #player1{
@@ -520,4 +521,39 @@
         left:0vw;
     }
 
+    @keyframes player-hand-description-anim {
+        from {
+            top:0.6vh;
+            left:0vw;
+            width: 1vw;
+            font-size: 0.01em;
+            color: white;
+        }
+        to {
+            top:11.6vh;
+            left:0vw;
+            width: 11vw;
+            font-size: 0.5em;
+            color: black;
+        }
+    }
+
+    .player-hand-description-at-game-phase-1{
+        animation-name: player-hand-description-anim;
+        animation-duration: 0.9s;
+        animation-delay: 1.3s;
+        animation-fill-mode: both;
+    }
+    .player-hand-description-at-game-phase-2{
+        animation-name: player-hand-description-anim;
+        animation-duration: 0.9s;
+        animation-delay: 1.3s;
+        animation-fill-mode: both;
+    }
+    .player-hand-description-at-game-phase-3{
+        animation-name: player-hand-description-anim;
+        animation-duration: 0.9s;
+        animation-delay: 1.3s;
+        animation-fill-mode: both;
+    }
 }
