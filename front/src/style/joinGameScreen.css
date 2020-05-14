@@ -45,11 +45,19 @@
     left: 2vw;
 }
 
-#join-screen #join-button{
+.join-button{
     padding: 5px 10px;
     border: 2px solid white;
     border-radius: 10px;
     background: #155724;
+    cursor: pointer;
+}
+.join-button-disabled{
+    padding: 5px 10px;
+    border: 2px solid #5a6268;
+    border-radius: 10px;
+    background: #666666;
+    color: #999999;
 }
 #join-screen #join-button-full-game-div{
     position: fixed;
@@ -70,7 +78,9 @@
     background: red;
     color: black;
 }
-
+.red-background{
+    background: indianred;
+}
 #join-screen #join-button:hover{
     background: #5a626844;
     cursor: pointer;

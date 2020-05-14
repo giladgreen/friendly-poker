@@ -11,8 +11,6 @@ import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Modal from '@material-ui/core/Modal';
@@ -135,14 +133,7 @@ class OnlineGame extends Component {
     }
 
     toggleRebuyButton = ()=>{
-        if (this.state.rebuySectionOpen){
-            this.rebuyValue = null;
-            this.setState({rebuySectionOpen:false, rebuyValue: null });
-
-        }else{
-
-            this.setRebuy(Number.MAX_VALUE);
-        }
+        this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
     };
 
     sitStand = ()=>{
@@ -154,6 +145,9 @@ class OnlineGame extends Component {
     };
 
     rebuy = ()=>{
+        if (this.state.rebuyValueError){
+            return;
+        }
         if (this.state.rebuyValue === 0){
             return this.props.showAlertMessage('Rebuy is not possible');
         }
@@ -179,7 +173,9 @@ class OnlineGame extends Component {
             raiseValue: props.game.bigBlind,
             userTimer:0,
             options:[],
-            rebuyValue: null,
+            rebuyValue: 10* props.game.bigBlind,
+            rebuyValueError: false,
+            raiseValueError: false,
             checkFoldPressed: false,
             showSettings: false,
             rebuySectionOpen: false,
@@ -288,6 +284,8 @@ class OnlineGame extends Component {
                 checkFoldPressed = false;
             }
         }
+        const maxBalance = Math.max(...game.players.map(p => p.balance));
+
         const newState = {
             me,
             showingCards,
@@ -303,17 +301,10 @@ class OnlineGame extends Component {
             adminId: this.props.game.players.find(p=>p.admin).id,
             adminName: this.props.game.players.find(p=>p.admin).name,
             checkFoldPressed,
+            maxBalance,
+            rebuyValue:maxBalance - me.balance,
+            rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled
         };
-        if (!rebuyEnabled){
-            newState.rebuyValue = null;
-            newState.rebuySectionOpen = false;
-        }else{
-            if ( this.rebuyValue){
-                this.props.rebuy(this.rebuyValue);
-                this.rebuyValue=null;
-
-            }
-        }
 
         this.setState(newState);
 
@@ -357,17 +348,13 @@ class OnlineGame extends Component {
         }
     };
 
-    setRaiseValue = (newVal) =>{
-        console.log('setRaiseValue, newVal:',newVal)
-        newVal = Math.floor(newVal);
+    setRaiseValue = (raiseValue) =>{
+        raiseValue = Math.floor(raiseValue);
+        raiseValue = raiseValue < 0 ? 0 : raiseValue;
         const minRaise = this.getMinRaise();
         const maxRaise = this.getMaxRaise();
-        const raiseValue = newVal < (minRaise) ? minRaise : (newVal > (maxRaise) ? maxRaise : newVal )
-        console.log('setRaiseValue, minRaise:',minRaise)
-        console.log('setRaiseValue, maxRaise:',maxRaise)
-        console.log('setRaiseValue, raiseValue:',raiseValue)
-
-        this.setState({raiseValue});
+        const raiseValueError = raiseValue < minRaise || raiseValue > maxRaise;
+        this.setState({raiseValue, raiseValueError});
     };
 
 
@@ -424,13 +411,14 @@ class OnlineGame extends Component {
     };
 
 
-    setRebuy= (val) =>{
-        const maxBalance = Math.max(...this.props.game.players.map(p => p.balance));
-        const maxRebuy = maxBalance - this.state.me.balance;
+    setRebuy= (rebuyValue) =>{
+        rebuyValue = rebuyValue < 0 ? 0 : rebuyValue;
+        const {maxBalance, me} = this.state;
+        const maxRebuy = maxBalance - me.balance;
         const minRebuy = maxRebuy > 5 * this.props.game.bigBlind ? 5 * this.props.game.bigBlind : maxRebuy;
 
-        const rebuyValue = val < minRebuy ? minRebuy : (val > maxRebuy ?  maxRebuy : val);
-        this.setState({rebuyValue, rebuySectionOpen:true})
+        const rebuyValueError = rebuyValue < minRebuy || rebuyValue >maxRebuy;
+        this.setState({rebuyValue, rebuySectionOpen:true, rebuyValueError})
     };
 
     setSettingsTime = (val) =>{
@@ -476,6 +464,9 @@ class OnlineGame extends Component {
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const gamePaused = game.paused;
         const messages = this.props.messages;
+
+        const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).reduce((all,one)=>all+one,0);
+
         return (
             <div id="online-game-screen" >
                 {/* game time */}
@@ -483,9 +474,8 @@ class OnlineGame extends Component {
                 {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
                 {/* hand count + time */}
-                {!gamePaused && <div id="hand-time">
-                    {hand && hand >0 ? <span>Hand #{hand} </span> :<div/> }
-                    {handTime ? <span>: { handTime }</span> : <div/>}
+                {!gamePaused && hand && hand >0 && <div id="hand-time">
+                    <span>Hand #{hand} </span> <div/>
                 </div>}
                 {/* time left to talk */}
                 { !gamePaused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
@@ -501,7 +491,11 @@ class OnlineGame extends Component {
                 {/* players */}
                 {players.map((player,index)=> <PlayerInfo key={player.id} admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
-                {Boolean(pot) &&  <div id="community-pot">{pot}</div>}
+                {Boolean(pot) && <div id="community-pot">
+                    <div>{potBeforeRaises}</div>
+                    {potBeforeRaises !== pot && <div className="total-pot-amount">total of {pot}</div>}
+
+                </div>}
                 {/* game board */}
                 {board && <div id="community-cards">
                     <div id="community-card-deck1" ><Card /></div>
@@ -544,11 +538,11 @@ class OnlineGame extends Component {
                                 {/* Cancel Raise button */}
                                 <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}> Cancel </div>
                                 {/* Raise button */}
-                                 <div id="raise-button" className="action-button" onClick={this.raise}> {options.includes('Call') ? 'Raise to ' :'Bet'}  {this.state.raiseValue}</div>
+                                 <div id="raise-button" className="action-button" onClick={this.raise}> {options.includes('Call') || game.gamePhase === 0 ? 'Raise to ' :'Bet'}  {this.state.raiseValue}</div>
                                 {/* Add to Raise */}
                                 <div id="raise-button-add" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> + </div>
                                 {/* Raise Input */}
-                                <input id="raise-input" type="number" min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value),10)}/>
+                                <input id="raise-input"  className={this.state.raiseValueError ? 'red-background':''} type="number" min={0} max={this.getMaxRaise()} step={game.bigBlind} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value,10))}/>
                                 {/* Raise Input Slider */}
                                 <PrettoSlider id="raise-input-slider" valueLabelDisplay="auto" aria-label="pretto slider"   step={1} min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e,val)=> this.setRaiseValue(parseInt(val),10)} />
 
@@ -581,7 +575,7 @@ class OnlineGame extends Component {
                 <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>
 
                 {/* opened rebuy section */}
-                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className="active-button" onClick={this.rebuy}>
+                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className={this.state.rebuyValueError ? 'inactive-button' : 'active-button'} onClick={this.rebuy}>
                     <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>
                 </div>}
                 {this.state.rebuySectionOpen && <div id="rebuy-section"  >
@@ -589,8 +583,10 @@ class OnlineGame extends Component {
                         <span id="rebuy-label" >Amount</span>
                     </div>
                     <div>
-                        <input id="rebuy-input"
+                        <input id="rebuy-input" className={this.state.rebuyValueError ? 'red-background':''}
                                type="number"
+                               min={0}
+                               step={game.bigBlind}
                                value={this.state.rebuyValue}
                                onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
                     </div>
@@ -745,5 +741,4 @@ class OnlineGame extends Component {
 }
 
 export default OnlineGame;
-// todo: chat box: and add each incoming message event
 

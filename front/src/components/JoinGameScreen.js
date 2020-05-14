@@ -10,29 +10,26 @@ class JoinGameScreen extends Component {
         super(props);
         const name = localStorage.getItem('myName') || '';
         const maxBuyIn = Math.max(...props.game.players.map(p=>p.balance));
+        const minBuyIn = 10 * this.props.game.bigBlind;
         this.takenNames = props.game.players.map(p=>p.name);
         const buyIn = props.game.players.length >0 ? maxBuyIn : 100 * props.game.bigBlind;
         this.state = {
             name,
             buyIn,
-            showErrors:false,
+            showNameError:false,
+            showAmountError:false,
             joinRequestSent: false,
             maxBuyIn,
+            minBuyIn,
         }
     }
 
     onJoin = ()=>{
-        if (!this.state.name || this.state.name.length === 0 ||
-            !this.state.buyIn || this.state.buyIn===0){
-            this.props.showAlertMessage('all fields are mandatory');
-            this.setState({showErrors:true});
+
+        if (this.state.showAmountError || this.state.showNameError){
             return;
         }
-        if (this.takenNames.includes(this.state.name)) {
-            this.props.showAlertMessage('please pick unique name');
-            this.setState({showErrors:true});
-            return;
-        }
+
         localStorage.setItem('myName',this.state.name);
         this.props.joinGame({
             name: this.state.name,
@@ -40,18 +37,18 @@ class JoinGameScreen extends Component {
         });
 
 
-        this.setState({showErrors:false});
+        this.setState({showAmountError:false, showNameError:false});
     };
 
-    setName = (val) =>{
-        const name = val.length <= 9 ? val : val.substr(0,9);
-        this.setState({name})
+    setName = (name) =>{
+        const showNameError = this.takenNames.includes(name) || name.length === 0 || name.length > 9;
+        this.setState({name, showNameError})
     };
 
-    setBuyIn = (val) =>{
-        const min =  10 * this.props.game.bigBlind;
-        const buyIn = val < this.state.maxBuyIn ? (val > min ? val : min) : this.state.maxBuyIn;
-        this.setState({buyIn})
+    setBuyIn = (buyIn) =>{
+        buyIn = buyIn > 0 ? buyIn : 0;
+        const showAmountError = buyIn < this.state.minBuyIn || buyIn > this.state.maxBuyIn;
+        this.setState({buyIn, showAmountError})
     };
 
 
@@ -59,6 +56,8 @@ class JoinGameScreen extends Component {
         if (this.state.joinRequestSent){
             return <Loader/>;
         }
+        const {smallBlind, bigBlind, time, players}=this.props.game;
+        const playersCount = players.length;
         return (
             <div id="join-screen"  >
 
@@ -67,47 +66,40 @@ class JoinGameScreen extends Component {
                             Join Game
                         </header>
                         <div>
-                            Small Blind: {this.props.game.smallBlind}
+                            Small Blind: {smallBlind}
                         </div>
                         <div>
-                            Big Blind:  {this.props.game.bigBlind}
+                            Big Blind:  {bigBlind}
                         </div>
                         <div>
-                            Time To Action:  {this.props.game.time} seconds
+                            Time To Action:  {time} seconds
                         </div>
 
                         <div>
                             Name: <input
-                            disabled={this.props.game.players.length >= 8}
+                            disabled={playersCount >= 8}
                             className={`join-game-input name-input 
-                            ${this.state.showErrors ? 'red-border':''}`}
+                            ${this.state.showNameError ? 'red-border red-background':''}`}
                             type="text" value={this.state.name}
-                            onKeyUp={(event)=>{
-
-                                event.preventDefault();
-                                if (event.keyCode === 13) {
-                                    this.onJoin();
-                                }
-                            }}
-
                             onChange={(e)=>this.setName(e.target.value)} />
                         </div>
                         <div>
                             Initial Buy-In:  <input
-                            disabled={this.props.game.players.length >= 8}
-                            className={`join-game-input buy-in ${this.state.showErrors ? 'red-border':''}`}
+                            disabled={playersCount >= 8}
+                            className={`join-game-input buy-in ${this.state.showAmountError ? 'red-border red-background':''}`}
                             type="number"
+                            min={0}
+                            step={bigBlind}
                             value={this.state.buyIn}
-                            max={Math.max(...this.props.game.players.map(p=>p.balance))}
                             onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
 
                         </div>
 
 
-                        {this.props.game.players.length < 8 &&<div id="join-button-div">
-                            <span id="join-button" onClick={this.onJoin}>Join</span>
+                        {playersCount < 8 &&<div id="join-button-div">
+                            <span className={`${this.state.showAmountError || this.state.showNameError ? 'join-button-disabled' : 'join-button'}`}  onClick={this.onJoin}>Join</span>
                         </div>}
-                        {this.props.game.players.length >= 8 && <div id="join-button-full-game-div">
+                        {playersCount >= 8 && <div id="join-button-full-game-div">
                             <span id="join-button-full-game" >Game is full</span>
 
                         </div>}
@@ -116,13 +108,13 @@ class JoinGameScreen extends Component {
 
                     <div id="existing-players">
                         <header>
-                            {this.props.game.players.length} Player{this.props.game.players.length>1 ? 's':''}
+                            {playersCount} Player{playersCount>1 ? 's':''}
                         </header>
                         <div id="existing-players-list">
                             {
-                                this.props.game.players.length === 0 ? '' :
+                                playersCount === 0 ? '' :
 
-                                    this.props.game.players.map((player,index)=>{
+                                    players.map((player,index)=>{
 
                                         return <div key={player.id}
                                                     className={`${index % 2 ===0 ?'greyPlayer':'whitePlayer'} existing-player`  }>

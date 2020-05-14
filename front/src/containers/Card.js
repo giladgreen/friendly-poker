@@ -17,7 +17,8 @@ const Card = (props) => {
 
     const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha } = props;
     const texas =!omaha;
-    if (!card){
+    if (texas && (third || fourth)){
+        console.log('no card', props)
         return <div/>;
     }
     const number = card && (isMe || !folded) ? card[0].replace('T','10') : '';

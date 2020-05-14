@@ -30,7 +30,7 @@ const PlayerInfo = (props) => {
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 
-            { player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index+1}-pot`} className="player-pot">{(player.pot[game.gamePhase])}</div>}
+            { player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index+1}-pot`} className="player-pot">+{(player.pot[game.gamePhase])}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
             { props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}
