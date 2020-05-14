@@ -25,7 +25,7 @@
     visibility: collapse;
 }
 .inactive-button{
-    opacity: 60%;
+    opacity: 0.6;
     cursor: default;
 }
 
@@ -304,7 +304,7 @@
         cursor: pointer;
     }
     .action-buttons-second-row{
-        opacity: 0%;
+        opacity: 0;
     }
 
 }
