@@ -116,12 +116,12 @@
 
 #raise-button{
     right: 9vw;
-    background: #9fffbb77;
+    background-image: linear-gradient(black, #55A57755);
     width: 16.6vw;
 }
 
 #raise-button:hover{
-    background: #9fffbbCC
+    background-image: linear-gradient(#55A577CC, #55A57733);
 }
 
 .raise-button-add-remove{
@@ -133,7 +133,11 @@
     padding-top: 1vh;
     color: white;
     z-index: 10;
-    background: #222222;
+    background-image: linear-gradient(black, #222233);
+}
+
+.raise-button-add-remove:hover{
+    background-image: linear-gradient(#226633, black);
 }
 
 #raise-button-add{
@@ -170,14 +174,53 @@
     right: 40vw;
     width: 8vw;
     font-size: 1.9em;
-    background: #ffA50055;
+    background-image: linear-gradient(black, #55A57755);
 }
 
 
 #all-in-button:hover{
-    background: #ffA500AA;
+    background-image: linear-gradient(#55A577CC, #55A57733);
 
 }
+
+.action-buttons-second-row{
+    position: fixed;
+    top: 90vh;
+    border: 2px solid grey;
+    border-radius: 15px;
+    height: 7vh;
+    width: 11vw;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 0.2vh;
+    cursor: pointer;
+    background-image: linear-gradient(black, #55A55555);
+}
+
+.action-buttons-second-row:hover{
+    background-image: linear-gradient(#55A555CC, #55A55533);
+}
+
+#raise-button-pot{
+    right: 1vw;
+}
+
+
+#raise-button-2-3{
+    right: 13vw;
+}
+
+
+#raise-button-1-2{
+    right: 25vw;
+}
+
+
+#raise-button-1-3{
+    right: 37vw;
+}
+
 
 
 
@@ -259,6 +302,9 @@
         font-size: 1.2em;
         padding-top: 0.3vh;
         cursor: pointer;
+    }
+    .action-buttons-second-row{
+        opacity: 0%;
     }
 
 }

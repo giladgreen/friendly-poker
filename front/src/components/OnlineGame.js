@@ -547,14 +547,17 @@ class OnlineGame extends Component {
                                 {/* Subtract to Raise */}
                                 <div id="raise-button-sub" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
 
-                                {/* pot */}
-                                {/*<div id="raise-button-pot" className={`action-button pot-raise-smaller-font`} onClick={()=> this.setRaiseValue(pot + (2*game.amountToCall))}> pot</div>*/}
-                                {/*/!* 1/2 pot *!/*/}
-                                {/*<div id="raise-button-1-2" className={`action-button pot-raise-smaller-font ${game.amountToCall > 0 ? 'inactive-button':''} `}  onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>*/}
-                                {/*/!* 1/3 pot *!/*/}
-                                {/*<div id="raise-button-1-3" className={`action-button pot-raise-smaller-font ${game.amountToCall > 0 ? 'inactive-button':''} `}  onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>*/}
-                                {/* all in */}
+                                {/* all in button*/}
                                 <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>
+
+                                {/* pot */}
+                                { options.includes('Check') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> pot</div>}
+                                {/*/!* 2/3 pot *!/*/}
+                                { options.includes('Check') && <div id="raise-button-2-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(2*pot / 3)}> 2/3 pot</div>}
+                                {/*/!* 1/2 pot *!/*/}
+                                { options.includes('Check') && <div id="raise-button-1-2" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>}
+                                {/*/!* 1/3 pot *!/*/}
+                                { options.includes('Check') && <div id="raise-button-1-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>}
 
 
                             </div>
