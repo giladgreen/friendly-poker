@@ -146,17 +146,38 @@
     animation-delay: 1.3s;
     animation-fill-mode: both;
 }
-.left-card{
+
+.first-card-texas{
     z-index: 20;
     transform: rotate(-8deg);
     position: absolute;
     left: 0vw;
 }
-.right-card{
-    z-index: 21;
-    transform: rotate(8deg);
+.first-card{
+    z-index: 20;
     position: absolute;
+    left: -4.6vw;
+}
+.second-card-texas{
+    z-index: 21;
+    position: absolute;
+    transform: rotate(8deg);
     left: 3.2vw;
+}
+.second-card{
+    z-index: 21;
+    position: absolute;
+    left: -1.7vw;
+}
+.third-card{
+    z-index: 22;
+    position: absolute;
+    left: 1.1vw;
+}
+.fourth-card{
+    z-index: 23;
+    position: absolute;
+    left: 4vw;
 }
 
 .simple-card-base{

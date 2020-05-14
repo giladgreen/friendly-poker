@@ -9,10 +9,14 @@ const PlayerInfo = (props) => {
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
     const card2 = player.cards ? player.cards[1] : null;
+    const card3 = player.cards && game.omaha ? player.cards[2] : null;
+    const card4 = player.cards && game.omaha ? player.cards[3] : null;
     return  <div key={`player_${index}`} id={`player${index+1}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
-            <Card isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} left={true} shown={showCards} highlight={winningHandCards.includes(card1)}/>
-            <Card isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} right={true} shown={showCards} highlight={winningHandCards.includes(card2)}/>
+            <Card isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card1)}/>
+            <Card isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card2)}/>
+            <Card isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} highlight={winningHandCards.includes(card3)}/>
+            <Card isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} highlight={winningHandCards.includes(card4)}/>
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >

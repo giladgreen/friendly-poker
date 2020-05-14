@@ -15,6 +15,8 @@ const WhiteCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 import React, { Component } from 'react';
+import Select from "@material-ui/core/Select/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
@@ -38,6 +40,11 @@ class CreateGameScreen extends Component {
             time,
             buyIn,
             showErrors:false,
+            gameOptions:[
+                {value: 1, name: 'No Limit Texas Holdem'},
+                {value: 2, name: 'No Limit Omaha'}
+            ],
+            selectedGame: 1,
         }
     }
 
@@ -69,6 +76,8 @@ class CreateGameScreen extends Component {
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
             requireRebuyAproval: this.state.aprovalRequired,
+            texas: this.state.selectedGame === 1,
+            omaha: this.state.selectedGame === 2,
         });
 
         this.setState({showErrors:false});
@@ -108,6 +117,10 @@ class CreateGameScreen extends Component {
     setPrivate= (e) =>{
         this.setState({privateGame: e.target.checked })
     };
+
+    onSelectedGameChange = (selectedGame)=>{
+        this.setState({selectedGame})
+    }
 
     setAprovalRequired= (e) =>{
         this.setState({aprovalRequired: e.target.checked })
@@ -191,6 +204,19 @@ class CreateGameScreen extends Component {
                                    value={this.state.buyIn}
                                    onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
                         </div>
+                        {!isMobile && <div id="select-game-div">
+                            <span id="select-game-label">Select Game:</span>
+                            <Select
+                                id="select-game-dropdown"
+                                value={this.state.selectedGame}
+                                onChange={(e) => this.onSelectedGameChange(e.target.value)} >
+                                {this.state.gameOptions.map(option => {
+                                    return  <MenuItem value={option.value}>{ option.name}</MenuItem>
+                                })}
+
+                            </Select>
+                        </div>}
+
                         <div id="create-new-game-private-checkbox">
                             <FormControlLabel
                                 control={
@@ -244,6 +270,7 @@ class CreateGameScreen extends Component {
                                     return <div key={game.id}
                                                 className={index % 2 ===0 ?'existing-game greyGame':'existing-game whiteGame'}>
                                         <div  onClick={()=>window.location = `${serverPrefix}?gameid=${game.id}`}>
+                                            <div>{game.omaha ? 'No Limit Omaha' : 'No Limit Texas Holdem'}</div>
                                             <div>{game.privateGame ? 'private game' : 'public game'}</div>
                                             <div> created by {this.getGameCreator(game)}</div>
                                             <div> blinds: {game.smallBlind}/{game.bigBlind}</div>

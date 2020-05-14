@@ -54,7 +54,7 @@
 .config-screens-top-level-sections-body{
     position: fixed;
     top:25vh;
-    height: 50.5vh;
+    height: 53.7vh;
     z-index: 2;
     border: 2px solid gray;
     border-radius: 12px;
@@ -162,7 +162,7 @@
 
 #create-new-game-buy-in-div{
     position: fixed;
-    top:57vh;
+    top:55vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -175,15 +175,38 @@
 #create-new-game-buy-in-input{
     border-radius: 12px;
     margin-right: 1vw;
-    font-size:  2.3em;
+    font-size:  2.2em;
     color: black;
     margin-left: 1vw;
     width: 9vw;
 }
-
+#select-game-div{
+    position: fixed;
+    top:63vh;
+    height: 6vh;
+    left: 6vw;
+    width: 61vw;
+    z-index: 3;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0px;
+    color: white;
+    font-size: 2em;
+}
+#select-game-dropdown{
+    margin-left: 10px;
+    background: white;
+    color: black;
+    width: 24vw;
+    border-radius: 8px;
+    padding: 10px 0px 5px 20px;
+    height: 3vh;
+    font-size: 2em;
+}
 #create-new-game-private-checkbox{
     position: fixed;
-    top:65vh;
+    top:68.6vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -200,7 +223,7 @@
 }
 #create-new-game-aproval-required-checkbox{
     position: fixed;
-    top:69.6vh;
+    top:73vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -215,30 +238,13 @@
 #create-new-game-aproval-required-checkbox label{
     font-size:  2.3em;
 }
-#create-new-game-signs-div{
-    position: fixed;
-    top:66vh;
-    height: 6vh;
-    left: 35vw;
-    width: 24vw;
-    z-index: 3;
-    text-align: left;
-}
-#create-new-game-signs-div span{
-    color: white;
-    border: 1px solid white;
-    border-radius: 10px;
-    margin: 3px;
-    padding: 4px 10px;
-    background: #11441188;
-    font-size:  1.8em;
-}
 
 #create-game-button{
     color: white;
+    background-image: linear-gradient(darkgreen, black);
     font-size:  3em;
     position: fixed;
-    top:76vh;
+    top:79vh;
     height: 10vh;
     left:24.5vw;
     width: 13.5vw;
@@ -247,6 +253,7 @@
     border: 3px solid gray;
     border-radius: 12px;
     cursor: pointer;
+    padding-top: 1vh;
 }
 .disabled-create-game-button{
     color: darkgray;
@@ -367,22 +374,23 @@
     }
 
     #create-new-game-private-checkbox{
-        top:61vh;
+        top:60vh;
         font-size: 1em;
     }
 
     #create-new-game-aproval-required-checkbox{
-        top:66vh;
+        top:65.4vh;
         font-size: 1em;
     }
 
     #create-game-button{
         font-size:  1.2em;
         position: fixed;
-        top:75vh;
+        top:74.6vh;
         height: 9vh;
         left:24vw;
         width: 15.5vw;
+        padding-top: 0vh;
     }
 
     .existing-game{
