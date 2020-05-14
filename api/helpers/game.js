@@ -1,6 +1,7 @@
 const Hand = require('pokersolver').Hand;
 const Mappings = require('../Maps');
 const models = require('../models');
+const { getUserHandObject } = require('./deck');
 const { getPlayerCopyOfGame } = require('./gameCopy');
 const logger = require('../services/logger');
 const {
@@ -100,15 +101,15 @@ async function saveGameToDB(g) {
 
 
     return await models.onlineGames
-        .findOne({ where: { id } })
-        .then((obj) => {
-          // update
-          if (obj) {
-            return obj.update({ data: { ...game } });
-          }
-          // insert
-          return models.onlineGames.create({ id, data: { ...game } });
-        });
+      .findOne({ where: { id } })
+      .then((obj) => {
+        // update
+        if (obj) {
+          return obj.update({ data: { ...game } });
+        }
+        // insert
+        return models.onlineGames.create({ id, data: { ...game } });
+      });
   } catch (e) {
     logger.error('saveGameToDB ', e.message);
   }
@@ -148,7 +149,7 @@ function givePotMoneyToWinners(game) {
     p.totalPot = p.pot.reduce((total, num) => total + num, 0);
     totalPot.push(p.totalPot);
     if (!p.fold && !p.sitOut) {
-      p.solvedHand = Hand.solve([...board, ...p.cards]);
+      p.solvedHand = getUserHandObject(game, p.cards, board);
     }
   });
 
@@ -179,22 +180,22 @@ function givePotMoneyToWinners(game) {
       const amountWon = Math.floor(totalSidePotMoney / winnerHands.length);
 
       relevantPlayers.filter(p => winnerHands.some(winnerHand => winnerHand.cards.join('') === p.solvedHand.cards.join('')))
-          .forEach((p) => {
-            if (!winnings[p.id]) {
-              winnings[p.id] = {
-                amount: 0,
-                name: p.name,
-                handDesc: winnerHands[0].descr,
-                cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
-              };
-            }
-            p.balance += amountWon;
-            p.winner = true;
-            game.pot -= amountWon;
+        .forEach((p) => {
+          if (!winnings[p.id]) {
+            winnings[p.id] = {
+              amount: 0,
+              name: p.name,
+              handDesc: winnerHands[0].descr,
+              cards: winningHandCards.map(c => `${c.value}${c.suit}`.replace('10', 'T').toUpperCase()),
+            };
+          }
+          p.balance += amountWon;
+          p.winner = true;
+          game.pot -= amountWon;
 
 
-            winnings[p.id].amount += amountWon;
-          });
+          winnings[p.id].amount += amountWon;
+        });
     }
   });
   const messages = [];
@@ -279,4 +280,6 @@ module.exports = {
   deleteGameInDB,
   onGetGamesEvent,
   publishPublicGames,
+  getUserHandObject,
+
 };

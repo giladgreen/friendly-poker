@@ -70,8 +70,8 @@ function startNewHand(game, dateTime) {
 
   if (game.pendingJoin && game.pendingJoin.length > 0) {
     game.pendingJoin.filter(data => data.approved).forEach(({
-                                                              playerId, name, balance,
-                                                            }) => {
+      playerId, name, balance,
+    }) => {
       game.messages.push({
         action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
       });
@@ -97,8 +97,8 @@ function startNewHand(game, dateTime) {
 
   if (game.pendingRebuy && game.pendingRebuy.length > 0) {
     game.pendingRebuy.filter(data => data.approved).forEach(({
-                                                               playerId, amount,
-                                                             }) => {
+      playerId, amount,
+    }) => {
       const playerToAddMoneyTo = game.players.find(p => p.id === playerId);
       if (playerToAddMoneyTo) {
         playerToAddMoneyTo.balance += amount;
@@ -148,7 +148,8 @@ function startNewHand(game, dateTime) {
     player.needToTalk = !player.fold && !player.sitOut;
 
     player.options = [];
-    player.cards = player.sitOut ? [] : [game.deck.pop(), game.deck.pop()];
+    // eslint-disable-next-line no-nested-ternary
+    player.cards = player.sitOut ? [] : (game.omaha ? [game.deck.pop(), game.deck.pop(), game.deck.pop(), game.deck.pop()] : [game.deck.pop(), game.deck.pop()]);
   });
   game.pendingPlayers = [];
   const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;

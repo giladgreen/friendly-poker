@@ -1,3 +1,5 @@
+const Hand = require('pokersolver').Hand;
+
 const signs = ['D', 'S', 'H', 'C'];
 const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
 const DECK = ranks.map(rank => signs.map(sign => `${rank}${sign}`)).reduce((all, one) => [...all, ...one], []);
@@ -17,6 +19,43 @@ function getShuffledDeck() {
   return shuffledTwice;
 }
 
+
+function getOmahaHand(cards, board) {
+  const playerCardsOptions = [
+    [cards[0], cards[1]],
+    [cards[0], cards[2]],
+    [cards[0], cards[3]],
+    [cards[1], cards[2]],
+    [cards[1], cards[3]],
+    [cards[2], cards[3]]];
+
+  const boardOptions = [
+    [board[0], board[1], board[2]],
+    [board[0], board[1], board[3]],
+    [board[0], board[1], board[4]],
+    [board[0], board[2], board[3]],
+    [board[0], board[2], board[4]],
+    [board[0], board[3], board[4]],
+    [board[1], board[2], board[3]],
+    [board[1], board[2], board[4]],
+    [board[1], board[3], board[4]],
+    [board[2], board[3], board[4]],
+  ];
+
+  const allOptions = playerCardsOptions.reduce((results, playerOption) => [...results, ...boardOptions.map(boardOption => [...boardOption, ...playerOption])], []);
+
+  return Hand.winners(allOptions.map(h => Hand.solve(h)))[0];
+}
+
+function getTexasHand(cards, board) {
+  return Hand.solve([...board, ...cards]);
+}
+function getUserHandObject(game, cards, board) {
+  const getHand = game.omaha ? getOmahaHand : getTexasHand;
+  return getHand(cards, board);
+}
+
 module.exports = {
   getShuffledDeck,
+  getUserHandObject,
 };
