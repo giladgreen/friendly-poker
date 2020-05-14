@@ -346,7 +346,15 @@ class OnlineGame extends Component {
     }
 
     getMaxRaise=()=>{
-        return this.state.me.balance + this.state.me.pot[this.props.game.gamePhase] ;
+        const game = this.props.game;
+        const maxForAllIn = this.state.me.balance + this.state.me.pot[game.gamePhase];
+        const amountToCall = (game.amountToCall - this.state.me.pot[game.gamePhase]);
+        if (game.omaha){
+            const max = ((game.pot + amountToCall) * 2);
+            return max < maxForAllIn ? max : maxForAllIn;
+        } else{
+            return maxForAllIn;
+        }
     };
 
     setRaiseValue = (newVal) =>{

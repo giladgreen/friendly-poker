@@ -42,7 +42,7 @@ class CreateGameScreen extends Component {
             showErrors:false,
             gameOptions:[
                 {value: 1, name: 'No Limit Texas Holdem'},
-                {value: 2, name: 'No Limit Omaha'}
+                {value: 2, name: 'Pot Limit Omaha'}
             ],
             selectedGame: 1,
         }
@@ -270,7 +270,7 @@ class CreateGameScreen extends Component {
                                     return <div key={game.id}
                                                 className={index % 2 ===0 ?'existing-game greyGame':'existing-game whiteGame'}>
                                         <div  onClick={()=>window.location = `${serverPrefix}?gameid=${game.id}`}>
-                                            <div>{game.omaha ? 'No Limit Omaha' : 'No Limit Texas Holdem'}</div>
+                                            <div>{game.omaha ? 'Pot Limit Omaha' : 'No Limit Texas Holdem'}</div>
                                             <div>{game.privateGame ? 'private game' : 'public game'}</div>
                                             <div> created by {this.getGameCreator(game)}</div>
                                             <div> blinds: {game.smallBlind}/{game.bigBlind}</div>
