@@ -245,6 +245,58 @@
     color: white;
 }
 
+#player-settings-modal{
+    z-index: 99;
+    position: fixed;
+    width: 85vw;
+    height: 89vh;
+    top: 10vh;
+    left: 1vw;
+    background: #000000BB;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    overflow-y: scroll;
+    color: white;
+    font-size: 2em;
+
+}
+#player-settings-header{
+    text-align: center;
+    text-decoration: underline;
+    font-size: 2.5em;
+
+}
+#Deck-Style-selection{
+
+}
+.base-Deck-Style{
+    width: 10vw;
+    padding: 5px 5px 5px 25px;
+    background: black;
+    border: 2px solid white;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.selected-Deck-Style{
+    background: darkgreen;
+}
+.unselected-Deck-Style{
+    background: #5a6268;
+}
+#player-settings-modal-close-x{
+    position: fixed;
+    top: 12vh;
+    left: 82vw;
+    z-index: 100;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: fantasy;
+    cursor: pointer;
+    color: white;
+}
 #hand-time{
     color: #eaeaea;
     z-index: 30;
@@ -437,7 +489,15 @@
     border-radius: 8px 0px 0px 0px;
     height: 3.9vh;
 }
-
+#player-settings-button{
+    position: fixed;
+    bottom: 24vh;
+    left: 0.6vw;
+    padding: 3px;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
 #send-message-button{
     position: fixed;
     bottom: 18.77vh;

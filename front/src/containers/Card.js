@@ -3,11 +3,14 @@
 import React from 'react'
 
 const Card = (props) => {
+    const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha, playerPreferences } = props;
+
+    const {twoColors} = playerPreferences;
 
     const heart =  <i className="em-svg em-hearts"/>;
     const spade =  <i className="em-svg em-spades"/>;
-    const diamond =<i className="em-svg em-diamonds"/>;
-    const club =   <i className="em-svg em-clubs"/>;
+    const diamond =<i className={`em-svg em-${twoColors ? 2 : 4 }diamonds`}/>;
+    const club =   <i className={`em-svg em-${twoColors ? 2 : 4 }clubs`}/>;
     const signToSignmap = {
         'H':heart,
         'S':spade,
@@ -15,16 +18,21 @@ const Card = (props) => {
         'C':club,
     }
 
-    const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha } = props;
     const texas =!omaha;
     if (texas && (third || fourth)){
-        console.log('no card', props)
         return <div/>;
     }
     const number = card && (isMe || !folded) ? card[0].replace('T','10') : '';
     const sign = card && (isMe || !folded) ? signToSignmap[card[1]] : '';
-    const color = card ? (['D','H'].includes(card[1]) ? 'red-card' : 'black-card' ) : '';
-
+    let color = card ? (['D','H'].includes(card[1]) ? 'red-card' : 'black-card' ) : '';
+    if (card && !twoColors){
+        if (card[1] === 'C'){
+            color = 'club-color-card'
+        }
+        if (card[1] === 'D'){
+            color = 'diamond-color-card'
+        }
+    }
 
 
     return  <div key={`card_${card}`}

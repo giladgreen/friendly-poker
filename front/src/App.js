@@ -60,6 +60,16 @@ String.prototype.AsExactTimeWithSeconds = function(hours = 0) {
 if (!localStorage.getItem('playerId')){
     localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
 }
+
+const basePreferences = {
+    twoColors:true,
+}
+if (!localStorage.getItem('playerPreferences')){
+    localStorage.setItem('playerPreferences', JSON.stringify(basePreferences));
+}
+
+
+
 const search = window.location.search || '';
 class App extends Component {
     constructor(props) {

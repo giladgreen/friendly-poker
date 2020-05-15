@@ -104,6 +104,9 @@ class OnlineGame extends Component {
     toggleSettings = ()=>{
         this.setState({showSettings:!this.state.showSettings})
     };
+    togglePlayerSettings = ()=>{
+        this.setState({showPlayerSettings:!this.state.showPlayerSettings})
+    };
 
     toggleLogs = ()=>{
         if (!this.state.showLogs){
@@ -165,6 +168,9 @@ class OnlineGame extends Component {
 
     constructor(props) {
         super(props);
+
+        const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
+        console.log('online, ctor, playerPreferences',playerPreferences)
         this.state = {
             clockMessage: '',
             chatMessage: '',
@@ -178,6 +184,7 @@ class OnlineGame extends Component {
             raiseValueError: false,
             checkFoldPressed: false,
             showSettings: false,
+            showPlayerSettings: false,
             rebuySectionOpen: false,
             showInfoScreen: false,
             showLogs: false,
@@ -187,6 +194,7 @@ class OnlineGame extends Component {
             bigBlind: props.game.bigBlind,
             adminId: props.game.players.find(p=>p.admin).id,
             adminName: props.game.players.find(p=>p.admin).name,
+            playerPreferences
         }
 
         setTimeout(()=>{
@@ -474,9 +482,9 @@ class OnlineGame extends Component {
                 {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
                 {/* hand count + time */}
-                {!gamePaused && hand && hand >0 && <div id="hand-time">
+                {!gamePaused && hand && hand >0 ? <div id="hand-time">
                     <span>Hand #{hand} </span> <div/>
-                </div>}
+                </div> : <div/>}
                 {/* time left to talk */}
                 { !gamePaused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
                 {/* time left to talk progess bar */}
@@ -489,7 +497,7 @@ class OnlineGame extends Component {
                 { gamePaused && <div><div id="game-pause-indication"  >וו</div><div id="game-pause-indication-text"  >Game Paused</div></div>}
 
                 {/* players */}
-                {players.map((player,index)=> <PlayerInfo key={player.id} admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player,index)=> <PlayerInfo key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={index} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) && <div id="community-pot">
                     <div>{potBeforeRaises}</div>
@@ -498,14 +506,14 @@ class OnlineGame extends Component {
                 </div>}
                 {/* game board */}
                 {board && <div id="community-cards">
-                    <div id="community-card-deck1" ><Card /></div>
-                    <div id="community-card-deck2" ><Card /></div>
-                    <div id="community-card-deck3" ><Card /></div>
-                    {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card card={board[0]}/></div> }
-                    {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card card={board[1]}/></div> }
-                    {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card card={board[2]}/></div> }
-                    {board[3] && <div id="community-card-4" className={winningHandCards.includes(board[3]) ? 'highlight-card':''}><Card card={board[3]}/></div> }
-                    {board[4] && <div id="community-card-5" className={winningHandCards.includes(board[4]) ? 'highlight-card':''}><Card card={board[4]}/></div> }
+                    <div id="community-card-deck1" ><Card playerPreferences={this.state.playerPreferences}/></div>
+                    <div id="community-card-deck2" ><Card playerPreferences={this.state.playerPreferences}/></div>
+                    <div id="community-card-deck3" ><Card playerPreferences={this.state.playerPreferences}/></div>
+                    {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[0]}/></div> }
+                    {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[1]}/></div> }
+                    {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[2]}/></div> }
+                    {board[3] && <div id="community-card-4" className={winningHandCards.includes(board[3]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[3]}/></div> }
+                    {board[4] && <div id="community-card-5" className={winningHandCards.includes(board[4]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[4]}/></div> }
                 </div>}
 
                 {/* action buttons */}
@@ -631,7 +639,7 @@ class OnlineGame extends Component {
                             <div id="game-settings-modal-title">Game Settings</div>
 
                            <div className="game-settings-item">
-                               <span className="game-settings-label">Player Time To Think:</span>
+                               <span className="game-settings-label">Decision Time Limit:</span>
                                <input className="game-settings-input"
                                       type="number"
                                       min="10"
@@ -714,6 +722,55 @@ class OnlineGame extends Component {
                         </div>
                     </Fade>
                 </Modal>
+
+
+
+                {/* player setting button */}
+                <div id="player-settings-button"  onClick={this.togglePlayerSettings}><SettingsIcon/> </div>
+
+                {/* player setting modal */}
+                <Modal
+                    open={this.state.showPlayerSettings}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}>
+                    <Fade in={this.state.showPlayerSettings}>
+
+                        <div id="player-settings-modal">
+                            <div id="player-settings-modal-close-x" onClick={this.togglePlayerSettings}>X</div>
+                           <div id="player-settings-header">
+                               Player Preferences
+                           </div>
+                            <div id="Deck-Style-selection">
+                                Deck Style:
+                                <div className={`base-Deck-Style ${this.state.playerPreferences.twoColors ? 'selected-Deck-Style': 'unselected-Deck-Style'}` }onClick={()=>{
+                                    const newPlayerPreferences = {...this.state.playerPreferences};
+                                    newPlayerPreferences.twoColors = true;
+                                    localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
+                                    this.setState({playerPreferences:newPlayerPreferences})
+                                }}>2 colors</div>
+                                 <div className={`base-Deck-Style ${!this.state.playerPreferences.twoColors ? 'selected-Deck-Style':'unselected-Deck-Style'}` } onClick={()=>{
+                                    const newPlayerPreferences = {...this.state.playerPreferences};
+                                     newPlayerPreferences.twoColors = false;
+                                    localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
+
+                                     console.log('set playerPreferences to', localStorage.getItem('playerPreferences'))
+
+                                    this.setState({playerPreferences:newPlayerPreferences})
+                                }}>4 colors</div>
+
+
+
+                            </div>
+                        </div>
+                    </Fade>
+                </Modal>
+
+
+
+
 
                 {/* chat box input */}
                 <input id="chat-input"

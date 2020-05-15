@@ -184,7 +184,7 @@ class CreateGameScreen extends Component {
                                    onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))} />
                         </div>
                         <div id="create-new-game-action-time-div">
-                            <span id="create-new-game-action-time-label" className="create-new-game-labels">Player Time To Think:</span>
+                            <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit:</span>
                             <input id="create-new-game-action-time-input"
                                    className={this.state.showErrors ? 'red-border':''}
                                    type="number"
