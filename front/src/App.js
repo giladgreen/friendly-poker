@@ -136,11 +136,31 @@ class App extends Component {
 
     getGameClone = (game) =>{
 
+        const players = game.players;
+
         const myIndex = this.getMyIndex(game.players);
+
+
+        console.log('myIndex',myIndex)
+        players.forEach((player, index)=>{
+            if (index >= myIndex){
+                player.locationIndex = index - myIndex +1;
+                console.log('index',index,'*player.locationIndex',player.locationIndex )
+            } else{
+                player.locationIndex = 8 - index;
+                console.log('index',index,'$player.locationIndex',player.locationIndex )
+
+            }
+        });
+
+        console.log('players',players)
+        //            players: [...game.players.slice(myIndex, game.players.length+1),...game.players.slice(0, myIndex)]
         const gameClone = {
             ...game,
-            players: [...game.players.slice(myIndex, game.players.length+1),...game.players.slice(0, myIndex)]
+            players,
         };
+
+
 
         return gameClone;
     };
@@ -335,6 +355,7 @@ class App extends Component {
 
         this.socket.on('gamecreated', (game) => {
             console.log('on gamecreated');
+            game = this.getGameClone(game);
 
             const gameId = game.id;
             const existingGames = (localStorage.getItem('games') || '').split(',');

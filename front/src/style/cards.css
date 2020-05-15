@@ -146,23 +146,47 @@
     animation-delay: 1.3s;
     animation-fill-mode: both;
 }
+@keyframes first-card-texas-anim {
+    from {
+        left: -6vw;
+    }
+    to {
+        left: 0vw;
+    }
+}
 
 .first-card-texas{
     z-index: 20;
     transform: rotate(-8deg);
     position: absolute;
     left: 0vw;
+
+    animation-name: first-card-texas-anim;
+    animation-duration: 1s;
+    animation-fill-mode: both;
 }
 .first-card{
     z-index: 20;
     position: absolute;
     left: -4.6vw;
 }
+@keyframes second-card-texas-anim {
+    from {
+        left: -6vw;
+    }
+    to {
+        left: 3.2vw;
+    }
+}
 .second-card-texas{
     z-index: 21;
     position: absolute;
     transform: rotate(8deg);
     left: 3.2vw;
+
+    animation-name: second-card-texas-anim;
+    animation-duration: 1s;
+    animation-fill-mode: both;
 }
 .second-card{
     z-index: 21;

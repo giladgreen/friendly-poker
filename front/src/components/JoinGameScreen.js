@@ -9,8 +9,10 @@ class JoinGameScreen extends Component {
     constructor(props) {
         super(props);
         const name = localStorage.getItem('myName') || '';
-        const maxBuyIn = Math.max(...props.game.players.map(p=>p.balance));
-        const minBuyIn = 10 * this.props.game.bigBlind;
+        const maxPlayerBalance = props.game.players.length >0 ? Math.max(...props.game.players.map(p=>p.balance)) : 100 * props.game.bigBlind;
+        let maxBuyIn = maxPlayerBalance - (maxPlayerBalance % props.game.bigBlind);
+        maxBuyIn = maxBuyIn - (maxBuyIn % 10);
+        const minBuyIn = 10 * props.game.bigBlind;
         this.takenNames = props.game.players.map(p=>p.name);
         const buyIn = props.game.players.length >0 ? maxBuyIn : 100 * props.game.bigBlind;
         this.state = {
