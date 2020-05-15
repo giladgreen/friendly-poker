@@ -40,6 +40,8 @@ function onApproveRebuyEvent(socket, {
           }
           const playerData = game.playersData.find(p => p.id === pendingRebuyItem.playerId);
           playerData.buyIns.push({ amount: pendingRebuyItem.amount, time: now });
+          playerData.totalBuyIns += pendingRebuyItem.amount;
+
           game.moneyInGame += pendingRebuyItem.amount;
 
           game.messages.push({

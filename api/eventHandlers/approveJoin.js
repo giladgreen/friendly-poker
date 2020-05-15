@@ -44,9 +44,11 @@ function onApproveJoinEvent(socket, {
         });
         game.moneyInGame += pendingJoinItem.balance;
         game.pendingPlayers.push(pendingJoinItem.playerId);
+
         game.playersData.push({
           id: pendingJoinItem.playerId,
           name: pendingJoinItem.name,
+          totalBuyIns: pendingJoinItem.balance,
           buyIns: [{ amount: pendingJoinItem.balance, time: now }],
         });
       });

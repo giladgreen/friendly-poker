@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/cards.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/cards.css" afterDir="false" />
-    </list>
+    <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -33,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="141">
-              <caret line="499" column="49" lean-forward="true" selection-start-line="499" selection-start-column="49" selection-end-line="499" selection-end-column="49" />
+              <caret line="499" column="49" selection-start-line="499" selection-start-column="49" selection-end-line="499" selection-end-column="49" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#131#0" expanded="true" />
@@ -157,11 +150,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/front/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="357" column="12" selection-start-line="357" selection-start-column="12" selection-end-line="357" selection-end-column="12" />
+            <state relative-caret-position="241">
+              <caret line="129" column="25" selection-start-line="129" selection-start-column="23" selection-end-line="129" selection-end-column="25" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
               </folding>
             </state>
           </provider>
@@ -227,7 +219,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="38" column="242" lean-forward="true" selection-start-line="38" selection-start-column="232" selection-end-line="38" selection-end-column="242" />
+              <caret line="38" column="242" selection-start-line="38" selection-start-column="232" selection-end-line="38" selection-end-column="242" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -510,16 +502,15 @@
       <workItem from="1589116090105" duration="20135000" />
       <workItem from="1589447082048" duration="9340000" />
       <workItem from="1589466213361" duration="1204000" />
-      <workItem from="1589479757719" duration="13954000" />
+      <workItem from="1589479757719" duration="14356000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151313000" />
+    <option name="totallyTimeSpent" value="151715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="941" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2826618" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -535,7 +526,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4213075" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.22881356" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -871,7 +862,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="38" column="242" lean-forward="true" selection-start-line="38" selection-start-column="232" selection-end-line="38" selection-end-column="242" />
+          <caret line="38" column="242" selection-start-line="38" selection-start-column="232" selection-end-line="38" selection-end-column="242" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -888,7 +879,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="141">
-          <caret line="499" column="49" lean-forward="true" selection-start-line="499" selection-start-column="49" selection-end-line="499" selection-end-column="49" />
+          <caret line="499" column="49" selection-start-line="499" selection-start-column="49" selection-end-line="499" selection-end-column="49" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#131#0" expanded="true" />
@@ -1021,11 +1012,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="357" column="12" selection-start-line="357" selection-start-column="12" selection-end-line="357" selection-end-column="12" />
+        <state relative-caret-position="241">
+          <caret line="129" column="25" selection-start-line="129" selection-start-column="23" selection-end-line="129" selection-end-column="25" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <element signature="n#!!block;n#getMyIndex#0;n#App#0" />
           </folding>
         </state>
       </provider>

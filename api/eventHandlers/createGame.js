@@ -37,10 +37,12 @@ function onCreateGameEvent(socket, gameCreatorData) {
         admin: true,
         sitOut: true,
         pot: [0],
+        me: true,
       }],
       playersData: [{
         id: playerId,
         name: gameCreatorData.name,
+        totalBuyIns: amount,
         buyIns: [{ amount, time: gameCreatorData.now }],
       }],
     };

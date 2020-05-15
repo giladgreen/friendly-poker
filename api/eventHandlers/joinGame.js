@@ -54,6 +54,7 @@ function onJoinGameEvent(socket, {
       game.playersData.push({
         id: playerId,
         name,
+        totalBuyIns: balance,
         buyIns: [{ amount: balance, time: now }],
       });
     }

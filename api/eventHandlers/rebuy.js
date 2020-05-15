@@ -46,6 +46,7 @@ function onRebuyEvent(socket, {
       }
       const playerData = game.playersData.find(p => p.id === playerId);
       playerData.buyIns.push({ amount, time: now });
+      playerData.totalBuyIns += amount;
       game.moneyInGame += amount;
 
       game.messages.push({
