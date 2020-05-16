@@ -61,7 +61,45 @@
 .red-border{
   border: 2px solid red;
 }
+#confirm-popup{
+  position: fixed;
+  top: 20vh;
+  left:20vw;
+  width: 60vw;
+  height: 18vh;
+  background: black;
+  border: 3px solid white;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 2.4em;
+  z-index: 100000;
+}
+#confirm-yes{
+  background: darkgreen;
+  left:62vw;
+}
+#confirm-cancel{
 
+  background: #721c24;
+ left:30vw;
+}
+
+.confirm-button{
+  z-index: 100001;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+
+  border: 2px solid white;
+  border-radius: 9px;
+  position: fixed;
+  top: 27vh;
+
+  width: 10vw;
+  height: 7vh;
+
+}
 @media only screen and (max-width: 800px) {
   #app-version{
     color: #77777700;

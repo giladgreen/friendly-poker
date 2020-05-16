@@ -13,9 +13,9 @@ export default (props) => ( <Modal
             timeout: 500,
         }}>
         <Fade in={props.show}>
-            <div className="confirm-popup">
+            <div id="confirm-popup">
                 <div>{props.message}</div>
-                <div><span>Yes</span><span>Cancel</span></div>
+                <div><span id="confirm-yes" className="confirm-button" onClick={props.onYes}>Yes</span><span id="confirm-cancel" className="confirm-button" onClick={props.onCancel}>Cancel</span></div>
 
             </div>
         </Fade>

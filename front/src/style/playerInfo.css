@@ -325,7 +325,7 @@
 @keyframes player-hand-description-anim {
     from {
         top:0.6vh;
-        left:0vw;
+        left:2vw;
         width: 1vw;
         font-size: 0.01em;
         color: white;

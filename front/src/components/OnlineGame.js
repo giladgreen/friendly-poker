@@ -132,7 +132,7 @@ class OnlineGame extends Component {
 
     onSendMessage = ()=>{
         this.props.sendMessage(this.state.chatMessage);
-        this.setState({chatMessage:''});
+        this.setState({chatMessage:'', chatFocused:false });
     }
 
     toggleRebuyButton = ()=>{
@@ -172,6 +172,7 @@ class OnlineGame extends Component {
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         console.log('online, ctor, playerPreferences',playerPreferences)
         this.state = {
+            chatFocused:false,
             clockMessage: '',
             chatMessage: '',
             communityCards:[],
@@ -317,7 +318,13 @@ class OnlineGame extends Component {
         this.setState(newState);
 
     }
+
     keypress = (event)=>{
+        if (this.state.chatFocused){
+            console.log('keypress chatFocused true')
+            return;
+        }
+        console.log('keypress chatFocused false')
         event.preventDefault();
         const keycode = event.keyCode;
         const key = String.fromCharCode(keycode).toLowerCase();
@@ -844,12 +851,19 @@ class OnlineGame extends Component {
                 <input id="chat-input"
                        type="text"
                        value={this.state.chatMessage}
+
+                       onFocus={()=>{this.setState({ chatFocused:true })}}
+                       onfocusin={()=>{this.setState({ chatFocused:true })}}
+                       onfocusout={()=>{this.setState({ chatFocused:false })}}
+                       onBlur={()=>{this.setState({ chatFocused:false })}}
+
                        onChange={(e)=>this.setChatMessage(e.target.value)}
                         onKeyUp={(event)=>{
 
                             event.preventDefault();
                             if (event.keyCode === 13) {
                                 this.onSendMessage();
+                                this.setState({ chatFocused:false });
                             }
                         }}
                 />

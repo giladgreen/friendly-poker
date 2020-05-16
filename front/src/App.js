@@ -14,6 +14,7 @@ import Loader from "./containers/Loader";
 import NotSupported from "./containers/NotSupported";
 import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
+import Confirm from "./containers/Confirm";
 
 
 const localhost = window.location.origin.indexOf('localhost') >= 0;
@@ -81,6 +82,16 @@ class App extends Component {
             gameId = queryItems.find(qi=>qi.startsWith(ONLINE_GAME_ID)).split('=')[1] || '';
         }
         console.log('App, constructor, gameId:',gameId);
+        this.basePopupData = {
+            show: false,
+            message:'',
+            onYes:()=>{},
+        };
+
+        this.onCancelPopUp = () => {
+            this.setState({popupData:this.basePopupData} );
+        }
+
         this.state = {
             games:null,
             logs:[],
@@ -93,6 +104,7 @@ class App extends Component {
             showInfoScreen:false,
             playerId: localStorage.getItem('playerId'),
             gameId,
+            popupData: this.basePopupData
         };
 
         if (!localhost){
@@ -434,9 +446,15 @@ class App extends Component {
 
     fold = (validate)=>{
         if (validate){
-            if (confirm("There is no Raise, are you sure you want to Fold?")){
-                return this.action('Fold');
-            }
+            this.setState({ popupData: {
+                    show: true,
+                    message:'There is no Raise, are you sure you want to Fold?',
+                    onYes:()=>{
+                        this.action('Fold');
+                        this.onCancelPopUp();
+                    },
+                }} );
+
         }else{
             return this.action('Fold');
         }
@@ -458,41 +476,67 @@ class App extends Component {
     };
 
     quitGame = () =>{
-        if (confirm("Are you sure?")){
-            const dateTime =(new Date()).getTime();
-            const { gameId, playerId } = this.state;
-            console.log('emiting quitgame')
-            this.socket.emit('quitgame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
-            localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
 
-            window.location = serverPrefix;
-        }
+        this.setState({ popupData: {
+                show: true,
+                message:'Are you sure?',
+                onYes:()=>{
+                    const dateTime =(new Date()).getTime();
+                    const { gameId, playerId } = this.state;
+                    console.log('emiting quitgame')
+                    this.socket.emit('quitgame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
+                    localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
+
+                    window.location = serverPrefix;
+                    this.onCancelPopUp();
+                },
+            }} );
     };
 
     kickOutPlayer = (playerToKickId) =>{
-        if (confirm("Are you sure?")){
-            const dateTime =(new Date()).getTime();
-            const { gameId, playerId } = this.state;
-            console.log('emiting kickoutplayer');
-            this.socket.emit('kickoutplayer', {gameId , dateTime, playerId, now: (new Date()).getTime(), playerToKickId });
-        }
+
+        this.setState({ popupData: {
+                show: true,
+                message:'Are you sure?',
+                onYes:()=>{
+                    const dateTime =(new Date()).getTime();
+                    const { gameId, playerId } = this.state;
+                    console.log('emiting kickoutplayer');
+                    this.socket.emit('kickoutplayer', {gameId , dateTime, playerId, now: (new Date()).getTime(), playerToKickId });
+                    this.onCancelPopUp();
+                },
+            }} );
+
     };
 
     SkipHand = () =>{
-        if (confirm("Are you sure?")){
-            const dateTime =(new Date()).getTime();
-            const { gameId, playerId } = this.state;
-            console.log('emiting skiphand');
-            this.socket.emit('skiphand', {gameId , dateTime, playerId });
-        }
+
+        this.setState({ popupData: {
+                show: true,
+                message:'Are you sure?',
+                onYes:()=>{
+                    const dateTime =(new Date()).getTime();
+                    const { gameId, playerId } = this.state;
+                    console.log('emiting skiphand');
+                    this.socket.emit('skiphand', {gameId , dateTime, playerId });
+                    this.onCancelPopUp();
+                }
+            }} );
+
     };
 
     deleteGame = (gameId) =>{
-        if (confirm("Are you sure?")){
-            const { playerId } = this.state;
-            console.log('emiting deletegame')
-            this.socket.emit('deletegame', {gameId , playerId });
-        }
+
+        this.setState({ popupData: {
+                show: true,
+                message:'Are you sure?',
+                onYes:()=>{
+                    const { playerId } = this.state;
+                    console.log('emiting deletegame')
+                    this.socket.emit('deletegame', {gameId , playerId });
+                    this.onCancelPopUp();
+                }
+            }} );
     };
 
     sendMessage = (message) =>{
@@ -631,6 +675,7 @@ class App extends Component {
             <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
             <img id="app-name" src="./friendly-poker.png"/>
             <div id="app-version" > v{ version }</div>
+            <Confirm show={this.state.popupData.show} message={this.state.popupData.message} onYes={this.state.popupData.onYes} onCancel={this.onCancelPopUp} />
             <audio id='fold-audio' src="./fold.mp3" preload="auto" controls="none" style={{display:'none'}}/>
             <audio id='two-taps-audio' src="./two-taps.mp3" preload="auto" controls="none" style={{display:'none'}}/>
             <audio id='beep-audio' src="./beep.mp3" preload="auto" controls="none" style={{display:'none'}}/>
