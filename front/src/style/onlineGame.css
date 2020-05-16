@@ -274,20 +274,55 @@
 
 }
 .base-Deck-Style{
-    width: 10vw;
-    padding: 5px 5px 5px 25px;
-    background: black;
+    width: 9vw;
     border: 2px solid white;
     color: white;
     border-radius: 6px;
     cursor: pointer;
     margin-bottom: 10px;
+    text-align: center;
+}
+#two-colors-button{
+    position: fixed;
+    left:2vw;
+    top:35vh;
+}
+#four-colors-button{
+    position: fixed;
+    left:12vw;
+    top:35vh;
 }
 .selected-Deck-Style{
     background: darkgreen;
 }
 .unselected-Deck-Style{
     background: #5a6268;
+}
+#Deck-Style-card1{
+    font-size: 0.5em;
+    position: fixed;
+    left:2vw;
+    top:44vh;
+}
+#Deck-Style-card2{
+    font-size: 0.5em;
+    position: fixed;
+    left:7vw;
+    top:44vh;
+}
+
+#Deck-Style-card3{
+    font-size: 0.5em;
+    position: fixed;
+    left:11.8vw;
+    top:44vh;
+}
+
+#Deck-Style-card4{
+    font-size: 0.5em;
+    position: fixed;
+    left:17vw;
+    top:44vh;
 }
 #player-settings-modal-close-x{
     position: fixed;

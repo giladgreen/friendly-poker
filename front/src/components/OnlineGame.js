@@ -805,13 +805,16 @@ class OnlineGame extends Component {
                            </div>
                             <div id="Deck-Style-selection">
                                 Deck Style:
-                                <div className={`base-Deck-Style ${this.state.playerPreferences.twoColors ? 'selected-Deck-Style': 'unselected-Deck-Style'}` }onClick={()=>{
-                                    const newPlayerPreferences = {...this.state.playerPreferences};
-                                    newPlayerPreferences.twoColors = true;
-                                    localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
-                                    this.setState({playerPreferences:newPlayerPreferences})
-                                }}>2 colors</div>
-                                 <div className={`base-Deck-Style ${!this.state.playerPreferences.twoColors ? 'selected-Deck-Style':'unselected-Deck-Style'}` } onClick={()=>{
+                                <div id="two-colors-button"
+                                     className={`base-Deck-Style ${this.state.playerPreferences.twoColors ? 'selected-Deck-Style': 'unselected-Deck-Style'}` }
+                                     onClick={()=>{
+                                        const newPlayerPreferences = {...this.state.playerPreferences};
+                                        newPlayerPreferences.twoColors = true;
+                                        localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
+                                        this.setState({playerPreferences:newPlayerPreferences})
+                                    }}> 2 colors</div>
+
+                                 <div id="four-colors-button" className={`base-Deck-Style ${!this.state.playerPreferences.twoColors ? 'selected-Deck-Style':'unselected-Deck-Style'}` } onClick={()=>{
                                     const newPlayerPreferences = {...this.state.playerPreferences};
                                      newPlayerPreferences.twoColors = false;
                                     localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
@@ -821,6 +824,11 @@ class OnlineGame extends Component {
                                     this.setState({playerPreferences:newPlayerPreferences})
                                 }}>4 colors</div>
 
+
+                                <div id="Deck-Style-card1" ><Card playerPreferences={this.state.playerPreferences} card={"AC"}/></div>
+                                <div id="Deck-Style-card2" ><Card playerPreferences={this.state.playerPreferences} card={"AS"}/></div>
+                                <div id="Deck-Style-card3" ><Card playerPreferences={this.state.playerPreferences} card={"AH"}/></div>
+                                <div id="Deck-Style-card4" ><Card playerPreferences={this.state.playerPreferences} card={"AD"}/></div>
 
 
                             </div>
