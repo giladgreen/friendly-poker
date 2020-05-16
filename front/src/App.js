@@ -15,6 +15,7 @@ import NotSupported from "./containers/NotSupported";
 import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
 
+
 const localhost = window.location.origin.indexOf('localhost') >= 0;
 const endpoint = localhost ?  'http://127.0.0.1:5000' : window.location.origin;
 const serverPrefix = localhost ?  'http://localhost:3000' : window.location.origin;
@@ -429,6 +430,16 @@ class App extends Component {
             hand:this.state.game.hand,
             playerId: this.state.playerId
         });
+    };
+
+    fold = (validate)=>{
+        if (validate){
+            if (confirm("There is no Raise, are you sure you want to Fold?")){
+                return this.action('Fold');
+            }
+        }else{
+            return this.action('Fold');
+        }
     };
 
     sitBack = () =>{

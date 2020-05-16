@@ -455,14 +455,9 @@ class OnlineGame extends Component {
         console.log('### setting checkFoldPressed:', !this.state.checkFoldPressed)
         this.setState({checkFoldPressed: !this.state.checkFoldPressed});
     }
+
     fold = ()=>{
-        if (this.state.options.includes('Check')){
-            if (confirm("There is no Raise, are you shure you want to Fold?")){
-                return this.props.action('Fold');
-            }
-        }else{
-            return this.props.action('Fold');
-        }
+        this.props.fold(this.state.options.includes('Check'));
     };
 
     showCards = ()=>{
