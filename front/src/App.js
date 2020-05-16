@@ -706,6 +706,7 @@ class App extends Component {
                     action={this.action}
                     approveJoin={this.approveJoin}
                     approveRebuy={this.approveRebuy}
+                    fold={this.fold}
                     declineJoin={this.declineJoin}
                     declineRebuy={this.declineRebuy}
                     setCreatorAsAdmin={this.setCreatorAsAdmin}
