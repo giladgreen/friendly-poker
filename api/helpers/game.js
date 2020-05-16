@@ -63,10 +63,18 @@ function handleRaise(game, player, amount) {
   if (player.balance + alreadyInPot < amount) {
     throw new Error('insufficient funds');
   }
+
+  const playersCurrentPotentialAllIn = game.players.filter(p => p.id !== player.id && !p.fold && !p.sitOut).map(p => p.balance + p.pot[game.gamePhase]);
+  const maxAllInValue = Math.max(...playersCurrentPotentialAllIn);
+  if (amount > maxAllInValue) {
+    amount = maxAllInValue;
+  }
+
   const minRaise = getMinRaise(game, player);
-  if (amount < minRaise && amount < player.balance + alreadyInPot) {
+  if (amount < minRaise && amount > alreadyInPot + player.balance) {
     throw new Error('ilegal raise amount');
   }
+
 
   player.status = RAISE;
   delete player.active;
@@ -172,7 +180,7 @@ function givePotMoneyToWinners(game) {
       if (relevantPlayers.length === 1) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
-        relevantPlayers[0].winner = true;
+        relevantPlayers[0].winner = totalSidePotMoney;
         return;
       }
       const winnerHands = Hand.winners(relevantPlayers.map(p => p.solvedHand));
@@ -190,7 +198,7 @@ function givePotMoneyToWinners(game) {
             };
           }
           p.balance += amountWon;
-          p.winner = true;
+          p.winner = amountWon;
           game.pot -= amountWon;
 
 

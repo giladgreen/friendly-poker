@@ -190,7 +190,7 @@ function startNewHand(game, dateTime) {
     const newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newBigIndex);
     const newUnderTheGun = game.players[newUnderTheGunIndex];
     newUnderTheGun.active = true;
-    newUnderTheGun.options = [FOLD, CALL, RAISE];
+    newUnderTheGun.options = [FOLD, ( newUnderTheGun.pot && newUnderTheGun.pot[0] === game.bigBlind ? CHECK : CALL), RAISE];
     if (newUnderTheGun.small && newUnderTheGun.allIn) {
       newUnderTheGun.options = [];
       game.currentTimerTime = 1;

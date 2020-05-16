@@ -110,16 +110,25 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
 
     logger.info('River!');
   } else if (game.gamePhase === RIVER) {
-    logger.info('hand is over.. showdown!');
+    let timeToShowShowdown = 4000;
+    const potInBigBlinds = Math.floor(game.pot / game.bigBlind);
+    const secondsToAdd = Math.floor(potInBigBlinds / 20);
+    timeToShowShowdown += 1000 * secondsToAdd;
+    if (timeToShowShowdown > 10000) {
+      timeToShowShowdown = 10000;
+    }
+    logger.info(`hand is over.. showdown!  time To Show Showdown: ${timeToShowShowdown}`);
     GameHelper.handleGameOverWithShowDown(game);
     gameIsOver = true;
     delete game.fastForward;
+
+
     setTimeout(() => {
       GamesService.startNewHand(game, dateTime);
       // eslint-disable-next-line no-use-before-define
       GamesService.resetHandTimer(game, onPlayerActionEvent);
       GameHelper.updateGamePlayers(game);
-    }, 4000);
+    }, timeToShowShowdown);
   } else {
     logger.error('server error: game.gamePhase:', game.gamePhase);
     throw new Error('server error');
@@ -198,7 +207,7 @@ function onPlayerActionEvent(socket, {
 handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
   player.balance += game.pot;
-  player.winner = true;
+  player.winner = game.pot;
   game.messages.push({
     action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, popupMessage: `${player.name} took the hand with no showdown`,
   });
