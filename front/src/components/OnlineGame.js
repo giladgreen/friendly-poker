@@ -317,9 +317,73 @@ class OnlineGame extends Component {
         this.setState(newState);
 
     }
+    keypress = (event)=>{
+        event.preventDefault();
+        const keycode = event.keyCode;
+        const key = String.fromCharCode(keycode).toLowerCase();
+        const game = this.props.game;
+        if (game.handOver || !game.startDate){
+            return;
+        }
+        const {me, isMyTurn, options, raiseEnabled} = this.state;
+        if (!me || me.fold || me.sitOut){
+            return;
+        }
+        if (!isMyTurn){
+            if (key === 'f'){
+                this.checkFold();
+                return;
+            }
+        }else{
+            if (raiseEnabled){
+                if (key === 'a'){
+                    this.setRaiseValue(this.getMaxRaise());
+                    return;
+                }
+                if (key === 'p'){
+                    this.setRaiseValue(game.pot);
+                    return;
+                }
+                if (key === 'c'){
+                    this.toggleRaiseButton();
+                    return;
+                }
+            }else{
+                if (key === 'f'){
+                    this.fold();
+                    return;
+                }
+                if (key === 'c'){
+                    if (options.includes('Check')){
+                        this.check();
+                    }else{
+                        this.call();
+                    }
+                    return;
+                }
+                if (key === 'r' || key === 'b' ){
+                    if (!raiseEnabled){
+                        this.toggleRaiseButton();
+                        return;
+                    } else{
 
+                    }
+
+                    return;
+                }
+            }
+
+
+        }
+    }
     componentDidMount() {
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
+
+
+        setTimeout(()=>{
+            document.addEventListener('keypress', this.keypress);
+
+        },1000)
     }
 
     setChatMessage = (chatMessage) =>{
@@ -476,7 +540,8 @@ class OnlineGame extends Component {
         const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).reduce((all,one)=>all+one,0);
 
         return (
-            <div id="online-game-screen" >
+            <div id="online-game-screen"
+ >
                 {/* game time */}
                 <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
                 {/* blinds data */}
@@ -526,25 +591,25 @@ class OnlineGame extends Component {
                         {/* basic options */}
                         { !this.state.raiseEnabled && <div>
                             {/* Fold button */}
-                            { options.includes('Fold') && <div id="fold-button" className="action-button " onClick={this.fold}> Fold </div>}
+                            { options.includes('Fold') && <div id="fold-button" className="action-button " onClick={this.fold}> <span><span className="shortcut">F</span>old</span> </div>}
                             {/* Check button */}
-                            { options.includes('Check') && <div id="check-button" className="action-button " onClick={ this.check}> Check </div>}
+                            { options.includes('Check') && <div id="check-button" className="action-button " onClick={ this.check}> <span><span className="shortcut">C</span>heck</span> </div>}
                             {/* Call button */}
-                            { options.includes('Call') && <div id="call-button" className="action-button " onClick={this.call}> Call { this.state.amountToCall} </div>}
+                            { options.includes('Call') && <div id="call-button" className="action-button " onClick={this.call}> <span><span className="shortcut">C</span>all { this.state.amountToCall}</span> </div>}
                             {/* Raise../Bet.. button */}
-                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') || game.gamePhase === 0 ? 'Raise..' :'Bet..'} </div>}
+                            { options.includes('Raise') && <div id="toggle-raise-button" className="action-button " onClick={this.toggleRaiseButton}> {options.includes('Call') || game.gamePhase === 0 ? <span><span className="shortcut">R</span>aise..</span> :<span><span className="shortcut">B</span>et..</span>} </div>}
 
                         </div> }
                         {/* Check/Fold */}
                         { me && !me.active && !me.sitOut && !me.fold && !me.allIn && game.startDate && <div>
                             {/* Check/Fold button */}
-                            <div id="check-fold-button" className={`${this.state.checkFoldPressed ? 'check-fold-button-pressed' : 'check-fold-button-not-pressed'}`} onClick={this.checkFold}> Check/Fold </div>
+                            <div id="check-fold-button" className={`${this.state.checkFoldPressed ? 'check-fold-button-pressed' : 'check-fold-button-not-pressed'}`} onClick={this.checkFold}> <span>Check/<span className="shortcut">F</span>old</span>  </div>
                         </div> }
 
                         {/* Raise options */}
                         { this.state.raiseEnabled && options.includes('Raise') && <div>
                                 {/* Cancel Raise button */}
-                                <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}> Cancel </div>
+                                <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}><span><span className="shortcut">C</span>ancel</span> </div>
                                 {/* Raise button */}
                                  <div id="raise-button" className="action-button" onClick={this.raise}> {options.includes('Call') || game.gamePhase === 0 ? 'Raise to ' :'Bet'}  {this.state.raiseValue}</div>
                                 {/* Add to Raise */}
@@ -558,16 +623,16 @@ class OnlineGame extends Component {
                                 <div id="raise-button-sub" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue-game.bigBlind)}> - </div>
 
                                 {/* all in button*/}
-                                <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> All In</div>
+                                <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> <span><span className="shortcut">A</span>ll In</span></div>
 
                                 {/* pot */}
-                                { options.includes('Check') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> pot</div>}
+                                { options.includes('Check') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> <span><span className="shortcut">P</span>ot</span></div>}
                                 {/*/!* 2/3 pot *!/*/}
-                                { options.includes('Check') && <div id="raise-button-2-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(2*pot / 3)}> 2/3 pot</div>}
+                                { options.includes('Check') && <div id="raise-button-2-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(2*pot / 3)}> 2/3 Pot</div>}
                                 {/*/!* 1/2 pot *!/*/}
-                                { options.includes('Check') && <div id="raise-button-1-2" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 pot</div>}
+                                { options.includes('Check') && <div id="raise-button-1-2" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 2)}> 1/2 Pot</div>}
                                 {/*/!* 1/3 pot *!/*/}
-                                { options.includes('Check') && <div id="raise-button-1-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 pot</div>}
+                                { options.includes('Check') && <div id="raise-button-1-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot / 3)}> 1/3 Pot</div>}
 
 
                             </div>

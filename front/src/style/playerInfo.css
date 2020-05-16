@@ -222,7 +222,11 @@
 .player-pot-hand-over{
     background: cornflowerblue;
     color: black;
-    z-index: 3;
+    z-index: 35;
+    border: 3px solid black;
+    width: 8vw;
+    height: 4vw;
+    font-size: 2.6em;
 }
 
 .player-status{
