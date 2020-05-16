@@ -22,7 +22,7 @@ const serverPrefix = localhost ?  'http://localhost:3000' : window.location.orig
 const ONLINE_GAME_ID = 'gameid';
 const body = document.getElementsByTagName('body')[0];
 const windowWidth = window.innerWidth || document.documentElement.clientWidth || body.clientWidth;
-const SmartPhoneVertical = (windowWidth < 600);
+// const SmartPhoneVertical = (windowWidth < 600);
 
 
 
@@ -637,9 +637,10 @@ class App extends Component {
     };
 
     render() {
+        const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
-        if (SmartPhoneVertical){
-           return <NotSupported message="Smart Phone Vertical view not supported"/>
+        if (isMobile){
+           return <NotSupported message="Phone Currently not supported"/>
         }
         if (this.state.Incognito){
            return <NotSupported message="Incognito Mode is not supported"/>
