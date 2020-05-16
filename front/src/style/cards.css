@@ -147,10 +147,13 @@
     animation-fill-mode: both;
 }
 @keyframes first-card-texas-anim {
+
     from {
-        left: -6vw;
+        transform: rotate(0deg);
+        left: 1.6vw;
     }
     to {
+        transform: rotate(-8deg);
         left: 0vw;
     }
 }
@@ -162,7 +165,9 @@
     left: 0vw;
 
     animation-name: first-card-texas-anim;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
+    animation-delay: 1s;
+
     animation-fill-mode: both;
 }
 .first-card{
@@ -170,14 +175,20 @@
     position: absolute;
     left: -4.6vw;
 }
+
 @keyframes second-card-texas-anim {
+
     from {
-        left: -6vw;
+        transform: rotate(0deg);
+        left: 1.6vw;
+
     }
     to {
+        transform: rotate(8deg);
         left: 3.2vw;
     }
 }
+
 .second-card-texas{
     z-index: 21;
     position: absolute;
@@ -185,7 +196,9 @@
     left: 3.2vw;
 
     animation-name: second-card-texas-anim;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
+    animation-delay: 1s;
+
     animation-fill-mode: both;
 }
 .second-card{
