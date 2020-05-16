@@ -443,7 +443,7 @@
     top: 24vh;
     left: 44vw;
     width: 8vw;
-    height: 6vh;
+    height: 6.7vh;
     z-index: 10;
     text-align: center;
     font-weight: bold;
@@ -453,12 +453,13 @@
     border-radius: 16px;
     background: #00000044;
 
+
 }
 .total-pot-amount{
     font-weight: normal;
     font-size: 0.3em;
     color: #FFFFFFCC;
-    margin-top: -5px;
+    margin-top: -8px;
 
 }
 #messages-box{

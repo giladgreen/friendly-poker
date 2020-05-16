@@ -202,17 +202,27 @@
 
 .player-pot{
     position: absolute;
-    width: 4.3vw;
+    width: 5.8vw;
     height: 2.7vw;
     border-radius: 25px;
-    background: #eec117;
-    color: white;
     font-weight: bold;
     font-size: 1.9em;
-    z-index: 2;
     padding-top: 1px;
     alignment: center;
     text-align: center;
+}
+
+.player-pot-mid-hand{
+    background: #eec117;
+    color: white;
+
+    z-index: 2;
+}
+
+.player-pot-hand-over{
+    background: cornflowerblue;
+    color: black;
+    z-index: 3;
 }
 
 .player-status{
