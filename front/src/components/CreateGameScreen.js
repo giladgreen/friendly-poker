@@ -55,7 +55,6 @@ class CreateGameScreen extends Component {
             !this.state.time || this.state.time === 0 ||
             !this.state.buyIn || this.state.buyIn===0){
 
-            console.log('onCreate error..')
             this.props.showAlertMessage('all fields are mandatory');
             this.setState({showErrors:true});
             return;

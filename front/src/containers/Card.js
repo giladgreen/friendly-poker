@@ -3,7 +3,7 @@
 import React from 'react'
 
 const Card = (props) => {
-    const { card, folded, first, second, third, fourth, highlight, shown, isMe, omaha, playerPreferences, index } = props;
+    const { card, folded, first, second, third, fourth, highlight, shown, isMe, omaha, playerPreferences, index, initial } = props;
 
     const {twoColors} = playerPreferences;
 
@@ -33,7 +33,15 @@ const Card = (props) => {
         }
     }
 
-    const id = index ? `player${index}-${first?'first':'second'}-card-texas` : undefined;
+    const id = index ? ( initial ? (`player${index}-${first?'first':'second'}-card-texas`): (`player${index}-${first?'first':'second'}-card-texas-no-anim`)) : undefined;
+    if (!isMe && initial){
+        console.log('initial TRUE')
+    } else if (!isMe && !initial){
+        console.log('initial FALSE')
+    }
+
+
+
     const className = `simple-card-base  ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
 
     return  <div key={`card_${card}`} id={id}

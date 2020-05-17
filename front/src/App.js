@@ -82,7 +82,6 @@ class App extends Component {
             const queryItems = search.substr(1).split('&');
             gameId = queryItems.find(qi=>qi.startsWith(ONLINE_GAME_ID)).split('=')[1] || '';
         }
-        console.log('App, constructor, gameId:',gameId);
         this.basePopupData = {
             show: false,
             message:'',
@@ -186,7 +185,6 @@ class App extends Component {
 
 
 
-        console.log('players',players)
         //            players: [...game.players.slice(myIndex, game.players.length+1),...game.players.slice(0, myIndex)]
         const gameClone = {
             ...game,
@@ -375,11 +373,10 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-            console.log('on gameupdate', game);
-            console.log('game.audioableAction',game.audioableAction);
 
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
+
             if (game.audioableAction){
                 game.audioableAction.forEach((action)=>{
                     const sound = this.actioToMethodMap[action];
@@ -410,7 +407,8 @@ class App extends Component {
             gameClone.players.forEach(p=>{
                 p.cardsToShow = newHand ? 0 : 2;
             });
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused});
+
+            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver});
             if (newHand){
                 const playersWithCards = game.players.filter(p=>!p.sitOut);
                 const playersWithCardsCount = playersWithCards.length;
@@ -795,7 +793,6 @@ class App extends Component {
             const {gameId, game, playerId, operationpendingaproval, gamePaused} = this.state;
 
             if (!game){
-                console.log('App, Render, gameId:',gameId, ' no game, playerId:',playerId, ' returning Loader')
                 return <Loader waitingAproval={operationpendingaproval}/>;
             }
             if (this.state.showInfoScreen) {
@@ -808,7 +805,6 @@ class App extends Component {
             const gamePlayer =  game.players.find(p=>p.id === playerId);
 
             if (gamePlayer){
-                console.log('App, Render, gameId:',gameId, ' game,',game,' playerId:',playerId, ' returning OnlineGame')
 
                 if (gamePaused){
                     return this.wrapWithAlerts(<GamePauseScreen
@@ -820,6 +816,7 @@ class App extends Component {
                     connected={this.state.connected}
                     messages={this.state.messages}
                     logs={this.state.logs}
+                    initial={this.state.initial}
                     showAlertMessage={this.showAlertMessage}
                     registerGameUpdatedCallback={this.registerGameUpdatedCallback}
                     isAdmin={isAdmin}
@@ -848,7 +845,6 @@ class App extends Component {
                     gameId={gameId}
                     socket={this.socket}/>);
             } else{
-                console.log('App, Render, gameId:',gameId, ' game,',game,' playerId:',playerId, ' returning JoinGameScreen')
                 return this.wrapWithAlerts(<JoinGameScreen
                     connected={this.state.connected}
                     showAlertMessage={this.showAlertMessage}

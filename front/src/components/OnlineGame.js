@@ -170,7 +170,6 @@ class OnlineGame extends Component {
         super(props);
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
-        console.log('online, ctor, playerPreferences',playerPreferences)
         this.state = {
             chatFocused:false,
             clockMessage: '',
@@ -459,7 +458,6 @@ class OnlineGame extends Component {
     }
 
     checkFold = ()=>{
-        console.log('### setting checkFoldPressed:', !this.state.checkFoldPressed)
         this.setState({checkFoldPressed: !this.state.checkFoldPressed});
     }
 
@@ -480,7 +478,6 @@ class OnlineGame extends Component {
     };
 
     raise = ()=>{
-        console.log('raise',this.state.raiseValue)
         return this.props.action('Raise',this.state.raiseValue);
     };
 
@@ -512,7 +509,7 @@ class OnlineGame extends Component {
     };
     render() {
         const {clockMessage,handTime, options, cheapLeader, me} = this.state;
-        const {game} = this.props;
+        const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
@@ -562,7 +559,7 @@ class OnlineGame extends Component {
 
 
                 {/* players */}
-                {players.map((player)=> <PlayerInfo key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player)=> <PlayerInfo initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) && <div id="community-pot">
                     <div>{potBeforeRaises}</div>
@@ -760,7 +757,6 @@ class OnlineGame extends Component {
                                         return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.props.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineJoin(joinData)}> Decline</span>   </div>
                                     }) }
                                     {pendingRebuy.map(rebuyData =>{
-                                        console.log('rebuyData',rebuyData)
                                         return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.props.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineRebuy(rebuyData)}> Decline</span>  </div>
                                     }) }
 
@@ -824,7 +820,6 @@ class OnlineGame extends Component {
                                      newPlayerPreferences.twoColors = false;
                                     localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
 
-                                     console.log('set playerPreferences to', localStorage.getItem('playerPreferences'))
 
                                     this.setState({playerPreferences:newPlayerPreferences})
                                 }}>4 colors</div>

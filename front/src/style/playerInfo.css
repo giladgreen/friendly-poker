@@ -40,6 +40,13 @@
     animation-delay: 0s;
     animation-fill-mode: both;
 }
+#player1-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:65vh;
+    left:44vw;
+}
 
 @keyframes player1-second-card-texas-anim {
     from {
@@ -65,6 +72,14 @@
     animation-fill-mode: both;
 
 }
+#player1-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:65vh;
+    left:47vw;
+}
+
 #player1-pot-mid{
     position: fixed;
     z-index: 33;
@@ -118,13 +133,19 @@
     z-index: 30;
     transform: rotate(-8deg);
     position: fixed;
-    top:65vh;
-    left:44vw;
+    top:61vh;
+    left:23vw;
     animation-name: player2-first-card-texas-anim;
     animation-duration: 2s;
     animation-delay: 0s;
     animation-fill-mode: both;
-
+}
+#player2-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:61vh;
+    left:23vw;
 }
 @keyframes player2-second-card-texas-anim {
     from {
@@ -148,6 +169,15 @@
     animation-duration: 2s;
     animation-delay: 0.5s;
     animation-fill-mode: both;
+
+}
+#player2-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:61vh;
+    left:26vw;
+    animation-name: player2-second-card-texas-anim;
 
 }
 #player2-pot-mid{
@@ -209,6 +239,14 @@
     animation-fill-mode: both;
 
 }
+#player3-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:36vh;
+    left:9vw;
+
+}
 @keyframes player3-second-card-texas-anim {
     from {
         top: 44.7vh;
@@ -231,7 +269,14 @@
     animation-duration: 2s;
     animation-delay: 0.5s;
     animation-fill-mode: both;
+}
 
+#player3-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:36vh;
+    left:12vw;
 }
 
 #player3-pot-mid{
@@ -253,7 +298,6 @@
 }
 #player3-pot-end{
     position: fixed;
-
     z-index: 33;
     top:46.82vh;
     left:19.4vw;
@@ -293,7 +337,13 @@
     animation-duration: 2s;
     animation-delay: 0s;
     animation-fill-mode: both;
-
+}
+#player4-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:14vh;
+    left:23vw;
 }
 @keyframes player4-second-card-texas-anim {
     from {
@@ -318,6 +368,15 @@
     animation-delay: 0.5s;
     animation-fill-mode: both;
 
+}
+
+
+#player4-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:14vh;
+    left:26vw;
 }
 
 
@@ -382,6 +441,13 @@
     animation-fill-mode: both;
 
 }
+#player5-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:9vh;
+    left:44vw;
+}
 @keyframes player5-second-card-texas-anim {
     from {
         top: 44.7vh;
@@ -407,7 +473,13 @@
 
 }
 
-
+#player5-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:9vh;
+    left:47vw;
+}
 
 #player5-pot-mid{
     position: fixed;
@@ -469,6 +541,14 @@
     animation-fill-mode: both;
 
 }
+#player6-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:14vh;
+    left:66vw;
+
+}
 @keyframes player6-second-card-texas-anim {
     from {
         top: 44.7vh;
@@ -493,9 +573,13 @@
     animation-fill-mode: both;
 
 }
-
-
-
+#player6-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:14vh;
+    left:69vw;
+}
 
 #player6-pot-mid{
     position: fixed;
@@ -557,6 +641,13 @@
     animation-fill-mode: both;
 
 }
+#player7-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:36vh;
+    left:80vw;
+}
 @keyframes player7-second-card-texas-anim {
     from {
         top: 44.7vh;
@@ -579,6 +670,15 @@
     animation-duration: 2s;
     animation-delay: 0.5s;
     animation-fill-mode: both;
+
+}
+
+#player7-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:36vh;
+    left:83vw;
 
 }
 
@@ -640,6 +740,14 @@
     animation-fill-mode: both;
 
 }
+#player8-first-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:61vh;
+    left:66vw;
+
+}
 @keyframes player8-second-card-texas-anim {
     from {
         top: 44.7vh;
@@ -662,6 +770,16 @@
     animation-duration: 2s;
     animation-delay: 1s;
     animation-fill-mode: both;
+
+}
+
+
+#player8-second-card-texas-no-anim{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:61vh;
+    left:69vw;
 
 }
 
