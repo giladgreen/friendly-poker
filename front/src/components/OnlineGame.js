@@ -536,7 +536,6 @@ class OnlineGame extends Component {
         const startButtonEnabled = this.props.isAdmin && !startDate && players.length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && game.handOver;
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
-        const gamePaused = game.paused;
         const messages = this.props.messages;
 
         const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).reduce((all,one)=>all+one,0);
@@ -549,19 +548,18 @@ class OnlineGame extends Component {
                 {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
                 {/* hand count + time */}
-                {!gamePaused && hand && hand >0 ? <div id="hand-time">
+                { hand && hand >0 ? <div id="hand-time">
                     <span>Hand #{hand} </span> <div/>
                 </div> : <div/>}
                 {/* time left to talk */}
-                { !gamePaused && <div id="hand-clock"> { this.getTimeLeft()}</div>}
+                <div id="hand-clock"> { this.getTimeLeft()}</div>
                 {/* time left to talk progess bar */}
-                { !gamePaused && hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
+                { hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
                 {/* your turn indication */}
-                { !gamePaused && game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
+                { game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
                 {/* table image */}
                 <img id="table-image" src="table.png" />
-                {/* pause game */}
-                { gamePaused && <div><div id="game-pause-indication"  >וו</div><div id="game-pause-indication-text"  >Game Paused</div></div>}
+
 
                 {/* players */}
                 {players.map((player)=> <PlayerInfo key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
@@ -584,7 +582,7 @@ class OnlineGame extends Component {
                 </div>}
 
                 {/* action buttons */}
-                { !gamePaused && <div>
+                <div>
                     {/* show cards button */}
                     { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
@@ -643,7 +641,7 @@ class OnlineGame extends Component {
 
                     </div>}
 
-                </div>}
+                </div>
                 {/* Game Link */}
                 <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>
                 {/* rebuy.. button */}

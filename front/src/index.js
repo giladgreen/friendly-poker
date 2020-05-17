@@ -13,6 +13,7 @@ import './style/playerInfo.css';
 import './style/gameInfoScreen.css';
 import './style/game-action-buttons.css';
 import './style/game-settings.css';
+import './style/paused-screen.css';
 
 const options = {
     // you can also just use 'bottom center'

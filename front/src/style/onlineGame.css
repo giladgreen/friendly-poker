@@ -201,26 +201,7 @@
     border-radius: 10px;
 
 }
-#start-pause-game-button{
-    position: fixed;
-    bottom: 2vh;
-    left: 40vw;
-    width: 16vw;
-    cursor: pointer;
-    border: 2px solid grey;
-    border-radius: 15px;
-    height: 8vh;
-    text-align: center;
-    font-weight: bold;
-    font-size: 2em;
-    padding-top: 1vh;
-    background: #00000066;
-    z-index: 102;
-}
 
-#start-pause-game-button:hover{
-    background: black;
-}
 
 #game-logs-modal{
     z-index: 99;
@@ -417,37 +398,6 @@
     height: 64vh;
     z-index: 1;
     border: 2px solid transparent;
-}
-
-#game-pause-indication{
-    position: fixed;
-    top:0vh;
-    left:0vw;
-    width: 100vw;
-    height: 100vh;
-    z-index: 99;
-    background: #000000CC;
-    color: white;
-    font-weight: bold;
-    font-size: 15em;
-    text-align: center;
-    padding-top: 8vh;
-    font-family: Arial, Helvetica, sans-serif;
-
-}
-
-#game-pause-indication-text{
-    position: fixed;
-    top:0vh;
-    left:0vw;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100;
-    color: white;
-    font-weight: bold;
-    font-size: 5em;
-    text-align: center;
-    padding-top: 42vh;
 }
 
 

@@ -30,7 +30,7 @@ const PlayerInfo = (props) => {
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 
-            { player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot`} className="player-pot player-pot-mid-hand">+{(player.pot[game.gamePhase])}</div>}
+            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot`} className="player-pot player-pot-mid-hand">+{(player.pot[game.gamePhase])}</div>}
             { game.handOver && player.winner  && <div id={`player${index}-pot`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}

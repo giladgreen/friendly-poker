@@ -11,6 +11,7 @@ import CreateGameScreen from "./components/CreateGameScreen";
 import OnlineGame from "./components/OnlineGame";
 import JoinGameScreen from "./components/JoinGameScreen";
 import Loader from "./containers/Loader";
+import GamePauseScreen from "./containers/GamePauseScreen";
 import NotSupported from "./containers/NotSupported";
 import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
@@ -104,6 +105,7 @@ class App extends Component {
             showInfoScreen:false,
             playerId: localStorage.getItem('playerId'),
             gameId,
+            gamePaused:false,
             popupData: this.basePopupData
         };
 
@@ -343,7 +345,6 @@ class App extends Component {
             }
             const gameClone = this.getGameClone(game);
 
-
             if (this.state.game){
                 const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
                 const newActivePlayerIndex = gameClone.players.findIndex(p=>p.active);
@@ -363,7 +364,8 @@ class App extends Component {
 
                 }
             }
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true});
+            console.log('setting gamePaused: ',game.paused)
+            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused});
         });
 
         this.socket.on('gamecreated', (game) => {
@@ -711,7 +713,7 @@ class App extends Component {
                 showAlertMessage={this.showAlertMessage}
                 games={this.state.games} />);
         } else{
-            const {gameId, game, playerId, operationpendingaproval} = this.state;
+            const {gameId, game, playerId, operationpendingaproval, gamePaused} = this.state;
 
             if (!game){
                 console.log('App, Render, gameId:',gameId, ' no game, playerId:',playerId, ' returning Loader')
@@ -728,6 +730,13 @@ class App extends Component {
 
             if (gamePlayer){
                 console.log('App, Render, gameId:',gameId, ' game,',game,' playerId:',playerId, ' returning OnlineGame')
+
+                if (gamePaused){
+                    return this.wrapWithAlerts(<GamePauseScreen
+                        resumeGame={this.resumeGame}
+                        isAdmin={isAdmin}
+                        game={this.state.game} />)
+                }
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}
