@@ -230,37 +230,61 @@ class App extends Component {
     }
 
     playFold = () => {
-        document.getElementById("fold-audio").play();
+        try {
+            document.getElementById("fold-audio").play();
+        } catch (e) {
+        }
     };
 
     playTwoTaps = () => {
-        document.getElementById("two-taps-audio").play();
+        try {
+            document.getElementById("two-taps-audio").play();
+        } catch (e) {
+        }
     };
 
     playBeep = () => {
-        document.getElementById("beep-audio").play();
+        try {
+            document.getElementById("beep-audio").play();
+        } catch (e) {
+        }
     };
 
     playCardPlace = () => {
         setTimeout(()=>{
-            document.getElementById("card-place-audio45").play();
+            try {
+                document.getElementById("card-place-audio45").play();
+            } catch (e) {
+            }
         },1400)
     };
 
     playThreeCardPlacing = () => {
         setTimeout(()=>{
-            document.getElementById("card-place-audio1").play();
+            try {
+                document.getElementById("card-place-audio1").play();
+            } catch (e) {
+            }
         },1400)
         setTimeout(()=>{
-            document.getElementById("card-place-audio2").play();
+            try {
+                document.getElementById("card-place-audio2").play();
+            } catch (e) {
+            }
         },1600)
         setTimeout(()=>{
-            document.getElementById("card-place-audio3").play();
+            try {
+                document.getElementById("card-place-audio3").play();
+            } catch (e) {
+            }
         },1800)
     };
 
     playChips = () => {
-        document.getElementById("chips-audio").play();
+        try {
+            document.getElementById("chips-audio").play();
+        } catch (e) {
+        }
     };
 
 
