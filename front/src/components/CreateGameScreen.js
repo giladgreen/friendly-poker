@@ -203,7 +203,7 @@ class CreateGameScreen extends Component {
                                    value={this.state.buyIn}
                                    onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
                         </div>
-                        {!isMobile && <div id="select-game-div">
+                        {!isMobile && false && <div id="select-game-div">
                             <span id="select-game-label">Select Game:</span>
                             <Select
                                 id="select-game-dropdown"
