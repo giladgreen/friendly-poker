@@ -336,7 +336,8 @@ class App extends Component {
             console.log('on gameupdate', game);
             console.log('game.audioableAction',game.audioableAction);
 
-
+            const prevHand = this.state.game ? this.state.game.hand : -1;
+            const newHand = prevHand !== game.hand;
             if (game.audioableAction){
                 game.audioableAction.forEach((action)=>{
                     const sound = this.actioToMethodMap[action];
@@ -364,8 +365,26 @@ class App extends Component {
 
                 }
             }
-            console.log('setting gamePaused: ',game.paused)
+            gameClone.players.forEach(p=>{
+                p.cardsToShow = newHand ? 0 : 2;
+            });
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused});
+                if (newHand){
+                const playersWithCards = game.players.filter(p=>!p.sitOut);
+                const playersWithCardsCount = playersWithCards.length;
+                const delay = 150;
+                playersWithCards.forEach((p,index)=>{
+                    setTimeout(()=>{
+                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        this.setState({game: gameClone});
+                    },index*delay+delay);
+                    setTimeout(()=>{
+                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        this.setState({game: gameClone});
+                    },(playersWithCardsCount-1)*delay + index*delay + 2*delay );
+                })
+            }
+
         });
 
         this.socket.on('gamecreated', (game) => {

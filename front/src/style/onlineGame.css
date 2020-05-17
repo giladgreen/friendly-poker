@@ -427,7 +427,7 @@
 }
 
 #community-pot{
-    position: relative;
+    position: fixed;
     top: 24vh;
     left: 44vw;
     width: 8vw;

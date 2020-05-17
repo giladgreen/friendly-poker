@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/src/style/paused-screen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/containers/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/Card.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/onlineGame.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/playerInfo.css" afterDir="false" />
     </list>
@@ -24,10 +20,62 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="31" column="16" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="31" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="664" column="27" selection-start-line="664" selection-start-column="27" selection-end-line="664" selection-end-column="27" />
+              <folding>
+                <element signature="e#330#477#0" />
+                <element signature="e#347#567#0" />
+                <element signature="e#748#903#0" />
+                <element signature="e#482#583#0" />
+                <element signature="e#1853#2075#0" />
+                <element signature="e#2101#2337#0" />
+                <element signature="e#2338#2560#0" />
+                <element signature="e#2587#2823#0" />
+                <element signature="e#3365#3587#0" />
+                <element signature="e#3613#3849#0" />
+                <element signature="e#3850#4072#0" />
+                <element signature="e#4099#4335#0" />
+                <element signature="e#625#662#0" />
+                <element signature="e#1393#1538#0" />
+                <element signature="e#981#1057#0" />
+                <element signature="e#679#715#0" />
+                <element signature="e#4891#5112#0" />
+                <element signature="e#5138#5373#0" />
+                <element signature="e#5374#5596#0" />
+                <element signature="e#5623#5859#0" />
+                <element signature="e#6416#6638#0" />
+                <element signature="e#6664#6900#0" />
+                <element signature="e#6901#7123#0" />
+                <element signature="e#7150#7386#0" />
+                <element signature="e#7936#8157#0" />
+                <element signature="e#8183#8418#0" />
+                <element signature="e#8419#8640#0" />
+                <element signature="e#8667#8902#0" />
+                <element signature="e#9458#9680#0" />
+                <element signature="e#9706#9942#0" />
+                <element signature="e#9943#10165#0" />
+                <element signature="e#10192#10428#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="203" selection-start-line="203" selection-end-line="203" />
+            <state relative-caret-position="205">
+              <caret line="431" column="15" lean-forward="true" selection-start-line="430" selection-start-column="3" selection-end-line="431" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -35,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="643" column="22" lean-forward="true" selection-start-line="643" selection-start-column="22" selection-end-line="643" selection-end-column="22" />
+            <state relative-caret-position="220">
+              <caret line="518" column="43" selection-start-line="518" selection-start-column="43" selection-end-line="518" selection-end-column="43" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#131#0" expanded="true" />
@@ -60,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/front/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="367" column="104" selection-start-line="367" selection-start-column="104" selection-end-line="367" selection-end-column="104" />
+            <state relative-caret-position="339">
+              <caret line="371" column="12" selection-start-line="371" selection-start-column="12" selection-end-line="371" selection-end-column="12" />
               <folding>
                 <element signature="e#170#208#0" />
                 <element signature="e#250#311#0" expanded="true" />
@@ -111,7 +159,6 @@
                 <element signature="e#6937#7164#0" />
                 <element signature="e#7203#7264#0" />
                 <element signature="e#7291#7356#0" />
-                <element signature="e#7380#7441#0" />
                 <element signature="e#7470#7584#0" />
                 <element signature="e#7495#7572#0" />
                 <element signature="e#7620#7945#0" />
@@ -140,8 +187,6 @@
                 <element signature="e#10743#10865#0" />
                 <element signature="e#11212#11431#0" />
                 <element signature="e#11349#11413#0" />
-                <element signature="e#11477#11884#0" />
-                <element signature="e#11781#11865#0" />
                 <element signature="e#12043#12432#0" />
                 <element signature="e#12492#12620#0" />
                 <element signature="e#12680#12871#0" />
@@ -215,22 +260,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="28" column="84" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="33" column="122" lean-forward="true" selection-start-line="33" selection-start-column="102" selection-end-line="33" selection-end-column="122" />
+            <state relative-caret-position="323">
+              <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#115#0" expanded="true" />
@@ -244,6 +277,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="523">
               <caret line="30" column="68" selection-start-line="30" selection-start-column="68" selection-end-line="30" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-84">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -266,24 +311,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="221" selection-start-line="221" selection-end-line="221" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="197" column="3" selection-start-line="197" selection-start-column="3" selection-end-line="201" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -296,9 +323,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>me</find>
-      <find>options</find>
-      <find>underline</find>
       <find>raise..</find>
       <find>total-pot-amoun</find>
       <find>all-in</find>
@@ -318,14 +342,17 @@
       <find>resumeGame</find>
       <find>popupData</find>
       <find>resumeButtonEnabled</find>
-      <find>paused</find>
       <find>start-pause-game-button</find>
       <find>pause</find>
       <find>game-pause-indication</find>
       <find>paus</find>
-      <find>gamePaused</find>
       <find>player-pot-hand-over</find>
       <find>del</find>
+      <find>gamePaused</find>
+      <find>total</find>
+      <find>table</find>
+      <find>players</find>
+      <find>paused</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
@@ -374,7 +401,6 @@
         <option value="$PROJECT_DIR$/front/src/style/joinGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" />
         <option value="$PROJECT_DIR$/front/public/2diamond.svg" />
-        <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
         <option value="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" />
         <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
         <option value="$PROJECT_DIR$/front/package.json" />
@@ -383,14 +409,15 @@
         <option value="$PROJECT_DIR$/front/src/style/cards.css" />
         <option value="$PROJECT_DIR$/front/src/containers/Confirm.js" />
         <option value="$PROJECT_DIR$/front/src/App.css" />
-        <option value="$PROJECT_DIR$/front/src/App.js" />
         <option value="$PROJECT_DIR$/front/src/index.js" />
-        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/style/paused-screen.css" />
         <option value="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" />
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
+        <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
+        <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
         <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
         <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
+        <option value="$PROJECT_DIR$/front/src/App.js" />
       </list>
     </option>
   </component>
@@ -542,24 +569,24 @@
       <workItem from="1589116090105" duration="20135000" />
       <workItem from="1589447082048" duration="9340000" />
       <workItem from="1589466213361" duration="1204000" />
-      <workItem from="1589479757719" duration="30860000" />
+      <workItem from="1589479757719" duration="35958000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168219000" />
+    <option name="totallyTimeSpent" value="173317000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="941" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17643468" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0958486" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.30508474" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.49649534" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40072638" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -567,7 +594,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.29661018" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.09927361" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -854,16 +881,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="38" column="242" selection-start-line="38" selection-start-column="232" selection-end-line="38" selection-end-column="242" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -874,10 +891,133 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/paused-screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/GamePauseScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="30" column="68" selection-start-line="30" selection-start-column="68" selection-end-line="30" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="431" column="15" lean-forward="true" selection-start-line="430" selection-start-column="3" selection-end-line="431" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="31" column="16" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="31" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="518" column="43" selection-start-line="518" selection-start-column="43" selection-end-line="518" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#131#0" expanded="true" />
+            <element signature="e#2206#2340#0" />
+            <element signature="e#2377#3229#0" />
+            <element signature="e#3259#3361#0" />
+            <element signature="e#3389#3459#0" />
+            <element signature="e#3492#3574#0" />
+            <element signature="e#3598#3935#0" />
+            <element signature="e#3961#4130#0" />
+            <element signature="e#4151#4233#0" />
+            <element signature="e#4393#4473#0" />
+            <element signature="e#4495#4631#0" />
+            <element signature="e#4650#5153#0" />
+            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+            <element signature="e#6769#10025#0" />
+            <element signature="e#21104#26031#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-84">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="664" column="27" selection-start-line="664" selection-start-column="27" selection-end-line="664" selection-end-column="27" />
+          <folding>
+            <element signature="e#330#477#0" />
+            <element signature="e#347#567#0" />
+            <element signature="e#748#903#0" />
+            <element signature="e#482#583#0" />
+            <element signature="e#1853#2075#0" />
+            <element signature="e#2101#2337#0" />
+            <element signature="e#2338#2560#0" />
+            <element signature="e#2587#2823#0" />
+            <element signature="e#3365#3587#0" />
+            <element signature="e#3613#3849#0" />
+            <element signature="e#3850#4072#0" />
+            <element signature="e#4099#4335#0" />
+            <element signature="e#625#662#0" />
+            <element signature="e#1393#1538#0" />
+            <element signature="e#981#1057#0" />
+            <element signature="e#679#715#0" />
+            <element signature="e#4891#5112#0" />
+            <element signature="e#5138#5373#0" />
+            <element signature="e#5374#5596#0" />
+            <element signature="e#5623#5859#0" />
+            <element signature="e#6416#6638#0" />
+            <element signature="e#6664#6900#0" />
+            <element signature="e#6901#7123#0" />
+            <element signature="e#7150#7386#0" />
+            <element signature="e#7936#8157#0" />
+            <element signature="e#8183#8418#0" />
+            <element signature="e#8419#8640#0" />
+            <element signature="e#8667#8902#0" />
+            <element signature="e#9458#9680#0" />
+            <element signature="e#9706#9942#0" />
+            <element signature="e#9943#10165#0" />
+            <element signature="e#10192#10428#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="367" column="104" selection-start-line="367" selection-start-column="104" selection-end-line="367" selection-end-column="104" />
+        <state relative-caret-position="339">
+          <caret line="371" column="12" selection-start-line="371" selection-start-column="12" selection-end-line="371" selection-end-column="12" />
           <folding>
             <element signature="e#170#208#0" />
             <element signature="e#250#311#0" expanded="true" />
@@ -924,7 +1064,6 @@
             <element signature="e#6937#7164#0" />
             <element signature="e#7203#7264#0" />
             <element signature="e#7291#7356#0" />
-            <element signature="e#7380#7441#0" />
             <element signature="e#7470#7584#0" />
             <element signature="e#7495#7572#0" />
             <element signature="e#7620#7945#0" />
@@ -953,8 +1092,6 @@
             <element signature="e#10743#10865#0" />
             <element signature="e#11212#11431#0" />
             <element signature="e#11349#11413#0" />
-            <element signature="e#11477#11884#0" />
-            <element signature="e#11781#11865#0" />
             <element signature="e#12043#12432#0" />
             <element signature="e#12492#12620#0" />
             <element signature="e#12680#12871#0" />
@@ -1023,85 +1160,6 @@
             <element signature="e#24039#24380#0" />
             <element signature="e#24750#24848#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/paused-screen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/GamePauseScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="30" column="68" selection-start-line="30" selection-start-column="68" selection-end-line="30" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="643" column="22" lean-forward="true" selection-start-line="643" selection-start-column="22" selection-end-line="643" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#131#0" expanded="true" />
-            <element signature="e#2206#2340#0" />
-            <element signature="e#2377#3229#0" />
-            <element signature="e#3259#3361#0" />
-            <element signature="e#3389#3459#0" />
-            <element signature="e#3492#3574#0" />
-            <element signature="e#3598#3935#0" />
-            <element signature="e#3961#4130#0" />
-            <element signature="e#4151#4233#0" />
-            <element signature="e#4393#4473#0" />
-            <element signature="e#4495#4631#0" />
-            <element signature="e#4650#5153#0" />
-            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
-            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
-            <element signature="e#6769#10025#0" />
-            <element signature="e#21104#26031#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="33" column="122" lean-forward="true" selection-start-line="33" selection-start-column="102" selection-end-line="33" selection-end-column="122" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/cards.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="197" column="3" selection-start-line="197" selection-start-column="3" selection-end-line="201" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="221" selection-start-line="221" selection-end-line="221" />
         </state>
       </provider>
     </entry>

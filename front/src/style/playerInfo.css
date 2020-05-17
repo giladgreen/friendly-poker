@@ -17,10 +17,80 @@
     top:65vh;
     left:44vw;
 }
+@keyframes player1-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:65vh;
+        left:44vw;
+        transform: rotate(-8deg);
+    }
+}
+#player1-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:65vh;
+    left:44vw;
+    animation-name: player1-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player1-pot{
-    top:-7.4vh;
-    left:3.5vw;
+}
+@keyframes player1-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:65vh;
+        left:47vw;
+        transform: rotate(8deg);
+    }
+}
+#player1-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:65vh;
+    left:47vw;
+    animation-name: player1-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+#player1-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:57.6vh;
+    left:47.5vw;
+
+}
+@keyframes player1-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:57.6vh;
+        left:47.5vw;
+    }
+}
+#player1-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:57.6vh;
+    left:47.5vw;
+    animation-name: player1-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 
 #dealer-button-1{
@@ -32,10 +102,79 @@
     top:61vh;
     left:23vw;
 }
+@keyframes player2-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:61vh;
+        left:23vw;
+        transform: rotate(-8deg);
+    }
+}
+#player2-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:65vh;
+    left:44vw;
+    animation-name: player2-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player2-pot{
-    top:-6.8vh;
-    left:7vw;
+}
+@keyframes player2-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:61vh;
+        left:26vw;
+        transform: rotate(8deg);
+    }
+}
+#player2-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:61vh;
+    left:26vw;
+    animation-name: player2-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+#player2-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:54.2vh;
+    left:30vw;
+}
+@keyframes player2-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:54.2vh;
+        left:30vw;
+    }
+}
+#player2-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:54.2vh;
+    left:30vw;
+    animation-name: player2-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 #dealer-button-2{
     top:-6.8vh;
@@ -46,10 +185,83 @@
     top:36vh;
     left:9vw;
 }
+@keyframes player3-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:36vh;
+        left:9vw;
+        transform: rotate(-8deg);
+    }
+}
+#player3-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:36vh;
+    left:9vw;
+    animation-name: player3-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player3-pot{
-    top:10.82vh;
-    left:10.4vw;
+}
+@keyframes player3-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:36vh;
+        left:12vw;
+        transform: rotate(8deg);
+    }
+}
+#player3-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:36vh;
+    left:12vw;
+    animation-name: player3-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+#player3-pot-mid{
+    position: fixed;
+    top:46.82vh;
+    left:19.4vw;
+    z-index: 33;
+
+}
+@keyframes player3-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:46.82vh;
+        left:19.4vw;
+    }
+}
+#player3-pot-end{
+    position: fixed;
+
+    z-index: 33;
+    top:46.82vh;
+    left:19.4vw;
+    animation-name: player3-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
 }
 #dealer-button-3{
     top:8.82vh;
@@ -59,10 +271,84 @@
     top:14vh;
     left:23vw;
 }
+@keyframes player4-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:14vh;
+        left:23vw;
+        transform: rotate(-8deg);
+    }
+}
+#player4-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:14vh;
+    left:23vw;
+    animation-name: player4-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player4-pot{
-    top:11.6vh;
-    left:8.5vw;
+}
+@keyframes player4-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:14vh;
+        left:26vw;
+        transform: rotate(8deg);
+    }
+}
+#player4-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:14vh;
+    left:26vw;
+    animation-name: player4-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+
+
+#player4-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:25.6vh;
+    left:31.5vw;
+
+}
+@keyframes player4-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:25.6vh;
+        left:31.5vw;
+    }
+}
+#player4-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:25.6vh;
+    left:31.5vw;
+    animation-name: player4-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
 }
 #dealer-button-4{
     top:11.6vh;
@@ -72,10 +358,84 @@
     top:9vh;
     left:44vw;
 }
+@keyframes player5-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:9vh;
+        left:44vw;
+        transform: rotate(-8deg);
+    }
+}
+#player5-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:9vh;
+    left:44vw;
+    animation-name: player5-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player5-pot{
-    top:11.3vh;
-    left:8.2vw;
+}
+@keyframes player5-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:9vh;
+        left:47vw;
+        transform: rotate(8deg);
+    }
+}
+#player5-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:9vh;
+    left:47vw;
+    animation-name: player5-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+
+
+#player5-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:20.3vh;
+    left:52.2vw;
+
+}
+@keyframes player5-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:20.3vh;
+        left:52.2vw;
+    }
+}
+#player5-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:20.3vh;
+    left:52.2vw;
+    animation-name: player5-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
 }
 #dealer-button-5{
     top:12vh;
@@ -85,9 +445,85 @@
     top:14vh;
     left:66vw;
 }
-#player6-pot{
-    top:9.5vh;
-    left:-4.2vw;
+@keyframes player6-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:14vh;
+        left:66vw;
+        transform: rotate(-8deg);
+    }
+}
+#player6-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:14vh;
+    left:66vw;
+    animation-name: player6-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+@keyframes player6-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:14vh;
+        left:69vw;
+        transform: rotate(8deg);
+    }
+}
+#player6-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:14vh;
+    left:69vw;
+    animation-name: player6-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+
+
+
+#player6-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:23.5vh;
+    left:61.8vw;
+
+}
+@keyframes player6-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:23.5vh;
+        left:61.8vw;
+    }
+}
+#player6-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:23.5vh;
+    left:61.8vw;
+    animation-name: player6-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
 }
 #dealer-button-6{
     top:14vh;
@@ -97,10 +533,84 @@
     top:36vh;
     left:80vw;
 }
+@keyframes player7-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:36vh;
+        left:80vw;
+        transform: rotate(-8deg);
+    }
+}
+#player7-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:36vh;
+    left:80vw;
+    animation-name: player7-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player7-pot{
-    top:5.5vh;
-    left:-4.9vw;
+}
+@keyframes player7-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:36vh;
+        left:83vw;
+        transform: rotate(8deg);
+    }
+}
+#player7-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:36vh;
+    left:83vw;
+    animation-name: player7-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+
+
+
+
+#player7-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:41.5vh;
+    left:75.1vw;
+}
+@keyframes player7-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:41.5vh;
+        left:75.1vw;
+    }
+}
+#player7-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:41.5vh;
+    left:75.1vw;
+    animation-name: player7-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 #dealer-button-7{
     top:0.7vh;
@@ -110,10 +620,83 @@
     top:61vh;
     left:66vw;
 }
+@keyframes player8-first-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:61vh;
+        left:66vw;
+        transform: rotate(-8deg);
+    }
+}
+#player8-first-card-texas{
+    z-index: 30;
+    transform: rotate(-8deg);
+    position: fixed;
+    top:61vh;
+    left:66vw;
+    animation-name: player8-first-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 
-#player8-pot{
-    top:-6.4vh;
-    left:-1.3vw;
+}
+@keyframes player8-second-card-texas-anim {
+    from {
+        top: 32.2vh;
+        left:26.2vw;
+        transform: rotate(0deg);
+    }
+    to {
+        top:61vh;
+        left:69vw;
+        transform: rotate(8deg);
+    }
+}
+#player8-second-card-texas{
+    z-index: 30;
+    transform: rotate(8deg);
+    position: fixed;
+    top:61vh;
+    left:69vw;
+    animation-name: player8-second-card-texas-anim;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+
+
+
+
+#player8-pot-mid{
+    position: fixed;
+    z-index: 33;
+    top:54.6vh;
+    left:64.7vw;
+}
+@keyframes player8-pot-end-anim {
+    from {
+        top: 24vh;
+        left: 44vw;
+    }
+    to {
+        top:54.6vh;
+        left:64.7vw;
+    }
+}
+#player8-pot-end{
+    position: fixed;
+    z-index: 33;
+    top:54.6vh;
+    left:64.7vw;
+    animation-name: player8-pot-end-anim;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 #dealer-button-8 {
     top: -7.4vh;

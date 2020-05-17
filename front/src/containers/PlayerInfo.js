@@ -6,6 +6,7 @@ import Card from "./Card";
 const PlayerInfo = (props) => {
 
     const {game, player, index, winningHandCards, isMe} = props;
+    const {cardsToShow} = player;
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
     const card2 = player.cards ? player.cards[1] : null;
@@ -13,10 +14,10 @@ const PlayerInfo = (props) => {
     const card4 = player.cards && game.omaha ? player.cards[3] : null;
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
-            <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card1)}/>
-            <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card2)}/>
-            <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} highlight={winningHandCards.includes(card3)}/>
-            <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} highlight={winningHandCards.includes(card4)}/>
+            {cardsToShow > 0 && <Card playerPreferences={props.playerPreferences} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card1)}/>}
+            {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
+            {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} highlight={winningHandCards.includes(card3)}/>}
+            {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} highlight={winningHandCards.includes(card4)}/>}
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
@@ -30,8 +31,8 @@ const PlayerInfo = (props) => {
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 
-            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot`} className="player-pot player-pot-mid-hand">+{(player.pot[game.gamePhase])}</div>}
-            { game.handOver && player.winner  && <div id={`player${index}-pot`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
+            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot-mid`} className="player-pot player-pot-mid-hand">+{(player.pot[game.gamePhase])}</div>}
+            { game.handOver && player.winner  && <div id={`player${index}-pot-end`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
             { props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}
