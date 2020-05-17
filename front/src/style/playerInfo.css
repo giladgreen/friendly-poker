@@ -88,7 +88,7 @@
     top:57.6vh;
     left:47.5vw;
     animation-name: player1-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 }
@@ -172,7 +172,7 @@
     top:54.2vh;
     left:30vw;
     animation-name: player2-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 }
@@ -258,7 +258,7 @@
     top:46.82vh;
     left:19.4vw;
     animation-name: player3-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 
@@ -345,7 +345,7 @@
     top:25.6vh;
     left:31.5vw;
     animation-name: player4-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 
@@ -432,7 +432,7 @@
     top:20.3vh;
     left:52.2vw;
     animation-name: player5-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 
@@ -520,7 +520,7 @@
     top:23.5vh;
     left:61.8vw;
     animation-name: player6-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 
@@ -608,7 +608,7 @@
     top:41.5vh;
     left:75.1vw;
     animation-name: player7-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 }
@@ -694,7 +694,7 @@
     top:54.6vh;
     left:64.7vw;
     animation-name: player8-pot-end-anim;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-delay: 0s;
     animation-fill-mode: both;
 }
