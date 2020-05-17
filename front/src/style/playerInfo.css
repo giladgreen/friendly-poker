@@ -35,13 +35,12 @@
     position: fixed;
     top:65vh;
     left:44vw;
-}
-.player1-first-card-texas{
     animation-name: player1-first-card-texas-anim;
     animation-duration: 2s;
     animation-delay: 0s;
     animation-fill-mode: both;
 }
+
 @keyframes player1-second-card-texas-anim {
     from {
         top: 44.7vh;

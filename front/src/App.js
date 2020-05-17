@@ -411,21 +411,39 @@ class App extends Component {
                 p.cardsToShow = newHand ? 0 : 2;
             });
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused});
-                if (newHand){
-                    const playersWithCards = game.players.filter(p=>!p.sitOut);
-                    const playersWithCardsCount = playersWithCards.length;
-                    const delay = 150;
-                    playersWithCards.forEach((p,index)=>{
+            if (newHand){
+                const playersWithCards = game.players.filter(p=>!p.sitOut);
+                const playersWithCardsCount = playersWithCards.length;
+                const delay = 150;
+                playersWithCards.forEach((p)=>{
+                    const {dealIndex} = p;
+
+                    setTimeout(()=>{
+                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        this.setState({game: gameClone});
+
+                    },(dealIndex+1)*delay);
+
+                    setTimeout(()=>{
+                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        this.setState({game: gameClone});
+                    },playersWithCardsCount*delay + (dealIndex+1)*delay);
+
+                    if (game.omaha){
                         setTimeout(()=>{
                             gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
                             this.setState({game: gameClone});
-                        },index*delay + delay);
+                        },2*playersWithCardsCount*delay + (dealIndex+1)*delay);
+                    }
+                    if (game.omaha){
                         setTimeout(()=>{
                             gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
                             this.setState({game: gameClone});
-                        },(playersWithCardsCount-1)*delay + index*delay + 4*delay );
-                    })
-                }
+                        },3*playersWithCardsCount*delay + (dealIndex+1)*delay);
+                    }
+
+                })
+            }
 
         });
 

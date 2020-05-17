@@ -3,7 +3,7 @@
 import React from 'react'
 
 const Card = (props) => {
-    const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha, playerPreferences, index, dealIndex } = props;
+    const { card, folded, first, second, third, fourth, highlight, shown, isMe, omaha, playerPreferences, index } = props;
 
     const {twoColors} = playerPreferences;
 
@@ -18,8 +18,7 @@ const Card = (props) => {
         'C':club,
     }
 
-    const texas =!omaha;
-    if (texas && (third || fourth)){
+    if (!omaha && (third || fourth)){
         return <div/>;
     }
     const number = card && (isMe || !folded) ? card[0].replace('T','10') : '';
@@ -35,7 +34,7 @@ const Card = (props) => {
     }
 
     const id = index ? `player${index}-${first?'first':'second'}-card-texas` : undefined;
-    const className = `simple-card-base player${dealIndex}-${first?'first':'second'}-card-texas ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
+    const className = `simple-card-base  ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
 
     return  <div key={`card_${card}`} id={id}
                  className={className}>
