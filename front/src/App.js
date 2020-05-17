@@ -394,20 +394,20 @@ class App extends Component {
             });
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused});
                 if (newHand){
-                const playersWithCards = game.players.filter(p=>!p.sitOut);
-                const playersWithCardsCount = playersWithCards.length;
-                const delay = 150;
-                playersWithCards.forEach((p,index)=>{
-                    setTimeout(()=>{
-                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
-                        this.setState({game: gameClone});
-                    },index*delay+delay);
-                    setTimeout(()=>{
-                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
-                        this.setState({game: gameClone});
-                    },(playersWithCardsCount-1)*delay + index*delay + 2*delay );
-                })
-            }
+                    const playersWithCards = game.players.filter(p=>!p.sitOut);
+                    const playersWithCardsCount = playersWithCards.length;
+                    const delay = 150;
+                    playersWithCards.forEach((p,index)=>{
+                        setTimeout(()=>{
+                            gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                            this.setState({game: gameClone});
+                        },index*delay + delay);
+                        setTimeout(()=>{
+                            gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                            this.setState({game: gameClone});
+                        },(playersWithCardsCount-1)*delay + index*delay + 4*delay );
+                    })
+                }
 
         });
 
