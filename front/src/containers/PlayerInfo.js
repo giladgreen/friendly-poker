@@ -5,7 +5,7 @@ import Card from "./Card";
 
 const PlayerInfo = (props) => {
 
-    const {game, player, index, winningHandCards, isMe} = props;
+    const {game, player, index, dealIndex, winningHandCards, isMe} = props;
     const {cardsToShow} = player;
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
@@ -14,8 +14,8 @@ const PlayerInfo = (props) => {
     const card4 = player.cards && game.omaha ? player.cards[3] : null;
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
-            {cardsToShow > 0 && <Card playerPreferences={props.playerPreferences} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card1)}/>}
-            {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
+            {cardsToShow > 0 && <Card playerPreferences={props.playerPreferences} index={index} dealIndex={dealIndex} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card1)}/>}
+            {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} index={index} dealIndex={dealIndex} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
             {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} highlight={winningHandCards.includes(card3)}/>}
             {cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} highlight={winningHandCards.includes(card4)}/>}
 

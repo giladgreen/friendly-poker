@@ -139,6 +139,16 @@ class App extends Component {
         });
     };
 
+    getDealerIndex(players){
+        let index = -1;
+        players.forEach((player,i)=>{
+            if (player.dealer){
+                index = i;
+            }
+        });
+        return index;
+    }
+
     getMyIndex(players){
         let index = -1;
         players.forEach((player,i)=>{
@@ -154,19 +164,27 @@ class App extends Component {
         const players = game.players;
 
         const myIndex = this.getMyIndex(game.players);
+        const dealerIndex = this.getDealerIndex(game.players);
 
-
-        console.log('myIndex',myIndex)
         players.forEach((player, index)=>{
             if (index >= myIndex){
                 player.locationIndex = index - myIndex +1;
-                console.log('index',index,'*player.locationIndex',player.locationIndex )
             } else{
-                player.locationIndex = 8 - index;
-                console.log('index',index,'$player.locationIndex',player.locationIndex )
+                player.locationIndex = 8 - myIndex + 1 + index;
 
             }
         });
+
+        players.forEach((player, index)=>{
+            if (index > dealerIndex){
+                player.dealIndex = index - dealerIndex;
+            } else{
+                player.dealIndex = players.length - dealerIndex + index;
+
+            }
+        });
+
+
 
         console.log('players',players)
         //            players: [...game.players.slice(myIndex, game.players.length+1),...game.players.slice(0, myIndex)]

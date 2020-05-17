@@ -14,31 +14,32 @@
 
 #community-card-deck1{
     position: fixed;
-    top: 32vh;
-    left:26vw;
+    top: 44.5vh;
+    left:46vw;
     z-index: 15;
 }
 
 #community-card-deck2{
     position: fixed;
-    top: 32.1vh;
-    left:26.1vw;
+    top: 44.6vh;
+    left:46.1vw;
     z-index: 16;
 }
 
 #community-card-deck3{
     position: fixed;
-    top: 32.2vh;
-    left:26.2vw;
+    top: 44.7vh;
+    left:46.2vw;
     z-index: 17;
 }
 
 @keyframes community-card-1-anim {
     from {
-
-        left:26vw;
+        top: 44.7vh;
+        left:46.2vw;
     }
     to {
+        top: 32vh;
         left:35vw;
 
     }
@@ -48,7 +49,7 @@
 #community-card-1{
     position: fixed;
     top: 32vh;
-    left:31vw;
+    left:35vw;
     z-index: 10;
     animation-name: community-card-1-anim;
     animation-duration: 0.9s;
@@ -59,10 +60,11 @@
 
 @keyframes community-card-2-anim {
     from {
-
-        left:26vw;
+        top: 44.7vh;
+        left:46.2vw;
     }
     to {
+        top: 32vh;
         left:40vw;
 
     }
@@ -70,9 +72,9 @@
 
 #community-card-2{
     position: fixed;
-    top: 32vh;
     z-index: 10;
-    left:31vw;
+    top: 32vh;
+    left:40vw;
     animation-name: community-card-2-anim;
     animation-duration: 0.9s;
     animation-delay: 1.3s;
@@ -81,20 +83,21 @@
 
 @keyframes community-card-3-anim {
     from {
-        left:26vw;
+        top: 44.7vh;
+        left:46.2vw;
 
     }
     to {
+        top: 32vh;
         left:45vw;
-
     }
 }
 
 #community-card-3{
     position: fixed;
-    top: 32vh;
     z-index: 10;
-    left:31vw;
+    top: 32vh;
+    left:45vw;
     animation-name: community-card-3-anim;
     animation-duration: 0.9s;
     animation-delay: 1.3s;
@@ -105,10 +108,12 @@
 
 @keyframes community-card-4-anim {
     from {
-        left:26vw;
+        top: 44.7vh;
+        left:46.2vw;
 
     }
     to {
+        top: 32vh;
         left:51vw;
 
     }
@@ -116,9 +121,9 @@
 
 #community-card-4{
     position: fixed;
-    top: 32vh;
     z-index: 10;
-    left:31vw;
+    top: 32vh;
+    left:51vw;
     animation-name: community-card-4-anim;
     animation-duration: 1s;
     animation-delay: 1.3s;
@@ -127,10 +132,12 @@
 
 @keyframes community-card-5-anim {
     from {
-        left:26vw;
+        top: 44.7vh;
+        left:46.2vw;
 
     }
     to {
+        top: 32vh;
         left:57vw;
 
     }
@@ -138,69 +145,22 @@
 
 #community-card-5{
     position: fixed;
-    top: 32vh;
     z-index: 10;
-    left:31vw;
+    top: 32vh;
+    left:57vw;
     animation-name: community-card-5-anim;
     animation-duration: 1s;
     animation-delay: 1.3s;
     animation-fill-mode: both;
 }
-@keyframes first-card-texas-anim {
 
-    from {
-        transform: rotate(0deg);
-        left: 1.6vw;
-    }
-    to {
-        transform: rotate(-8deg);
-        left: 0vw;
-    }
-}
-
-.first-card-texas{
-    z-index: 20;
-    transform: rotate(-8deg);
-    position: absolute;
-    left: 0vw;
-
-    animation-name: first-card-texas-anim;
-    animation-duration: 1.5s;
-    animation-delay: 1s;
-
-    animation-fill-mode: both;
-}
 .first-card{
     z-index: 20;
     position: absolute;
     left: -4.6vw;
 }
 
-@keyframes second-card-texas-anim {
 
-    from {
-        transform: rotate(0deg);
-        left: 1.6vw;
-
-    }
-    to {
-        transform: rotate(8deg);
-        left: 3.2vw;
-    }
-}
-
-.second-card-texas{
-    z-index: 21;
-    position: absolute;
-    transform: rotate(8deg);
-    left: 3.2vw;
-
-    animation-name: second-card-texas-anim;
-    animation-duration: 1.5s;
-    animation-delay: 1s;
-
-    animation-fill-mode: both;
-}
 .second-card{
     z-index: 21;
     position: absolute;

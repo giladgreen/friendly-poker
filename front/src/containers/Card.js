@@ -3,7 +3,7 @@
 import React from 'react'
 
 const Card = (props) => {
-    const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha, playerPreferences, index } = props;
+    const { card, folded, first, second, third, fourth,right, left, highlight, shown, isMe, omaha, playerPreferences, index, dealIndex } = props;
 
     const {twoColors} = playerPreferences;
 
@@ -35,8 +35,10 @@ const Card = (props) => {
     }
 
     const id = index ? `player${index}-${first?'first':'second'}-card-texas` : undefined;
+    const className = `simple-card-base player${dealIndex}-${first?'first':'second'}-card-texas ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
+
     return  <div key={`card_${card}`} id={id}
-                 className={`simple-card-base ${first ? (texas && !index ? 'first-card-texas':'first-card'):'' } ${second ? (texas && !index ? 'second-card-texas':'second-card'):'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${right ? 'right-card':'' } ${left ? 'left-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`}>
+                 className={className}>
                 <div className={folded ? (isMe ? 'my-folded-card' :'simple-card-folded') : (card ? 'simple-card-front':'simple-card-back') }>
                     <div className={`card-number ${color}`}>
                         {number}
