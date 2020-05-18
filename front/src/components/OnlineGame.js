@@ -846,8 +846,6 @@ class OnlineGame extends Component {
                        value={this.state.chatMessage}
 
                        onFocus={()=>{this.setState({ chatFocused:true })}}
-                       onfocusin={()=>{this.setState({ chatFocused:true })}}
-                       onfocusout={()=>{this.setState({ chatFocused:false })}}
                        onBlur={()=>{this.setState({ chatFocused:false })}}
 
                        onChange={(e)=>this.setChatMessage(e.target.value)}

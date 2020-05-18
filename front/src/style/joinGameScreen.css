@@ -35,14 +35,14 @@
 
 #join-screen #join-button-div{
     position: fixed;
-    top: 65vh;
+    top: 70vh;
     height: 10vh;
     margin-top: 10px;
     font-weight: bold;
     font-size: 2em;
     text-align: center;
     width: 50vw;
-    left: 2vw;
+    left: 20vw;
 }
 
 .join-button{

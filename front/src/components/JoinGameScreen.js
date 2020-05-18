@@ -58,7 +58,7 @@ class JoinGameScreen extends Component {
         if (this.state.joinRequestSent){
             return <Loader/>;
         }
-        const {smallBlind, bigBlind, time, players}=this.props.game;
+        const {smallBlind, bigBlind, time, players, omaha}=this.props.game;
         const playersCount = players.length;
         return (
             <div id="join-screen"  >
@@ -67,6 +67,8 @@ class JoinGameScreen extends Component {
                         <header>
                             Join Game
                         </header>
+                        <div>{omaha ? 'Pot Limit Omaha' : 'No Limit Texas Holdem'}</div>
+
                         <div>
                             Small Blind: {smallBlind}
                         </div>
@@ -74,7 +76,7 @@ class JoinGameScreen extends Component {
                             Big Blind:  {bigBlind}
                         </div>
                         <div>
-                            Time To Action:  {time} seconds
+                            Decision Time Limit:  {time} seconds
                         </div>
 
                         <div>

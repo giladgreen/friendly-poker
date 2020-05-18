@@ -20,7 +20,7 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
             if (!player.me) {
                 player.showingCards = true;
             }
-            if (player.cards && player.cards.length > 0 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length > 2) {
+            if (player.cards && player.cards.length > 0 && gameToSend.board && gameToSend.board.filter(c => Boolean(c)).length === 5) {
                 player.hand = getUserHandObject(gameToSend, player.cards, gameToSend.board);
                 player.userDesc = player.hand.descr;
             }

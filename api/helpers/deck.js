@@ -44,7 +44,10 @@ function getOmahaHand(cards, board) {
 
   const allOptions = playerCardsOptions.reduce((results, playerOption) => [...results, ...boardOptions.map(boardOption => [...boardOption, ...playerOption])], []);
 
-  return Hand.winners(allOptions.map(h => Hand.solve(h)))[0];
+  const allHands = allOptions.map(h => Hand.solve(h));
+  const bestHands = Hand.winners(allHands);
+
+  return bestHands[0];
 }
 
 function getTexasHand(cards, board) {

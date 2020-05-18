@@ -407,7 +407,7 @@ class App extends Component {
             gameClone.players.forEach(p=>{
                 p.cardsToShow = newHand ? 0 : 2;
             });
-
+            console.log('game.handOver',game.handOver);
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver});
             if (newHand){
                 const playersWithCards = game.players.filter(p=>!p.sitOut);
@@ -427,18 +427,7 @@ class App extends Component {
                         this.setState({game: gameClone});
                     },playersWithCardsCount*delay + (dealIndex+1)*delay);
 
-                    if (game.omaha){
-                        setTimeout(()=>{
-                            gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
-                            this.setState({game: gameClone});
-                        },2*playersWithCardsCount*delay + (dealIndex+1)*delay);
-                    }
-                    if (game.omaha){
-                        setTimeout(()=>{
-                            gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
-                            this.setState({game: gameClone});
-                        },3*playersWithCardsCount*delay + (dealIndex+1)*delay);
-                    }
+
 
                 })
             }

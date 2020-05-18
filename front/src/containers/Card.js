@@ -33,14 +33,7 @@ const Card = (props) => {
         }
     }
 
-    const id = index ? ( initial ? (`player${index}-${first?'first':'second'}-card-texas`): (`player${index}-${first?'first':'second'}-card-texas-no-anim`)) : undefined;
-    if (!isMe && initial){
-        console.log('initial TRUE')
-    } else if (!isMe && !initial){
-        console.log('initial FALSE')
-    }
-
-
+    const id = index && !omaha ? ( initial ? (`player${index}-${first?'first':'second'}-card-texas`): (`player${index}-${first?'first':'second'}-card-texas-no-anim`)) : undefined;
 
     const className = `simple-card-base  ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
 
