@@ -469,6 +469,14 @@
 #messages-box:hover{
     overflow-y: scroll;
 }
+#chat-header{
+    position: fixed;
+    bottom: 23vh;
+    left: 0.5vw;
+    width: 22vw;
+    color: white;
+    font-size: 1.5em;
+}
 #chat-input{
     position: fixed;
     bottom: 18.8vh;
@@ -480,7 +488,7 @@
 }
 #player-settings-button{
     position: fixed;
-    bottom: 24vh;
+    bottom: 29vh;
     left: 0.6vw;
     padding: 3px;
     border: 2px solid white;

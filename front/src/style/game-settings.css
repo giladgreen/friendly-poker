@@ -51,17 +51,19 @@
     border-radius: 10px;
 }
 #game-settings-save-button{
-    cursor: pointer;
     width: 23vw;
     font-size: 2.5em;
-    background: green;
-    color: white;
     text-align: center;
     border: 1px solid white;
     border-radius: 8px;
     position: fixed;
     top: 55vh;
     left: 10vw;
+}
+.game-settings-save-button{
+    cursor: pointer;
+    background: green;
+    color: white;
 }
 #force-skip-hand-button{
     background: orangered;

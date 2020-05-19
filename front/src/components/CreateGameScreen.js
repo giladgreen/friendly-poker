@@ -169,7 +169,6 @@ class CreateGameScreen extends Component {
                             <span id="create-new-game-big-blind-label" className="create-new-game-labels">Big Blind:</span>
                             <input id="create-new-game-big-blind-input"
                                    className={this.state.showBigBlindError ? 'red-border red-background':''}
-                                   min={this.state.SB}
                                    step="1"
                                    max="999"
                                    type="number" value={this.state.BB}

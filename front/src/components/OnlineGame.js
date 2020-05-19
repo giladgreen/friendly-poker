@@ -11,17 +11,16 @@ import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
 
-
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import CancelIcon from '@material-ui/icons/Cancel';
+import GameSettingModal from "./GameSettingModal";
 const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 const PrettoSlider = withStyles({
@@ -65,11 +64,6 @@ const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http:/
 
 class OnlineGame extends Component {
 
-    onAdminChange = (adminId)=>{
-        const adminName = this.props.game.players.find(p=>p.id === adminId).name;
-
-        this.setState({adminId, adminName})
-    }
     getShowableTime = (startDate) =>{
         if (!startDate){
             return null;
@@ -104,11 +98,15 @@ class OnlineGame extends Component {
     toggleSettings = ()=>{
         this.setState({showSettings:!this.state.showSettings})
     };
+
     togglePlayerSettings = ()=>{
         this.setState({showPlayerSettings:!this.state.showPlayerSettings})
     };
 
     toggleLogs = ()=>{
+        if (!this.state.showLogs && !this.props.game.startDate){
+            return;
+        }
         if (!this.state.showLogs){
             setTimeout(()=>{
                 const objDiv = document.getElementById('game-logs-modal');
@@ -120,20 +118,20 @@ class OnlineGame extends Component {
         this.setState({showLogs:!this.state.showLogs})
     };
 
-    saveSettings = ()=>{
-        this.props.updateGameSettings(this.state.time,this.state.smallBlind,this.state.bigBlind, this.state.adminId);
+    saveSettings = ({time,smallBlind, bigBlind, adminId})=>{
+        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId);
         this.setState({showSettings:false})
-    }
+    };
 
     SkipHand = ()=>{
         this.props.SkipHand();
         this.setState({showSettings:false})
-    }
+    };
 
     onSendMessage = ()=>{
         this.props.sendMessage(this.state.chatMessage);
         this.setState({chatMessage:'', chatFocused:false });
-    }
+    };
 
     toggleRebuyButton = ()=>{
         this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
@@ -189,11 +187,6 @@ class OnlineGame extends Component {
             showInfoScreen: false,
             showLogs: false,
             me:{},
-            time: props.game.time,
-            smallBlind: props.game.smallBlind,
-            bigBlind: props.game.bigBlind,
-            adminId: props.game.players.find(p=>p.admin).id,
-            adminName: props.game.players.find(p=>p.admin).name,
             playerPreferences
         }
 
@@ -319,42 +312,65 @@ class OnlineGame extends Component {
     }
 
     keypress = (event)=>{
-        if (this.state.chatFocused){
-            console.log('keypress chatFocused true')
-            return;
-        }
-        console.log('keypress chatFocused false')
-        event.preventDefault();
+        const game = this.props.game;
         const keycode = event.keyCode;
         const key = String.fromCharCode(keycode).toLowerCase();
-        const game = this.props.game;
+
+        if (!chatFocused && key === 'm'){
+           setTimeout(()=>{
+               document.getElementById("chat-input").focus();
+           },120)
+            return;
+        }
         if (game.handOver || !game.startDate){
             return;
         }
-        const {me, isMyTurn, options, raiseEnabled} = this.state;
-        if (!me || me.fold || me.sitOut){
+
+        const {me, isMyTurn, options, raiseEnabled, chatFocused, showSettings, rebuySectionOpen} = this.state;
+
+
+
+        const number = `0123456789`.includes(key);
+        if (chatFocused || showSettings  || rebuySectionOpen ){
             return;
         }
+        if (!number){
+            event.preventDefault();
+        }
+
+
+        if (raiseEnabled ){
+            if (key === 'a'){
+                this.setRaiseValue(this.getMaxRaise());
+                return;
+            }
+            if (key === 'p'){
+                this.setRaiseValue(game.pot);
+                return;
+            }
+            if (key === 'c'){
+                this.toggleRaiseButton();
+                return;
+            }
+            return;
+        }
+
+        if (number && isMyTurn && options.includes('Raise') && me.balance !== 0 && me && !me.fold && !me.sitOut){
+            this.setState({ raiseEnabled: true, raiseValue:parseInt(key,10)});
+            setTimeout(()=>{
+                document.getElementById("raise-input").focus();
+            },120)
+            return;
+        }
+
+
         if (!isMyTurn){
             if (key === 'f'){
                 this.checkFold();
                 return;
             }
         }else{
-            if (raiseEnabled){
-                if (key === 'a'){
-                    this.setRaiseValue(this.getMaxRaise());
-                    return;
-                }
-                if (key === 'p'){
-                    this.setRaiseValue(game.pot);
-                    return;
-                }
-                if (key === 'c'){
-                    this.toggleRaiseButton();
-                    return;
-                }
-            }else{
+            if (!raiseEnabled){
                 if (key === 'f'){
                     this.fold();
                     return;
@@ -368,20 +384,16 @@ class OnlineGame extends Component {
                     return;
                 }
                 if (key === 'r' || key === 'b' ){
-                    if (!raiseEnabled){
-                        this.toggleRaiseButton();
-                        return;
-                    } else{
-
-                    }
-
+                    this.toggleRaiseButton();
+                    setTimeout(()=>{
+                        document.getElementById("raise-input").focus();
+                    },120)
                     return;
                 }
             }
-
-
         }
     }
+
     componentDidMount() {
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
 
@@ -507,8 +519,9 @@ class OnlineGame extends Component {
         const bigBlind = val < this.state.smallBlind ? this.state.smallBlind : val;
         this.setState({bigBlind})
     };
+
     render() {
-        const {clockMessage,handTime, options, cheapLeader, me} = this.state;
+        const {clockMessage, options, cheapLeader, me} = this.state;
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
@@ -543,7 +556,7 @@ class OnlineGame extends Component {
                 {/* game time */}
                 <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
                 {/* blinds data */}
-                <div id="blinds-data">BLINDS: { smallBlind}/ {bigBlind}</div>
+                <div id="blinds-data">BLINDS: { smallBlind}/{bigBlind}</div>
                 {/* hand count + time */}
                 { hand && hand >0 ? <div id="hand-time">
                     <span>Hand #{hand} </span> <div/>
@@ -668,7 +681,7 @@ class OnlineGame extends Component {
                 {/* quit button */}
                 <div id="quit-button" className={ quitEnabled ? "active-button" : "inactive-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>
                 {/* logs button */}
-                <div id="game-logs-button" className="active-button" onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
+                <div id="game-logs-button" className={ startDate ? "active-button" : "inactive-button"}  onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
                 {/* settings button */}
                 { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
                 {/* creator get back his admin button */}
@@ -696,74 +709,15 @@ class OnlineGame extends Component {
                     }}
                 >
                     <Fade in={this.state.showSettings}>
-                        <div id="game-settings-modal">
-                            <div id="game-settings-modal-close-x" onClick={this.toggleSettings}>X</div>
-                            <div id="game-settings-modal-title">Game Settings</div>
-
-                           <div className="game-settings-item">
-                               <span className="game-settings-label">Decision Time Limit:</span>
-                               <input className="game-settings-input"
-                                      type="number"
-                                      min="10"
-                                      value={this.state.time}
-                                      onChange={(e)=>this.setSettingsTime(Math.floor(e.target.value))}
-                                      step="10"
-                               />
-                               <span className="game-settings-secondary-label"> Seconds</span>
-                           </div>
-                            <div className="game-settings-item">
-                               <span className="game-settings-label">Small Blind:</span>
-                               <input className="game-settings-input"
-                                      type="number"
-                                      min="1"
-                                      value={this.state.smallBlind}
-                                      onChange={(e)=>this.setSettingsSmallBlind(Math.floor(e.target.value))}
-                                      step="1"
-                               />
-                           </div>
-                            <div className="game-settings-item">
-                               <span className="game-settings-label">Big Blind:</span>
-                               <input className="game-settings-input"
-                                      type="number"
-                                      min={this.state.smallBlind}
-                                      value={this.state.bigBlind}
-                                      onChange={(e)=>this.setSettingsBigBlind(Math.floor(e.target.value))}
-                                      step="1"
-                               />
-                           </div>
-                            {(this.props.game.players.length >1) &&  <div className="game-settings-item">
-                                <span className="game-settings-label">Select Game Admin:</span>
-                                <Select
-
-                                    id="select-admin-dropdown"
-                                    value={this.state.adminId}
-                                    onChange={(e) => this.onAdminChange(e.target.value)} >
-                                    {this.props.game.players.map(player => {
-                                        return  <MenuItem value={player.id}>{ player.name}</MenuItem>
-                                    })}
-
-                                </Select>
-                           </div>}
-
-                           <div id="game-settings-save-button" onClick={this.saveSettings}> Save Settings </div>
-
-
-                            {(skipHandEnabled) && <div id="force-skip-hand-button" className="active-button" onClick={this.SkipHand}>Force Skip Hand</div>}
-
-                            {showPendingIndication && <div id="pending-requests">
-                                <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
-                                <div id="pending-requests-body">
-                                    {pendingJoin.map(joinData =>{
-                                        return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.props.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineJoin(joinData)}> Decline</span>   </div>
-                                    }) }
-                                    {pendingRebuy.map(rebuyData =>{
-                                        return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.props.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineRebuy(rebuyData)}> Decline</span>  </div>
-                                    }) }
-
-
-                                </div>
-                            </div>}
-                        </div>
+                        < GameSettingModal close={this.toggleSettings}
+                                           game={this.props.game}
+                                           saveSettings={this.saveSettings}
+                                           skipHandEnabled={skipHandEnabled}
+                                           SkipHand={this.SkipHand}
+                                           approveRebuy={this.props.approveRebuy}
+                                           approveJoin={this.props.approveJoin}
+                                           declineJoin={this.props.declineJoin}
+                                           declineRebuy={this.props.declineRebuy}/>
                     </Fade>
                 </Modal>
 
@@ -839,7 +793,7 @@ class OnlineGame extends Component {
 
 
 
-
+                <div id="chat-header" > <span className="shortcut">M</span>essages </div>
                 {/* chat box input */}
                 <input id="chat-input"
                        type="text"
@@ -855,6 +809,9 @@ class OnlineGame extends Component {
                             if (event.keyCode === 13) {
                                 this.onSendMessage();
                                 this.setState({ chatFocused:false });
+                                setTimeout(()=>{
+                                    document.getElementById("chat-input").focus();
+                                },120)
                             }
                         }}
                 />

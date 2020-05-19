@@ -270,6 +270,11 @@
 .disabled-create-game-button{
     color: darkgray;
 }
+.disabled-save-game-settings-button{
+    color: darkgray;
+    background: #5a6268;
+    cursor: default;
+}
 .existing-game{
     border-radius: 7px;
     width: 100%;
