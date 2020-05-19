@@ -61,6 +61,9 @@
 .red-border{
   border: 2px solid red;
 }
+.red-background{
+  background: indianred;
+}
 #confirm-popup{
   position: fixed;
   top: 20vh;

@@ -14,7 +14,7 @@
 .config-screens-top-level-sections{
     position: fixed;
     top:13vh;
-    height: 77vh;
+    height: 83vh;
     z-index: 1;
     border: 3px solid gray;
     border-radius: 12px;
@@ -32,8 +32,8 @@
 
 .config-screens-top-level-sections-header{
     position: fixed;
-    top:15.5vh;
-    height: 5vmax;
+    top:14vh;
+    height: 4vmax;
     z-index: 2;
     text-align: center;
     font-size: 3vw;
@@ -53,8 +53,8 @@
 
 .config-screens-top-level-sections-body{
     position: fixed;
-    top:25vh;
-    height: 53.7vh;
+    top:24vh;
+    height: 60vh;
     z-index: 2;
     border: 2px solid gray;
     border-radius: 12px;
@@ -69,48 +69,53 @@
     width: 32vw;
     padding: 4px;
     overflow-y: scroll;
-    height: 64vh;
+    height: 70vh;
 }
 
-#create-new-game-name-div{
-    position: fixed;
-    top:27vh;
-    height: 6vh;
-    left: 6vw;
-    width: 51vw;
-    z-index: 3;
-    text-align: left;
-    border: 1px solid transparent;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top: 0px;
-    display:table;
 
-
-}
 .create-new-game-labels{
     color: white;
     font-size: 2.7em;
-
 }
 
 .tablecell{
     width:1px;
     display:table-cell;
 }
-#create-new-game-name-input{
 
-    border-radius: 12px;
-    margin-left: 1vw;
-    font-size:  2.6em;
-    color: black;
-    display:table-cell;
-    width:98%;
-
+#select-game-div{
+    position: fixed;
+    top:26vh;
+    height: 6vh;
+    left: 6vw;
+    width: 70vw;
+    z-index: 3;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0px;
+    color: white;
+    font-size: 2em;
 }
+#select-game-label{
+    width: 15vw;
+    font-size: 1.3em;
+}
+#select-game-dropdown{
+    position: relative;
+    left: 1vw;
+    background: white;
+    color: black;
+    width: 31vw;
+    border-radius: 8px;
+    padding: 10px 0px 5px 20px;
+    height: 3vh;
+    font-size: 2em;
+}
+
 #create-new-game-blinds-div{
     position: fixed;
-    top:36.5vh;
+    top:34.8vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -121,14 +126,12 @@
     padding-top: 0px;
 }
 
-
 #create-new-game-small-blind-input{
     border-radius: 12px;
-
     font-size:  2.3em;
     color: black;
     margin-left: 1vw;
-    margin-right: 2vw;
+    margin-right: 6vw;
     width: 7vw;
 }
 #create-new-game-big-blind-input{
@@ -140,7 +143,7 @@
 }
 #create-new-game-action-time-div{
     position: fixed;
-    top:46vh;
+    top:44vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -153,16 +156,83 @@
 #create-new-game-action-time-input{
     border-radius: 12px;
     margin-right: 1vw;
-
     font-size:  2.3em;
     color: black;
     margin-left: 1vw;
     width: 6vw;
 }
 
+#create-new-game-private-checkbox{
+    position: fixed;
+    top:53.6vh;
+    height: 6vh;
+    left: 6vw;
+    width: 51vw;
+    z-index: 3;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0px;
+    color: white;
+    font-size: 2em;
+}
+#create-new-game-private-checkbox label{
+    font-size:  2.3em;
+}
+#create-new-game-aproval-required-checkbox{
+    position: fixed;
+    top:60vh;
+    height: 6vh;
+    left: 6vw;
+    width: 51vw;
+    z-index: 3;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0px;
+    color: white;
+    font-size: 2em;
+}
+#create-new-game-aproval-required-checkbox label{
+    font-size:  2.3em;
+}
+
+#create-new-game-name-div{
+    position: fixed;
+    top:67vh;
+    height: 6vh;
+    left: 6vw;
+    width: 51vw;
+    z-index: 3;
+    font-size: 0.7em;
+    text-align: left;
+    border: 1px solid transparent;
+    border-top: 1px solid white;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 5px;
+    display:table;
+}
+#create-new-game-name-label{
+    color: white;
+    font-size: 2.7em;
+}
+#create-new-game-buy-in-label{
+    color: white;
+    font-size: 2em;
+}
+#create-new-game-name-input{
+    border-radius: 12px;
+    margin-left: 1vw;
+    font-size:  2.6em;
+    color: black;
+    display:table-cell;
+    width:50%;
+
+}
 #create-new-game-buy-in-div{
     position: fixed;
-    top:55vh;
+    top:75vh;
     height: 6vh;
     left: 6vw;
     width: 51vw;
@@ -180,71 +250,13 @@
     margin-left: 1vw;
     width: 9vw;
 }
-#select-game-div{
-    position: fixed;
-    top:63vh;
-    height: 6vh;
-    left: 6vw;
-    width: 61vw;
-    z-index: 3;
-    text-align: left;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top: 0px;
-    color: white;
-    font-size: 2em;
-}
-#select-game-dropdown{
-    margin-left: 10px;
-    background: white;
-    color: black;
-    width: 24vw;
-    border-radius: 8px;
-    padding: 10px 0px 5px 20px;
-    height: 3vh;
-    font-size: 2em;
-}
-#create-new-game-private-checkbox{
-    position: fixed;
-    top:68.6vh;
-    height: 6vh;
-    left: 6vw;
-    width: 51vw;
-    z-index: 3;
-    text-align: left;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top: 0px;
-    color: white;
-    font-size: 2em;
-}
-#create-new-game-private-checkbox label{
-    font-size:  2.3em;
-}
-#create-new-game-aproval-required-checkbox{
-    position: fixed;
-    top:73vh;
-    height: 6vh;
-    left: 6vw;
-    width: 51vw;
-    z-index: 3;
-    text-align: left;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top: 0px;
-    color: white;
-    font-size: 2em;
-}
-#create-new-game-aproval-required-checkbox label{
-    font-size:  2.3em;
-}
 
 #create-game-button{
     color: white;
     background-image: linear-gradient(darkgreen, black);
     font-size:  3em;
     position: fixed;
-    top:79vh;
+    top:84.8vh;
     height: 10vh;
     left:24.5vw;
     width: 13.5vw;

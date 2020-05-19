@@ -78,9 +78,7 @@
     background: red;
     color: black;
 }
-.red-background{
-    background: indianred;
-}
+
 #join-screen #join-button:hover{
     background: #5a626844;
     cursor: pointer;

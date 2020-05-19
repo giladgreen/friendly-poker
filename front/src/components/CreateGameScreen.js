@@ -29,7 +29,7 @@ class CreateGameScreen extends Component {
         const aprovalRequired = (localStorage.getItem('rebuy-aproval-required') === 'true');
         const SB = parseInt((localStorage.getItem('create-game-sb') || '1'), 10);
         const BB = parseInt((localStorage.getItem('create-game-bb') || '2'), 10);
-        const time = parseInt((localStorage.getItem('create-game-time') || '40'), 10);
+        const time = parseInt((localStorage.getItem('create-game-time') || '50'), 10);
         const buyIn = parseInt((localStorage.getItem('create-game-buyIn') || '100'), 10);
         this.state = {
             name,
@@ -39,7 +39,11 @@ class CreateGameScreen extends Component {
             BB,
             time,
             buyIn,
-            showErrors:false,
+            showNameError:false,
+            showSmallBlindError:false,
+            showBigBlindError:false,
+            showBuyInError:false,
+            showTimeError:false,
             gameOptions:[
                 {value: 1, name: 'No Limit Texas Holdem'},
                 {value: 2, name: 'Pot Limit Omaha'}
@@ -49,14 +53,8 @@ class CreateGameScreen extends Component {
     }
 
     onCreate = ()=>{
-        if (!this.state.name || this.state.name.length === 0 ||
-            !this.state.SB || this.state.SB === 0 ||
-            !this.state.BB || this.state.BB === 0 ||
-            !this.state.time || this.state.time === 0 ||
-            !this.state.buyIn || this.state.buyIn===0){
-
-            this.props.showAlertMessage('all fields are mandatory');
-            this.setState({showErrors:true});
+        const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError} = this.state;
+        if (!this.props.connected || showNameError || showBuyInError || showSmallBlindError || showBigBlindError || showTimeError){
             return;
         }
         localStorage.setItem('myName',this.state.name);
@@ -78,38 +76,36 @@ class CreateGameScreen extends Component {
             texas: this.state.selectedGame === 1,
             omaha: this.state.selectedGame === 2,
         });
-
-        this.setState({showErrors:false});
     };
 
-    setName = (val) =>{
-        const name = val.length <= 9 ? val : val.substr(0,9);
-        this.setState({name})
-    };
-
-
-    setSmallBlind = (val) =>{
-        const smallBlind = val < 1 ? 1 : val;
-        const bigBlind = 2 * smallBlind;
-        this.setState({SB: smallBlind, BB: bigBlind})
+    setName = (name) =>{
+        const showNameError = !name || name.length ===0 || name.length > 9;
+        this.setState({name, showNameError});
     };
 
 
-    setBigBlind = (val) =>{
-        const bigBlind = val < this.state.SB ? this.state.SB : val;
-        this.setState({BB: bigBlind})
+    setSmallBlind = (smallBlind) =>{
+        const showSmallBlindError = smallBlind < 1 || smallBlind > this.state.BB || smallBlind > 999;
+        const showBigBlindError = this.state.BB < smallBlind || this.state.BB > 999;
+        this.setState({SB: smallBlind, showSmallBlindError, showBigBlindError})
     };
 
 
-    setTime= (val) =>{
-        const time = val < 10 ? 10 : (val > 120 ? 120 : val);
-        this.setState({time})
+    setBigBlind = (bigBlind) =>{
+        const showSmallBlindError = this.state.SB < 1 || this.state.SB > bigBlind || this.state.SB > 999;
+        const showBigBlindError = bigBlind < this.state.SB || bigBlind > 999;
+        this.setState({BB: bigBlind, showSmallBlindError, showBigBlindError})
+    };
+
+    setTime= (time) =>{
+        const showTimeError = time < 10 || time > 180;
+        this.setState({time, showTimeError})
     };
 
 
-    setBuyIn= (val) =>{
-        const buyIn = val < 10 * this.state.BB ? 10 * this.state.BB : (val > 100000 ? 100000 : val);
-        this.setState({buyIn})
+    setBuyIn= (buyIn) =>{
+        const showBuyInError = buyIn < 10 * this.state.BB || buyIn > 100000;
+        this.setState({buyIn, showBuyInError})
     };
 
 
@@ -139,8 +135,8 @@ class CreateGameScreen extends Component {
     }
     render() {
         const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-
-
+        const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError } = this.state;
+        const createButtonEnabled = this.props.connected && !showNameError && !showBuyInError && !showSmallBlindError && !showBigBlindError && !showTimeError;
         return (
             <div id="create-new-game-screen">
                 <div id="create-new-game-section" className="config-screens-top-level-sections"  >
@@ -148,62 +144,7 @@ class CreateGameScreen extends Component {
                         Create New Online Game
                     </div>
                     <div id="create-new-game-section-body" className="config-screens-top-level-sections-body">
-                        <div id="create-new-game-name-div">
-                            <span id="create-new-game-name-label" className="create-new-game-labels tablecell">Name:</span>
-                            <input id="create-new-game-name-input"
-                                   className={this.state.showErrors ? 'red-border':''}
-                                   type="text"
-                                   value={this.state.name}
-                                   onKeyUp={(event)=>{
-
-                                       event.preventDefault();
-                                       if (event.keyCode === 13) {
-                                           this.onCreate();
-                                       }
-                                   }}
-
-                                   onChange={(e)=>this.setName(e.target.value)} />
-
-                        </div>
-                        <div id="create-new-game-blinds-div">
-                            <span id="create-new-game-small-blind-label" className="create-new-game-labels">Small Blind:</span>
-                            <input id="create-new-game-small-blind-input"
-                                   className={this.state.showErrors ? 'red-border':''}
-                                   min="1"
-                                   step="1"
-                                   type="number"
-                                   value={this.state.SB}
-                                   onChange={(e)=>this.setSmallBlind(Math.floor(e.target.value))} />
-                            <span id="create-new-game-big-blind-label" className="create-new-game-labels">Big Blind:</span>
-                            <input id="create-new-game-big-blind-input"
-                                   className={this.state.showErrors ? 'red-border':''}
-                                   min={this.state.SB}
-                                   step="1"
-                                   type="number" value={this.state.BB}
-                                   onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))} />
-                        </div>
-                        <div id="create-new-game-action-time-div">
-                            <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit:</span>
-                            <input id="create-new-game-action-time-input"
-                                   className={this.state.showErrors ? 'red-border':''}
-                                   type="number"
-                                   min="10"
-                                   value={this.state.time}
-                                   onChange={(e)=>this.setTime(Math.floor(e.target.value))}
-                                   step="5"
-                            />
-                            <span className="create-new-game-labels">Seconds</span>
-                        </div>
-                        <div id="create-new-game-buy-in-div">
-                            <span id="create-new-game-buy-in-label" className="create-new-game-labels">Initial Buy-In:</span>
-                            <input id="create-new-game-buy-in-input"
-                                   className={this.state.showErrors ? 'red-border':''}
-                                   type="number"
-                                   max="100000"
-                                   value={this.state.buyIn}
-                                   onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
-                        </div>
-                        {!isMobile && <div id="select-game-div">
+                        {<div id="select-game-div">
                             <span id="select-game-label">Select Game:</span>
                             <Select
                                 id="select-game-dropdown"
@@ -215,6 +156,39 @@ class CreateGameScreen extends Component {
 
                             </Select>
                         </div>}
+                        <div id="create-new-game-blinds-div">
+                            <span id="create-new-game-small-blind-label" className="create-new-game-labels">Small Blind:</span>
+                            <input id="create-new-game-small-blind-input"
+                                   className={this.state.showSmallBlindError ? 'red-border red-background':''}
+                                   min="1"
+                                   max="999"
+                                   step="1"
+                                   type="number"
+                                   value={this.state.SB}
+                                   onChange={(e)=>this.setSmallBlind(Math.floor(e.target.value))} />
+                            <span id="create-new-game-big-blind-label" className="create-new-game-labels">Big Blind:</span>
+                            <input id="create-new-game-big-blind-input"
+                                   className={this.state.showBigBlindError ? 'red-border red-background':''}
+                                   min={this.state.SB}
+                                   step="1"
+                                   max="999"
+                                   type="number" value={this.state.BB}
+                                   onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))} />
+                        </div>
+                        <div id="create-new-game-action-time-div">
+                            <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit:</span>
+                            <input id="create-new-game-action-time-input"
+                                   className={this.state.showTimeError ? 'red-border red-background':''}
+                                   type="number"
+                                   min="10"
+                                   value={this.state.time}
+                                   onChange={(e)=>this.setTime(Math.floor(e.target.value))}
+                                   step="5"
+                            />
+                            <span className="create-new-game-labels">Seconds</span>
+                        </div>
+
+
 
                         <div id="create-new-game-private-checkbox">
                             <FormControlLabel
@@ -245,7 +219,33 @@ class CreateGameScreen extends Component {
                             />
                         </div>
                     </div>
-                    <div id="create-game-button" className={this.props.connected ? '' : 'disabled-create-game-button'} onClick={this.onCreate}>
+                    <div id="create-new-game-name-div">
+                        <span id="create-new-game-name-label" >Your Name:</span>
+                        <input id="create-new-game-name-input"
+                               className={this.state.showNameError ? 'red-border red-background':''}
+                               type="text"
+                               value={this.state.name}
+                               onKeyUp={(event)=>{
+
+                                   event.preventDefault();
+                                   if (event.keyCode === 13) {
+                                       this.onCreate();
+                                   }
+                               }}
+
+                               onChange={(e)=>this.setName(e.target.value)} />
+
+                    </div>
+                    <div id="create-new-game-buy-in-div">
+                        <span id="create-new-game-buy-in-label" >Your Initial Buy-In:</span>
+                        <input id="create-new-game-buy-in-input"
+                               className={this.state.showBuyInError ? 'red-border red-background':''}
+                               type="number"
+                               max="100000"
+                               value={this.state.buyIn}
+                               onChange={(e)=>this.setBuyIn(Math.floor(e.target.value))} />
+                    </div>
+                    <div id="create-game-button" className={createButtonEnabled ? '' : 'disabled-create-game-button'} onClick={this.onCreate}>
                         Create
                     </div>
 
