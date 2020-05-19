@@ -374,10 +374,11 @@ class App extends Component {
 
         this.socket.on('gameupdate', (game) => {
 
+            console.log('game players statuses:', game.players.map(p=> `${p.name}: ${p.status}, `))
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
-            if (game.audioableAction){
+            if (!game.paused && game.audioableAction){
                 game.audioableAction.forEach((action)=>{
                     const sound = this.actioToMethodMap[action];
                     sound && sound();
@@ -395,7 +396,8 @@ class App extends Component {
                     }
                 }
                 if (this.GameUpdatedCallback){
-                    if (gameClone.hand !== this.state.game.hand ||
+                    if (gameClone.betroundover ||
+                        gameClone.hand !== this.state.game.hand ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
                         activePlayerIndex !== newActivePlayerIndex){
@@ -442,7 +444,13 @@ class App extends Component {
             const existingGames = (localStorage.getItem('games') || '').split(',');
             existingGames.push(gameId);
             localStorage.setItem('games', existingGames.join(','));
-            this.setState({ game, gameId, connected: true });
+            console.log('going to ',`${serverPrefix}?gameid=${gameId}`)
+
+            setTimeout(()=>{
+                window.location = `${serverPrefix}?gameid=${gameId}`
+            },1500)
+
+           // this.setState({ game, gameId, connected: true });
         });
 
         this.socket.on('operationpendingaproval', () => {

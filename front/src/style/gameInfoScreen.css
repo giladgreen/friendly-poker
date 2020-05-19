@@ -88,6 +88,13 @@
 
 }
 
+.player-info-bottom-line-gray{
+    font-size: 1.3em;
+    font-weight: bold;
+    color: gray;
+
+}
+
 
 @media only screen and (max-width: 800px) {
 

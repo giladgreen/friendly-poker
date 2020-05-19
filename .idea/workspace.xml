@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/src/components/GameSettingModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/CreateGameScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/game-settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/onlineGame.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/playerInfo.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,27 +22,246 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="629" column="18" selection-start-line="625" selection-start-column="3" selection-end-line="629" selection-end-column="18" />
+              <folding>
+                <element signature="e#1144#1264#0" />
+                <element signature="e#1604#1871#0" />
+                <element signature="e#1887#2206#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="558" column="60" lean-forward="true" selection-start-line="558" selection-start-column="60" selection-end-line="558" selection-end-column="60" />
+            <state relative-caret-position="153">
+              <caret line="602" column="38" selection-start-line="602" selection-start-column="38" selection-end-line="602" selection-end-column="38" />
               <folding>
                 <element signature="e#48#89#0" />
+                <element signature="e#90#131#0" expanded="true" />
                 <element signature="e#1179#1863#0" />
-                <element signature="e#2331#3183#0" />
-                <element signature="e#3213#3315#0" />
-                <element signature="e#3343#3413#0" />
-                <element signature="e#3447#3529#0" />
-                <element signature="e#4097#4179#0" />
-                <element signature="e#4359#4439#0" />
-                <element signature="e#4461#4597#0" />
-                <element signature="e#4616#5119#0" />
-                <element signature="n#!!block;n#constructor#0;n#OnlineGame#0" />
-                <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
-                <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
-                <element signature="e#6442#9698#0" />
+                <element signature="e#1191#1265#0" />
+                <element signature="e#1278#1595#0" />
+                <element signature="e#1543#1588#0" />
+                <element signature="e#1629#1699#0" />
+                <element signature="e#1712#1780#0" />
+                <element signature="e#1792#1860#0" />
+                <element signature="e#3048#5372#0" />
+                <element signature="e#3417#3448#0" />
+                <element signature="e#3729#3776#0" />
+                <element signature="e#3805#4184#0" />
+                <element signature="e#3835#3930#0" />
+                <element signature="e#3959#4044#0" />
+                <element signature="e#4073#4154#0" />
+                <element signature="e#4298#4520#0" />
+                <element signature="e#4406#4485#0" />
+                <element signature="e#4545#4658#0" />
+                <element signature="e#4575#4648#0" />
+                <element signature="e#4662#5366#0" />
+                <element signature="e#4694#5356#0" />
+                <element signature="e#4728#4808#0" />
+                <element signature="e#4841#5064#0" />
+                <element signature="e#4893#4954#0" />
+                <element signature="e#4958#5018#0" />
+                <element signature="e#5113#5342#0" />
+                <element signature="e#5196#5291#0" />
                 <element signature="n#!!block;n#componentDidMount#0;n#OnlineGame#0" />
+                <element signature="e#5492#5570#0" />
+                <element signature="e#6080#6756#0" />
+                <element signature="e#6321#6379#0" />
+                <element signature="e#6408#6463#0" />
+                <element signature="e#6553#6604#0" />
+                <element signature="e#6824#6890#0" />
+                <element signature="e#7074#7204#0" />
+                <element signature="e#7322#7388#0" />
+                <element signature="e#7849#8119#0" />
+                <element signature="e#7895#8109#0" />
+                <element signature="e#7943#7996#0" />
+                <element signature="e#8001#8053#0" />
+                <element signature="e#2164#3016#0" />
+                <element signature="e#2189#2225#0" />
+                <element signature="e#2699#2939#0" />
+                <element signature="e#3046#3148#0" />
+                <element signature="e#3176#3238#0" />
+                <element signature="e#3266#3336#0" />
+                <element signature="e#3370#3452#0" />
+                <element signature="e#3476#3908#0" />
+                <element signature="e#3541#3572#0" />
+                <element signature="e#3606#3847#0" />
+                <element signature="e#3635#3832#0" />
+                <element signature="e#3739#3818#0" />
+                <element signature="e#3970#4094#0" />
+                <element signature="e#4116#4198#0" />
+                <element signature="e#4380#4460#0" />
+                <element signature="e#4482#4618#0" />
+                <element signature="e#4517#4562#0" />
+                <element signature="e#4567#4612#0" />
+                <element signature="e#4637#5140#0" />
+                <element signature="e#4678#4709#0" />
+                <element signature="e#4750#4834#0" />
+                <element signature="e#4872#4936#0" />
+                <element signature="e#4940#5067#0" />
+                <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+                <element signature="e#6122#6206#0" />
+                <element signature="e#6154#6196#0" />
+                <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+                <element signature="e#6323#6403#0" />
+                <element signature="e#6351#6393#0" />
+                <element signature="e#12318#12362#0" />
+                <element signature="e#12385#13030#0" />
+                <element signature="e#12437#12923#0" />
+                <element signature="e#12598#12854#0" />
+                <element signature="e#12724#12807#0" />
+                <element signature="e#12934#13024#0" />
+                <element signature="e#13052#13468#0" />
+                <element signature="e#13288#13414#0" />
+                <element signature="e#13419#13462#0" />
+                <element signature="e#13506#13836#0" />
+                <element signature="e#13862#14257#0" />
+                <element signature="e#13927#13961#0" />
+                <element signature="e#14286#14485#0" />
+                <element signature="e#14507#14587#0" />
+                <element signature="e#14604#14674#0" />
+                <element signature="e#14697#14743#0" />
+                <element signature="e#14761#14810#0" />
+                <element signature="e#14829#14879#0" />
+                <element signature="e#14898#14970#0" />
+                <element signature="e#15456#15557#0" />
+                <element signature="e#15596#15738#0" />
+                <element signature="e#15775#15900#0" />
+                <element signature="e#16533#16871#0" />
+                <element signature="e#17663#17678#0" />
+                <element signature="e#17784#17801#0" />
+                <element signature="e#17897#17920#0" />
+                <element signature="e#17958#18055#0" />
+                <element signature="e#18083#18106#0" />
+                <element signature="e#18191#18226#0" />
+                <element signature="e#18389#18415#0" />
+                <element signature="e#18540#18557#0" />
+                <element signature="e#18635#18648#0" />
+                <element signature="e#19015#19029#0" />
+                <element signature="e#19064#19265#0" />
+                <element signature="e#19284#19300#0" />
+                <element signature="e#19328#20782#0" />
+                <element signature="e#20802#20822#0" />
+                <element signature="e#20840#26072#0" />
+                <element signature="e#20867#20890#0" />
+                <element signature="e#21120#26047#0" />
+                <element signature="e#21151#21170#0" />
+                <element signature="e#21226#22381#0" />
+                <element signature="e#21261#21278#0" />
+                <element signature="e#21497#21515#0" />
+                <element signature="e#21739#21756#0" />
+                <element signature="e#22002#22028#0" />
+                <element signature="e#22409#22425#0" />
+                <element signature="e#22530#22877#0" />
+                <element signature="e#22565#22588#0" />
+                <element signature="e#22906#22925#0" />
+                <element signature="e#23009#25992#0" />
+                <element signature="e#23048#23073#0" />
+                <element signature="e#23297#23315#0" />
+                <element signature="e#23557#23575#0" />
+                <element signature="e#23801#23818#0" />
+                <element signature="e#24136#24160#0" />
+                <element signature="e#24470#24493#0" />
+                <element signature="e#24720#24738#0" />
+                <element signature="e#24994#25003#0" />
+                <element signature="e#25264#25283#0" />
+                <element signature="e#25507#25526#0" />
+                <element signature="e#25748#25767#0" />
+                <element signature="e#26401#26421#0" />
+                <element signature="e#26849#26875#0" />
+                <element signature="e#26949#27195#0" />
+                <element signature="e#28210#28232#0" />
+                <element signature="e#28586#28603#0" />
+                <element signature="e#28837#28854#0" />
+                <element signature="e#29067#29084#0" />
+                <element signature="e#29327#29348#0" />
+                <element signature="e#29563#29602#0" />
+                <element signature="e#29797#29833#0" />
+                <element signature="e#29970#29993#0" />
+                <element signature="e#30175#30193#0" />
+                <element signature="e#30374#30393#0" />
+                <element signature="e#30579#30606#0" />
+                <element signature="e#30872#31928#0" />
+                <element signature="e#30807#30868#0" />
+                <element signature="e#31156#31903#0" />
+                <element signature="e#31216#31875#0" />
+                <element signature="e#31699#31722#0" />
+                <element signature="e#31988#32560#0" />
+                <element signature="e#31919#31980#0" />
+                <element signature="e#32251#32535#0" />
+                <element signature="e#32308#32507#0" />
+                <element signature="e#33439#35457#0" />
+                <element signature="e#33547#34240#0" />
+                <element signature="e#33536#33975#0" />
+                <element signature="e#34275#34878#0" />
+                <element signature="e#34191#34614#0" />
+                <element signature="e#35405#35425#0" />
+                <element signature="e#35691#36553#0" />
+                <element signature="e#35824#36285#0" />
+                <element signature="e#35933#36259#0" />
+                <element signature="e#36323#36349#0" />
+                <element signature="e#36455#36475#0" />
+                <element signature="e#36741#36818#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3893">
+              <caret line="269" column="112" selection-start-line="269" selection-start-column="59" selection-end-line="269" selection-end-column="112" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#90#140#0" expanded="true" />
+                <element signature="e#478#519#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="450" column="18" selection-start-line="450" selection-start-column="18" selection-end-line="450" selection-end-column="18" />
+              <folding>
+                <element signature="e#170#208#0" />
+                <element signature="e#250#311#0" expanded="true" />
+                <element signature="e#4750#5656#0" />
+                <element signature="e#5693#7810#0" />
+                <element signature="e#11054#11219#0" />
+                <element signature="e#11267#11554#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#90#115#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,43 +279,43 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showErrors</find>
-      <find>select-game-label</find>
-      <find>create-new-game-labels</find>
-      <find>create-new-game-name-label</find>
-      <find>showBuyInError</find>
-      <find>smallBlind</find>
-      <find>setSettingsSmallBlind</find>
-      <find>saveSettings</find>
-      <find>setBigBlind</find>
-      <find>createButtonEnabled</find>
-      <find>setSettingsTime</find>
-      <find>hasPendingRequests</find>
-      <find>skipHandEnabled</find>
-      <find>pendingJoin</find>
-      <find>GameSettingModal</find>
-      <find>pendingIndicationCount</find>
-      <find>keypress</find>
-      <find>raiseEnabled</find>
-      <find>raise</find>
-      <find>raise-input</find>
-      <find>showTimeError</find>
-      <find>disabled-create-game-button</find>
-      <find>game-settings-save-button</find>
-      <find>onAdminChange</find>
-      <find>toggleLogs</find>
-      <find>chat-input</find>
-      <find>span</find>
+      <find>quit</find>
+      <find>toggleSideMenu</find>
+      <find>rebuyValue</find>
+      <find>setRebuy</find>
+      <find>anim</find>
+      <find>side-menu-opened</find>
+      <find>rebuy-section</find>
+      <find>copy-game-link</find>
+      <find>sideMenu</find>
+      <find>animation-delay</find>
+      <find>quit-</find>
+      <find>menu</find>
       <find>setting</find>
-      <find>'m'</find>
-      <find>saveButtonDisabled</find>
+      <find>player</find>
+      <find>chatFocused</find>
+      <find>onSendMessage</find>
+      <find>setInter</find>
+      <find>setTimeout</find>
+      <find>playCardPlace</find>
+      <find>paused</find>
+      <find>actioToMethodMap</find>
+      <find>player1-pot-mid</find>
+      <find>SettingsIcon</find>
+      <find>player-settings-button</find>
+      <find>player-pot-mid-hand-be</find>
+      <find>if (this.GameUpdatedCallback){</find>
+      <find>player-pot-mid-hand-betroundover</find>
+      <find>pot</find>
+      <find>player-pot-mid-hand</find>
+      <find>'big</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
-      <dir>$PROJECT_DIR$/front/src</dir>
-      <dir>$PROJECT_DIR$/front/src/components</dir>
       <dir>$PROJECT_DIR$/front/src/</dir>
       <dir>$PROJECT_DIR$/</dir>
+      <dir>$PROJECT_DIR$/front/src/components</dir>
+      <dir>$PROJECT_DIR$/front/src</dir>
       <dir>$PROJECT_DIR$/front/src/style</dir>
     </dirStrings>
   </component>
@@ -122,7 +341,6 @@
         <option value="$PROJECT_DIR$/api/eventHandlers/kickout.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/createGame.js" />
         <option value="$PROJECT_DIR$/api/eventHandlers/playerAction.js" />
-        <option value="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" />
         <option value="$PROJECT_DIR$/api/eventHandlers/resumeGame.js" />
         <option value="$PROJECT_DIR$/front/src/containers/Loader.js" />
         <option value="$PROJECT_DIR$/front/src/style/loader.css" />
@@ -132,18 +350,13 @@
         <option value="$PROJECT_DIR$/api/helpers/game.js" />
         <option value="$PROJECT_DIR$/front/src/style/game-action-buttons.css" />
         <option value="$PROJECT_DIR$/front/public/2diamond.svg" />
-        <option value="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" />
         <option value="$PROJECT_DIR$/front/public/4club.svg" />
         <option value="$PROJECT_DIR$/front/public/4diamond.svg" />
         <option value="$PROJECT_DIR$/front/src/containers/Confirm.js" />
         <option value="$PROJECT_DIR$/front/src/index.js" />
         <option value="$PROJECT_DIR$/front/src/style/paused-screen.css" />
-        <option value="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" />
         <option value="$PROJECT_DIR$/front/package.json" />
-        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
         <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
-        <option value="$PROJECT_DIR$/front/src/App.js" />
-        <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
         <option value="$PROJECT_DIR$/front/src/containers/Card.js" />
         <option value="$PROJECT_DIR$/front/src/style/cards.css" />
         <option value="$PROJECT_DIR$/api/helpers/gameCopy.js" />
@@ -155,8 +368,14 @@
         <option value="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" />
         <option value="$PROJECT_DIR$/front/src/style/game-settings.css" />
         <option value="$PROJECT_DIR$/front/src/components/GameSettingModal.js" />
+        <option value="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" />
+        <option value="$PROJECT_DIR$/front/src/containers/GamePauseScreen.js" />
+        <option value="$PROJECT_DIR$/front/src/containers/GameInfoScreen.js" />
         <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
+        <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
+        <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
+        <option value="$PROJECT_DIR$/front/src/App.js" />
       </list>
     </option>
   </component>
@@ -265,6 +484,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -323,24 +543,24 @@
       <workItem from="1589479757719" duration="38674000" />
       <workItem from="1589714772439" duration="10621000" />
       <workItem from="1589803984166" duration="779000" />
-      <workItem from="1589867741768" duration="9780000" />
+      <workItem from="1589867741768" duration="21149000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197216000" />
+    <option name="totallyTimeSpent" value="208585000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="23" width="1920" height="971" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18530351" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.22780374" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946752" weight="0.34813085" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.48714954" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946752" weight="0.17523365" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2376357" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -348,7 +568,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005325" side_tool="true" weight="0.4509346" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49946752" visible="true" weight="0.2114486" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49946752" visible="true" weight="0.47079438" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -380,13 +600,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/api/helpers/players.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/eventHandlers/kickout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="606">
@@ -412,13 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="30" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/gameInfoScreen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2502">
-          <caret line="139" column="22" selection-start-line="139" selection-start-column="22" selection-end-line="139" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -528,16 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="28" column="84" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/paused-screen.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -565,17 +761,6 @@
           <caret line="102" column="68" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="68" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="407" column="47" selection-start-line="407" selection-start-column="47" selection-end-line="407" selection-end-column="47" />
-          <folding>
-            <element signature="e#170#208#0" />
-            <element signature="e#250#311#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -629,13 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2646">
-          <caret line="147" column="14" selection-start-line="147" selection-start-column="14" selection-end-line="147" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/Card.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -660,17 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/NotSupported.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -690,13 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/containers/GamePauseScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="68" selection-start-line="30" selection-start-column="68" selection-end-line="30" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/GameSettingsModal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="658">
@@ -704,18 +864,6 @@
           <folding>
             <element signature="e#90#115#0" expanded="true" />
             <element signature="e#2457#3143#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="179" column="104" selection-start-line="179" selection-start-column="34" selection-end-line="179" selection-end-column="104" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#90#140#0" expanded="true" />
-            <element signature="e#478#519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -734,13 +882,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="490" column="14" selection-start-line="490" selection-start-column="14" selection-end-line="490" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/GameSettingModal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -751,26 +892,266 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/GamePauseScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="14" column="69" selection-start-line="14" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/GameInfoScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/gameInfoScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="90" column="1" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/node_modules/@material-ui/core/SvgIcon/SvgIcon.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/onlineGame.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="629" column="18" selection-start-line="625" selection-start-column="3" selection-end-line="629" selection-end-column="18" />
+          <folding>
+            <element signature="e#1144#1264#0" />
+            <element signature="e#1604#1871#0" />
+            <element signature="e#1887#2206#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="558" column="60" lean-forward="true" selection-start-line="558" selection-start-column="60" selection-end-line="558" selection-end-column="60" />
+        <state relative-caret-position="153">
+          <caret line="602" column="38" selection-start-line="602" selection-start-column="38" selection-end-line="602" selection-end-column="38" />
           <folding>
             <element signature="e#48#89#0" />
+            <element signature="e#90#131#0" expanded="true" />
             <element signature="e#1179#1863#0" />
-            <element signature="e#2331#3183#0" />
-            <element signature="e#3213#3315#0" />
-            <element signature="e#3343#3413#0" />
-            <element signature="e#3447#3529#0" />
-            <element signature="e#4097#4179#0" />
-            <element signature="e#4359#4439#0" />
-            <element signature="e#4461#4597#0" />
-            <element signature="e#4616#5119#0" />
-            <element signature="n#!!block;n#constructor#0;n#OnlineGame#0" />
-            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
-            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
-            <element signature="e#6442#9698#0" />
+            <element signature="e#1191#1265#0" />
+            <element signature="e#1278#1595#0" />
+            <element signature="e#1543#1588#0" />
+            <element signature="e#1629#1699#0" />
+            <element signature="e#1712#1780#0" />
+            <element signature="e#1792#1860#0" />
+            <element signature="e#3048#5372#0" />
+            <element signature="e#3417#3448#0" />
+            <element signature="e#3729#3776#0" />
+            <element signature="e#3805#4184#0" />
+            <element signature="e#3835#3930#0" />
+            <element signature="e#3959#4044#0" />
+            <element signature="e#4073#4154#0" />
+            <element signature="e#4298#4520#0" />
+            <element signature="e#4406#4485#0" />
+            <element signature="e#4545#4658#0" />
+            <element signature="e#4575#4648#0" />
+            <element signature="e#4662#5366#0" />
+            <element signature="e#4694#5356#0" />
+            <element signature="e#4728#4808#0" />
+            <element signature="e#4841#5064#0" />
+            <element signature="e#4893#4954#0" />
+            <element signature="e#4958#5018#0" />
+            <element signature="e#5113#5342#0" />
+            <element signature="e#5196#5291#0" />
             <element signature="n#!!block;n#componentDidMount#0;n#OnlineGame#0" />
+            <element signature="e#5492#5570#0" />
+            <element signature="e#6080#6756#0" />
+            <element signature="e#6321#6379#0" />
+            <element signature="e#6408#6463#0" />
+            <element signature="e#6553#6604#0" />
+            <element signature="e#6824#6890#0" />
+            <element signature="e#7074#7204#0" />
+            <element signature="e#7322#7388#0" />
+            <element signature="e#7849#8119#0" />
+            <element signature="e#7895#8109#0" />
+            <element signature="e#7943#7996#0" />
+            <element signature="e#8001#8053#0" />
+            <element signature="e#2164#3016#0" />
+            <element signature="e#2189#2225#0" />
+            <element signature="e#2699#2939#0" />
+            <element signature="e#3046#3148#0" />
+            <element signature="e#3176#3238#0" />
+            <element signature="e#3266#3336#0" />
+            <element signature="e#3370#3452#0" />
+            <element signature="e#3476#3908#0" />
+            <element signature="e#3541#3572#0" />
+            <element signature="e#3606#3847#0" />
+            <element signature="e#3635#3832#0" />
+            <element signature="e#3739#3818#0" />
+            <element signature="e#3970#4094#0" />
+            <element signature="e#4116#4198#0" />
+            <element signature="e#4380#4460#0" />
+            <element signature="e#4482#4618#0" />
+            <element signature="e#4517#4562#0" />
+            <element signature="e#4567#4612#0" />
+            <element signature="e#4637#5140#0" />
+            <element signature="e#4678#4709#0" />
+            <element signature="e#4750#4834#0" />
+            <element signature="e#4872#4936#0" />
+            <element signature="e#4940#5067#0" />
+            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+            <element signature="e#6122#6206#0" />
+            <element signature="e#6154#6196#0" />
+            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+            <element signature="e#6323#6403#0" />
+            <element signature="e#6351#6393#0" />
+            <element signature="e#12318#12362#0" />
+            <element signature="e#12385#13030#0" />
+            <element signature="e#12437#12923#0" />
+            <element signature="e#12598#12854#0" />
+            <element signature="e#12724#12807#0" />
+            <element signature="e#12934#13024#0" />
+            <element signature="e#13052#13468#0" />
+            <element signature="e#13288#13414#0" />
+            <element signature="e#13419#13462#0" />
+            <element signature="e#13506#13836#0" />
+            <element signature="e#13862#14257#0" />
+            <element signature="e#13927#13961#0" />
+            <element signature="e#14286#14485#0" />
+            <element signature="e#14507#14587#0" />
+            <element signature="e#14604#14674#0" />
+            <element signature="e#14697#14743#0" />
+            <element signature="e#14761#14810#0" />
+            <element signature="e#14829#14879#0" />
+            <element signature="e#14898#14970#0" />
+            <element signature="e#15456#15557#0" />
+            <element signature="e#15596#15738#0" />
+            <element signature="e#15775#15900#0" />
+            <element signature="e#16533#16871#0" />
+            <element signature="e#17663#17678#0" />
+            <element signature="e#17784#17801#0" />
+            <element signature="e#17897#17920#0" />
+            <element signature="e#17958#18055#0" />
+            <element signature="e#18083#18106#0" />
+            <element signature="e#18191#18226#0" />
+            <element signature="e#18389#18415#0" />
+            <element signature="e#18540#18557#0" />
+            <element signature="e#18635#18648#0" />
+            <element signature="e#19015#19029#0" />
+            <element signature="e#19064#19265#0" />
+            <element signature="e#19284#19300#0" />
+            <element signature="e#19328#20782#0" />
+            <element signature="e#20802#20822#0" />
+            <element signature="e#20840#26072#0" />
+            <element signature="e#20867#20890#0" />
+            <element signature="e#21120#26047#0" />
+            <element signature="e#21151#21170#0" />
+            <element signature="e#21226#22381#0" />
+            <element signature="e#21261#21278#0" />
+            <element signature="e#21497#21515#0" />
+            <element signature="e#21739#21756#0" />
+            <element signature="e#22002#22028#0" />
+            <element signature="e#22409#22425#0" />
+            <element signature="e#22530#22877#0" />
+            <element signature="e#22565#22588#0" />
+            <element signature="e#22906#22925#0" />
+            <element signature="e#23009#25992#0" />
+            <element signature="e#23048#23073#0" />
+            <element signature="e#23297#23315#0" />
+            <element signature="e#23557#23575#0" />
+            <element signature="e#23801#23818#0" />
+            <element signature="e#24136#24160#0" />
+            <element signature="e#24470#24493#0" />
+            <element signature="e#24720#24738#0" />
+            <element signature="e#24994#25003#0" />
+            <element signature="e#25264#25283#0" />
+            <element signature="e#25507#25526#0" />
+            <element signature="e#25748#25767#0" />
+            <element signature="e#26401#26421#0" />
+            <element signature="e#26849#26875#0" />
+            <element signature="e#26949#27195#0" />
+            <element signature="e#28210#28232#0" />
+            <element signature="e#28586#28603#0" />
+            <element signature="e#28837#28854#0" />
+            <element signature="e#29067#29084#0" />
+            <element signature="e#29327#29348#0" />
+            <element signature="e#29563#29602#0" />
+            <element signature="e#29797#29833#0" />
+            <element signature="e#29970#29993#0" />
+            <element signature="e#30175#30193#0" />
+            <element signature="e#30374#30393#0" />
+            <element signature="e#30579#30606#0" />
+            <element signature="e#30872#31928#0" />
+            <element signature="e#30807#30868#0" />
+            <element signature="e#31156#31903#0" />
+            <element signature="e#31216#31875#0" />
+            <element signature="e#31699#31722#0" />
+            <element signature="e#31988#32560#0" />
+            <element signature="e#31919#31980#0" />
+            <element signature="e#32251#32535#0" />
+            <element signature="e#32308#32507#0" />
+            <element signature="e#33439#35457#0" />
+            <element signature="e#33547#34240#0" />
+            <element signature="e#33536#33975#0" />
+            <element signature="e#34275#34878#0" />
+            <element signature="e#34191#34614#0" />
+            <element signature="e#35405#35425#0" />
+            <element signature="e#35691#36553#0" />
+            <element signature="e#35824#36285#0" />
+            <element signature="e#35933#36259#0" />
+            <element signature="e#36323#36349#0" />
+            <element signature="e#36455#36475#0" />
+            <element signature="e#36741#36818#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/CreateGameScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3893">
+          <caret line="269" column="112" selection-start-line="269" selection-start-column="59" selection-end-line="269" selection-end-column="112" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#90#140#0" expanded="true" />
+            <element signature="e#478#519#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="450" column="18" selection-start-line="450" selection-start-column="18" selection-end-line="450" selection-end-column="18" />
+          <folding>
+            <element signature="e#170#208#0" />
+            <element signature="e#250#311#0" expanded="true" />
+            <element signature="e#4750#5656#0" />
+            <element signature="e#5693#7810#0" />
+            <element signature="e#11054#11219#0" />
+            <element signature="e#11267#11554#0" />
           </folding>
         </state>
       </provider>

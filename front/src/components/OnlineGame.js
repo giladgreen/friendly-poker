@@ -18,6 +18,7 @@ import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
 
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import TuneIcon from '@material-ui/icons/Tune';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import GameSettingModal from "./GameSettingModal";
@@ -64,111 +65,12 @@ const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http:/
 
 class OnlineGame extends Component {
 
-    getShowableTime = (startDate) =>{
-        if (!startDate){
-            return null;
-        }
-        const diff = (new Date()).getTime() - startDate;
-        const totalSeconds =  Math.floor(diff / SECOND);
-
-        const days = Math.floor(totalSeconds / DAY);
-        let reminder = totalSeconds - days * DAY;
-
-
-        let hours = Math.floor(reminder / HOUR);
-        reminder -=  hours * HOUR;
-
-        hours = hours + days * 24;
-        const minutes =  Math.floor(reminder / MINUTE);
-        const seconds = reminder - minutes * MINUTE;
-
-        const result = {
-            days: days>9 ? `${days}` : `0${days}`,
-            hours:hours>9 ? `${hours}` : `0${hours}`,
-            minutes:minutes>9 ? `${minutes}` : `0${minutes}`,
-            seconds:seconds>9 ? `${seconds}` : `0${seconds}`,
-        };
-        return `${result.hours}:${result.minutes}:${result.seconds}`;
-    }
-
-    toggleRaiseButton = ()=>{
-        this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.getMinRaise()})
-    };
-
-    toggleSettings = ()=>{
-        this.setState({showSettings:!this.state.showSettings})
-    };
-
-    togglePlayerSettings = ()=>{
-        this.setState({showPlayerSettings:!this.state.showPlayerSettings})
-    };
-
-    toggleLogs = ()=>{
-        if (!this.state.showLogs && !this.props.game.startDate){
-            return;
-        }
-        if (!this.state.showLogs){
-            setTimeout(()=>{
-                const objDiv = document.getElementById('game-logs-modal');
-                if (objDiv){
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                }
-            },100)
-        }
-        this.setState({showLogs:!this.state.showLogs})
-    };
-
-    saveSettings = ({time,smallBlind, bigBlind, adminId})=>{
-        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId);
-        this.setState({showSettings:false})
-    };
-
-    SkipHand = ()=>{
-        this.props.SkipHand();
-        this.setState({showSettings:false})
-    };
-
-    onSendMessage = ()=>{
-        this.props.sendMessage(this.state.chatMessage);
-        this.setState({chatMessage:'', chatFocused:false });
-    };
-
-    toggleRebuyButton = ()=>{
-        this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
-    };
-
-    sitStand = ()=>{
-        if (this.state.me.sitOut){
-            this.props.sitBack();
-        } else{
-            this.props.standUp();
-        }
-    };
-
-    rebuy = ()=>{
-        if (this.state.rebuyValueError){
-            return;
-        }
-        if (this.state.rebuyValue === 0){
-            return this.props.showAlertMessage('Rebuy is not possible');
-        }
-
-        if (this.state.rebuyEnabled){
-            this.props.rebuy(this.state.rebuyValue);
-        }else{
-            this.rebuyValue = this.state.rebuyValue;
-            this.props.showAlertMessage('Rebuy request sent')
-
-        }
-        this.setState({rebuySectionOpen:false, rebuyValue:null});
-
-    };
-
     constructor(props) {
         super(props);
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
+            betroundover:false,
             chatFocused:false,
             clockMessage: '',
             chatMessage: '',
@@ -186,6 +88,7 @@ class OnlineGame extends Component {
             rebuySectionOpen: false,
             showInfoScreen: false,
             showLogs: false,
+            sideMenu: false,
             me:{},
             playerPreferences
         }
@@ -195,131 +98,16 @@ class OnlineGame extends Component {
         },300);
     }
 
-    getActiveIndex(players){
-        let index = -1;
-        players.forEach((player,i)=>{
-            if (player.active){
-                index = i;
-            }
-        });
-        return index;
-    }
-
-    getMyIndex(players){
-        let index = -1;
-        players.forEach((player,i)=>{
-            if (player.me){
-                index = i;
-            }
-        });
-        return index;
-    }
-
-    onGameUpdate = (game) =>{
-        let rebuyEnabled = false;
-        const userTimer = game.currentTimerTime;
-        const activeIndex = this.getActiveIndex(game.players);
-        const myIndex = this.getMyIndex(game.players);
-
-        const isMyTurn = activeIndex === myIndex && myIndex!==-1;
-        let options = [];
-        let userHand = null;
-        let me = {};
-        let cheapLeader = true;
-        let showingCards = false;
-        let amountToCall = 0;
-        if (myIndex >= 0){
-            me =  game.players[myIndex];
-            options = me.options || [];
-            showingCards = me.showingCards;
-
-            amountToCall = game.amountToCall - me.pot[game.gamePhase];
-            if (me.balance < amountToCall){
-                amountToCall = me.balance;
-            }
-            if (me.userDesc){
-                userHand = me.userDesc;
-            }
-            if (game.paused || game.handOver || me.balance === 0 || me.sitOut || me.fold){
-                rebuyEnabled = true
-            }
-            const maxBalance = Math.max(...this.props.game.players.map(p => p.balance));
-            cheapLeader = me.balance === maxBalance;
-        }
-
-        if (game.startDate){
-
-            if (this.timerInterval) {
-                clearInterval(this.timerInterval);
-            }
-            this.timerInterval = setInterval(()=>{
-                let newUserTimer = this.state.userTimer;
-                newUserTimer -= 0.25;
-                if (newUserTimer < 0){
-                    newUserTimer = 0;
-                    setImmediate(()=>clearInterval(this.timerInterval));
-                }
-                this.setState({ userTimer: newUserTimer});
-            },250);
-
-
-            if (this.clockInterval) {
-                clearInterval(this.clockInterval);
-            }
-            this.clockInterval = setInterval(()=>{
-                if (this.props.game){
-                    const clockMessage = this.getShowableTime(this.props.game.startDate);
-                    const handTime = this.getShowableTime(this.props.game.handStartDate);
-                    this.setState({ clockMessage, handTime});
-                }
-            },1000)
-        }
-        let checkFoldPressed = this.state.checkFoldPressed;
-        if (isMyTurn){
-            if (this.state.checkFoldPressed){
-                if (options.includes('Check')){
-                    this.check();
-                } else{
-                    this.fold();
-                }
-                checkFoldPressed = false;
-            }
-        }
-        const maxBalance = Math.max(...game.players.map(p => p.balance));
-
-        const newState = {
-            me,
-            showingCards,
-            cheapLeader,
-            userTimer,
-            isMyTurn,
-            options,
-            raiseEnabled: false,
-            userHand,
-            rebuyEnabled,
-            amountToCall,
-            raiseValue: this.getMinRaise(),
-            adminId: this.props.game.players.find(p=>p.admin).id,
-            adminName: this.props.game.players.find(p=>p.admin).name,
-            checkFoldPressed,
-            maxBalance,
-            rebuyValue:maxBalance - me.balance,
-            rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled
-        };
-
-        this.setState(newState);
-
-    }
-
     keypress = (event)=>{
         const game = this.props.game;
         const keycode = event.keyCode;
         const key = String.fromCharCode(keycode).toLowerCase();
 
         if (!chatFocused && key === 'm'){
-           setTimeout(()=>{
-               document.getElementById("chat-input").focus();
-           },120)
+            setTimeout(()=>{
+                document.getElementById("chat-input").focus();
+            },120);
+            this.setState({chatFocused:true});
             return;
         }
         if (game.handOver || !game.startDate){
@@ -402,6 +190,229 @@ class OnlineGame extends Component {
             document.addEventListener('keypress', this.keypress);
 
         },1000)
+    }
+
+    onGameUpdate = (game) =>{
+
+        let rebuyEnabled = false;
+        const userTimer = game.currentTimerTime;
+        const activeIndex = this.getActiveIndex(game.players);
+        const myIndex = this.getMyIndex(game.players);
+
+        const isMyTurn = activeIndex === myIndex && myIndex!==-1;
+        let options = [];
+        let userHand = null;
+        let me = {};
+        let cheapLeader = true;
+        let showingCards = false;
+        let amountToCall = 0;
+        if (myIndex >= 0){
+            me =  game.players[myIndex];
+            options = me.options || [];
+            showingCards = me.showingCards;
+
+            amountToCall = game.amountToCall - me.pot[game.gamePhase];
+            if (me.balance < amountToCall){
+                amountToCall = me.balance;
+            }
+            if (me.userDesc){
+                userHand = me.userDesc;
+            }
+            if (game.paused || game.handOver || me.balance === 0 || me.sitOut || me.fold){
+                rebuyEnabled = true
+            }
+            const maxBalance = Math.max(...this.props.game.players.map(p => p.balance));
+            cheapLeader = me.balance === maxBalance;
+        }
+
+        if (game.startDate){
+
+            if (this.timerInterval) {
+                clearInterval(this.timerInterval);
+            }
+            this.timerInterval = setInterval(()=>{
+                let newUserTimer = this.state.userTimer;
+                newUserTimer -= 0.25;
+                if (newUserTimer < 0){
+                    newUserTimer = 0;
+                    setImmediate(()=>clearInterval(this.timerInterval));
+                }
+                this.setState({ userTimer: newUserTimer});
+            },250);
+
+
+            if (this.clockInterval) {
+                clearInterval(this.clockInterval);
+            }
+            this.clockInterval = setInterval(()=>{
+                if (this.props.game){
+                    const clockMessage = this.getShowableTime(this.props.game.startDate);
+                    const handTime = this.getShowableTime(this.props.game.handStartDate);
+                    this.setState({ clockMessage, handTime});
+                }
+            },1000)
+        }
+        let checkFoldPressed = this.state.checkFoldPressed;
+        if (isMyTurn){
+            if (this.state.checkFoldPressed){
+                if (options.includes('Check')){
+                    this.check();
+                } else{
+                    this.fold();
+                }
+                checkFoldPressed = false;
+            }
+        }
+        const maxBalance = Math.max(...game.players.map(p => p.balance));
+
+        const newState = {
+            me,
+            showingCards,
+            cheapLeader,
+            userTimer,
+            isMyTurn,
+            options,
+            raiseEnabled: false,
+            betroundover: game.betroundover,
+            userHand,
+            rebuyEnabled,
+            amountToCall,
+            raiseValue: this.getMinRaise(),
+            adminId: this.props.game.players.find(p=>p.admin).id,
+            adminName: this.props.game.players.find(p=>p.admin).name,
+            checkFoldPressed,
+            maxBalance,
+            rebuyValue:maxBalance - me.balance,
+            rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled
+        };
+        console.log('betroundover',game.betroundover)
+        this.setState(newState);
+
+    }
+
+    getShowableTime = (startDate) =>{
+        if (!startDate){
+            return null;
+        }
+        const diff = (new Date()).getTime() - startDate;
+        const totalSeconds =  Math.floor(diff / SECOND);
+
+        const days = Math.floor(totalSeconds / DAY);
+        let reminder = totalSeconds - days * DAY;
+
+
+        let hours = Math.floor(reminder / HOUR);
+        reminder -=  hours * HOUR;
+
+        hours = hours + days * 24;
+        const minutes =  Math.floor(reminder / MINUTE);
+        const seconds = reminder - minutes * MINUTE;
+
+        const result = {
+            days: days>9 ? `${days}` : `0${days}`,
+            hours:hours>9 ? `${hours}` : `0${hours}`,
+            minutes:minutes>9 ? `${minutes}` : `0${minutes}`,
+            seconds:seconds>9 ? `${seconds}` : `0${seconds}`,
+        };
+        return `${result.hours}:${result.minutes}:${result.seconds}`;
+    }
+
+    toggleRaiseButton = ()=>{
+        this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.getMinRaise()})
+    };
+
+    toggleSideMenu = ()=>{
+        const rebuySectionOpen = this.state.sideMenu ? this.state.rebuySectionOpen : false;
+        this.setState({sideMenu:!this.state.sideMenu, rebuySectionOpen})
+    };
+
+    toggleSettings = ()=>{
+        this.setState({showSettings:!this.state.showSettings})
+    };
+
+    togglePlayerSettings = ()=>{
+        this.setState({showPlayerSettings:!this.state.showPlayerSettings})
+    };
+
+    toggleLogs = ()=>{
+        if (!this.state.showLogs && !this.props.game.startDate){
+            return;
+        }
+        if (!this.state.showLogs){
+            setTimeout(()=>{
+                const objDiv = document.getElementById('game-logs-modal');
+                if (objDiv){
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }
+            },100)
+        }
+        this.setState({showLogs:!this.state.showLogs})
+    };
+
+    saveSettings = ({time,smallBlind, bigBlind, adminId})=>{
+        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId);
+        this.setState({showSettings:false})
+    };
+
+    SkipHand = ()=>{
+        this.props.SkipHand();
+        this.setState({showSettings:false})
+    };
+
+    onSendMessage = ()=>{
+        this.props.sendMessage(this.state.chatMessage);
+        this.setState({chatMessage:'' });
+    };
+
+    toggleRebuyButton = ()=>{
+        this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
+    };
+
+    sitStand = ()=>{
+        if (this.state.me.sitOut){
+            this.props.sitBack();
+        } else{
+            this.props.standUp();
+        }
+    };
+
+    rebuy = ()=>{
+        if (this.state.rebuyValueError){
+            return;
+        }
+        if (this.state.rebuyValue === 0){
+            return this.props.showAlertMessage('Rebuy is not possible');
+        }
+
+        if (this.state.rebuyEnabled){
+            this.props.rebuy(this.state.rebuyValue);
+        }else{
+            this.rebuyValue = this.state.rebuyValue;
+            this.props.showAlertMessage('Rebuy request sent')
+
+        }
+        this.setState({rebuySectionOpen:false, rebuyValue:null});
+
+    };
+
+    getActiveIndex(players){
+        let index = -1;
+        players.forEach((player,i)=>{
+            if (player.active){
+                index = i;
+            }
+        });
+        return index;
+    }
+
+    getMyIndex(players){
+        let index = -1;
+        players.forEach((player,i)=>{
+            if (player.me){
+                index = i;
+            }
+        });
+        return index;
     }
 
     setChatMessage = (chatMessage) =>{
@@ -495,12 +506,10 @@ class OnlineGame extends Component {
 
 
     setRebuy= (rebuyValue) =>{
-        rebuyValue = rebuyValue < 0 ? 0 : rebuyValue;
+        rebuyValue = rebuyValue < 1 ? 1 : rebuyValue;
         const {maxBalance, me} = this.state;
         const maxRebuy = maxBalance - me.balance;
-        const minRebuy = maxRebuy > 5 * this.props.game.bigBlind ? 5 * this.props.game.bigBlind : maxRebuy;
-
-        const rebuyValueError = rebuyValue < minRebuy || rebuyValue >maxRebuy;
+        const rebuyValueError =  rebuyValue >maxRebuy;
         this.setState({rebuyValue, rebuySectionOpen:true, rebuyValueError})
     };
 
@@ -521,7 +530,7 @@ class OnlineGame extends Component {
     };
 
     render() {
-        const {clockMessage, options, cheapLeader, me} = this.state;
+        const {clockMessage, options, cheapLeader, me, betroundover} = this.state;
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
@@ -548,7 +557,7 @@ class OnlineGame extends Component {
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
 
-        const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).reduce((all,one)=>all+one,0);
+        const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).filter(num=>!isNaN(num)).reduce((all,one)=>all+one,0);
 
         return (
             <div id="online-game-screen"
@@ -572,7 +581,7 @@ class OnlineGame extends Component {
 
 
                 {/* players */}
-                {players.map((player)=> <PlayerInfo initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player)=> <PlayerInfo betroundover={betroundover} initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) && <div id="community-pot">
                     <div>{potBeforeRaises}</div>
@@ -652,16 +661,23 @@ class OnlineGame extends Component {
                     </div>}
 
                 </div>
-                {/* Game Link */}
-                <div id={`copy-game-link-${startDate ? 'small': 'big'}`} className="copy-game-link" onClick={linkOnClick}>{startDate ? <span> <LinkIcon/><span className="left-margin">Link</span></span>:<span>Copy Game Link</span>} </div>
+
+                { this.state.sideMenu && <div className="side-menu" id='side-menu-opened' onClick={this.toggleSideMenu}>
+                     X
+                </div>}
+
+                { !this.state.sideMenu && <div className="side-menu" id="side-menu-closed" onClick={this.toggleSideMenu}>
+                    menu
+                </div>}
+
                 {/* rebuy.. button */}
-                <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>
+                { this.state.sideMenu && <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>}
 
                 {/* opened rebuy section */}
-                {this.state.rebuySectionOpen && <div id="actual-rebuy-button" className={this.state.rebuyValueError ? 'inactive-button' : 'active-button'} onClick={this.rebuy}>
+                {this.state.rebuySectionOpen && this.state.sideMenu && <div id="actual-rebuy-button" className={this.state.rebuyValueError ? 'inactive-button' : 'active-button'} onClick={this.rebuy}>
                     <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>
                 </div>}
-                {this.state.rebuySectionOpen && <div id="rebuy-section"  >
+                {this.state.rebuySectionOpen &&  this.state.sideMenu && <div id="rebuy-section"  >
                     <div>
                         <span id="rebuy-label" >Amount</span>
                     </div>
@@ -669,23 +685,33 @@ class OnlineGame extends Component {
                         <input id="rebuy-input" className={this.state.rebuyValueError ? 'red-background':''}
                                type="number"
                                min={0}
-                               step={game.bigBlind}
                                value={this.state.rebuyValue}
                                onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
                     </div>
                 </div>}
+
+                {/* Game Link */}
+                {!startDate && <div id="copy-game-link-big" className="copy-game-link" onClick={linkOnClick}><span>Copy Game Link</span> </div>}
+                {/* Small Game Link */}
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="copy-game-link-small" className="copy-game-link" onClick={linkOnClick}> <LinkIcon/><span className="left-margin">Link</span> </div>}
+
                 {/* stand-sit button */}
-                <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>
+                { !this.state.rebuySectionOpen && this.state.sideMenu && <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>}
                 {/* info button */}
-                <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>
-                {/* quit button */}
-                <div id="quit-button" className={ quitEnabled ? "active-button" : "inactive-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>}
                 {/* logs button */}
-                <div id="game-logs-button" className={ startDate ? "active-button" : "inactive-button"}  onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="game-logs-button" className={ startDate ? "active-button" : "inactive-button"}  onClick={this.toggleLogs}><ReceiptIcon/><span className="left-margin">Logs</span> </div>}
+
+                {/* player setting button */}
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="player-settings-button"  onClick={this.togglePlayerSettings}><TuneIcon/>Preferences </div>}
+
+                {/* quit button */}
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="quit-button" className={ quitEnabled ? "active-button active-quit-button" : "inactive-quit-button"} onClick={(quitEnabled ? this.props.quitGame : ()=>{})}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>}
+
                 {/* settings button */}
-                { this.props.isAdmin && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
+                { this.props.isAdmin && !this.state.rebuySectionOpen && this.state.sideMenu && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
                 {/* creator get back his admin button */}
-                { !this.props.isAdmin && me.creator && <div id="game-settings-button" className="active-button" onClick={this.props.setCreatorAsAdmin}>retrieve admin </div>}
+                { !this.props.isAdmin && me.creator && !this.state.rebuySectionOpen && this.state.sideMenu && <div id="game-settings-button" className="active-button" onClick={this.props.setCreatorAsAdmin}>retrieve admin </div>}
 
 
                 {/* Pending Joing/rebuy Indication */}
@@ -739,9 +765,6 @@ class OnlineGame extends Component {
                 </Modal>
 
 
-
-                {/* player setting button */}
-                <div id="player-settings-button"  onClick={this.togglePlayerSettings}><SettingsIcon/> </div>
 
                 {/* player setting modal */}
                 <Modal
@@ -808,7 +831,6 @@ class OnlineGame extends Component {
                             event.preventDefault();
                             if (event.keyCode === 13) {
                                 this.onSendMessage();
-                                this.setState({ chatFocused:false });
                                 setTimeout(()=>{
                                     document.getElementById("chat-input").focus();
                                 },120)
@@ -816,7 +838,10 @@ class OnlineGame extends Component {
                         }}
                 />
                 {/* chat box send button */}
-                <div id="send-message-button" onClick={this.onSendMessage} >send</div>
+                <div id="send-message-button" onClick={()=>{
+                    this.onSendMessage();
+                    this.setState({chatFocused:false});
+                }} >send</div>
                 {/* chat box input */}
                 <div id="messages-box">
                     {messages}

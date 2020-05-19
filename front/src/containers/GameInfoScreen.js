@@ -20,7 +20,7 @@ const GameInfoScreen = (props) => {
                         let bottomLine =  pd.cashOut ?
                             pd.cashOut.amount - pd.totalBuyIns :
                             (player && (player.fold || player.sitOut || player.balance===0)) ? player.balance - pd.totalBuyIns : null;
-                        const bottomLineStyle = bottomLine && bottomLine > 0 ? 'player-info-bottom-line-green':'player-info-bottom-line-red';
+                        const bottomLineStyle = (!bottomLine || bottomLine === 0) ? 'player-info-bottom-line-gray' : (bottomLine > 0 ? 'player-info-bottom-line-green' : 'player-info-bottom-line-red');
                         if (bottomLine && bottomLine>0){
                             bottomLine = `+${bottomLine}`;
                         }
