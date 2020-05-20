@@ -28,7 +28,7 @@ class JoinGameScreen extends Component {
         }
     }
 
-    onJoin = ()=>{
+    onJoin = (positionIndex)=>{
 
         if (this.state.showAmountError || this.state.showNameError){
             return;
@@ -37,7 +37,8 @@ class JoinGameScreen extends Component {
         localStorage.setItem('myName',this.state.name);
         this.props.joinGame({
             name: this.state.name,
-            balance:parseInt(this.state.buyIn, 10)
+            balance:parseInt(this.state.buyIn, 10),
+            positionIndex
         });
 
 
@@ -62,6 +63,7 @@ class JoinGameScreen extends Component {
         }
         const {smallBlind, bigBlind, time, players, omaha}=this.props.game;
         const playersCount = players.length;
+        const canJoin = players.length < 8 && !this.state.showNameError && this.state.name && this.state.name.length>0;
         return (
             <div id="join-screen"  >
 
@@ -101,10 +103,6 @@ class JoinGameScreen extends Component {
 
                         </div>
 
-
-                        {playersCount < 8 &&<div id="join-button-div">
-                            <span className={`${this.state.showAmountError || this.state.showNameError ? 'join-button-disabled' : 'join-button'}`}  onClick={this.onJoin}>Join</span>
-                        </div>}
                         {playersCount >= 8 && <div id="join-button-full-game-div">
                             <span id="join-button-full-game" >Game is full</span>
 
@@ -116,19 +114,38 @@ class JoinGameScreen extends Component {
                         <header>
                             {playersCount} Player{playersCount>1 ? 's':''}
                         </header>
-                        <div id="existing-players-list">
-                            {
-                                playersCount === 0 ? '' :
 
-                                    players.map((player,index)=>{
+                        <img id="join-table-image" src="table.png" />
+                        {
+                            players.map((player,index)=>{
 
-                                        return <div key={player.id}
-                                                    className={`${index % 2 ===0 ?'greyPlayer':'whitePlayer'} existing-player`  }>
-                                           {player.name} - {player.balance}
-                                        </div>
-                                    })
-                            }
-                        </div>
+                                return <div key={player.id}
+                                            id={`join-table-existing-player-${index+1}`}
+                                            className="existing-player">
+                                   {player.name}
+                                </div>
+                            })
+                        }
+
+                        {
+                            players.map((player,index)=>{
+
+                                return <div key={`join_after_${player.id}`}
+                                            id={`join-after-existing-player-${index+1}`}
+                                            onClick={()=>this.onJoin(index+1)}
+                                            className={canJoin ?'sit-here-button':'do-not-sit'}>
+                                        {canJoin ? 'SIT' : ''}
+                                </div>
+                            })
+                        }
+                        {canJoin ? <div key={`join_before_first`}
+                                                  id={`join-after-existing-player-7`}
+                                                  onClick={()=>this.onJoin(0)}
+                                                  className="sit-here-button">
+                            SIT
+                        </div> : <div/>}
+
+
                     </div>
 
             </div>

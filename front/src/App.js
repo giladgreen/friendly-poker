@@ -674,7 +674,7 @@ class App extends Component {
         this.setState({ gameId, game: null })
     };
 
-    joinGame = ({ name, balance }) =>{
+    joinGame = ({ name, balance, positionIndex }) =>{
         const { gameId, playerId } = this.state;
 
         this.socket.emit('joingame',  {
@@ -682,6 +682,7 @@ class App extends Component {
             playerId,
             name,
             balance,
+            positionIndex,
             now: (new Date()).getTime()
         });
 
