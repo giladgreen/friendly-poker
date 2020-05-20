@@ -32,6 +32,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       players: [{
         id: playerId,
         name: gameCreatorData.name,
+        handsWon: 0,
         balance: amount,
         creator: true,
         admin: true,

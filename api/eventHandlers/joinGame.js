@@ -48,6 +48,7 @@ function onJoinGameEvent(socket, {
         id: playerId,
         name,
         balance,
+        handsWon: 0,
         sitOut: true,
         pot: [0],
         justJoined: true,

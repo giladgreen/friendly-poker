@@ -39,6 +39,7 @@ function onApproveJoinEvent(socket, {
           name: pendingJoinItem.name,
           balance: pendingJoinItem.balance,
           sitOut: true,
+          handsWon: 0,
           pot: [0],
           justJoined: true,
         });

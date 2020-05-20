@@ -2,6 +2,7 @@ const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
 const { getPlayerCopyOfGame } = require('../helpers/gameCopy');
+
 function onDeclineJoinEvent(socket, {
   gameId, playerId, joinedPlayerId, balance,
 }) {

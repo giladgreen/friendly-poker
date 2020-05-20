@@ -230,6 +230,7 @@ handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   player.displayBalance = player.balance;
   player.balance += game.pot;
   player.winner = game.pot;
+  player.handsWon += 1;
   game.messages.push({
     action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, popupMessage: `${player.name} took the hand with no showdown`,
   });

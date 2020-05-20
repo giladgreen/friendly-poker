@@ -180,6 +180,7 @@ function givePotMoneyToWinners(game) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
         relevantPlayers[0].winner = totalSidePotMoney;
+        relevantPlayers[0].handsWon += 1;
         return;
       }
       const winnerHands = Hand.winners(relevantPlayers.map(p => p.solvedHand));
@@ -198,6 +199,7 @@ function givePotMoneyToWinners(game) {
           }
           p.balance += amountWon;
           p.winner = amountWon;
+          p.handsWon += 1;
           game.pot -= amountWon;
 
 
@@ -234,7 +236,13 @@ function givePotMoneyToWinners(game) {
         }
       });
       const msg = {
-        action: 'split_win', names: namesPart, amount, hand: winners[0].handDesc, cards: winners[0], log: true, popupMessage: `${namesPart} won ${amount} each ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
+        action: 'split_win',
+        names: namesPart,
+        amount,
+        hand: winners[0].handDesc,
+        cards: winners[0],
+        log: true,
+        popupMessage: `${namesPart} won ${amount} each ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
       };
       messages.push(msg);
     }
