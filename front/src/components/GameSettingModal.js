@@ -53,6 +53,34 @@ class GameSettingModal extends Component {
         this.props.saveSettings({time, smallBlind, bigBlind, adminId});
     };
 
+    clostIfLastRequest = ()=>{
+        const { game} = this.props;
+        const { pendingJoin, pendingRebuy} = game;
+        const totalREquests = pendingJoin.length + pendingRebuy.length;
+        if (totalREquests === 1){
+            this.props.close();
+        }
+    }
+    approveJoin = (joinData)=>{
+        this.props.approveJoin(joinData);
+        this.clostIfLastRequest();
+    };
+
+    declineJoin = (joinData)=>{
+        this.props.declineJoin(joinData);
+        this.clostIfLastRequest();
+    };
+
+    approveRebuy = (rebuyData)=>{
+        this.props.approveRebuy(rebuyData);
+        this.clostIfLastRequest();
+    };
+
+    declineRebuy = (rebuyData)=>{
+        this.props.declineRebuy(rebuyData);
+        this.clostIfLastRequest();
+    };
+
     render() {
         const { skipHandEnabled, game} = this.props;
         const { pendingJoin, pendingRebuy} = game;
@@ -122,10 +150,10 @@ class GameSettingModal extends Component {
                 <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
                 <div id="pending-requests-body">
                     {pendingJoin.map(joinData =>{
-                        return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.props.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineJoin(joinData)}> Decline</span>   </div>
+                        return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineJoin(joinData)}> Decline</span>   </div>
                     }) }
                     {pendingRebuy.map(rebuyData =>{
-                        return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.props.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.props.declineRebuy(rebuyData)}> Decline</span>  </div>
+                        return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineRebuy(rebuyData)}> Decline</span>  </div>
                     }) }
 
 
