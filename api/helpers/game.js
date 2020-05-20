@@ -5,7 +5,7 @@ const { getUserHandObject } = require('./deck');
 const { getPlayerCopyOfGame } = require('./gameCopy');
 const logger = require('../services/logger');
 const {
-  FOLD, CALL, CHECK, RAISE, ALL_IN,
+  FOLD, CALL, CHECK, RAISE, ALL_IN, BET,
 } = require('../consts');
 
 function handleFold(game, player) {
@@ -75,8 +75,7 @@ function handleRaise(game, player, amount) {
     throw new Error('ilegal raise amount');
   }
 
-
-  player.status = RAISE;
+  player.status = player.options.includes('Call') || game.gamePhase === 0 ? RAISE : BET;
   delete player.active;
   player.options = [];
   game.players.forEach((p) => {

@@ -3,6 +3,7 @@ const ops = {
   CALL: 'Call',
   CHECK: 'Check',
   RAISE: 'Raise',
+  BET: 'Bet',
   ALL_IN: 'All-In',
 };
 

@@ -110,7 +110,7 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
 
     logger.info('River!');
   } else if (game.gamePhase === RIVER) {
-    let timeToShowShowdown = 4000;
+    let timeToShowShowdown = 5000;
     const potInBigBlinds = Math.floor(game.pot / game.bigBlind);
     const secondsToAdd = Math.floor(potInBigBlinds / 20);
     timeToShowShowdown += 1000 * secondsToAdd;
@@ -139,6 +139,7 @@ function onPlayerActionEvent(socket, {
   dateTime, op, amount, gameId, hand, playerId,
 }) {
   let game;
+
   let gameIsOver = false;
   try {
     if (socket) {
@@ -168,12 +169,26 @@ function onPlayerActionEvent(socket, {
         handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], dateTime);
       } else {
         logger.info('round is over!');
+        game.betRoundOver = true;
+        game.updateDelay = 1500;
+        // eslint-disable-next-line no-restricted-globals
+        const roundSum = game.players.filter(p => p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
+          .map(p => p.pot[game.gamePhase])
+          .reduce((all, one) => all + one, 0);
+
+        game.updateDelay = roundSum > 0 ? 2500 : 1500;
+        const currentPot = game.pot;
+        game.displayPot = currentPot - roundSum;
+        GameHelper.updateGamePlayers(game, gameIsOver);
+        delete game.displayPot;
+
         if (!game.fastForward) {
           gameIsOver = handleRountOver(game, player, gameIsOver);
         } else {
           gameIsOver = true;
           game.messages = [];
         }
+
         gameIsOver = proceedToNextStreet(game, dateTime, gameIsOver);
       }
     } else {
@@ -191,7 +206,13 @@ function onPlayerActionEvent(socket, {
     }
 
     validateGame(game);
-    GameHelper.updateGamePlayers(game, gameIsOver);
+
+    const delayTime = game.updateDelay || 0;
+    delete game.betRoundOver;
+    delete game.updateDelay;
+    setTimeout(() => {
+      GameHelper.updateGamePlayers(game, gameIsOver);
+    }, delayTime);
   } catch (e) {
     logger.error('onPlayerActionEvent error', e.message);
     logger.error('error', e);
@@ -206,6 +227,7 @@ function onPlayerActionEvent(socket, {
 
 handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
+  player.displayBalance = player.balance;
   player.balance += game.pot;
   player.winner = game.pot;
   game.messages.push({

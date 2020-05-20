@@ -24,6 +24,9 @@ function onJoinGameEvent(socket, {
     if (!adminPlayer) {
       throw new Error('did not find admin player');
     }
+    if (game.players.some(p => p.name === name)) {
+      name = `${name} (2)`;
+    }
     if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
