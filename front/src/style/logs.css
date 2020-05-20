@@ -1,0 +1,15 @@
+.log{
+    font-size: 1.3em;
+}
+
+.log-time{
+    color: #5a6268;
+}
+
+.log-hand{
+    color: #1e90ff;
+}
+
+.log-text{
+    color: forestgreen;
+}

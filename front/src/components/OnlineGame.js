@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PlayerInfo from '../containers/PlayerInfo';
 import Card from "../containers/Card";
+import LogsScreen from "../containers/LogsScreen";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import DnsIcon from '@material-ui/icons/Dns';
@@ -56,8 +57,6 @@ const PrettoSlider = withStyles({
     },
 })(Slider);
 
-const MINUTE = 60;
-
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
 class OnlineGame extends Component {
@@ -69,7 +68,6 @@ class OnlineGame extends Component {
         this.state = {
             betRoundOver:false,
             chatFocused:false,
-
             chatMessage: '',
             communityCards:[],
             raiseEnabled: false,
@@ -307,7 +305,7 @@ class OnlineGame extends Component {
     };
 
     toggleLogs = ()=>{
-        if (!this.state.showLogs && !this.props.game.startDate){
+        if (!this.props.game.startDate){
             return;
         }
         if (!this.state.showLogs){
@@ -719,12 +717,8 @@ class OnlineGame extends Component {
                     BackdropProps={{
                         timeout: 500,
                     }}>
-                    <Fade in={this.state.showLogs}>
-
-                        <div id="game-logs-modal">
-                            <div id="game-logs-modal-close-x" onClick={this.toggleLogs}>X</div>
-                            {this.props.logs}
-                        </div>
+                    <Fade in={this.state.showLogs} toggleLogs={this.toggleLogs}>
+                        <LogsScreen logs={game.logs} />
                     </Fade>
                 </Modal>
 

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/img-has-alt */
 import React from 'react'
 import Card from "./Card";
-
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
 
     const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
@@ -12,6 +12,9 @@ const PlayerInfo = (props) => {
     const card2 = player.cards ? player.cards[1] : null;
     const card3 = player.cards && game.omaha ? player.cards[2] : null;
     const card4 = player.cards && game.omaha ? player.cards[3] : null;
+
+    const handsWon = `${player.handsWon}`;
+    const handWonClass = `trophy-badge trophy-badge-${handsWon.length}-digit`;
 
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
@@ -29,6 +32,7 @@ const PlayerInfo = (props) => {
                 </div>
             </div>
             { player.dealer && <div id={`dealer-button-${index}`} className="dealer-button" > D </div>}
+             <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 

@@ -14,6 +14,7 @@ import './style/gameInfoScreen.css';
 import './style/game-action-buttons.css';
 import './style/game-settings.css';
 import './style/paused-screen.css';
+import './style/logs.css';
 
 const options = {
     // you can also just use 'bottom center'

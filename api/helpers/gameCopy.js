@@ -40,7 +40,16 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
 
     return gameToSend;
 }
-
+function format(str) {
+    const result = str.toUpperCase().replace('T', '10')
+        .replace(/S/g, '♠️')
+        .replace(/H/g, '♥️')
+        .replace(/C/g, '♣️')
+        .replace(/D/g, '♦️');
+    // console.log('before ',str,' after',result);
+    return result;
+}
 module.exports = {
     getPlayerCopyOfGame,
+    format,
 };

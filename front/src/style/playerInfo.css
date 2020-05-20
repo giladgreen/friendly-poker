@@ -988,6 +988,41 @@
     top:9.7vh;
     left:1.1vw;
 }
+.trophy-badge{
+    position: absolute;
+    width: 3.4vw;
+    height: 2vw;
+    border: 1px solid black;
+    border-radius: 50%;
+    background: white;
+    color: goldenrod;
+    font-weight: bold;
+    z-index: 30;
+    top:6.3vh;
+    left:12.7vw;
+}
+
+.trophy-badge-1-digit{
+    font-size: 1.5em;
+    padding-top: 0px;
+    padding-left: 0.7vw;
+}
+.trophy-badge-2-digit{
+    font-size: 1.2em;
+    padding-top: 1px;
+    padding-left: 0.3vw;
+
+}
+.trophy-badge-3-digit{
+    font-size: 1em;
+    padding-top: 4px;
+    padding-left: 3px;
+}
+.trophy-badge-4-digit{
+    font-size: 0.6em;
+    padding-top: 5px;
+    padding-left: 3px;
+}
 
 .player-offline-indication{
     position: absolute;

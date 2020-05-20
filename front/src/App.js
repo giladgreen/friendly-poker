@@ -197,7 +197,7 @@ class App extends Component {
     };
 
     getMessage = (messageObject)=>{
-        const {time, name, names, balance, amount, hand, text,playerIndex} = messageObject;
+        const {time, name, text, playerIndex} = messageObject;
         if (messageObject.action === 'usermessage'){
             messageObject.div = <div key={`msg_${time}_${text}_${(new Date()).getTime()}`}>
                 <span className="msg-time" >{time}</span>
@@ -206,43 +206,6 @@ class App extends Component {
             return;
         }
 
-        if (messageObject.action === 'game_started'){
-            messageObject.message = `game started by ${name}`;
-        }
-        if (messageObject.action === 'won_without_showdown'){
-            messageObject.message = `${name} won ${amount} - no show-down`;
-        }
-        if (messageObject.action === 'won_with_showdown'){
-            messageObject.message = `${name} won ${amount} with ${hand}`;
-        }
-        if (messageObject.action === 'split_win'){
-            messageObject.message = `${names} won ${amount} each with ${hand}`;
-        }
-        if (messageObject.action === 'join'){
-            messageObject.message = `${name} has join the game, initial buy-in: ${balance}`;
-        }
-        if (messageObject.action === 'rebuy'){
-            messageObject.message = `${name} did a rebuy of ${amount}`;
-        }
-
-        if (messageObject.action === 'log'){
-            messageObject.message = text;
-        }
-
-        if (['Flop','Turn','River'].includes(messageObject.action)){
-            messageObject.message = `${messageObject.action}. ${messageObject.board.map(card=> card.replace('T','10')).join(',')}`;
-        }
-
-        if (['game_resumed','game_paused'].includes(messageObject.action)){
-            messageObject.message = messageObject.popupMessage;
-        }
-
-        if (messageObject.message){
-            messageObject.div = <div key={`msg_${time}_${messageObject.message}_${(new Date()).getTime()}`}>
-                <span className="msg-time" >{time}</span>
-                <span className="msg-text">{messageObject.message}</span>
-            </div>
-        }
     }
 
     playFold = () => {
@@ -466,35 +429,24 @@ class App extends Component {
         });
 
         this.socket.on('onmessage', (message) => {
-            message.time = (new Date()).AsExactTimeWithSeconds();
+            const time = (new Date()).AsExactTimeWithSeconds();
             if (message.popupMessage){
                 setImmediate(()=>{
                     this.showAlertMessage(message.popupMessage);
                 })
-            }
-            this.getMessage(message);
-            if (message.log){
-                if (message.div){
-                    this.setState({ logs: [...this.state.logs, message.div], connected: true });
-                    setTimeout(()=>{
-                        const objDiv = document.getElementById('game-logs-modal');
-                        if (objDiv){
-                            objDiv.scrollTop = objDiv.scrollHeight;
-                        }
-                    },100)
-                }
+            } else if (message.action === 'usermessage'){
+                const div = (<div key={`msg_${time}_${message.text}_${message.now}`}>
+                    <span className="msg-time" >{time}</span>
+                    <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span>
+                    <span className="msg-text">{message.text}</span>  </div>);
 
-            } else{
-                if (message.div){
-                    this.setState({ messages: [...this.state.messages, message.div], connected: true });
-                    setTimeout(()=>{
-                        const objDiv = document.getElementById('messages-box');
-                        if (objDiv){
-                            objDiv.scrollTop = objDiv.scrollHeight;
-                        }
+                this.setState({ messages: [...this.state.messages, div], connected: true });
+                setTimeout(()=>{
+                    const objDiv = document.getElementById('messages-box');
+                    if (objDiv){
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                    }
                     },100)
-                }
-
             }
         });
     }
@@ -505,9 +457,9 @@ class App extends Component {
      * @param amount - only relevant for Raise/Rebuy
      */
     action = (op, amount)=>{
-        const dateTime = `${(new Date()).getTime()}`;
+        const now = `${(new Date()).getTime()}`;
         this.socket.emit('playeraction', {
-            dateTime,
+            now,
             op,
             amount,
             gameId: this.state.gameId,
@@ -533,18 +485,18 @@ class App extends Component {
     };
 
     sitBack = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         console.log('emiting sitback')
 
-        this.socket.emit('sitback', {gameId , dateTime, playerId });
+        this.socket.emit('sitback', {gameId , now, playerId });
     };
 
     standUp = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         console.log('emiting standup')
-        this.socket.emit('standup', {gameId , dateTime, playerId });
+        this.socket.emit('standup', {gameId , now, playerId });
     };
 
     quitGame = () =>{
@@ -553,10 +505,9 @@ class App extends Component {
                 show: true,
                 message:'Are you sure?',
                 onYes:()=>{
-                    const dateTime =(new Date()).getTime();
                     const { gameId, playerId } = this.state;
                     console.log('emiting quitgame')
-                    this.socket.emit('quitgame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
+                    this.socket.emit('quitgame', {gameId, playerId, now: (new Date()).getTime() });
                     localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
 
                     window.location = serverPrefix;
@@ -571,10 +522,9 @@ class App extends Component {
                 show: true,
                 message:'Are you sure?',
                 onYes:()=>{
-                    const dateTime =(new Date()).getTime();
                     const { gameId, playerId } = this.state;
                     console.log('emiting kickoutplayer');
-                    this.socket.emit('kickoutplayer', {gameId , dateTime, playerId, now: (new Date()).getTime(), playerToKickId });
+                    this.socket.emit('kickoutplayer', {gameId, playerId, now: (new Date()).getTime(), playerToKickId });
                     this.onCancelPopUp();
                 },
             }} );
@@ -587,10 +537,10 @@ class App extends Component {
                 show: true,
                 message:'Are you sure?',
                 onYes:()=>{
-                    const dateTime =(new Date()).getTime();
+                    const now =(new Date()).getTime();
                     const { gameId, playerId } = this.state;
                     console.log('emiting skiphand');
-                    this.socket.emit('skiphand', {gameId , dateTime, playerId });
+                    this.socket.emit('skiphand', {gameId , now, playerId });
                     this.onCancelPopUp();
                 }
             }} );
@@ -613,63 +563,63 @@ class App extends Component {
 
     sendMessage = (message) =>{
         if (message.length > 0){
-            const dateTime =(new Date()).getTime();
+            const now =(new Date()).getTime();
             const { gameId, playerId } = this.state;
             console.log('emiting usermessage')
-            this.socket.emit('usermessage', {gameId , dateTime, playerId, message });
+            this.socket.emit('usermessage', {gameId , now, playerId, message });
         }
     };
 
     startGame = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         const admin = this.state.game.players.find(p=>p.admin);
         if (admin.id === playerId){
-            this.socket.emit('startgame', {gameId , dateTime, playerId });
+            this.socket.emit('startgame', {gameId , now, playerId });
         }
     };
 
     updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances) =>{
-        const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         console.log('emiting updategamesettings')
-        this.socket.emit('updategamesettings', {gameId, dateTime, playerId, newBalances, time,smallBlind,bigBlind, now: (new Date()).getTime() });
+        const now = (new Date()).getTime();
+        this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, now });
         if (adminId !== playerId){
             console.log('emiting changeadmin')
 
-            this.socket.emit('changeadmin', {gameId , dateTime, playerId, newAdminId: adminId, now: (new Date()).getTime() });
+            this.socket.emit('changeadmin', {gameId, playerId, newAdminId: adminId, now });
         }
 
         this.showAlertMessage('Update Settings Request Sent');
     }
+
     pauseGame = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         const admin = this.state.game.players.find(p=>p.admin);
         if (admin.id === playerId){
-            this.socket.emit('pausegame', {gameId , dateTime, playerId });
+            this.socket.emit('pausegame', {gameId , now, playerId });
         }
     };
 
     showCards = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        this.socket.emit('showcards', {gameId , dateTime, playerId });
+        this.socket.emit('showcards', {gameId , now, playerId });
     };
 
     resumeGame = () =>{
-        const dateTime =(new Date()).getTime();
+        const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
         const admin = this.state.game.players.find(p=>p.admin);
         if (admin.id === playerId){
-            this.socket.emit('resumegame', {gameId , dateTime, playerId, now: (new Date()).getTime() });
+            this.socket.emit('resumegame', {gameId , now, playerId });
         }
     };
 
     rebuy = (amount) =>{
-        const dateTime =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        this.socket.emit('rebuy', {gameId , dateTime, playerId, amount, now: (new Date()).getTime() });
+        this.socket.emit('rebuy', {gameId, playerId, amount, now: (new Date()).getTime() });
     };
 
     approveJoin = (data) =>{
@@ -695,6 +645,7 @@ class App extends Component {
         console.log('emiting declinerebuy')
         this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
     };
+
     setCreatorAsAdmin = () =>{
         const { gameId, playerId } = this.state;
         console.log('emiting setcreatorasadmin')
@@ -808,7 +759,6 @@ class App extends Component {
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}
-                    logs={this.state.logs}
                     initial={this.state.initial}
                     showAlertMessage={this.showAlertMessage}
                     registerGameUpdatedCallback={this.registerGameUpdatedCallback}
