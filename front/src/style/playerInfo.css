@@ -12,30 +12,8 @@
     background: white;
     color: black;
 }
-.player-pot-mid-hand{
-    background: #eec117;
-    color: white;
-    z-index: 2;
-}
 
-@keyframes into-main-pot-anim {
-    from {
-    }
-    to {
-        position: fixed;
-        top: 24vh;
-        left: 44vw;
-        width: 8vw;
-        height: 6.7vh;
-        background: transparent;
-    }
-}
-.player-pot-mid-hand-betroundover{
-    animation-name: into-main-pot-anim;
-    animation-duration: 2.5s;
-    animation-delay: 1s;
 
-}
 
 #player1{
     top:65vh;
@@ -951,7 +929,6 @@
 }
 
 .player-pot{
-    position: absolute;
     width: 5.8vw;
     height: 2.7vw;
     border-radius: 25px;
@@ -961,9 +938,28 @@
     alignment: center;
     text-align: center;
 }
-
-
-
+.player-pot-mid-hand{
+    background: #eec117;
+    color: white;
+    z-index: 2;
+}
+@keyframes into-main-pot-anim {
+    from {
+    }
+    to {
+        position: fixed;
+        top: 24vh;
+        left: 44vw;
+        width: 8vw;
+        height: 6.7vh;
+        background: transparent;
+    }
+}
+.player-pot-mid-hand-betRoundOver{
+    animation-name: into-main-pot-anim;
+    animation-duration: 2.5s;
+    animation-delay: 1s;
+}
 
 .player-pot-hand-over{
     background: cornflowerblue;

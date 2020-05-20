@@ -5,7 +5,7 @@ import Card from "./Card";
 
 const PlayerInfo = (props) => {
 
-    const {game, player, index, winningHandCards, isMe, initial, betroundover} = props;
+    const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
     const {cardsToShow} = player;
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
@@ -25,14 +25,14 @@ const PlayerInfo = (props) => {
                     {player.name}
                 </div>
                 <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
-                    {Math.floor(player.balance)}
+                      {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}
                 </div>
             </div>
             { player.dealer && <div id={`dealer-button-${index}`} className="dealer-button" > D </div>}
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 
-            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot-mid`} className={`player-pot player-pot-mid-hand ${betroundover ? 'player-pot-mid-hand-betroundover':''}`}>+{(player.pot[game.gamePhase])}</div>}
+            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot-mid`} className={`player-pot player-pot-mid-hand ${betRoundOver ? 'player-pot-mid-hand-betRoundOver':''}`}>+{(player.pot[game.gamePhase])}</div>}
             { game.handOver && player.winner  && <div id={`player${index}-pot-end`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}

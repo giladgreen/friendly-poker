@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/img-has-alt */
 import React, { Component } from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import PlayerInfo from '../containers/PlayerInfo';
 import Card from "../containers/Card";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -21,7 +20,9 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import TuneIcon from '@material-ui/icons/Tune';
 
 import CancelIcon from '@material-ui/icons/Cancel';
+import UserTimer from "./UserTimer";
 import GameSettingModal from "./GameSettingModal";
+import Clock from "./Clock";
 const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 const PrettoSlider = withStyles({
@@ -55,11 +56,7 @@ const PrettoSlider = withStyles({
     },
 })(Slider);
 
-
-const SECOND = 1000;
 const MINUTE = 60;
-const HOUR = 60 * MINUTE;
-const DAY = 24 * HOUR;
 
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
@@ -70,9 +67,9 @@ class OnlineGame extends Component {
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
-            betroundover:false,
+            betRoundOver:false,
             chatFocused:false,
-            clockMessage: '',
+
             chatMessage: '',
             communityCards:[],
             raiseEnabled: false,
@@ -103,7 +100,7 @@ class OnlineGame extends Component {
         const keycode = event.keyCode;
         const key = String.fromCharCode(keycode).toLowerCase();
 
-        if (!chatFocused && key === 'm'){
+        if (!chatFocused && (key === 'm' || key === 'צ')){
             setTimeout(()=>{
                 document.getElementById("chat-input").focus();
             },120);
@@ -125,7 +122,6 @@ class OnlineGame extends Component {
         if (!number){
             event.preventDefault();
         }
-
 
         if (raiseEnabled ){
             if (key === 'a'){
@@ -151,19 +147,18 @@ class OnlineGame extends Component {
             return;
         }
 
-
         if (!isMyTurn){
-            if (key === 'f'){
+            if (key === 'f' || key === 'כ'){
                 this.checkFold();
                 return;
             }
         }else{
             if (!raiseEnabled){
-                if (key === 'f'){
+                if (key === 'f' || key === 'כ'){
                     this.fold();
                     return;
                 }
-                if (key === 'c'){
+                if (key === 'c' || key === 'c'){
                     if (options.includes('Check')){
                         this.check();
                     }else{
@@ -171,12 +166,17 @@ class OnlineGame extends Component {
                     }
                     return;
                 }
-                if (key === 'r' || key === 'b' ){
+                if (key === 'r' || key === 'b' || key === 'ר' || key === 'נ'){
                     this.toggleRaiseButton();
                     setTimeout(()=>{
                         document.getElementById("raise-input").focus();
                     },120)
                     return;
+                }
+            } else{
+                if (keycode === 13) {
+                    this.raise();
+                    this.setState({raiseEnabled:false})
                 }
             }
         }
@@ -196,6 +196,7 @@ class OnlineGame extends Component {
 
         let rebuyEnabled = false;
         const userTimer = game.currentTimerTime;
+
         const activeIndex = this.getActiveIndex(game.players);
         const myIndex = this.getMyIndex(game.players);
 
@@ -225,33 +226,22 @@ class OnlineGame extends Component {
             cheapLeader = me.balance === maxBalance;
         }
 
-        if (game.startDate){
-
-            if (this.timerInterval) {
-                clearInterval(this.timerInterval);
-            }
-            this.timerInterval = setInterval(()=>{
-                let newUserTimer = this.state.userTimer;
-                newUserTimer -= 0.25;
-                if (newUserTimer < 0){
-                    newUserTimer = 0;
-                    setImmediate(()=>clearInterval(this.timerInterval));
-                }
-                this.setState({ userTimer: newUserTimer});
-            },250);
-
-
-            if (this.clockInterval) {
-                clearInterval(this.clockInterval);
-            }
-            this.clockInterval = setInterval(()=>{
-                if (this.props.game){
-                    const clockMessage = this.getShowableTime(this.props.game.startDate);
-                    const handTime = this.getShowableTime(this.props.game.handStartDate);
-                    this.setState({ clockMessage, handTime});
-                }
-            },1000)
-        }
+        // if (game.startDate){
+        //
+        //     if (this.timerInterval) {
+        //         clearInterval(this.timerInterval);
+        //     }
+        //     this.timerInterval = setInterval(()=>{
+        //         let newUserTimer = this.state.userTimer;
+        //         newUserTimer -= 0.25;
+        //         if (newUserTimer < 0){
+        //             newUserTimer = 0;
+        //             setImmediate(()=>clearInterval(this.timerInterval));
+        //         }
+        //         this.setState({ userTimer: newUserTimer});
+        //     },250);
+        //
+        // }
         let checkFoldPressed = this.state.checkFoldPressed;
         if (isMyTurn){
             if (this.state.checkFoldPressed){
@@ -273,7 +263,7 @@ class OnlineGame extends Component {
             isMyTurn,
             options,
             raiseEnabled: false,
-            betroundover: game.betroundover,
+            betRoundOver: game.betRoundOver,
             userHand,
             rebuyEnabled,
             amountToCall,
@@ -285,36 +275,18 @@ class OnlineGame extends Component {
             rebuyValue:maxBalance - me.balance,
             rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled
         };
-        console.log('betroundover',game.betroundover)
+
+
+        if (this.forceUserTimerUpdate){
+            this.forceUserTimerUpdate(newState.userTimer)
+        }
+
         this.setState(newState);
 
     }
 
-    getShowableTime = (startDate) =>{
-        if (!startDate){
-            return null;
-        }
-        const diff = (new Date()).getTime() - startDate;
-        const totalSeconds =  Math.floor(diff / SECOND);
-
-        const days = Math.floor(totalSeconds / DAY);
-        let reminder = totalSeconds - days * DAY;
-
-
-        let hours = Math.floor(reminder / HOUR);
-        reminder -=  hours * HOUR;
-
-        hours = hours + days * 24;
-        const minutes =  Math.floor(reminder / MINUTE);
-        const seconds = reminder - minutes * MINUTE;
-
-        const result = {
-            days: days>9 ? `${days}` : `0${days}`,
-            hours:hours>9 ? `${hours}` : `0${hours}`,
-            minutes:minutes>9 ? `${minutes}` : `0${minutes}`,
-            seconds:seconds>9 ? `${seconds}` : `0${seconds}`,
-        };
-        return `${result.hours}:${result.minutes}:${result.seconds}`;
+    registerForceUserTimerUpdate = (forceUserTimerUpdate)=>{
+        this.forceUserTimerUpdate = forceUserTimerUpdate;
     }
 
     toggleRaiseButton = ()=>{
@@ -458,28 +430,6 @@ class OnlineGame extends Component {
         this.setState({raiseValue, raiseValueError});
     };
 
-
-    getTimeLeft = ()=>{
-        const {userTimer} = this.state;
-        if (!userTimer){
-            return '';
-        }
-        let minutes =  Math.floor(userTimer / MINUTE).toFixed(0);
-        let seconds = (userTimer - minutes * MINUTE).toFixed(0);
-        minutes = minutes>9 ? `${minutes}` : `0${minutes}`;
-        seconds = seconds>9 ? `${seconds}` : `0${seconds}`;
-        return `${minutes}:${seconds}`
-    }
-
-    getTimeLeftValue = ()=>{
-        const {time} = this.props.game;
-        const userTimer = this.state.userTimer || 0;
-
-        const val = userTimer * 100 / time;
-
-        return val < 0 ? 0 : (val > 100 ? 100 : val)
-    }
-
     checkFold = ()=>{
         this.setState({checkFoldPressed: !this.state.checkFoldPressed});
     }
@@ -530,12 +480,12 @@ class OnlineGame extends Component {
     };
 
     render() {
-        const {clockMessage, options, cheapLeader, me, betroundover} = this.state;
+        const { options, cheapLeader, me, betRoundOver} = this.state;
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
-        const { pot, smallBlind, bigBlind, players, startDate,hand, board} = game;
+        const { pot, displayPot, smallBlind, bigBlind, players, startDate,hand, board} = game;
         const winningHandCards = game.handOver && game.winningHandCards && game.winningHandCards.cards ? game.winningHandCards.cards : [];
 
         const linkOnClick = ()=>{
@@ -560,20 +510,16 @@ class OnlineGame extends Component {
         const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).filter(num=>!isNaN(num)).reduce((all,one)=>all+one,0);
 
         return (
-            <div id="online-game-screen"
- >
+            <div id="online-game-screen">
                 {/* game time */}
-                <div id="clock"> {clockMessage && <span>{ clockMessage }</span>}</div>
+                {startDate && <Clock startDate={startDate}/>}
                 {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/{bigBlind}</div>
                 {/* hand count + time */}
                 { hand && hand >0 ? <div id="hand-time">
                     <span>Hand #{hand} </span> <div/>
                 </div> : <div/>}
-                {/* time left to talk */}
-                <div id="hand-clock"> { this.getTimeLeft()}</div>
-                {/* time left to talk progess bar */}
-                { hand && hand >0 ? <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/> }
+                {hand && hand>0 && <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>}
                 {/* your turn indication */}
                 { game.playersTurn && <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>}
                 {/* table image */}
@@ -581,10 +527,10 @@ class OnlineGame extends Component {
 
 
                 {/* players */}
-                {players.map((player)=> <PlayerInfo betroundover={betroundover} initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player)=> <PlayerInfo betRoundOver={betRoundOver} initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) && <div id="community-pot">
-                    <div>{potBeforeRaises}</div>
+                    <div>{ !isNaN(displayPot) ? displayPot : potBeforeRaises}</div>
                     {potBeforeRaises !== pot && <div className="total-pot-amount">total of {pot}</div>}
 
                 </div>}
@@ -634,7 +580,22 @@ class OnlineGame extends Component {
                                 {/* Add to Raise */}
                                 <div id="raise-button-add" className="action-button raise-button-add-remove" onClick={()=> this.setRaiseValue( this.state.raiseValue+game.bigBlind)}> + </div>
                                 {/* Raise Input */}
-                                <input id="raise-input"  className={this.state.raiseValueError ? 'red-background':''} type="number" min={0} max={this.getMaxRaise()} step={game.bigBlind} value={this.state.raiseValue} onChange={(e)=> this.setRaiseValue(parseInt(e.target.value,10))}/>
+                                <input id="raise-input"
+                                       className={this.state.raiseValueError ? 'red-background':''}
+                                       type="number"
+                                       min={0}
+                                       max={this.getMaxRaise()}
+                                       step={game.bigBlind}
+                                       value={this.state.raiseValue}
+                                       onChange={(e)=> this.setRaiseValue(parseInt(e.target.value,10))}
+                                       onKeyUp={(event)=>{
+                                           event.preventDefault();
+                                           if (event.keyCode === 13) {
+                                               this.raise();
+                                               this.setState({raiseEnabled:false})
+                                           }
+                                       }}
+                                />
                                 {/* Raise Input Slider */}
                                 <PrettoSlider id="raise-input-slider" valueLabelDisplay="auto" aria-label="pretto slider"   step={1} min={this.getMinRaise()} max={this.getMaxRaise()} value={this.state.raiseValue} onChange={(e,val)=> this.setRaiseValue(parseInt(val),10)} />
 
@@ -715,7 +676,8 @@ class OnlineGame extends Component {
 
 
                 {/* Pending Joing/rebuy Indication */}
-                { showPendingIndication && <div id="settings-pending-indication" > {pendingIndicationCount} </div>}
+                { showPendingIndication && <div id="settings-pending-indication" className={`settings-pending-indication-${this.state.sideMenu ? 'on-menu':'on-settings-button'}`} > {pendingIndicationCount} </div>}
+
 
 
                 {/* start game button */}

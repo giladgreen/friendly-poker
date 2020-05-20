@@ -338,7 +338,6 @@ class App extends Component {
                         clearTimeout(this.getGamedataEmitedRef);
                     }
                     this.getGamedataEmitedRef = setTimeout(()=>{
-                        console.log('App on connect. gameId:',this.state.gameId, ' no game, emitting getgamedata');
 
                         this.socket.emit('getgamedata',{gameId: this.state.gameId ,playerId: this.state.playerId});
                     }, 700)
@@ -374,7 +373,6 @@ class App extends Component {
 
         this.socket.on('gameupdate', (game) => {
 
-            console.log('game players statuses:', game.players.map(p=> `${p.name}: ${p.status}, `))
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
@@ -396,7 +394,7 @@ class App extends Component {
                     }
                 }
                 if (this.GameUpdatedCallback){
-                    if (gameClone.betroundover ||
+                    if (gameClone.betRoundOver ||
                         gameClone.hand !== this.state.game.hand ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
@@ -409,7 +407,6 @@ class App extends Component {
             gameClone.players.forEach(p=>{
                 p.cardsToShow = newHand ? 0 : 2;
             });
-            console.log('game.handOver',game.handOver);
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver});
             if (newHand){
                 const playersWithCards = game.players.filter(p=>!p.sitOut);
@@ -446,11 +443,10 @@ class App extends Component {
             localStorage.setItem('games', existingGames.join(','));
             console.log('going to ',`${serverPrefix}?gameid=${gameId}`)
 
+            this.setState({ game, gameId, connected: true });
             setTimeout(()=>{
                 window.location = `${serverPrefix}?gameid=${gameId}`
-            },1500)
-
-           // this.setState({ game, gameId, connected: true });
+            },200)
         });
 
         this.socket.on('operationpendingaproval', () => {
@@ -749,7 +745,7 @@ class App extends Component {
         return <div>
             {item}
             <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
-            <img id="app-name" src="./friendly-poker.png"/>
+            <img id="app-name" src="./friendly-poker.png" onClick={()=>window.location = serverPrefix}/>
             <div id="app-version" > v{ version }</div>
             <Confirm show={this.state.popupData.show} message={this.state.popupData.message} onYes={this.state.popupData.onYes} onCancel={this.onCancelPopUp} />
             <audio id='fold-audio' src="./fold.mp3" preload="auto" controls="none" style={{display:'none'}}/>

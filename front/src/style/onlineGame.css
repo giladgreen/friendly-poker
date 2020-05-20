@@ -388,14 +388,45 @@
     background: red;
     position: fixed;
     z-index: 104;
-    top:57vh;
-    right:8.7vw;
     font-size: 1.3em;
     font-weight: bold;
     height: 2vw;
     width: 2vw;
     text-align: center;
+}
+@keyframes settings-pending-indication-on-menu-anim {
+    from {
+        top:9vh;
+        right:8.7vw;
+    }
+    to {
+        top:65vh;
+        right:8.7vw;
+    }
+}
 
+.settings-pending-indication-on-menu{
+    animation-name: settings-pending-indication-on-menu-anim;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes settings-pending-indication-on-settings-button {
+    from {
+        top:-5vh;
+        right:8.7vw;
+    }
+    to {
+        top:9vh;
+        right:8.7vw;
+    }
+}
+
+.settings-pending-indication-on-settings-button{
+    animation-name: settings-pending-indication-on-settings-button;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 
 
@@ -627,7 +658,7 @@
     top: 24vh;
     left: 44vw;
     width: 8vw;
-    height: 6.7vh;
+    height: 7.4vh;
     z-index: 10;
     text-align: center;
     font-weight: bold;
@@ -641,7 +672,7 @@
 }
 .total-pot-amount{
     font-weight: normal;
-    font-size: 0.3em;
+    font-size: 0.5em;
     color: #FFFFFFCC;
     margin-top: -8px;
 
