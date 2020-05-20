@@ -321,8 +321,8 @@ class OnlineGame extends Component {
         this.setState({showLogs:!this.state.showLogs})
     };
 
-    saveSettings = ({time,smallBlind, bigBlind, adminId})=>{
-        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId);
+    saveSettings = ({time,smallBlind, bigBlind, adminId, newBalances})=>{
+        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId, newBalances);
         this.setState({showSettings:false})
     };
 
@@ -499,6 +499,7 @@ class OnlineGame extends Component {
         };
 
         const skipHandEnabled = me && me.admin && startDate;
+        const changePlayersBalances = me && me.admin && players.length >1;
         const quitEnabled = me && ((!me.admin && (me.fold || me.sitOut || !startDate)) || (me.admin && (game.players.length === 1)));
         const standSitEnabled = startDate && me && (me.sitOut || me.fold);
 
@@ -701,6 +702,7 @@ class OnlineGame extends Component {
                                            game={this.props.game}
                                            saveSettings={this.saveSettings}
                                            skipHandEnabled={skipHandEnabled}
+                                           changePlayersBalances={changePlayersBalances}
                                            SkipHand={this.SkipHand}
                                            approveRebuy={this.props.approveRebuy}
                                            approveJoin={this.props.approveJoin}
