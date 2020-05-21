@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/playerInfo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/helpers/gameCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/helpers/gameCopy.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,17 +24,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="42" column="23" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
+            <state relative-caret-position="396">
+              <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#115#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="649" column="26" selection-start-line="649" selection-start-column="26" selection-end-line="649" selection-end-column="26" />
+              <folding>
+                <element signature="e#48#89#0" />
+                <element signature="e#90#131#0" expanded="true" />
+                <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+                <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/helpers/gameCopy.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -50,8 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toggleChangeBalances</find>
-      <find>everybody</find>
       <find>changePlayersBalances</find>
       <find>skipHandEnabled</find>
       <find>newBalances</find>
@@ -80,6 +97,8 @@
       <find>onJoin</find>
       <find>kickout</find>
       <find>kickOut-button</find>
+      <find>copy game link</find>
+      <find>Hand</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/api</dir>
@@ -138,7 +157,6 @@
         <option value="$PROJECT_DIR$/front/src/style/onlineGame.css" />
         <option value="$PROJECT_DIR$/front/src/components/GameSettingModal.js" />
         <option value="$PROJECT_DIR$/front/src/style/game-settings.css" />
-        <option value="$PROJECT_DIR$/api/helpers/gameCopy.js" />
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/containers/LogsScreen.js" />
         <option value="$PROJECT_DIR$/front/src/style/logs.css" />
@@ -148,6 +166,7 @@
         <option value="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" />
         <option value="$PROJECT_DIR$/front/src/style/playerInfo.css" />
         <option value="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" />
+        <option value="$PROJECT_DIR$/api/helpers/gameCopy.js" />
       </list>
     </option>
   </component>
@@ -175,6 +194,17 @@
             <path>
               <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
               <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="friendly-poker" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="helpers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="friendly-poker" type="b2602c69:ProjectViewProjectNode" />
@@ -315,18 +345,18 @@
       <workItem from="1589479757719" duration="38674000" />
       <workItem from="1589714772439" duration="10621000" />
       <workItem from="1589803984166" duration="779000" />
-      <workItem from="1589867741768" duration="49783000" />
+      <workItem from="1589867741768" duration="49939000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="237219000" />
+    <option name="totallyTimeSpent" value="237375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="23" width="1920" height="971" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16506922" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16506922" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -341,7 +371,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005325" side_tool="true" weight="0.4509346" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49946752" visible="true" weight="0.07009346" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49946752" visible="true" weight="0.22897196" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -685,13 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/helpers/gameCopy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="53" column="11" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/logs.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -898,20 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="528" column="338" selection-start-line="528" selection-start-column="331" selection-end-line="528" selection-end-column="338" />
-          <folding>
-            <element signature="e#48#89#0" />
-            <element signature="e#90#131#0" expanded="true" />
-            <element signature="e#1230#1914#0" />
-            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
-            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/style/playerInfo.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
@@ -921,14 +930,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="42" column="23" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
+        <state relative-caret-position="396">
+          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#115#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="649" column="26" selection-start-line="649" selection-start-column="26" selection-end-line="649" selection-end-column="26" />
+          <folding>
+            <element signature="e#48#89#0" />
+            <element signature="e#90#131#0" expanded="true" />
+            <element signature="n#!!block;n#getActiveIndex#0;n#OnlineGame#0" />
+            <element signature="n#!!block;n#getMyIndex#0;n#OnlineGame#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/helpers/gameCopy.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

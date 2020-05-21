@@ -1,4 +1,3 @@
-const Hand = require('pokersolver').Hand;
 const { FOLD } = require('../consts');
 const Mappings = require('../Maps');
 const { getUserHandObject } = require('./deck');
