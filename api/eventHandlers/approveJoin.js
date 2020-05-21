@@ -30,11 +30,16 @@ function onApproveJoinEvent(socket, {
     pendingRequest.approved = true;
     if (game.pendingJoin && game.pendingJoin.length > 0) {
       game.pendingJoin.filter(data => data.approved).forEach((pendingJoinItem) => {
+        const msg = `${pendingJoinItem.name} has join the game, initial balance of ${pendingJoinItem.balance}`;
         game.messages.push({
-          action: 'join', name: pendingJoinItem.name, balance: pendingJoinItem.balance, log: true, popupMessage: `${pendingJoinItem.name} has join the game`,
+          action: 'join', log: msg, popupMessage: `${pendingJoinItem.name} has join the game`, now,
         });
 
-        game.players.push({
+        if (game.players.some(p => p.name === pendingJoinItem.name)) {
+          pendingJoinItem.name = `${pendingJoinItem.name} (2)`;
+        }
+
+        game.players.splice(pendingJoinItem.positionIndex, 0, {
           id: pendingJoinItem.playerId,
           name: pendingJoinItem.name,
           balance: pendingJoinItem.balance,
@@ -43,6 +48,7 @@ function onApproveJoinEvent(socket, {
           pot: [0],
           justJoined: true,
         });
+
         game.moneyInGame += pendingJoinItem.balance;
         game.pendingPlayers.push(pendingJoinItem.playerId);
 

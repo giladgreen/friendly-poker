@@ -4,7 +4,7 @@ const { MAX_TABLE_PLAYERS } = require('../consts');
 const Mappings = require('../Maps');
 
 function onJoinGameEvent(socket, {
-  gameId, playerId, name, balance, now,
+  gameId, playerId, name, balance, now, positionIndex,
 }) {
   logger.info('onJoinGameEvent ');
 
@@ -33,18 +33,21 @@ function onJoinGameEvent(socket, {
         throw new Error('did not find admin socket');
       }
       game.pendingJoin.push({
-        playerId, name, balance,
+        playerId, name, balance, positionIndex,
       });
       socket.emit('operationpendingaproval');
       game.messages.push({
-        action: 'pendingjoin', name, balance, log: true, popupMessage: `${name} has requested to join the game`,
+        action: 'pendingjoin', popupMessage: `${name} has requested to join the game`, now,
       });
     } else {
+      const msg = `${name} has join the game, initial balance of ${balance}`;
+
       game.messages.push({
-        action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
+        action: 'join', log: msg, popupMessage: `${name} has join the game`,
       });
 
-      game.players.push({
+
+      game.players.splice(positionIndex, 0, {
         id: playerId,
         name,
         balance,

@@ -2,7 +2,7 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
-function onSitBackEvent(socket, { playerId, gameId }) {
+function onSitBackEvent(socket, { playerId, gameId, now }) {
   try {
     logger.info('onSitBackEvent');
     socket.playerId = playerId;
@@ -18,9 +18,9 @@ function onSitBackEvent(socket, { playerId, gameId }) {
     }
 
     game.pendingPlayers.push(playerId);
-
+    const msg = `${player.name} will re-joined next hand`;
     game.messages.push({
-      action: 'sitback', name: player.name, popupMessage: `${player.name} will re-joined next hand`,
+      action: 'sitback', popupMessage: msg, log: msg, now,
     });
 
     updateGamePlayers(game);

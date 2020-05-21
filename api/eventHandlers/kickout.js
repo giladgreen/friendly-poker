@@ -41,7 +41,7 @@ function onKickOutEvent(socket, {
           playerId: playerToKickId,
         });
         game.messages.push({
-          action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was Checked by admin`,
+          action: 'kickout', popupMessage: `${playerToKick.name} was Checked by admin`, now,
         });
       } else {
         onPlayerActionEvent(null, {
@@ -52,7 +52,7 @@ function onKickOutEvent(socket, {
           playerId: playerToKickId,
         });
         game.messages.push({
-          action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was Folded by admin`,
+          action: 'kickout', popupMessage: `${playerToKick.name} was Folded by admin`, now,
         });
       }
       GamesService.resetHandTimer(game, onPlayerActionEvent);
@@ -66,7 +66,7 @@ function onKickOutEvent(socket, {
         game.paused = true;
       }
       game.messages.push({
-        action: 'kickout', name: playerToKick.name, popupMessage: `${playerToKick.name} was removed from the game`,
+        action: 'kickout', popupMessage: `${playerToKick.name} was removed from the game`, log: `${playerToKick.name} was removed from the game by the admin`, now,
       });
     }
 

@@ -4,7 +4,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
 
-function onStartGameEvent(socket, { gameId, dateTime, playerId }) {
+function onStartGameEvent(socket, { gameId, now, playerId }) {
   logger.info('onStartGameEvent ');
 
   try {
@@ -18,15 +18,15 @@ function onStartGameEvent(socket, { gameId, dateTime, playerId }) {
       throw new Error('non game player');
     }
 
-    GamesService.startNewHand(game, dateTime);
+    GamesService.startNewHand(game, now);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
-    const starterPlayer = game.players.find(p => p.id === playerId);
     game.messages = [{
       action: 'game_started',
-      name: starterPlayer.name,
-      log: true,
+      popupMessage: 'Game Started',
+      log: 'Game Started',
+      now,
     }];
-    game.startDate = dateTime;
+    game.startDate = now;
     game.lastAction = (new Date()).getTime();
     updateGamePlayers(game);
     game.messages = [];

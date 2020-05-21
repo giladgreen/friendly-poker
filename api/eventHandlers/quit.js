@@ -28,8 +28,11 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
     if (game.players.filter(p => !p.sitOut).length < 2) {
       game.paused = true;
     }
+    let bottomLine = playerData.cashOut - playerData.totalBuyIns;
+    bottomLine = bottomLine > 0 ? `+${bottomLine}` : bottomLine;
+    const msg = `${player.name} has quit the game (${bottomLine})`;
     game.messages.push({
-      action: 'quit', name: player.name, popupMessage: `${player.name} has quit the game`,
+      action: 'quit', popupMessage: msg, log: msg, now,
     });
 
     updateGamePlayers(game);

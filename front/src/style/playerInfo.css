@@ -1039,33 +1039,33 @@
     text-align: center;
     top:11.7vh;
     left:0vw;
+
 }
 .kickOut-button{
     position: absolute;
-    width: 5.5vw;
-    height: 1.1vw;
+    width: 5vw;
+    height: 2.1vw;
     font-weight: bold;
-    border-radius: 0px 0px 10px 10px;
+
     background: white;
     color: orangered;
-    font-size: 0.6em;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    font-size: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
     z-index: 41;
     alignment: center;
     text-align: center;
-    top:9.7vh;
-    left:9.4vw;
+    top:11vh;
+    left:12.4vw;
     cursor: pointer;
+    padding-top: 0.8vh;
 }
 .force-action-button{
     color: black;
-    background: #ffff3399;
-    border-bottom: 3px solid black;
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-    padding-top: 0.4vh;
+    font-size: 0.8em;
+    background: #ffff33;
+
+
 }
 .player-sitOut-indication{
     position: absolute;

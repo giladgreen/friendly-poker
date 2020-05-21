@@ -130,7 +130,12 @@ async function loadGamesFromDb() {
 }
 
 function updateGamePlayers(game, showCards = false) {
-  const messages = game.messages || [];
+  game.messages.filter(m => m.log).forEach(({ log, now }) => {
+    const time = (new Date(now)).toLocaleTimeString('en-GB');
+    game.logs.push({ time, hand: game.hand, text: log });
+  });
+
+  const messages = (game.messages || []).filter(m => m.action === 'usermessage' || m.popupMessage);
   game.messages = [];
   saveGameToDB(game);
   game.players.forEach((player) => {
@@ -154,6 +159,7 @@ function givePotMoneyToWinners(game) {
   const totalPot = [];
   game.players.forEach((p) => {
     p.totalPot = p.pot.reduce((total, num) => total + num, 0);
+    p.moneyBefore = p.balance + p.totalPot;
     totalPot.push(p.totalPot);
     if (!p.fold && !p.sitOut) {
       p.solvedHand = getUserHandObject(game, p.cards, board);
@@ -166,6 +172,7 @@ function givePotMoneyToWinners(game) {
 
 
   const players = game.players.filter(p => !p.fold && !p.sitOut);
+
   const potSizes = Object.keys(potSizesCount).map(stringSize => parseInt(stringSize, 10)).sort((a, b) => b - a);
 
   potSizes.push(0);
@@ -180,6 +187,7 @@ function givePotMoneyToWinners(game) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
         relevantPlayers[0].winner = totalSidePotMoney;
+
         relevantPlayers[0].handsWon += 1;
         return;
       }
@@ -200,6 +208,7 @@ function givePotMoneyToWinners(game) {
           p.balance += amountWon;
           p.winner = amountWon;
           p.handsWon += 1;
+
           game.pot -= amountWon;
 
 
@@ -216,11 +225,6 @@ function givePotMoneyToWinners(game) {
     if (winners.length === 1) {
       const msg = {
         action: 'won_with_showdown',
-        name: winners[0].name,
-        amount,
-        hand: winners[0].handDesc,
-        cards: winners[0],
-        log: true,
         popupMessage: `${winners[0].name} won ${amount} ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
       };
       messages.push(msg);
@@ -237,14 +241,24 @@ function givePotMoneyToWinners(game) {
       });
       const msg = {
         action: 'split_win',
-        names: namesPart,
-        amount,
-        hand: winners[0].handDesc,
-        cards: winners[0],
-        log: true,
         popupMessage: `${namesPart} won ${amount} each ${potIndex > 0 ? '(side pot) ' : ''}with ${winners[0].handDesc}`,
       };
       messages.push(msg);
+    }
+  });
+
+  players.forEach((p) => {
+    const handBottomLine = p.balance - p.moneyBefore;
+    if (handBottomLine > 0) {
+      const msg = `${p.name} won. (+${handBottomLine})`;
+      messages.push({
+        action: 'showdownlog', log: msg,
+      });
+    } else if (handBottomLine < 0) {
+      const msg = `${p.name} lost. (${handBottomLine})`;
+      messages.push({
+        action: 'showdownlog', log: msg,
+      });
     }
   });
 

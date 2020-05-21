@@ -2,7 +2,9 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
-function onUserMessageEvent(socket, { playerId, gameId, message }) {
+function onUserMessageEvent(socket, {
+  playerId, gameId, message, now,
+}) {
   try {
     logger.info('onUserMessageEvent');
     socket.playerId = playerId;
@@ -18,7 +20,7 @@ function onUserMessageEvent(socket, { playerId, gameId, message }) {
     }
     const playerIndex = game.players.findIndex(p => p.id === playerId);
     game.messages.push({
-      action: 'usermessage', name: player.name, text: message, playerIndex,
+      action: 'usermessage', name: player.name, text: message, playerIndex, now,
     });
 
     updateGamePlayers(game);

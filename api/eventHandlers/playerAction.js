@@ -3,6 +3,7 @@ const GamesService = require('../services/games');
 const Mappings = require('../Maps');
 const PlayerHelper = require('../helpers/players');
 const GameHelper = require('../helpers/game');
+const { format } = require('../helpers/gameCopy');
 const {
   FOLD, CALL, CHECK, RAISE, PRE_FLOP, FLOP, TURN, RIVER, CARD, CARDS,
 } = require('../consts');
@@ -86,26 +87,31 @@ function handleRountOver(game, player, gameIsOver) {
   return gameIsOver;
 }
 
-function proceedToNextStreet(game, dateTime, gameIsOver) {
+function proceedToNextStreet(game, now, gameIsOver) {
+  const log = `Pot size: ${game.pot}, players are in for: ${game.players.map(p => `${p.name}: ${p.pot.reduce((total, num) => total + num, 0)}`).join(', ')}`;
+
   if (game.gamePhase === PRE_FLOP) {
     game.board = [game.deck.pop(), game.deck.pop(), game.deck.pop()];
     game.gamePhase = FLOP;
     game.amountToCall = 0;
-    game.messages.push({ action: 'Flop', board: game.board, log: true });
+    game.messages.push({ action: 'Flop', log: `Flop: ${format(game.board.join(','))}`, now });
+    game.messages.push({ action: 'FlopData', log, now });
     game.audioableAction.push(CARDS);
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
     game.board.push(game.deck.pop());
     game.gamePhase = TURN;
     game.amountToCall = 0;
-    game.messages.push({ action: 'Turn', board: [game.board[3]], log: true });
+    game.messages.push({ action: 'Turn', log: `Turn: ${format(game.board.join(','))}`, now });
+    game.messages.push({ action: 'TurnData', log, now });
     game.audioableAction.push(CARD);
     logger.info('Turn!');
   } else if (game.gamePhase === TURN) {
     game.board.push(game.deck.pop());
     game.gamePhase = RIVER;
     game.amountToCall = 0;
-    game.messages.push({ action: 'River', board: [game.board[4]], log: true });
+    game.messages.push({ action: 'River', log: `River: ${format(game.board.join(','))}`, now });
+    game.messages.push({ action: 'RiverData', log, now });
     game.audioableAction.push(CARD);
 
     logger.info('River!');
@@ -117,6 +123,9 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
     if (timeToShowShowdown > 10000) {
       timeToShowShowdown = 10000;
     }
+    game.messages.push({ action: 'ShowDown', log: 'ShowDown', now });
+    game.messages.push({ action: 'ShowDownData', log, now });
+
     logger.info(`hand is over.. showdown!  time To Show Showdown: ${timeToShowShowdown}`);
     GameHelper.handleGameOverWithShowDown(game);
     gameIsOver = true;
@@ -124,7 +133,7 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
 
 
     setTimeout(() => {
-      GamesService.startNewHand(game, dateTime);
+      GamesService.startNewHand(game, now);
       // eslint-disable-next-line no-use-before-define
       GamesService.resetHandTimer(game, onPlayerActionEvent);
       GameHelper.updateGamePlayers(game);
@@ -136,7 +145,7 @@ function proceedToNextStreet(game, dateTime, gameIsOver) {
   return gameIsOver;
 }
 function onPlayerActionEvent(socket, {
-  dateTime, op, amount, gameId, hand, playerId,
+  now, op, amount, gameId, hand, playerId,
 }) {
   let game;
 
@@ -166,7 +175,7 @@ function onPlayerActionEvent(socket, {
 
       if (!game.fastForward && activePlayersStillInGame.length === 1) {
         logger.info('hand is over!');
-        handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], dateTime);
+        handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], now);
       } else {
         logger.info('round is over!');
         game.betRoundOver = true;
@@ -189,7 +198,7 @@ function onPlayerActionEvent(socket, {
           game.messages = [];
         }
 
-        gameIsOver = proceedToNextStreet(game, dateTime, gameIsOver);
+        gameIsOver = proceedToNextStreet(game, now, gameIsOver);
       }
     } else {
       delete player.active;
@@ -225,19 +234,20 @@ function onPlayerActionEvent(socket, {
 }
 
 
-handlePlayerWonHandWithoutShowdown = (game, player, dateTime) => {
+handlePlayerWonHandWithoutShowdown = (game, player, now) => {
   logger.info('handlePlayerWonHandWithoutShowdown', player.name, 'pot:', game.pot);
   player.displayBalance = player.balance;
   player.balance += game.pot;
   player.winner = game.pot;
   player.handsWon += 1;
+  const actualProfit = game.pot - player.pot.reduce((all, one) => all + one, 0);
   game.messages.push({
-    action: 'won_without_showdown', name: player.name, amount: game.pot, log: true, popupMessage: `${player.name} took the hand with no showdown`,
+    action: 'won_without_showdown', log: `${player.name} took hand (+${actualProfit}) without showdown`, popupMessage: `${player.name} Won - No Showdown`,
   });
   game.pot = 0;
   game.handOver = true;
   setTimeout(() => {
-    GamesService.startNewHand(game, dateTime);
+    GamesService.startNewHand(game, now);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
     GameHelper.updateGamePlayers(game);
   }, 4000);

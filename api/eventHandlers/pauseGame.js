@@ -3,7 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const GameHelper = require('../helpers/game');
 const Mappings = require('../Maps');
 
-function onPauseGameEvent(socket, { gameId, playerId }) {
+function onPauseGameEvent(socket, { gameId, playerId, now }) {
   logger.info('onPauseGameEvent ');
 
   try {
@@ -22,7 +22,9 @@ function onPauseGameEvent(socket, { gameId, playerId }) {
     }
 
     game.paused = true;
-    game.messages.push({ action: 'game_paused', popupMessage: 'game paused' });
+    game.messages.push({
+      action: 'game_paused', popupMessage: 'Game Paused', log: 'Game Paused', now,
+    });
     GameHelper.pauseHandTimer(game);
     updateGamePlayers(game);
   } catch (e) {

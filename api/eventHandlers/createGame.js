@@ -23,6 +23,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       texas: gameCreatorData.texas,
       moneyInGame: amount,
       hand: 0,
+      logs: [],
       gamePhase: 0,
       smallBlind: parseInt(gameCreatorData.smallBlind, 10),
       bigBlind: parseInt(gameCreatorData.bigBlind, 10),

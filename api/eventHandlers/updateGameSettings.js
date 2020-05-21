@@ -3,9 +3,9 @@ const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
 
 function onUpdateGameSettingsEvent(socket, {
-  gameId, dateTime, playerId, time, smallBlind, bigBlind, newBalances,
+  gameId, now, playerId, time, smallBlind, bigBlind, newBalances = [],
 }) {
-  logger.info('onUpdateGameSettingsEvent ', gameId, dateTime, playerId, time, smallBlind, bigBlind);
+  logger.info('onUpdateGameSettingsEvent ', gameId, now, playerId, time, smallBlind, bigBlind, newBalances);
 
   try {
     socket.playerId = playerId;
@@ -28,24 +28,28 @@ function onUpdateGameSettingsEvent(socket, {
     game.bigBlindPendingChane = bigBlind;
 
 
-    if (newBalances) {
-      newBalances.forEach(({ fromPlayerId, toPlayerId, amount }) => {
-        const fromPlayer = game.players.find(p => p.id === fromPlayerId);
-        const toPlayer = game.players.find(p => p.id === toPlayerId);
-        if (!fromPlayer || !toPlayer) {
-          throw new Error('player not found');
-        }
-        if (fromPlayer.balance < amount) {
-          throw new Error('origin player does not have enough money');
-        }
-        fromPlayer.balance -= amount;
-        toPlayerId.balance += amount;
+    newBalances.forEach(({ fromPlayerId, toPlayerId, amount }) => {
+      const fromPlayer = game.players.find(p => p.id === fromPlayerId);
+      const toPlayer = game.players.find(p => p.id === toPlayerId);
+      if (!fromPlayer || !toPlayer) {
+        throw new Error('player not found');
+      }
+      if (fromPlayer.balance < amount) {
+        throw new Error('origin player does not have enough money');
+      }
+
+      fromPlayer.balance -= amount;
+      toPlayer.balance += amount;
+      const msg = `admin moved ${amount} from ${fromPlayer.name} to ${toPlayer.name}`;
+      logger.info(msg);
+      game.messages.push({
+        action: 'balance transfer', name: player.name, popupMessage: msg, log: msg, now,
       });
-    }
+    });
 
-
+    const msg = `admin changed game settings. Small-Blind:${smallBlind}, Big-Blind:${bigBlind}, time:${time}`;
     game.messages.push({
-      action: 'settings change', name: player.name, popupMessage: 'admin changed game settings',
+      action: 'settings change', log: msg, popupMessage: 'admin changed game settings', now,
     });
 
     updateGamePlayers(game);

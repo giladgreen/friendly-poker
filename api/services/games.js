@@ -59,8 +59,7 @@ function startNewHand(game, dateTime) {
   game.showPlayersHands = [];
   game.messages = [{
     action: 'log',
-    log: true,
-    text: `starting hand #${game.hand}`,
+    log: `hand started. ${game.players.map(p => `${p.name} has ${p.balance}`).join(', ')}`,
   }];
   game.deck = Deck.getShuffledDeck();
   game.time = game.timePendingChane || game.time;
@@ -70,13 +69,14 @@ function startNewHand(game, dateTime) {
 
   if (game.pendingJoin && game.pendingJoin.length > 0) {
     game.pendingJoin.filter(data => data.approved).forEach(({
-      playerId, name, balance,
+      playerId, name, balance, positionIndex,
     }) => {
+      const msg = `${name} has join the game, initial balance of ${balance}`;
       game.messages.push({
-        action: 'join', name, balance, log: true, popupMessage: `${name} has join the game`,
+        action: 'join', popupMessage: `${name} has join the game`, log: msg,
       });
 
-      game.players.push({
+      game.players.splice(positionIndex, 0, {
         id: playerId,
         name,
         balance,
@@ -110,8 +110,10 @@ function startNewHand(game, dateTime) {
         playerData.buyIns.push({ amount, time: dateTime });
         game.moneyInGame += amount;
 
+        const msg = `${playerToAddMoneyTo.name} did a rebuy of ${amount}`;
+
         game.messages.push({
-          action: 'rebuy', name: playerToAddMoneyTo.name, amount, popupMessage: `${playerToAddMoneyTo.name}, rebuy: ${amount}`, log: true,
+          action: 'rebuy', popupMessage: msg, log: msg,
         });
       }
     });
@@ -202,7 +204,7 @@ function startNewHand(game, dateTime) {
     delete game.smallBlindPendingChane;
     delete game.bigBlindPendingChane;
     game.messages.push({
-      action: 'game-settings-change', time: game.time, smallBlind: game.smallBlind, bigBlind: game.bigBlind, popupMessage: 'Game Settings Changed',
+      action: 'game-settings-change', popupMessage: 'Game Settings Changed',
     });
   }
 

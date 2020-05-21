@@ -43,9 +43,9 @@ function onApproveRebuyEvent(socket, {
           playerData.totalBuyIns += pendingRebuyItem.amount;
 
           game.moneyInGame += pendingRebuyItem.amount;
-
+          const msg = `${playerToAddMoneyTo.name} did a rebuy of ${pendingRebuyItem.amount}`;
           game.messages.push({
-            action: 'rebuy', name: playerToAddMoneyTo.name, amount, popupMessage: `${playerToAddMoneyTo.name}, rebuy: ${pendingRebuyItem.amount}`, log: true,
+            action: 'rebuy', popupMessage: msg, log: msg, now,
           });
         }
       });

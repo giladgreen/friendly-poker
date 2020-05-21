@@ -2,7 +2,7 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
-function onStandupEvent(socket, { playerId, gameId }) {
+function onStandupEvent(socket, { playerId, gameId, now }) {
   try {
     logger.info('onStandupEvent');
     socket.playerId = playerId;
@@ -22,8 +22,9 @@ function onStandupEvent(socket, { playerId, gameId }) {
     if (game.players.filter(p => !p.sitOut).length < 2) {
       game.paused = true;
     }
+    const msg = `${player.name} is sitting out`;
     game.messages.push({
-      action: 'stand', name: player.name, popupMessage: `${player.name} is sitting out`,
+      action: 'stand', popupMessage: msg, log: msg, now,
     });
 
     updateGamePlayers(game);

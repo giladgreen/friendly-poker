@@ -3,7 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
 function onSetCreatorAsAdminEvent(socket, {
-  playerId, gameId,
+  playerId, gameId, now,
 }) {
   try {
     logger.info('onSetCreatorAsAdminEvent');
@@ -31,9 +31,9 @@ function onSetCreatorAsAdminEvent(socket, {
     delete curAdmin.admin;
 
     player.admin = true;
-
+    const msg = `${player.name} is now the Game Admin`;
     game.messages.push({
-      action: 'newadmin', name: player.name, popupMessage: `${player.name} is now the game admin`,
+      action: 'newadmin', popupMessage: msg, log: msg, now,
     });
 
     updateGamePlayers(game);

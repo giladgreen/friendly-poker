@@ -3,7 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 
 function onChangeAdminEvent(socket, {
-  playerId, gameId, newAdminId,
+  playerId, gameId, newAdminId, now,
 }) {
   try {
     logger.info('onChangeAdminEvent');
@@ -29,9 +29,9 @@ function onChangeAdminEvent(socket, {
     }
     newAdmin.admin = true;
     delete player.admin;
-
+    const msg = `${newAdmin.name} is now the game admin`;
     game.messages.push({
-      action: 'newadmin', name: newAdmin.name, popupMessage: `${newAdmin.name} is now the game admin`,
+      action: 'newadmin', popupMessage: msg, log: msg, now,
     });
 
     updateGamePlayers(game);

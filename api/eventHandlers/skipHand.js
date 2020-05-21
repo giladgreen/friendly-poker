@@ -4,7 +4,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
 
-function onSkipHandEvent(socket, { gameId, dateTime, playerId }) {
+function onSkipHandEvent(socket, { gameId, now, playerId }) {
   logger.info('onSkipHandEvent ');
 
   try {
@@ -23,11 +23,11 @@ function onSkipHandEvent(socket, { gameId, dateTime, playerId }) {
     }
 
     game.players.forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
-    GamesService.startNewHand(game, dateTime);
+    GamesService.startNewHand(game, now);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
 
     game.messages.push({
-      action: 'skiphand', name: player.name, popupMessage: 'admin skipped to next hand',
+      action: 'skiphand', popupMessage: 'Admin Forced Skipped to next hand', log: 'Admin Forced Skipped to next hand', now,
     });
 
     updateGamePlayers(game);

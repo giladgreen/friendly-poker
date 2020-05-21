@@ -36,7 +36,7 @@ function onRebuyEvent(socket, {
         playerId, amount, name: player.name,
       });
       game.messages.push({
-        action: 'pendingrebuy', name: player.name, amount, log: true, popupMessage: `${player.name} has requested to rebuy: ${amount}`,
+        action: 'pendingrebuy', popupMessage: `${player.name} has requested to rebuy: ${amount}`, now,
       });
     } else {
       player.balance += amount;
@@ -48,9 +48,10 @@ function onRebuyEvent(socket, {
       playerData.buyIns.push({ amount, time: now });
       playerData.totalBuyIns += amount;
       game.moneyInGame += amount;
+      const msg = `${player.name} did a rebuy of ${amount}`;
 
       game.messages.push({
-        action: 'rebuy', name: player.name, amount, popupMessage: `${player.name}, rebuy: ${amount}`, log: true,
+        action: 'rebuy', name: player.name, amount, popupMessage: msg, log: msg,
       });
     }
 
