@@ -5,7 +5,7 @@ import Card from "./Card";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
 
-    const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
+    const {game, player, index, winningHandCards, isMe, initial, betRoundOver } = props;
     const {cardsToShow} = player;
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
@@ -15,6 +15,9 @@ const PlayerInfo = (props) => {
 
     const handsWon = `${player.handsWon}`;
     const handWonClass = `trophy-badge trophy-badge-${handsWon.length}-digit`;
+
+    const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
+    const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
@@ -40,7 +43,8 @@ const PlayerInfo = (props) => {
             { game.handOver && player.winner  && <div id={`player${index}-pot-end`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
-            { false && props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}
+            { props.admin && !props.isMe && <div className="user-menu" onClick={()=>props.kickOutPlayer(player.id)}><span className={actionClass}>{forceAction}</span></div>}
+            {/*{ false && props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}*/}
             { player.sitOut && <div  className="player-sitOut-indication">{game.pendingPlayers.includes(player.id) ? 'Joining next hand': 'Sitting Out'}</div>}
             { player.userDesc && game.gamePhase === 1 && <div  className={`player-hand-description player-hand-description-at-game-phase-1`}>{player.userDesc}</div>}
             { player.userDesc && game.gamePhase === 2 && <div  className={`player-hand-description player-hand-description-at-game-phase-2`}>{player.userDesc}</div>}

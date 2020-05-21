@@ -517,10 +517,11 @@ class App extends Component {
     };
 
     kickOutPlayer = (playerToKickId) =>{
-
+        const player = this.state.game.players.find(p=>p.id ===playerToKickId);
+        const action = player.active ? (player.options.includes('Call') ? 'Force Fold Player':'Force Check Player') :'Kick Out Player';
         this.setState({ popupData: {
                 show: true,
-                message:'Are you sure?',
+                message: `Are you sure you want to ${action}?`,
                 onYes:()=>{
                     const { gameId, playerId } = this.state;
                     console.log('emiting kickoutplayer');

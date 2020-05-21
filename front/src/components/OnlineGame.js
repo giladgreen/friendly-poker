@@ -526,7 +526,19 @@ class OnlineGame extends Component {
 
 
                 {/* players */}
-                {players.map((player)=> <PlayerInfo betRoundOver={betRoundOver} initial={initial} key={player.id} playerPreferences={this.state.playerPreferences}  admin={me.admin} isMe={player.id === me.id} game={game} player={player} index={player.locationIndex}  dealIndex={player.dealIndex} winningHandCards={winningHandCards} kickOutPlayer={this.props.kickOutPlayer}/>)}
+                {players.map((player)=> <PlayerInfo
+                    betRoundOver={betRoundOver}
+                    initial={initial}
+                    key={player.id}
+                    playerPreferences={this.state.playerPreferences}
+                    admin={me.admin}
+                    isMe={player.id === me.id}
+                    game={game}
+                    player={player}
+                    index={player.locationIndex}
+                    dealIndex={player.dealIndex}
+                    winningHandCards={winningHandCards}
+                    kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
                 {Boolean(pot) && <div id="community-pot">
                     <div>{ !isNaN(displayPot) ? displayPot : potBeforeRaises}</div>
