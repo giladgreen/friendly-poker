@@ -51,6 +51,7 @@ function startNewHand(game, dateTime) {
   delete game.handOver;
   delete game.winningHandCards;
   game.pot = 0;
+  game.displayPot = 0;
   game.gamePhase = PRE_FLOP;
   game.amountToCall = game.bigBlind;
   game.hand += 1;

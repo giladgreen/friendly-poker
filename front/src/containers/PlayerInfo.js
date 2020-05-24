@@ -2,6 +2,8 @@
 /* eslint-disable jsx-a11y/img-has-alt */
 import React from 'react'
 import Card from "./Card";
+import { CSSTransition } from "react-transition-group";
+
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
 
@@ -19,8 +21,19 @@ const PlayerInfo = (props) => {
     const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
     const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
+    // console.log('###############')
+    // console.log('player.name', player.name)
+    // console.log('betRoundOver', betRoundOver)
+    // console.log('gamePhase',game.gamePhase)
+    // console.log('player.pot[game.gamePhase]', player.pot[game.gamePhase]);
+    // console.log('in condition', !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && !betRoundOver)
+    // console.log('###############')
+    //
+
+
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
+
             {cardsToShow > 0 &&               <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
             {cardsToShow > 1 &&               <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card2)}/>}
             {game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
@@ -39,8 +52,19 @@ const PlayerInfo = (props) => {
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
 
-            { !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && <div id={`player${index}-pot-mid`} className={`player-pot player-pot-mid-hand ${betRoundOver ? 'player-pot-mid-hand-betRoundOver':''}`}>+{(player.pot[game.gamePhase])}</div>}
+            <CSSTransition
+                in={!game.handOver && player.pot && player.pot[game.gamePhase] > 0 && !betRoundOver}
+                timeout={1000}
+                classNames={`player${index}-pot-mid`}
+                unmountOnExit
+                appear>
+
+                 <div id={`player${index}-pot-mid`} className={`player-pot player-pot-mid-hand player${index}-pot-mid`}>+{(player.pot[game.gamePhase])}</div>
+
+            </CSSTransition>
+
             { game.handOver && player.winner  && <div id={`player${index}-pot-end`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
+
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
             { props.admin && !props.isMe && <div className="user-menu" onClick={()=>props.kickOutPlayer(player.id)}><span className={actionClass}>{forceAction}</span></div>}

@@ -103,10 +103,7 @@ class JoinGameScreen extends Component {
 
                         </div>
 
-                        {playersCount >= 8 && <div id="join-button-full-game-div">
-                            <span id="join-button-full-game" >Game is full</span>
 
-                        </div>}
 
                     </div>
 
@@ -127,7 +124,7 @@ class JoinGameScreen extends Component {
                             })
                         }
 
-                        {
+                        { playersCount < 8 ?
                             players.map((player,index)=>{
 
                                 return <div key={`join_after_${player.id}`}
@@ -136,15 +133,19 @@ class JoinGameScreen extends Component {
                                             className={canJoin ?'sit-here-button':'do-not-sit'}>
                                         {canJoin ? 'SIT' : ''}
                                 </div>
-                            })
+                            }) : <div/>
                         }
-                        {canJoin ? <div key={`join_before_first`}
+                        {canJoin && playersCount < 7 ? <div key={`join_before_first`}
                                                   id={`join-after-existing-player-7`}
                                                   onClick={()=>this.onJoin(0)}
                                                   className="sit-here-button">
                             SIT
                         </div> : <div/>}
 
+                        {playersCount >= 8 && <div id="join-button-full-game-div">
+                            <span id="join-button-full-game" >Game is Full</span>
+
+                        </div>}
 
                     </div>
 

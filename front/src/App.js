@@ -335,7 +335,7 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-
+            console.log('on game update game.socketId',game.socketId)
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
@@ -357,7 +357,7 @@ class App extends Component {
                     }
                 }
                 if (this.GameUpdatedCallback){
-                    if (gameClone.betRoundOver ||
+                    if (gameClone.betRoundOver !== this.state.game.betRoundOver ||
                         gameClone.hand !== this.state.game.hand ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
@@ -718,6 +718,7 @@ class App extends Component {
     };
 
     render() {
+        console.log('app render')
         const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
         if (isMobile){

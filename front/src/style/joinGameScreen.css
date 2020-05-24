@@ -59,23 +59,21 @@
     background: #666666;
     color: #999999;
 }
-#join-screen #join-button-full-game-div{
+#join-button-full-game-div{
     position: fixed;
-    top: 65vh;
+    top: 40vh;
     height: 10vh;
     margin-top: 10px;
     font-weight: bold;
     font-size: 3em;
     text-align: center;
-    width: 50vw;
-    left: 2vw;
+    width: 40vw;
+    left: 57vw;
+    z-index: 90000;
 }
 
 #join-screen #join-button-full-game{
-    padding: 5px 10px;
-    border: 1px solid white;
-    border-radius: 10px;
-    background: red;
+
     color: black;
 }
 
@@ -169,7 +167,10 @@
     top: 41.9vh;
     left: 57.5vw;
 }
-
+#join-table-existing-player-8{
+    top: 42vh;
+    left: 57vw;
+}
 .existing-player{
     position: fixed;
     height: 8vh;

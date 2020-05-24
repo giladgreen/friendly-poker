@@ -147,6 +147,8 @@ function updateGamePlayers(game, showCards = false) {
       });
 
       const gamePrivateCopy = getPlayerCopyOfGame(playerId, game, showCards);
+      gamePrivateCopy.socketId = playerId;
+      console.log(`sending update to ${player.name},  game phase:${gamePrivateCopy.gamePhase},  betRoundOver:${gamePrivateCopy.betRoundOver},    player.pot[game.gamePhase]:${player.pot[gamePrivateCopy.gamePhase]}`)
       socket.emit('gameupdate', gamePrivateCopy);
     }
   });
@@ -186,7 +188,7 @@ function givePotMoneyToWinners(game) {
       if (relevantPlayers.length === 1) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
-        relevantPlayers[0].winner = totalSidePotMoney;
+        relevantPlayers[0].winner = relevantPlayers[0].winner ? relevantPlayers[0].winner + totalSidePotMoney : totalSidePotMoney;
 
         relevantPlayers[0].handsWon += 1;
         return;
@@ -206,7 +208,7 @@ function givePotMoneyToWinners(game) {
             };
           }
           p.balance += amountWon;
-          p.winner = amountWon;
+          p.winner = p.winner? p.winner + amountWon : amountWon;
           p.handsWon += 1;
 
           game.pot -= amountWon;

@@ -478,6 +478,7 @@ class OnlineGame extends Component {
     };
 
     render() {
+        console.log('online game render')
         const { options, cheapLeader, me, betRoundOver} = this.state;
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy} = game;
@@ -505,8 +506,6 @@ class OnlineGame extends Component {
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && game.handOver;
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
-
-        const potBeforeRaises = pot - players.map(p=>p.pot[game.gamePhase]).filter(num=>!isNaN(num)).reduce((all,one)=>all+one,0);
 
         return (
             <div id="online-game-screen">
@@ -540,11 +539,11 @@ class OnlineGame extends Component {
                     winningHandCards={winningHandCards}
                     kickOutPlayer={this.props.kickOutPlayer}/>)}
                 {/* game pot */}
-                {Boolean(pot) && <div id="community-pot">
-                    <div>{ !isNaN(displayPot) ? displayPot : potBeforeRaises}</div>
-                    {potBeforeRaises !== pot && <div className="total-pot-amount">total of {pot}</div>}
+                 <div id="community-pot">
+                    <div>{ displayPot}</div>
+                    {displayPot !== pot && <div className="total-pot-amount">total of {pot}</div>}
 
-                </div>}
+                </div>
                 {/* game board */}
                 {board && <div id="community-cards">
                     <div id="community-card-deck1" ><Card playerPreferences={this.state.playerPreferences}/></div>

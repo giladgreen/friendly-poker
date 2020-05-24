@@ -13,8 +13,6 @@
     color: black;
 }
 
-
-
 #player1{
     top:65vh;
     left:44vw;
@@ -91,17 +89,49 @@
         left:47.5vw;
     }
 }
-#player1-pot-mid{
-    position: fixed;
+
+
+
+.player1-pot-mid{
     z-index: 33;
+    position: fixed;
     top:57.6vh;
     left:47.5vw;
-    animation-name: player1-pot-mid-anim;
-    animation-duration: 1s;
-    animation-delay: 0.5s;
-    animation-fill-mode: both;
-
 }
+
+.player1-pot-mid-enter {
+    position: fixed;
+    top:62vh;
+    left:47.5vw;
+}
+.player1-pot-mid-enter-active {
+    position: fixed;
+    top:57.6vh;
+    left:47.5vw;
+    transition: all 1000ms;
+}
+.player1-pot-mid-exit {
+    position: fixed;
+    top:57.6vh;
+    left:47.5vw;
+}
+.player1-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: transparent;
+    transition: all 1000ms;
+}
+
 @keyframes player1-pot-end-anim {
     from {
         top: 24vh;
@@ -205,17 +235,48 @@
         left:30vw;
     }
 }
-#player2-pot-mid{
+.player2-pot-mid{
     position: fixed;
     z-index: 33;
     top:54.2vh;
     left:30vw;
-    animation-name: player2-pot-mid-anim;
-    animation-duration: 1s;
-    animation-delay: 0.5s;
-    animation-fill-mode: both;
 
 }
+
+.player2-pot-mid-enter {
+    position: fixed;
+    top:60.2vh;
+    left:27vw;
+}
+.player2-pot-mid-enter-active {
+    position: fixed;
+    top:54.2vh;
+    left:30vw;
+    transition: all 1000ms;
+}
+.player2-pot-mid-exit {
+    position: fixed;
+    top:54.2vh;
+    left:30vw;
+}
+.player2-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
+}
+
+
 
 @keyframes player2-pot-end-anim {
     from {
@@ -310,13 +371,47 @@
     left:12vw;
 }
 
-#player3-pot-mid{
+.player3-pot-mid{
     position: fixed;
     top:46.82vh;
     left:19.4vw;
     z-index: 33;
 
 }
+.player3-pot-mid-enter {
+    position: fixed;
+    top:40.82vh;
+    left:12.4vw;
+}
+.player3-pot-mid-enter-active {
+    position: fixed;
+    top:46.82vh;
+    left:19.4vw;
+    transition: all 1000ms;
+}
+.player3-pot-mid-exit {
+    position: fixed;
+    top:46.82vh;
+    left:19.4vw;
+}
+.player3-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
+}
+
+
 @keyframes player3-pot-end-anim {
     from {
         top: 24vh;
@@ -339,8 +434,8 @@
 
 }
 #dealer-button-3{
-    top:8.82vh;
-    left:15.4vw;
+    top:8.22vh;
+    left:16.4vw;
 }
 #player4{
     top:14vh;
@@ -412,13 +507,48 @@
 
 
 
-#player4-pot-mid{
+.player4-pot-mid{
     position: fixed;
     z-index: 33;
     top:25.6vh;
     left:31.5vw;
 
 }
+.player4-pot-mid-enter {
+    position: fixed;
+    top:20.6vh;
+    left:30vw;
+}
+.player4-pot-mid-enter-active {
+    position: fixed;
+    top:25.6vh;
+    left:31.5vw;
+    transition: all 1000ms;
+}
+.player4-pot-mid-exit {
+    position: fixed;
+    top:25.6vh;
+    left:31.5vw;
+}
+.player4-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
+}
+
+
+
 @keyframes player4-pot-end-anim {
     from {
         top: 24vh;
@@ -512,13 +642,47 @@
     left:47vw;
 }
 
-#player5-pot-mid{
+.player5-pot-mid{
     position: fixed;
     z-index: 33;
     top:20.3vh;
     left:52.2vw;
-
 }
+.player5-pot-mid-enter {
+    position: fixed;
+    top:10.3vh;
+    left:50vw;
+}
+.player5-pot-mid-enter-active {
+    position: fixed;
+    top:20.3vh;
+    left:52.2vw;
+    transition: all 1000ms;
+}
+.player5-pot-mid-exit {
+    position: fixed;
+    top:20.3vh;
+    left:52.2vw;
+}
+.player5-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
+}
+
+
+
 @keyframes player5-pot-end-anim {
     from {
         top: 24vh;
@@ -612,13 +776,47 @@
     left:69vw;
 }
 
-#player6-pot-mid{
+.player6-pot-mid{
     position: fixed;
     z-index: 33;
     top:23.5vh;
-    left:61.8vw;
+    left:60vw;
 
 }
+.player6-pot-mid-enter {
+    position: fixed;
+    top:17.5vh;
+    left:64vw;
+}
+.player6-pot-mid-enter-active {
+    position: fixed;
+    top:23.5vh;
+    left:60vw;
+    transition: all 1000ms;
+}
+.player6-pot-mid-exit {
+    position: fixed;
+    top:23.5vh;
+    left:60vw;
+}
+.player6-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
+}
+
+
 @keyframes player6-pot-end-anim {
     from {
         top: 24vh;
@@ -713,11 +911,43 @@
 
 }
 
-#player7-pot-mid{
+.player7-pot-mid{
     position: fixed;
     z-index: 33;
     top:41.5vh;
-    left:75.1vw;
+    left:74vw;
+}
+.player7-pot-mid-enter {
+    position: fixed;
+    top:40vh;
+    left:79.1vw;
+}
+.player7-pot-mid-enter-active {
+    position: fixed;
+    top:41.5vh;
+    left:74vw;
+    transition: all 1000ms;
+}
+.player7-pot-mid-exit {
+    position: fixed;
+    top:41.5vh;
+    left:74vw;
+}
+.player7-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
 }
 @keyframes player7-pot-end-anim {
     from {
@@ -815,13 +1045,43 @@
 }
 
 
-
-
-#player8-pot-mid{
+.player8-pot-mid{
     position: fixed;
     z-index: 33;
     top:54.6vh;
     left:64.7vw;
+}
+.player8-pot-mid-enter {
+    position: fixed;
+    top:59.6vh;
+    left:68.7vw;
+}
+.player8-pot-mid-enter-active {
+    position: fixed;
+    top:54.6vh;
+    left:64.7vw;
+    transition: all 1000ms;
+}
+.player8-pot-mid-exit {
+    position: fixed;
+    top:54.6vh;
+    left:64.7vw;
+}
+.player8-pot-mid-exit-active {
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+    transition: all 1000ms;
 }
 @keyframes player8-pot-end-anim {
     from {
@@ -962,10 +1222,11 @@
 }
 
 .player-pot-hand-over{
-    background: cornflowerblue;
-    color: black;
+    background: transparent;
+    color: white;
+    text-shadow: 2px 2px black;
     z-index: 35;
-    border: 3px solid black;
+    border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
     font-size: 2.6em;

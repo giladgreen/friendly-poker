@@ -8,6 +8,16 @@ const {
   FOLD, CALL, CHECK, RAISE, PRE_FLOP, FLOP, TURN, RIVER, CARD, CARDS,
 } = require('../consts');
 
+
+async function sleep(milli){
+  return new Promise((resolve)=>{
+    setTimeout(()=>{
+      resolve();
+    },milli)
+  })
+}
+
+
 let handlePlayerWonHandWithoutShowdown;
 function validateGame(game) {
   try {
@@ -144,7 +154,7 @@ function proceedToNextStreet(game, now, gameIsOver) {
   }
   return gameIsOver;
 }
-function onPlayerActionEvent(socket, {
+async function onPlayerActionEvent(socket, {
   now, op, amount, gameId, hand, playerId,
 }) {
   let game;
@@ -168,6 +178,12 @@ function onPlayerActionEvent(socket, {
     if (!game.fastForward) {
       player = handlePlayerAction(game, playerId, op, amount, hand);
     }
+    const roundSum = game.players.filter(p => p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
+        .map(p => p.pot[game.gamePhase])
+        .reduce((all, one) => all + one, 0);
+
+    game.displayPot = game.pot - roundSum;
+
     const betRoundOver = game.fastForward || game.players.filter(p => p.needToTalk).length === 0;
     const allButOneHaveFolded = game.players.filter(p => p.needToTalk).length === 1 && game.players.filter(p => !p.fold && !p.sitOut).length === 1;
     if (betRoundOver || allButOneHaveFolded) {
@@ -175,27 +191,28 @@ function onPlayerActionEvent(socket, {
 
       if (!game.fastForward && activePlayersStillInGame.length === 1) {
         logger.info('hand is over!');
-        handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], now);
-      } else {
-        logger.info('round is over!');
-        game.betRoundOver = true;
-        game.updateDelay = 1500;
-        // eslint-disable-next-line no-restricted-globals
-        const roundSum = game.players.filter(p => p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
-          .map(p => p.pot[game.gamePhase])
-          .reduce((all, one) => all + one, 0);
-
-        game.updateDelay = roundSum > 0 ? 2500 : 1500;
-        const currentPot = game.pot;
-        game.displayPot = currentPot - roundSum;
         GameHelper.updateGamePlayers(game, gameIsOver);
-        delete game.displayPot;
+        await sleep(1500);
+        handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], now);
 
-        if (!game.fastForward) {
-          gameIsOver = handleRountOver(game, player, gameIsOver);
-        } else {
+      } else {
+        logger.info('bet round is over!');
+        GameHelper.updateGamePlayers(game, gameIsOver);
+        await sleep(750);
+        game.betRoundOver = true;
+        GameHelper.updateGamePlayers(game, gameIsOver);
+        await sleep(750);
+        if (roundSum > 0){
+          await sleep(750);
+        }
+
+        game.displayPot = game.pot;
+
+        if (game.fastForward) {
           gameIsOver = true;
           game.messages = [];
+        } else {
+          gameIsOver = handleRountOver(game, player, gameIsOver);
         }
 
         gameIsOver = proceedToNextStreet(game, now, gameIsOver);
@@ -215,13 +232,8 @@ function onPlayerActionEvent(socket, {
     }
 
     validateGame(game);
-
-    const delayTime = game.updateDelay || 0;
+    GameHelper.updateGamePlayers(game, gameIsOver);
     delete game.betRoundOver;
-    delete game.updateDelay;
-    setTimeout(() => {
-      GameHelper.updateGamePlayers(game, gameIsOver);
-    }, delayTime);
   } catch (e) {
     logger.error('onPlayerActionEvent error', e.message);
     logger.error('error', e);
