@@ -45,6 +45,11 @@ function resumeHandTimer(game) {
 
 function startNewHand(game, dateTime) {
   logger.info('startNewHand');
+  if (game.paused){
+    logger.info('game is paused..');
+
+    return;
+  }
   game.handStartDate = dateTime;
   game.audioableAction = [BEEP];
   delete game.fastForward;

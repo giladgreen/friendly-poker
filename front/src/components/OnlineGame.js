@@ -22,6 +22,8 @@ import TuneIcon from '@material-ui/icons/Tune';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import UserTimer from "./UserTimer";
+import GamePauseScreen from "../containers/GamePauseScreen";
+
 import GameSettingModal from "./GameSettingModal";
 import Clock from "./Clock";
 const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
@@ -815,6 +817,10 @@ class OnlineGame extends Component {
                 <div id="messages-box">
                     {messages}
                 </div>
+                
+                {game.paused ? <GamePauseScreen  resumeGame={this.props.resumeGame}
+                                                 isAdmin={this.props.isAdmin}
+                                                 game={this.props.game}/> : <div/>}
             </div>
         );
 

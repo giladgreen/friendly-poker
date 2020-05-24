@@ -370,7 +370,7 @@ class App extends Component {
             gameClone.players.forEach(p=>{
                 p.cardsToShow = newHand ? 0 : 2;
             });
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver});
+            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver && game.gamePhase === 0});
             if (newHand){
                 const playersWithCards = game.players.filter(p=>!p.sitOut);
                 const playersWithCardsCount = playersWithCards.length;
@@ -752,13 +752,7 @@ class App extends Component {
             const gamePlayer =  game.players.find(p=>p.id === playerId);
 
             if (gamePlayer){
-
-                if (gamePaused){
-                    return this.wrapWithAlerts(<GamePauseScreen
-                        resumeGame={this.resumeGame}
-                        isAdmin={isAdmin}
-                        game={this.state.game} />)
-                }
+                
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}

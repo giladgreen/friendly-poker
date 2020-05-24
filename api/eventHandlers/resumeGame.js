@@ -22,12 +22,15 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
         delete game.paused;
         delete game.pausedByServer;
         if (game.startDate) {
+          logger.info('calling startNewHand');
           GamesService.startNewHand(game, now);
           GamesService.resetHandTimer(game, onPlayerActionEvent);
         }
       }
     } else {
       delete game.paused;
+      logger.info('calling startNewHand');
+      GamesService.startNewHand(game, now);
       GamesService.resetHandTimer(game, onPlayerActionEvent);
       game.messages.push({
         action: 'game_resumed', popupMessage: 'Game Resumed', log: 'Game Resumed', now,
