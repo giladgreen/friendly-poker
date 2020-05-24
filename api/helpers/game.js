@@ -148,7 +148,6 @@ function updateGamePlayers(game, showCards = false) {
 
       const gamePrivateCopy = getPlayerCopyOfGame(playerId, game, showCards);
       gamePrivateCopy.socketId = playerId;
-      console.log(`sending update to ${player.name},  game phase:${gamePrivateCopy.gamePhase},  betRoundOver:${gamePrivateCopy.betRoundOver},    player.pot[game.gamePhase]:${player.pot[gamePrivateCopy.gamePhase]}`)
       socket.emit('gameupdate', gamePrivateCopy);
     }
   });
