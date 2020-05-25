@@ -25,6 +25,12 @@ class JoinGameScreen extends Component {
             joinRequestSent: false,
             maxBuyIn,
             minBuyIn,
+            gameOptions:[
+                {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS'},
+                {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA'},
+                {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE'},
+                {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE'},
+            ],
         }
     }
 
@@ -61,7 +67,8 @@ class JoinGameScreen extends Component {
         if (this.state.joinRequestSent){
             return <Loader/>;
         }
-        const {smallBlind, bigBlind, time, players, omaha}=this.props.game;
+        const {game}=this.props;
+        const {smallBlind, bigBlind, time, players, gameType}=game;
         const playersCount = players.length;
         const canJoin = players.length < 8 && !this.state.showNameError && this.state.name && this.state.name.length>0;
         return (
@@ -71,7 +78,7 @@ class JoinGameScreen extends Component {
                         <header>
                             Join Game
                         </header>
-                        <div>{omaha ? 'Pot Limit Omaha' : 'No Limit Texas Holdem'}</div>
+                        <div>{this.state.gameOptions.find(option=>option.type === gameType).name}</div>
 
                         <div>
                             Small Blind: {smallBlind}

@@ -21,16 +21,6 @@ const PlayerInfo = (props) => {
     const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
     const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
-    // console.log('###############')
-    // console.log('player.name', player.name)
-    // console.log('betRoundOver', betRoundOver)
-    // console.log('gamePhase',game.gamePhase)
-    // console.log('player.pot[game.gamePhase]', player.pot[game.gamePhase]);
-    // console.log('in condition', !game.handOver && player.pot && player.pot[game.gamePhase] > 0 && !betRoundOver)
-    // console.log('###############')
-    //
-
-
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
 

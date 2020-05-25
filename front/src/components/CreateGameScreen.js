@@ -45,8 +45,10 @@ class CreateGameScreen extends Component {
             showBuyInError:false,
             showTimeError:false,
             gameOptions:[
-                {value: 1, name: 'No Limit Texas Holdem'},
-                {value: 2, name: 'Pot Limit Omaha'}
+                {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS'},
+                {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA'},
+                // {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE'},
+                // {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE'},
             ],
             selectedGame: 1,
         }
@@ -73,8 +75,7 @@ class CreateGameScreen extends Component {
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
             requireRebuyAproval: this.state.aprovalRequired,
-            texas: this.state.selectedGame === 1,
-            omaha: this.state.selectedGame === 2,
+            gameType: this.state.gameOptions.find(option=>option.value === this.state.selectedGame).type
         });
     };
 
@@ -268,8 +269,8 @@ class CreateGameScreen extends Component {
                                     return <div key={game.id}
                                                 className={index % 2 ===0 ?'existing-game greyGame':'existing-game whiteGame'}>
                                         <div  onClick={()=>window.location = `${serverPrefix}?gameid=${game.id}`}>
-                                            <div>{game.omaha ? 'Pot Limit Omaha' : 'No Limit Texas Holdem'}</div>
-                                            <div>{game.privateGame ? 'private game' : 'public game'}</div>
+                                            <div>{this.state.gameOptions.find(option=>option.type === game.gameType).name}</div>
+                                            <div>{`${game.privateGame ? 'private' : 'public'} game`}</div>
                                             <div> created by {this.getGameCreator(game)}</div>
                                             <div> blinds: {game.smallBlind}/{game.bigBlind}</div>
                                             <div>{date.AsGameName()} {date.AsExactTime()}</div>
