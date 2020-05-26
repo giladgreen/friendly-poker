@@ -1,0 +1,1051 @@
+.hidden{
+    visibility: collapse;
+}
+.left-margin{
+    margin-left: 3px;
+    margin-right: 5px;
+}
+#online-game-screen{
+    background-color: black; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right, black, #444444AA, black); /* Standard syntax (must be last) */
+
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    position:fixed;
+}
+.shortcut{
+    text-decoration: underline;
+}
+.copy-game-link{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    padding: 10px;
+    position: fixed;
+    z-index: 102;
+}
+.copy-game-link:hover{
+    cursor: pointer;
+    background: #222222;
+}
+
+#copy-game-link-big{
+    border-width: 4px;
+    top:35vh;
+    left:33vw;
+    width: 30vw;
+    font-size: 2.2em;
+    text-align: center;
+
+}
+
+
+@keyframes side-menu-anim {
+    from {
+        color: white;
+        background: black;
+        top:10vh;
+        right:2vw;
+        font-size: 1.5em;
+        height: 5.4vh;
+        width: 8vw;
+    }
+    to {
+        color: black;
+        background: white;
+        top:9vh;
+        right:0.2vw;
+        width: 3vh;
+        height: 3vh;
+        font-size: 1.2em;
+    }
+}
+
+.side-menu{
+    text-align: center;
+    position: fixed;
+    z-index: 102;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+
+#side-menu-closed{
+    animation-name: side-menu-anim;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-direction: reverse;
+}
+
+#side-menu-opened{
+    animation-name: side-menu-anim;
+    animation-duration: 0.2s;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+
+}
+
+@keyframes rebuy-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:10vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+#rebuy-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    position: fixed;
+    z-index: 109;
+    font-size: 1em;
+    text-align: center;
+    padding-top: 1vh;
+
+    animation-name: rebuy-button-anim ;
+    animation-duration: 0.3s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+
+}
+#actual-rebuy-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    position: fixed;
+    z-index: 109;
+    top:27vh;
+    right:2vw;
+    font-size: 1em;
+    height: 5.4vh;
+    width: 8vw;
+    text-align: center;
+    padding-top: 1vh;
+}
+
+#rebuy-section{
+    color: white;
+    padding: 10px;
+    padding-top: 5.9vh;
+    padding-right: 1.3vh;
+    position: fixed;
+    z-index: 105;
+    top:10vh;
+    right:1.5vw;
+    width: 9vw;
+    height: 23vh;
+    font-size: 1.5em;
+    text-align: center;
+}
+#rebuy-label{
+
+}
+#rebuy-input{
+    width: 7.5vw;
+    padding-left: 0.5vw;
+    text-align: center;
+    border-radius: 10px;
+}
+
+@keyframes copy-game-link-small-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:18vh;
+        right:2vw;
+        width: 8vw;
+        height: 5.4vh;
+    }
+}
+#copy-game-link-small{
+    text-align: center;
+    animation-name: copy-game-link-small-anim ;
+    animation-duration: 0.4s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes stand-sit-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:26vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+
+#stand-sit-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    position: fixed;
+    z-index: 103;
+    top:26vh;
+    right:2vw;
+    font-size: 1em;
+    height: 5.4vh;
+    width: 8vw;
+    text-align: center;
+    padding-top: 1vh;
+    animation-name: stand-sit-button-anim;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes info-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:34vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+
+#info-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    font-size: 1em;
+    background: black;
+    position: fixed;
+    z-index: 103;
+    text-align: center;
+    padding-top: 1vh;
+    animation-name: info-button-anim;
+    animation-duration: 0.6s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes game-logs-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:42vh;
+        right:2vw;
+
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+#game-logs-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    position: fixed;
+    font-size: 1em;
+    z-index: 103;
+
+    text-align: center;
+    padding-top: 1vh;
+
+    animation-name: game-logs-button-anim;
+    animation-duration: 0.7s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes quit-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:50vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+#quit-button{
+    border: 1px solid white;
+    border-radius: 15px;
+
+
+    position: fixed;
+    z-index: 103;
+    font-size: 1em;
+
+    text-align: center;
+    padding-top: 1vh;
+    animation-name: quit-button-anim;
+    animation-duration: 0.8s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+
+@keyframes player-settings-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:58vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+#player-settings-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    position: fixed;
+    z-index: 103;
+    font-size: 1em;
+
+    text-align: center;
+    padding-top: 1vh;
+    animation-name: player-settings-button-anim;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+
+.inactive-quit-button{
+    background: #66000055;
+    color: #5a6268;
+    cursor: default;
+}
+.active-quit-button{
+    color: white;
+    background: #33111111;
+}
+.active-quit-button:hover{
+
+    background: #660000;
+}
+
+@keyframes game-settings-button-anim {
+    from {
+        top:10vh;
+        right:2vw;
+        height: 1vh;
+        width: 8vw;
+    }
+    to {
+        top:66vh;
+        right:2vw;
+        height: 5.4vh;
+        width: 8vw;
+    }
+}
+
+#game-settings-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    font-size: 1em;
+    background: black;
+    position: fixed;
+    z-index: 103;
+
+    text-align: center;
+    padding-top: 1vh;
+
+    animation-name: game-settings-button-anim;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+#settings-pending-indication{
+    border-radius: 50%;
+    border: 1px solid white;
+    color: white;
+    background: red;
+    position: fixed;
+    z-index: 104;
+    font-size: 1.3em;
+    font-weight: bold;
+    height: 2vw;
+    width: 2vw;
+    text-align: center;
+}
+@keyframes settings-pending-indication-on-menu-anim {
+    from {
+        top:9vh;
+        right:8.7vw;
+    }
+    to {
+        top:65vh;
+        right:8.7vw;
+    }
+}
+
+.settings-pending-indication-on-menu{
+    animation-name: settings-pending-indication-on-menu-anim;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+@keyframes settings-pending-indication-on-settings-button {
+    from {
+        top:-5vh;
+        right:8.7vw;
+    }
+    to {
+        top:9vh;
+        right:8.7vw;
+    }
+}
+
+.settings-pending-indication-on-settings-button{
+    animation-name: settings-pending-indication-on-settings-button;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+}
+
+
+#game-logs-modal{
+    z-index: 99;
+    position: fixed;
+    width: 85vw;
+    height: 89vh;
+    top: 10vh;
+    left: 1vw;
+    background: #000000BB;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    overflow-y: scroll;
+
+}
+#game-logs-modal-close-x{
+    position: fixed;
+    top: 12vh;
+    left: 82vw;
+    z-index: 100;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: fantasy;
+    cursor: pointer;
+    color: white;
+}
+
+#player-settings-modal{
+    z-index: 99;
+    position: fixed;
+    width: 85vw;
+    height: 89vh;
+    top: 10vh;
+    left: 1vw;
+    background: #000000BB;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    overflow-y: scroll;
+    color: white;
+    font-size: 2em;
+
+}
+#player-settings-header{
+    text-align: center;
+    text-decoration: underline;
+    font-size: 2.5em;
+
+}
+#Deck-Style-selection{
+
+}
+.base-Deck-Style{
+    width: 9vw;
+    border: 2px solid white;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-align: center;
+}
+#two-colors-button{
+    position: fixed;
+    left:2vw;
+    top:35vh;
+}
+#four-colors-button{
+    position: fixed;
+    left:12vw;
+    top:35vh;
+}
+.selected-Deck-Style{
+    background: darkgreen;
+}
+.unselected-Deck-Style{
+    background: #5a6268;
+}
+#Deck-Style-card1{
+    font-size: 0.5em;
+    position: fixed;
+    left:2vw;
+    top:44vh;
+}
+#Deck-Style-card2{
+    font-size: 0.5em;
+    position: fixed;
+    left:7vw;
+    top:44vh;
+}
+
+#Deck-Style-card3{
+    font-size: 0.5em;
+    position: fixed;
+    left:11.8vw;
+    top:44vh;
+}
+
+#Deck-Style-card4{
+    font-size: 0.5em;
+    position: fixed;
+    left:17vw;
+    top:44vh;
+}
+#player-settings-modal-close-x{
+    position: fixed;
+    top: 12vh;
+    left: 82vw;
+    z-index: 100;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: fantasy;
+    cursor: pointer;
+    color: white;
+}
+#hand-time{
+    color: #eaeaea;
+    z-index: 30;
+    font-size: 1.5em;
+    position: fixed;
+    top:10vh;
+    left:1.5vw;
+}
+#hand-clock{
+    color: #3156b3;
+    z-index: 30;
+    font-size: 2.2em;
+    position: fixed;
+    top:15vh;
+    left:1.5vw;
+    font-weight: bold;
+    font-family: "Arial Black"
+}
+#hand-clock-progress{
+    z-index: 30;
+    position: fixed;
+    top:21vh;
+    left:1.5vw;
+    width: 11vw;
+
+}
+#player-hand{
+    z-index: 30;
+    position: fixed;
+    top:25vh;
+    left:1.5vw;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6c757d;
+}
+@keyframes blinker {
+    50% {
+        opacity: 0.5;
+    }
+}
+#your-turn-indication{
+    color: yellow;
+    z-index: 30;
+    font-size: 2em;
+    position: fixed;
+    top: 21vh;
+    left:1vw;
+    font-weight: bold;
+    font-family: "Arial Black";
+    padding: 10px;
+    animation: blinker 1.5s linear infinite;
+}
+
+#clock{
+    color: #eaeaea55;
+    z-index: 30;
+    font-size: 1.3em;
+    position: fixed;
+    position: fixed;
+    top:0.2vh;
+    right:2vw;
+}
+#blinds-data{
+    color: white;
+    z-index: 30;
+    font-size: 2.4em;
+    position: fixed;
+    top:2vh;
+    right:2vw;
+    font-weight: bold;
+    font-family: "Arial Black"
+}
+
+
+#table-image{
+    position: fixed;
+    top:15vh;
+    left:13vw;
+    width: 70vw;
+    height: 64vh;
+    z-index: 1;
+    border: 2px solid transparent;
+}
+
+
+
+
+
+
+#active-timer-div{
+    position: absolute;
+    z-index: 20;
+    left: 4vw;
+    width: 6.9vw;
+    height: 1vh;
+    margin-top: 8.82vh;
+    margin-left: 2.22vw;
+    background: #eeeeee;
+    border-bottom-right-radius: 3px;
+
+}
+
+#active-timer{
+
+    position: relative;
+    background: forestgreen;
+    height: 1vh;
+    border-bottom-right-radius: 3px;
+}
+
+#community-pot{
+    position: fixed;
+    top: 24vh;
+    left: 44vw;
+    width: 8vw;
+    height: 7.4vh;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    color: #eaeaea;
+    font-size: 2em;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: #00000044;
+
+
+}
+.total-pot-amount{
+    font-weight: normal;
+    font-size: 0.5em;
+    color: #FFFFFFCC;
+    margin-top: -8px;
+
+}
+#messages-box{
+    position: fixed;
+    bottom: 3.2vh;
+    left: 0.5vw;
+    width: 25vw;
+    height: 15.5vh;
+    border: 2px solid #444444;
+    border-radius: 0px 0px 12px 12px;
+    overflow-y: hidden;
+    padding-left: 0.6vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    background: #444444;
+    color: #777777;
+}
+
+#messages-box:hover{
+    overflow-y: scroll;
+}
+#chat-header{
+    position: fixed;
+    bottom: 23vh;
+    left: 0.5vw;
+    width: 22vw;
+    color: white;
+    font-size: 1.5em;
+}
+#chat-input{
+    position: fixed;
+    bottom: 18.8vh;
+    left: 0.5vw;
+    width: 22vw;
+    padding-left: 4px;
+    border-radius: 8px 0px 0px 0px;
+    height: 3.9vh;
+}
+
+#send-message-button{
+    position: fixed;
+    bottom: 18.77vh;
+    left: 22.5vw;
+    width: 3vw;
+    color: white;
+    height: 3.88vh;
+    border: 2px solid white;
+    border-radius: 0px 8px 0px 0px;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 1px;
+    background: black;
+}
+
+.msg-time{
+    color: #979797;
+}
+
+.msg-text{
+    color: #777777;
+    margin-left: 5px;
+}
+
+.msg-text-player-name{
+    margin-left: 10px;
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+.msg-text-player-name-color0{
+    color: indianred;
+}
+
+.msg-text-player-name-color1{
+    color: forestgreen;
+}
+
+.msg-text-player-name-color2{
+    color: hotpink;
+}
+
+.msg-text-player-name-color3{
+    color: cornflowerblue;
+}
+
+.msg-text-player-name-color4{
+    color: orange;
+}
+
+.msg-text-player-name-color5{
+    color: wheat;
+}
+
+.msg-text-player-name-color6{
+    color: plum;
+}
+
+.msg-text-player-name-color7{
+    color: dodgerblue;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .copy-game-link{
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+
+    #copy-game-link-big{
+        border-width: 4px;
+        top:32vh;
+        left:30vw;
+        width: 40vw;
+        font-size: 1.3em;
+    }
+    #start-pause-game-button{
+        width: 20vw;
+        border-radius: 10px;
+        height: 8.5vh;
+        font-size: 1em;
+    }
+    #blinds-data{
+        font-size: 1.4em;
+    }
+
+    #messages-box{
+        border-radius: 0px 2px 2px 0px;
+        bottom: 1.5vh;
+        left: 0.5vw;
+        width: 31.9vw;
+        height: 17vh;
+    }
+
+    #chat-input{
+        bottom: 19vh;
+        left: 0.5vw;
+        width: 26.5vw;
+        padding-left: 4px;
+        border-radius: 2px 0px 0px 2px;
+
+        height: 7vh;
+    }
+
+    #send-message-button{
+        bottom: 19vh;
+        left: 27.3vw;
+        width: 5.8vw;
+        color: white;
+        height: 7vh;
+        border: 1px solid white;
+    }
+
+
+    #copy-game-link-small{
+        border-radius: 8px;
+        top:12vh;
+        right:1vw;
+        font-size: 0.5em;
+        height: 8vh;
+        width: 12vw;
+        padding: 0px 5px;
+
+    }
+
+    #rebuy-button{                                            /*<---*/
+        border-radius: 8px;
+        top:21vh;
+        padding-top: 0vh;
+        right:1vw;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+    }
+
+    #stand-sit-button{                                          /*<---*/
+        border-radius: 8px;
+        top:30vh;
+        right:1vw;
+        font-size: 0.2em;
+        height: 8vh;
+        width: 12vw;
+        text-align: center;
+        padding-top: 0vh;
+        background: #00000044;
+    }
+
+    #info-button{
+        border-radius: 8px;
+        top:39vh;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+        right: 1vw;
+        padding-top: 0vh;
+    }
+    #quit-button{
+        border-radius: 8px;
+        top:48vh;
+        right:1vw;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+        padding-top: 0vh;
+        background: #00000044;
+
+    }
+
+    #game-logs-button{
+        border-radius: 8px;
+        top:57vh;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+        right: 1vw;
+        padding-top: 0vh;
+    }
+    #game-settings-button{
+        border-radius: 8px;
+        top:66vh;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+        right: 1vw;
+        padding-top: 0vh;
+    }
+    #settings-pending-indication{
+        border-radius: 50%;
+        border: 1px solid white;
+        color: white;
+        background: red;
+        position: fixed;
+        z-index: 104;
+        top:65vh;
+        right:11.7vw;
+        font-size: 0.8em;
+        font-weight: bold;
+        height: 3vw;
+        width: 3vw;
+        text-align: center;
+
+    }
+    #actual-rebuy-button{
+        top:52vh;
+        font-size: 0.4em;
+        height: 8vh;
+        width: 12vw;
+        right: 1vw;
+        padding-top: 0vh;
+    }
+
+    #rebuy-section{
+        top:10vh;
+        border-radius: 5px;
+        padding: 10px;
+        padding-top: 11vh;
+        padding-right: 1.3vh;
+        right:0.5vw;
+        width: 13vw;
+        height: 59vh;
+        font-size: 1em;
+        text-align: center;
+        background-image: linear-gradient(red, yellow);
+
+    }
+
+    #rebuy-label{
+        position: fixed;
+        top: 30vh;
+        right:0.5vw;
+        width: 13vw;
+        text-align: center;
+    }
+    #rebuy-input{
+        position: fixed;
+        top: 30vh;
+        right: 2vw;
+        margin-top: 10vh;
+        width: 9.5vw;
+        padding-left: 0.5vw;
+        text-align: center;
+        border-radius: 10px;
+
+    }
+
+    #clock{
+        color: #eaeaea00;
+    }
+
+    #hand-time{
+        font-size: 1em;
+    }
+
+    #hand-clock{
+        font-size: 1em;
+        top:19vh;
+        left:1.5vw;
+    }
+    #hand-clock-progress{
+        top:27vh;
+        left:1.5vw;
+        width: 15vw;
+
+    }
+    #player-hand{
+        z-index: 30;
+        position: fixed;
+        top:30vh;
+        left:1.5vw;
+        font-size: 0.6em;
+        font-weight: bold;
+        color: #6c757d;
+    }
+
+    #your-turn-indication{
+        font-size: 0.7em;
+        top: 27vh;
+        left:-3vw;
+    }
+
+    #table-image{
+        left:15vw;
+        width: 70vw;
+    }
+
+    #game-pause-indication{
+        z-index: 99;
+        background: #000000DD;
+        font-size: 10em;
+        text-align: center;
+        padding-top: 4vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #game-pause-indication-text{
+        color: white;
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+        padding-top: 62vh;
+    }
+
+    #active-timer-div{
+        position: absolute;
+        z-index: 20;
+        left: 4vw;
+        width: 6.9vw;
+        height: 1vh;
+        margin-top: 8.82vh;
+        margin-left: 2.22vw;
+        background: #eeeeee;
+        border-bottom-right-radius: 3px;
+    }
+
+    #active-timer{
+        position: relative;
+        background: forestgreen;
+        height: 1vh;
+        border-bottom-right-radius: 3px;
+    }
+
+
+    #community-pot{
+        top: 29vh;
+        left: 44vw;
+        width: 10vw;
+        height: 8vh;
+        color: #eaeaea;
+        font-size: 1em;
+    }
+    .left-margin{
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}

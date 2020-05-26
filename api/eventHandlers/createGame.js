@@ -1,13 +1,16 @@
 const GameHelper = require('../helpers/game');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
+const {
+  TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE,
+} = require('../consts');
 
 function onCreateGameEvent(socket, gameCreatorData) {
   const { playerId } = gameCreatorData;
   logger.info('onCreateGameEvent ', playerId);
   logger.info('onCreateGameEvent gameCreatorData.privateGame', gameCreatorData.privateGame);
   socket.playerId = playerId;
-
+  const gameType = gameCreatorData.gameType || TEXAS;
   Mappings.SaveSocketByPlayerId(playerId, socket);
   const amount = parseInt(gameCreatorData.balance, 10);
   try {
@@ -19,8 +22,11 @@ function onCreateGameEvent(socket, gameCreatorData) {
       pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
-      omaha: gameCreatorData.omaha,
-      texas: gameCreatorData.texas,
+      gameType,
+      dealerChoice: gameType === DEALER_CHOICE,
+      texas: gameType === TEXAS || gameType === DEALER_CHOICE,
+      omaha: gameType === OMAHA,
+      pineapple: gameType === PINEAPPLE,
       moneyInGame: amount,
       hand: 0,
       logs: [],

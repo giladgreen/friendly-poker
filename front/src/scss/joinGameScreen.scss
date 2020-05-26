@@ -1,0 +1,305 @@
+#join-screen{
+    margin-top: 4px;
+    background: transparent;
+    color: white;
+    width: 100vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 10px;
+    position:fixed;
+}
+
+#join-game-section{
+    position: fixed;
+    top: 13vh;
+    left: 2vw;
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 25px;
+    height: 70vh;
+    width: 50vw;
+    padding: 20px;
+    z-index: 1;
+    margin-right: 2vw;
+    font-size: 1.7em;
+}
+
+#join-game-section header{
+   font-size: 2.6em;
+    text-align: center;
+}
+
+#join-game-section div{
+    margin-top: 2vh
+}
+
+#join-screen #join-button-div{
+    position: fixed;
+    top: 70vh;
+    height: 10vh;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    width: 50vw;
+    left: 20vw;
+}
+
+.join-button{
+    padding: 5px 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: #155724;
+    cursor: pointer;
+}
+.join-button-disabled{
+    padding: 5px 10px;
+    border: 2px solid #5a6268;
+    border-radius: 10px;
+    background: #666666;
+    color: #999999;
+}
+#join-button-full-game-div{
+    position: fixed;
+    top: 40vh;
+    height: 10vh;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+    width: 40vw;
+    left: 57vw;
+    z-index: 90000;
+}
+
+#join-screen #join-button-full-game{
+
+    color: black;
+}
+
+#join-screen #join-button:hover{
+    background: #5a626844;
+    cursor: pointer;
+}
+
+#existing-players{
+    position: fixed;
+    top: 13vh;
+    left: 57vw;
+    height: 70vh;
+    width: 40vw;
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 25px;
+    padding: 20px;
+    z-index: 1;
+}
+#existing-players header{
+    font-size: 2em;
+}
+
+#join-table-image{
+    position: fixed;
+    top: 19vh;
+    left: 59vw;
+    height: 66vh;
+    width: 36vw;
+    z-index: 2;
+}
+
+#join-table-existing-player-1{
+    top: 29vh;
+    left: 59vw;
+}
+
+#join-after-existing-player-1{
+    top: 21.5vh;
+    left: 64vw;
+}
+
+#join-table-existing-player-2{
+    top: 16.5vh;
+    left: 71vw;
+}
+#join-after-existing-player-2{
+    top: 17.4vh;
+    left: 78.4vw;
+}
+#join-table-existing-player-3{
+    top: 23vh;
+    left: 85.5vw;
+}
+#join-after-existing-player-3{
+    top: 32.2vh;
+    left: 89.3vw;
+}
+#join-table-existing-player-4{
+    top: 42.3vh;
+    left: 90.3vw;
+}
+#join-after-existing-player-4{
+    top: 52.8vh;
+    left: 89.3vw;
+}
+#join-table-existing-player-5{
+    top: 61vh;
+    left: 84.9vw;
+}
+#join-after-existing-player-5{
+    top: 66vh;
+    left: 78.5vw;
+}
+
+#join-table-existing-player-6{
+    top: 66vh;
+    left: 72vw;
+}
+#join-after-existing-player-6{
+    top: 63vh;
+    left: 64vw;
+}
+
+#join-table-existing-player-7{
+    top: 53vh;
+    left: 59vw;
+}
+#join-after-existing-player-7{
+    top: 41.9vh;
+    left: 57.5vw;
+}
+#join-table-existing-player-8{
+    top: 42vh;
+    left: 57vw;
+}
+.existing-player{
+    position: fixed;
+    height: 8vh;
+    width: 6vw;
+    background: white;
+    text-align: center;
+    color: black;
+    font-size: 1.2em;
+    z-index: 3;
+    border-radius: 50%;
+    padding-top: 2vh;
+    border: 2px solid black;
+}
+.do-not-sit{
+    position: fixed;
+    height: 8vh;
+    width: 6vw;
+    background: #6c757d33;
+    text-align: center;
+    color: #888888;
+
+    z-index: 3;
+    border-radius: 50%;
+    padding-top: 1.6vh;
+    border: 2px solid #888888;
+}
+.sit-here-button{
+    position: fixed;
+    height: 8vh;
+    width: 6vw;
+    background: #6c757d33;
+    text-align: center;
+    color: #888888;
+    font-size: 1.6em;
+    z-index: 3;
+    border-radius: 50%;
+    padding-top: 1.6vh;
+    border: 2px solid #888888;
+}
+.sit-here-button:hover{
+cursor: pointer;
+    background: goldenrod;
+    color: black;
+    font-weight: bold;
+
+}
+
+
+
+.greyPlayer{
+    background: #5a6268;
+
+}
+.whitePlayer{
+    background: grey;
+}
+
+#existing-players-list{
+    background: #050505;
+    margin-top: 1vh;
+    font-size: 2em;
+}
+.join-game-input{
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+}
+@media only screen and (max-width: 800px) {
+
+    #join-screen{
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-top: 10px;
+    }
+
+    #join-game-section{
+
+        top: 13vh;
+        left: 2vw;
+        border-radius: 25px;
+        height: 80vh;
+        width: 50vw;
+        padding: 10px;
+        margin-right: 2vw;
+        font-size: 1em;
+    }
+
+    #join-game-section header{
+        font-size: 1.6em;
+    }
+
+    #join-game-section div{
+        margin-top: 1.4vh
+    }
+
+    #join-screen #join-button-div{
+        font-size: 1.3em;
+        top: 27vh;
+        left:19vw;
+    }
+
+    #join-screen #join-button{
+        border-radius: 10px;
+        background-image: linear-gradient(green, #155724);
+
+    }
+    #join-screen #join-button-full-game-div{
+        font-size: 1.1em;
+        top: 74vh;
+        height: 10vh;
+    }
+
+
+    #existing-players{
+        top: 13vh;
+        left: 57vw;
+        height: 80vh;
+        width: 40vw;
+        border-radius: 25px;
+        padding: 10px;
+
+    }
+
+    #existing-players-list{
+        font-size: 1em;
+    }
+    .join-game-input{
+        margin-bottom: 10px;
+        padding-left: 15px;
+        border-radius: 6px;
+    }
+}

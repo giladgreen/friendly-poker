@@ -1,15 +1,17 @@
-.log{
-    font-size: 1.3em;
+.log {
+  font-size: 1.3em;
 }
 
-.log-time{
-    color: #5a6268;
+.log-time {
+  color: #5a6268;
 }
 
-.log-hand{
-    color: #1e90ff;
+.log-hand {
+  color: #1e90ff;
 }
 
-.log-text{
-    color: forestgreen;
+.log-text {
+  color: forestgreen;
 }
+
+/*# sourceMappingURL=logs.css.map */

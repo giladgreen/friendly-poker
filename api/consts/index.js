@@ -7,6 +7,13 @@ const ops = {
   ALL_IN: 'All-In',
 };
 
+const games = {
+  TEXAS: 'TEXAS',
+  OMAHA: 'OMAHA',
+  PINEAPPLE: 'PINEAPPLE',
+  DEALER_CHOICE: 'DEALER_CHOICE',
+};
+
 const gameStates = {
   PRE_FLOP: 0,
   FLOP: 1,
@@ -23,4 +30,5 @@ module.exports = {
   BEEP: 'Beep',
   CARD: 'Card',
   CARDS: 'Cards',
+  ...games,
 };
