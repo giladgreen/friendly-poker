@@ -2,7 +2,7 @@ $mobile-horizonal: 800px;
 $mobile-vertical: 530px;
 
 @mixin font-huge() {
-    font-size: 4em;
+    font-size: 3.6em;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         font-size: 0.5em;
     }
@@ -486,6 +486,13 @@ $players-dealer-button-left: (
     @include font-small;
     padding-top: 0.35vw;
     padding-left: 0.47vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        visibility: hidden;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 #big-blind-button{
@@ -501,6 +508,12 @@ $players-dealer-button-left: (
     @include font-small;
     padding-top: 0.35vw;
     padding-left: 0.47vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        visibility: hidden;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 .player-pot{
@@ -547,6 +560,21 @@ $players-dealer-button-left: (
     text-align: center;
     top:9.7vh;
     left:1.1vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 0.8em;
+        width: 7vw;
+        height: 2.5vw;
+        padding-top: 0px;
+        font-weight: normal;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        font-size: 0.8em;
+        width: 12vw;
+        height: 3.6vw;
+        padding-top: 0px;
+        font-weight: normal;
+    }
 }
 .trophy-badge{
     position: absolute;
@@ -703,6 +731,19 @@ $players-dealer-button-left: (
     text-align: center;
     top:11.6vh;
     left:0vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        width: 31vw;
+        height: 4vw;
+        padding-top: 1px;
+        font-size: 0.6em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        width: 21vw;
+        height: 4vw;
+        font-size: 0.5em;
+    }
+
 }
 @keyframes player-hand-description-anim {
     from {
@@ -715,9 +756,11 @@ $players-dealer-button-left: (
     to {
         top:11.6vh;
         left:0vw;
-        width: 11vw;
+        width: 13vw;
         @include font-small;
         color: black;
+
+
     }
 }
 

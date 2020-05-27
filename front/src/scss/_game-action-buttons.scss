@@ -225,7 +225,7 @@ $button-height: 7vh;
 }
 
 @include mobile-horizonal {
-    $button-top: 74vh;
+    $button-top: 72vh;
     $button-width: 14vw;
     $button-height: 8.3vh;
 
@@ -238,6 +238,7 @@ $button-height: 7vh;
         font-weight: bold;
         font-size: 1em;
         padding-top: 1.5vh;
+        z-index: 100;
     }
     .action-button {
         position: fixed;
@@ -251,6 +252,7 @@ $button-height: 7vh;
         font-size: 1em;
         padding-top: 0.7vh;
         cursor: pointer;
+        z-index: 100;
     }
     .collapse-button {
         visibility: collapse;
@@ -378,7 +380,7 @@ $button-height: 7vh;
     }
     #raise-input-slider {
         position: fixed;
-        top: $button-top-0.2;
+        top: $button-top - 0.2;
         right: 64vw;
         width: 18vw;
         z-index: 9;
