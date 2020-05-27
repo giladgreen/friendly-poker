@@ -2,137 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c355f22d-0b43-41aa-8246-2ae6734a1b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/src/scss/_gameInfoScreen.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/JoinGameScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/OnlineGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/OnlineGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/UserTimer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/UserTimer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/containers/PlayerInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/bootstrap.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_bootstrap.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_cards.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/createNewGameScreen.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_createNewGameScreen.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/game-action-buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/game-settings.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_game-settings.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/gameInfoScreen.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/joinGameScreen.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_joinGameScreen.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/loader.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_loader.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/logs.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_logs.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/onlineGame.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_onlineGame.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/paused-screen.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_paused-screen.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/scss/playerInfo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_playerInfo.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/cards.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/cards.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/createNewGameScreen.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-action-buttons.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-action-buttons.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-settings.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/game-settings.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/gameInfoScreen.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/gameInfoScreen.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/joinGameScreen.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/joinGameScreen.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/loader.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/loader.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/logs.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/logs.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/onlineGame.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/paused-screen.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/paused-screen.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/style/playerInfo.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.0350ffc3.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.040f36e0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.043a37b9.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.077b2128.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.0d8cf208.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.20d8dd55.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.26de2cac.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.31d39b34.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.3a5c772f.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.3b71636f.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.416998cb.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.41e8c11e.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.54a04670.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.56681403.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.69af5e6c.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.6c96f8cd.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.75097695.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.75c58b15.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.78f3fb45.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.8dccdbfd.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.93fbfdea.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.991bb510.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.9f0db590.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.a8be7ac2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.af8f9681.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.b903084f.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.c048efa2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.c682ee95.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.cdd8ee26.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.d4926cf8.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.dfa20295.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.e753a3a2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.f99fae65.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/main.fc7fb393.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.0300e345.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.05f32214.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.120bb780.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.1257d672.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.19102699.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.1d78eacc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.27913b1e.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.2c6c00ba.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.2dd96937.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.2ea6c430.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.3d39c618.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.44e3407c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.4555b094.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.4677546f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.4b87354f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.5174f5fe.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.594e19a7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.64cda3d9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.6c5c5e6a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.6d8b26e1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.720bc735.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.7270ad98.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.7f0f15ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.8d14d667.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.990cbbbf.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.9ff91554.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.a0a90b67.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.a12a432f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.a8d67435.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.aafbde5f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b4ee2cd4.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b60a4717.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b68f57bc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b69bd017.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b7c4e741.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.b869798b.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.ba634929.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.bb0ad055.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.c0456c97.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.cfbf197e.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.d4aca358.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.d86e954a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.ddc06685.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.e414bd7c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.e4b2ff5c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.e6e550ac.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.e8d61c15.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.f24bdbf2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.f2ede060.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.f3587129.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/main.fc8d4d32.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/scss/_playerInfo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/scss/_playerInfo.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/app.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/app.css.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -149,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="40" />
+              <caret line="31" column="40" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="40" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#90#115#0" expanded="true" />
@@ -158,11 +31,112 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/front/src/scss/_playerInfo.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="440" column="24" selection-start-line="440" selection-start-column="24" selection-end-line="440" selection-end-column="24" />
+            <state relative-caret-position="450">
+              <caret line="422" column="1" lean-forward="true" selection-start-line="422" selection-start-column="1" selection-end-line="422" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="375" column="22" selection-start-line="375" selection-start-column="22" selection-end-line="375" selection-end-column="22" />
+              <folding>
+                <element signature="e#11#193#0" />
+                <element signature="e#208#447#0" />
+                <element signature="e#464#493#0" />
+                <element signature="e#510#552#0" />
+                <element signature="e#574#598#0" />
+                <element signature="e#618#703#0" />
+                <element signature="e#729#759#0" />
+                <element signature="e#773#819#0" />
+                <element signature="e#839#869#0" />
+                <element signature="e#889#1145#0" />
+                <element signature="e#1171#1201#0" />
+                <element signature="e#1228#1258#0" />
+                <element signature="e#1289#1319#0" />
+                <element signature="e#1340#1386#0" />
+                <element signature="e#1414#1443#0" />
+                <element signature="e#1458#1521#0" />
+                <element signature="e#1541#1570#0" />
+                <element signature="e#1584#1647#0" />
+                <element signature="e#1667#1696#0" />
+                <element signature="e#1725#1771#0" />
+                <element signature="e#1806#1835#0" />
+                <element signature="e#1850#1945#0" />
+                <element signature="e#1966#2030#0" />
+                <element signature="e#2056#2273#0" />
+                <element signature="e#2305#2363#0" />
+                <element signature="e#2382#2442#0" />
+                <element signature="e#2456#2638#0" />
+                <element signature="e#2658#2751#0" />
+                <element signature="e#2770#2830#0" />
+                <element signature="e#2846#2961#0" />
+                <element signature="e#2984#3049#0" />
+                <element signature="e#3077#3372#0" />
+                <element signature="e#3406#3470#0" />
+                <element signature="e#3489#3508#0" />
+                <element signature="e#3528#3548#0" />
+                <element signature="e#3568#3588#0" />
+                <element signature="e#3608#3628#0" />
+                <element signature="e#3675#3892#0" />
+                <element signature="e#3912#4200#0" />
+                <element signature="e#4222#4259#0" />
+                <element signature="e#4281#4335#0" />
+                <element signature="e#4362#4394#0" />
+                <element signature="e#4419#4522#0" />
+                <element signature="e#4553#4591#0" />
+                <element signature="e#4610#4668#0" />
+                <element signature="e#4693#4731#0" />
+                <element signature="e#4756#5064#0" />
+                <element signature="e#5095#5133#0" />
+                <element signature="e#5165#5203#0" />
+                <element signature="e#5239#5277#0" />
+                <element signature="e#5303#5361#0" />
+                <element signature="e#5394#5431#0" />
+                <element signature="e#5451#5530#0" />
+                <element signature="e#5555#5592#0" />
+                <element signature="e#5715#5752#0" />
+                <element signature="e#5786#5865#0" />
+                <element signature="e#5885#5995#0" />
+                <element signature="e#6780#6852#0" />
+                <element signature="e#6873#6945#0" />
+                <element signature="e#6978#7325#0" />
+                <element signature="e#7364#7436#0" />
+                <element signature="e#7460#7487#0" />
+                <element signature="e#7511#7539#0" />
+                <element signature="e#7564#7592#0" />
+                <element signature="e#7617#7645#0" />
+                <element signature="e#7673#10682#0" />
+                <element signature="e#7692#7909#0" />
+                <element signature="e#7929#8218#0" />
+                <element signature="e#8240#8277#0" />
+                <element signature="e#8299#8353#0" />
+                <element signature="e#8380#8412#0" />
+                <element signature="e#8437#8540#0" />
+                <element signature="e#8565#8846#0" />
+                <element signature="e#8873#8931#0" />
+                <element signature="e#8951#9031#0" />
+                <element signature="e#9050#9099#0" />
+                <element signature="e#9119#9168#0" />
+                <element signature="e#9200#9298#0" />
+                <element signature="e#9322#9350#0" />
+                <element signature="e#9369#9590#0" />
+                <element signature="e#9615#9729#0" />
+                <element signature="e#9753#9781#0" />
+                <element signature="e#9802#9876#0" />
+                <element signature="e#9904#9977#0" />
+                <element signature="e#10010#10359#0" />
+                <element signature="e#10398#10470#0" />
+                <element signature="e#10494#10521#0" />
+                <element signature="e#10546#10574#0" />
+                <element signature="e#10599#10627#0" />
+                <element signature="e#10652#10680#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,7 +145,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/scss/app.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+              <caret line="6" column="9" selection-start-line="6" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -188,9 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hand</find>
-      <find>action-buttons-second-row</find>
-      <find>1/3</find>
       <find>.name</find>
       <find>name</find>
       <find>small</find>
@@ -218,6 +189,9 @@
       <find>.player-in</find>
       <find>force</find>
       <find>player-balance</find>
+      <find>7v</find>
+      <find>action-buttons-second-row</find>
+      <find>player-info</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/</dir>
@@ -285,9 +259,9 @@
         <option value="$PROJECT_DIR$/front/src/components/UserTimer.js" />
         <option value="$PROJECT_DIR$/front/src/components/OnlineGame.js" />
         <option value="$PROJECT_DIR$/front/src/scss/_onlineGame.scss" />
-        <option value="$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss" />
         <option value="$PROJECT_DIR$/front/src/scss/_cards.scss" />
         <option value="$PROJECT_DIR$/front/src/scss/_playerInfo.scss" />
+        <option value="$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss" />
       </list>
     </option>
   </component>
@@ -466,12 +440,12 @@
       <workItem from="1590309343348" duration="2833000" />
       <workItem from="1590346771092" duration="5047000" />
       <workItem from="1590479443048" duration="11065000" />
-      <workItem from="1590517618779" duration="22978000" />
+      <workItem from="1590517618779" duration="24348000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294157000" />
+    <option name="totallyTimeSpent" value="295527000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="23" width="1920" height="1057" extended-state="6" />
@@ -483,15 +457,15 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.19957536" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946752" weight="0.04989384" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893504" weight="0.44692144" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4471154" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005325" side_tool="true" weight="0.4509346" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49946752" visible="true" weight="0.37367302" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50106496" side_tool="true" visible="true" weight="0.40339702" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49893504" visible="true" weight="0.40339702" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -866,16 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="430" column="9" selection-start-line="430" selection-end-line="431" />
-          <folding>
-            <element signature="e#3656#8078#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/OnlineGame.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -931,14 +895,14 @@
     <entry file="file://$PROJECT_DIR$/front/src/scss/app.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+          <caret line="6" column="9" selection-start-line="6" selection-end-line="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/containers/PlayerInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="40" />
+          <caret line="31" column="40" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="40" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#115#0" expanded="true" />
@@ -948,8 +912,107 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/scss/_playerInfo.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="440" column="24" selection-start-line="440" selection-start-column="24" selection-end-line="440" selection-end-column="24" />
+        <state relative-caret-position="450">
+          <caret line="422" column="1" lean-forward="true" selection-start-line="422" selection-start-column="1" selection-end-line="422" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front/src/scss/_game-action-buttons.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="375" column="22" selection-start-line="375" selection-start-column="22" selection-end-line="375" selection-end-column="22" />
+          <folding>
+            <element signature="e#11#193#0" />
+            <element signature="e#208#447#0" />
+            <element signature="e#464#493#0" />
+            <element signature="e#510#552#0" />
+            <element signature="e#574#598#0" />
+            <element signature="e#618#703#0" />
+            <element signature="e#729#759#0" />
+            <element signature="e#773#819#0" />
+            <element signature="e#839#869#0" />
+            <element signature="e#889#1145#0" />
+            <element signature="e#1171#1201#0" />
+            <element signature="e#1228#1258#0" />
+            <element signature="e#1289#1319#0" />
+            <element signature="e#1340#1386#0" />
+            <element signature="e#1414#1443#0" />
+            <element signature="e#1458#1521#0" />
+            <element signature="e#1541#1570#0" />
+            <element signature="e#1584#1647#0" />
+            <element signature="e#1667#1696#0" />
+            <element signature="e#1725#1771#0" />
+            <element signature="e#1806#1835#0" />
+            <element signature="e#1850#1945#0" />
+            <element signature="e#1966#2030#0" />
+            <element signature="e#2056#2273#0" />
+            <element signature="e#2305#2363#0" />
+            <element signature="e#2382#2442#0" />
+            <element signature="e#2456#2638#0" />
+            <element signature="e#2658#2751#0" />
+            <element signature="e#2770#2830#0" />
+            <element signature="e#2846#2961#0" />
+            <element signature="e#2984#3049#0" />
+            <element signature="e#3077#3372#0" />
+            <element signature="e#3406#3470#0" />
+            <element signature="e#3489#3508#0" />
+            <element signature="e#3528#3548#0" />
+            <element signature="e#3568#3588#0" />
+            <element signature="e#3608#3628#0" />
+            <element signature="e#3675#3892#0" />
+            <element signature="e#3912#4200#0" />
+            <element signature="e#4222#4259#0" />
+            <element signature="e#4281#4335#0" />
+            <element signature="e#4362#4394#0" />
+            <element signature="e#4419#4522#0" />
+            <element signature="e#4553#4591#0" />
+            <element signature="e#4610#4668#0" />
+            <element signature="e#4693#4731#0" />
+            <element signature="e#4756#5064#0" />
+            <element signature="e#5095#5133#0" />
+            <element signature="e#5165#5203#0" />
+            <element signature="e#5239#5277#0" />
+            <element signature="e#5303#5361#0" />
+            <element signature="e#5394#5431#0" />
+            <element signature="e#5451#5530#0" />
+            <element signature="e#5555#5592#0" />
+            <element signature="e#5715#5752#0" />
+            <element signature="e#5786#5865#0" />
+            <element signature="e#5885#5995#0" />
+            <element signature="e#6780#6852#0" />
+            <element signature="e#6873#6945#0" />
+            <element signature="e#6978#7325#0" />
+            <element signature="e#7364#7436#0" />
+            <element signature="e#7460#7487#0" />
+            <element signature="e#7511#7539#0" />
+            <element signature="e#7564#7592#0" />
+            <element signature="e#7617#7645#0" />
+            <element signature="e#7673#10682#0" />
+            <element signature="e#7692#7909#0" />
+            <element signature="e#7929#8218#0" />
+            <element signature="e#8240#8277#0" />
+            <element signature="e#8299#8353#0" />
+            <element signature="e#8380#8412#0" />
+            <element signature="e#8437#8540#0" />
+            <element signature="e#8565#8846#0" />
+            <element signature="e#8873#8931#0" />
+            <element signature="e#8951#9031#0" />
+            <element signature="e#9050#9099#0" />
+            <element signature="e#9119#9168#0" />
+            <element signature="e#9200#9298#0" />
+            <element signature="e#9322#9350#0" />
+            <element signature="e#9369#9590#0" />
+            <element signature="e#9615#9729#0" />
+            <element signature="e#9753#9781#0" />
+            <element signature="e#9802#9876#0" />
+            <element signature="e#9904#9977#0" />
+            <element signature="e#10010#10359#0" />
+            <element signature="e#10398#10470#0" />
+            <element signature="e#10494#10521#0" />
+            <element signature="e#10546#10574#0" />
+            <element signature="e#10599#10627#0" />
+            <element signature="e#10652#10680#0" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -405,6 +405,21 @@ $players-dealer-button-left: (
     -moz-box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
     box-shadow: 6px 8px 35px 24px rgba(232,174,0,0.58);
     border-radius: 35%;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        -webkit-box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.58);
+        -moz-box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.58);
+        box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.58);
+        border-radius: 5%;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        background: rgba(232,174,0,0.0);
+        -webkit-box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.00);
+        -moz-box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.00);
+        box-shadow: 13px 0px 15px 14px rgba(232,174,0,0.00);
+        border-radius: 5%;
+
+    }
 }
 
 .player-div{

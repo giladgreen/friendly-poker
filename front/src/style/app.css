@@ -11894,8 +11894,8 @@ em-spades {
   .big-button {
     border: 2px solid grey;
     border-radius: 7px;
-    height: 7vh;
-    width: 7.5vw;
+    height: 8.3vh;
+    width: 14vw;
     text-align: center;
     font-weight: bold;
     font-size: 1em;
@@ -11904,11 +11904,11 @@ em-spades {
 
   .action-button {
     position: fixed;
-    top: 81vh;
+    top: 76vh;
     border: 2px solid grey;
     border-radius: 6px;
     height: 8.3vh;
-    width: 7.5vw;
+    width: 14vw;
     text-align: center;
     font-weight: bold;
     font-size: 1em;
@@ -11953,7 +11953,7 @@ em-spades {
     right: 2vw;
     width: 12.5vw;
     position: fixed;
-    top: 81vh;
+    top: 76vh;
     border: 2px solid grey;
     border-radius: 10px;
     height: 7vh;
@@ -11977,7 +11977,7 @@ em-spades {
   }
 
   #toggle-raise-button {
-    right: 11vw;
+    right: 17vw;
     background: #9fcdbb77;
   }
 
@@ -11986,7 +11986,7 @@ em-spades {
   }
 
   #check-button {
-    right: 21vw;
+    right: 35vw;
     background: #155724AA;
     width: 9vw;
   }
@@ -11996,7 +11996,7 @@ em-spades {
   }
 
   #call-button {
-    right: 21vw;
+    right: 35vw;
     background: #325752AA;
     width: 9vw;
   }
@@ -12018,11 +12018,11 @@ em-spades {
   }
 
   .raise-button-add-remove {
-    height: 7vh;
+    height: 8vh;
     width: 6vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.2em;
     padding-top: 0px;
     color: white;
     z-index: 10;
@@ -12030,27 +12030,27 @@ em-spades {
   }
 
   #raise-button-add {
-    right: 68vw;
+    right: 58vw;
     border-radius: 0px 50px 50px 0px;
   }
 
   #raise-input {
     position: fixed;
-    top: 80.9vh;
-    right: 74vw;
-    height: 4vh;
-    width: 8vw;
+    top: 75.9vh;
+    right: 64vw;
+    height: 5vh;
+    width: 18vw;
     text-align: center;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.9em;
     border-radius: 0px;
   }
 
   #raise-input-slider {
     position: fixed;
-    top: 80vh;
-    right: 74vw;
-    width: 8vw;
+    top: 76vh;
+    right: 64vw;
+    width: 18vw;
     z-index: 9;
   }
 
@@ -12067,11 +12067,11 @@ em-spades {
 
   .action-buttons-second-row {
     position: fixed;
-    top: 90vh;
+    top: 86.3vh;
     border: 2px solid grey;
     border-radius: 10px;
-    height: 7vh;
-    width: 15vw;
+    height: 8.3vh;
+    width: 14vw;
     text-align: center;
     font-weight: bold;
     font-size: 1em;
@@ -16205,6 +16205,23 @@ em-spades {
   -moz-box-shadow: 6px 8px 35px 24px rgba(232, 174, 0, 0.58);
   box-shadow: 6px 8px 35px 24px rgba(232, 174, 0, 0.58);
   border-radius: 35%;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .active-player {
+    -webkit-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
+    -moz-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
+    box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
+    border-radius: 5%;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .active-player {
+    background: rgba(232, 174, 0, 0);
+    -webkit-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
+    -moz-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
+    box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
+    border-radius: 5%;
+  }
 }
 
 .player-div {
