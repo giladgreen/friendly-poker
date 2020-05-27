@@ -225,7 +225,7 @@ $button-height: 7vh;
 }
 
 @include mobile-horizonal {
-    $button-top: 76vh;
+    $button-top: 74vh;
     $button-width: 14vw;
     $button-height: 8.3vh;
 
@@ -378,7 +378,7 @@ $button-height: 7vh;
     }
     #raise-input-slider {
         position: fixed;
-        top: $button-top;
+        top: $button-top-0.2;
         right: 64vw;
         width: 18vw;
         z-index: 9;
