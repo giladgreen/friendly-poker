@@ -1,6 +1,6 @@
 {
   "name": "friendly-poker-react-front",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.12",
@@ -21,7 +21,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm version patch && react-scripts build && /bin/cp -rf -f ./build/* ../public && cd .. && git add . && git commit -am \"a\" && git push",
-    "watch": "sass --watch scss:style",
-    "note": "watch should be run from within the src folder"
+    "watch": "cd src && sass --watch scss:style"
   }
 }

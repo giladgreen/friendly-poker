@@ -1,0 +1,234 @@
+#game-settings-modal{
+    z-index: 99;
+    position: fixed;
+    width: 88vw;
+    height: 89vh;
+    top: 10vh;
+    left: 1vw;
+    background: #000000BB;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    color: white;
+}
+#game-settings-modal-close-x{
+    font-size: 3em;
+    font-weight: bold;
+    font-family: fantasy;
+    cursor: pointer;
+    z-index: 100;
+    position: fixed;
+    top: 11vh;
+    left: 2vw;
+}
+#game-settings-modal-title{
+    font-size: 2.8em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1.8vh;
+}
+.game-settings-item{
+    margin-bottom: 2.5vh;
+}
+
+.game-subsettings-item{
+    margin-bottom: 2.5vh;
+    font-size: 1.5em;
+}
+
+.game-subsettings-item .select-player-dropdown{
+    margin-left: 10px
+}
+.bold-blue-text{
+    font-weight: bold;
+    color: dodgerblue;
+}
+.game-settings-label{
+    font-size: 1.8em;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+.game-settings-secondary-label{
+    font-size: 1.8em;
+    margin-left: 0.5vw;
+    margin-right: 2vw;
+}
+.game-settings-input{
+    font-size: 1.8em;
+    margin-right: 0.5vw;
+    width: 8vw;
+    text-align: center;
+    border-radius: 10px;
+}
+.game-subsettings-input{
+    font-size: 1.8em;
+    margin-right: 0.5vw;
+    width: 14vw;
+    text-align: center;
+    border-radius: 10px;
+}
+#game-settings-save-button{
+    width: 23vw;
+    font-size: 2.5em;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 8px;
+    position: fixed;
+    top: 55vh;
+    left: 10vw;
+}
+#game-subsettings-save-button{
+    width: 16vw;
+
+    font-size: 2.5em;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-top: 3vh;
+}
+.disabled-save-game-subsettings-button{
+    background: gray;
+    color: dimgrey;
+    cursor: default;
+}
+.game-subsettings-save-button{
+    background: darkgreen;
+    color: white;
+    cursor: pointer;
+}
+.game-settings-save-button{
+    cursor: pointer;
+    background: green;
+    color: white;
+}
+#open-change-balances-button{
+    background: dodgerblue;
+    color: black;
+
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 40vw;
+    font-size: 2.5em;
+
+    position: fixed;
+    top: 38vh;
+    left: 40vw;
+}
+#new-balances-section{
+    background: white;
+    color: black;
+
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 40vw;
+    font-size: 1em;
+
+    position: fixed;
+    top: 42vh;
+    left: 40vw;
+}
+#force-skip-hand-button{
+    background: orangered;
+    color: white;
+
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 23vw;
+    font-size: 2.5em;
+
+    position: fixed;
+    top: 55vh;
+    left: 40vw;
+}
+#pending-requests{
+    background: #777777;
+    border: 2px solid white;
+    border-radius: 20px;
+    position: fixed;
+    top: 65vh;
+    left: 2vw;
+    width: 86vw;
+    height: 31.6vh;
+}
+#pending-requests-header{
+    padding-top: 5px;
+    margin-left: 19px;
+    margin-bottom: 15px;
+    font-size: 2em;
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+    height: 4vh;
+}
+#pending-requests-body{
+    padding-left: 15px;
+    font-size: 2em;
+    color: #333333;
+    overflow-y: scroll;
+    height: 25vh;
+}
+.pending-name{
+    color: purple;
+    font-weight: bold;
+}
+.pending-number{
+    color: #16181b;
+    font-weight: bold;
+}
+.approve-pending{
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding: 1px 3px 1px 3px;
+    background: darkgreen;
+}
+.decline-pending{
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background: darkred;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding: 1px 5px 1px 3px;
+}
+#select-admin-label{
+    color: white;
+    font-size: 2em;
+}
+#select-admin-dropdown{
+    background: white;
+    color: black;
+    width: 14vw;
+    border-radius: 8px;
+    padding: 10px 0px 5px 20px;
+    height: 3.5vh;
+    font-size: 2em;
+}
+#move-admin-section{
+    background: white;
+    color: black;
+}
+
+.underline{
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.select-player-dropdown{
+    background: white;
+    color: black;
+    width: 14vw;
+    border-radius: 8px;
+    padding: 10px 0px 5px 20px;
+    height: 3.5vh;
+    font-size: 2em;
+}

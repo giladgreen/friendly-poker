@@ -1,0 +1,525 @@
+#join-screen{
+    margin-top: 4px;
+    background: transparent;
+    color: white;
+    width: 100vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 10px;
+    position:fixed;
+}
+
+#join-game-section{
+    position: fixed;
+    top: 13vh;
+    left: 2vw;
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 25px;
+    height: 70vh;
+    width: 50vw;
+    padding: 20px;
+    z-index: 1;
+    margin-right: 2vw;
+    font-size: 1.7em;
+}
+
+#join-game-section header{
+   font-size: 2.6em;
+    text-align: center;
+}
+
+#join-game-section div{
+    margin-top: 2vh
+}
+
+
+#full-game-div{
+    position: fixed;
+    top: 40vh;
+    height: 10vh;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+    width: 40vw;
+    left: 57vw;
+    z-index: 90000;
+}
+
+#full-game-text{
+    color: black;
+}
+
+#existing-players{
+    position: fixed;
+    top: 13vh;
+    left: 57vw;
+    height: 70vh;
+    width: 40vw;
+    background: #111111;
+    border: 4px solid grey;
+    border-radius: 25px;
+    padding: 20px;
+    z-index: 1;
+}
+#existing-players header{
+    font-size: 2em;
+}
+
+#join-table-image{
+    position: fixed;
+    top: 19vh;
+    left: 59vw;
+    height: 66vh;
+    width: 36vw;
+    z-index: 2;
+}
+
+#join-table-existing-player-1{
+    top: 29vh;
+    left: 59vw;
+}
+
+#join-after-existing-player-1{
+    top: 21.5vh;
+    left: 64vw;
+}
+
+#join-table-existing-player-2{
+    top: 16.5vh;
+    left: 71vw;
+}
+#join-after-existing-player-2{
+    top: 17.4vh;
+    left: 78.4vw;
+}
+#join-table-existing-player-3{
+    top: 23vh;
+    left: 85.5vw;
+}
+#join-after-existing-player-3{
+    top: 32.2vh;
+    left: 89.3vw;
+}
+#join-table-existing-player-4{
+    top: 42.3vh;
+    left: 90.3vw;
+}
+#join-after-existing-player-4{
+    top: 52.8vh;
+    left: 89.3vw;
+}
+#join-table-existing-player-5{
+    top: 61vh;
+    left: 84.9vw;
+}
+#join-after-existing-player-5{
+    top: 67vh;
+    left: 78.5vw;
+}
+
+#join-table-existing-player-6{
+    top: 68vh;
+    left: 71vw;
+}
+#join-after-existing-player-6{
+    top: 63vh;
+    left: 64vw;
+}
+
+#join-table-existing-player-7{
+    top: 54.4vh;
+    left: 59vw;
+}
+#join-after-existing-player-7{
+    top: 40vh;
+    left: 57.5vw;
+}
+#join-table-existing-player-8{
+    top: 42vh;
+    left: 57.5vw;
+}
+@mixin circle{
+    height: 8vh;
+    width: 6vw;
+    font-size: 1.7em;
+    padding-top: 1.5vh;
+}
+@mixin mobile-circle{
+    height: 7vh;
+    width: 11vw;
+    font-size: 1em;
+    padding-top: 1.4vh;
+}
+@mixin mobile-horizonal-circle{
+    height: 7vh;
+    width: 11vw;
+    font-size: 1em;
+    padding-top: 0.3vh;
+}
+.existing-player{
+    position: fixed;
+    background: white;
+    text-align: center;
+    color: black;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid black;
+    @include circle;
+}
+.existing-player-long-name{
+    position: fixed;
+    background: white;
+    text-align: center;
+    color: black;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid black;
+    font-size: 0.9em;
+    padding-top: 2vh;
+}
+.do-not-sit{
+    position: fixed;
+    background: #6c757d33;
+    text-align: center;
+    color: #888888;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid #888888;
+    @include circle;
+}
+.sit-here-button{
+    position: fixed;
+    background: #6c757d33;
+    text-align: center;
+    color: #888888;
+    z-index: 3;
+    border-radius: 50%;
+    border: 2px solid #888888;
+    @include circle;
+}
+.sit-here-button:hover{
+    cursor: pointer;
+    background: goldenrod;
+    color: black;
+    font-weight: bold;
+}
+
+
+
+.greyPlayer{
+    background: #5a6268;
+
+}
+.whitePlayer{
+    background: grey;
+}
+
+#existing-players-list{
+    background: #050505;
+    margin-top: 1vh;
+    font-size: 2em;
+}
+.join-game-input{
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+}
+@include mobile-vertical {
+
+    #join-game-section {
+        top: 9vh;
+        left: 2vw;
+        border-radius: 10px;
+        height: 45vh;
+        width: 97vw;
+        padding: 5px 20px;
+        margin-right: 2vw;
+        font-size: 1em;
+
+    }
+
+    #join-game-section header {
+        font-size: 1.5em;
+    }
+
+    #join-game-section div {
+        margin-top: 1.5vh
+    }
+
+
+    #full-game-div{
+        position: fixed;
+        top: 70vh;
+        height: 10vh;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1.6em;
+        text-align: center;
+        width: 50vw;
+        left: 25vw;
+        z-index: 90000;
+    }
+    #existing-players {
+        top: 55vh;
+        left: 1vw;
+        height: 44vh;
+        width: 98vw;
+        border: 2px solid grey;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+    #existing-players header {
+        font-size: 1em;
+    }
+
+    #join-table-image {
+        top: 59vh;
+        left: 7vw;
+        height: 40vh;
+        width: 86vw;
+    }
+
+    .do-not-sit {
+        @include mobile-circle;
+    }
+    .sit-here-button {
+        @include mobile-circle;
+    }
+
+    .existing-player {
+        @include mobile-circle;
+    }
+    .existing-player-long-name{
+        @include mobile-circle;
+        font-size: 0.45em;
+        padding-top: 2.2vh;
+    }
+
+    #join-table-existing-player-1 {
+        top: 65vh;
+        left: 9vw;
+    }
+
+    #join-after-existing-player-1 {
+        top: 59vh;
+        left: 20vw;
+    }
+
+    #join-table-existing-player-2 {
+        top: 57vh;
+        left: 32vw;
+    }
+    #join-after-existing-player-2 {
+        top: 57vh;
+        left: 44vw;
+    }
+    #join-table-existing-player-3 {
+        top: 57.6vh;
+        left: 56vw;
+    }
+    #join-after-existing-player-3 {
+        top: 59vh;
+        left: 67.5vw;
+    }
+    #join-table-existing-player-4 {
+        top: 64vh;
+        left: 79vw;
+    }
+    #join-after-existing-player-4 {
+        top: 72.6vh;
+        left: 85vw;
+    }
+    #join-table-existing-player-5 {
+        top: 82vh;
+        left: 79vw;
+    }
+    #join-after-existing-player-5 {
+        top: 86vh;
+        left: 67vw;
+    }
+
+    #join-table-existing-player-6 {
+        top: 87.8vh;
+        left: 54vw;
+    }
+    #join-after-existing-player-6 {
+        top: 88.4vh;
+        left: 41vw;
+    }
+
+    #join-table-existing-player-7 {
+        top: 87vh;
+        left: 28vw;
+    }
+    #join-after-existing-player-7 {
+        top: 73vh;
+        left: 2vw;
+    }
+    #join-table-existing-player-8 {
+        top: 76vh;
+        left: 3vw;
+    }
+
+
+    #existing-players-list {
+        margin-top: 1vh;
+        font-size: 1em;
+    }
+    .join-game-input {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        border-radius: 6px;
+    }
+
+}
+
+@include mobile-horizonal {
+
+    #join-game-section {
+        top: 9.9vh;
+        left: 2vw;
+        border-radius: 10px;
+        height: 45vh;
+        width: 97vw;
+        padding: 2px 20px;
+        margin-right: 2vw;
+        font-size: 0.6em;
+
+    }
+
+    #join-game-section header {
+        font-size: 2.5em;
+    }
+
+    #join-game-section div {
+        margin-top: 0.2vh
+    }
+
+
+    #full-game-div{
+        position: fixed;
+        top: 70vh;
+        height: 10vh;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1.6em;
+        text-align: center;
+        width: 50vw;
+        left: 25vw;
+        z-index: 90000;
+    }
+    #existing-players {
+        top: 55vh;
+        left: 1vw;
+        height: 44vh;
+        width: 98vw;
+        border: 2px solid grey;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+    #existing-players header {
+        font-size: 1em;
+    }
+
+    #join-table-image {
+        top: 59vh;
+        left: 7vw;
+        height: 40vh;
+        width: 86vw;
+    }
+
+    .do-not-sit {
+        @include mobile-horizonal-circle;
+    }
+    .sit-here-button {
+        @include mobile-horizonal-circle;
+    }
+
+    .existing-player {
+        @include mobile-horizonal-circle;
+    }
+    .existing-player-long-name{
+        @include mobile-horizonal-circle;
+        font-size: 0.45em;
+        padding-top: 1vh;
+    }
+
+    #join-table-existing-player-1 {
+        top: 65vh;
+        left: 9vw;
+    }
+
+    #join-after-existing-player-1 {
+        top: 59vh;
+        left: 20vw;
+    }
+
+    #join-table-existing-player-2 {
+        top: 57vh;
+        left: 32vw;
+    }
+    #join-after-existing-player-2 {
+        top: 57vh;
+        left: 44vw;
+    }
+    #join-table-existing-player-3 {
+        top: 57.6vh;
+        left: 56vw;
+    }
+    #join-after-existing-player-3 {
+        top: 59vh;
+        left: 67.5vw;
+    }
+    #join-table-existing-player-4 {
+        top: 64vh;
+        left: 79vw;
+    }
+    #join-after-existing-player-4 {
+        top: 72.6vh;
+        left: 85vw;
+    }
+    #join-table-existing-player-5 {
+        top: 82vh;
+        left: 79vw;
+    }
+    #join-after-existing-player-5 {
+        top: 86vh;
+        left: 67vw;
+    }
+
+    #join-table-existing-player-6 {
+        top: 87.8vh;
+        left: 54vw;
+    }
+    #join-after-existing-player-6 {
+        top: 88.4vh;
+        left: 41vw;
+    }
+
+    #join-table-existing-player-7 {
+        top: 87vh;
+        left: 28vw;
+    }
+    #join-after-existing-player-7 {
+        top: 73vh;
+        left: 2vw;
+    }
+    #join-table-existing-player-8 {
+        top: 76vh;
+        left: 3vw;
+    }
+
+
+    #existing-players-list {
+        margin-top: 1vh;
+        font-size: 1em;
+    }
+    .join-game-input {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        border-radius: 6px;
+    }
+
+}

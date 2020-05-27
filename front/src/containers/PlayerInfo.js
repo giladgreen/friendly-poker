@@ -37,7 +37,7 @@ const PlayerInfo = (props) => {
                       {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}
                 </div>
             </div>
-            { player.dealer && <div id={`dealer-button-${index}`} className="dealer-button" > D </div>}
+            { player.dealer && <div id={`player-${index}-dealer-button`} className="base-dealer-button" > D </div>}
              <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}
@@ -53,7 +53,7 @@ const PlayerInfo = (props) => {
 
             </CSSTransition>
 
-            { game.handOver && player.winner  && <div id={`player${index}-pot-end`} className="player-pot player-pot-hand-over">+{player.winner}</div>}
+            { game.handOver && player.winner  && <div className="player-pot player-pot-hand-over" id={`player${index}-pot-end`} >+{player.winner}</div>}
 
             { player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}

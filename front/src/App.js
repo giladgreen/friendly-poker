@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import io from 'socket.io-client';
-import './App.css';
+import './style/app.css';
 import { version } from '../package.json';
 
 // io.set('heartbeat timeout', 60000);
@@ -720,13 +720,14 @@ class App extends Component {
         console.log('app render')
         const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
-        if (isMobile){
-           return <NotSupported message="Phone Currently not supported"/>
-        }
+
         if (this.state.Incognito){
            return <NotSupported message="Incognito Mode is not supported"/>
         }
         if (!this.state.gameId){
+            if (isMobile){
+               return <NotSupported message="Game creation not supported on mobile view"/>
+            }
             return this.wrapWithAlerts(<CreateGameScreen
                 connected={this.state.connected}
                 playerId={this.state.playerId}
@@ -751,7 +752,7 @@ class App extends Component {
             const gamePlayer =  game.players.find(p=>p.id === playerId);
 
             if (gamePlayer){
-                
+
                 return this.wrapWithAlerts(<OnlineGame
                     connected={this.state.connected}
                     messages={this.state.messages}

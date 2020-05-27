@@ -512,16 +512,21 @@ class OnlineGame extends Component {
         return (
             <div id="online-game-screen">
                 {/* game time */}
-                {startDate ? <Clock startDate={startDate}/> : <div/>}
+                {startDate ? <Clock startDate={startDate}/> :  <div />}
                 {/* blinds data */}
                 <div id="blinds-data">BLINDS: { smallBlind}/{bigBlind}</div>
+
                 {/* hand count + time */}
-                { hand && hand >0 ? <div id="hand-time">
-                    <span>Hand #{hand} </span> <div/>
-                </div> : <div/>}
-                {hand && hand>0 ? <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/> : <div/>}
+                { hand && hand >0 ? (<div id="hand-time">
+                    <span>Hand #{hand} </span>
+                </div>) :  <div />}
+
+                {hand && hand>0 ? (
+                    <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
+                    )
+                    :  <div id={"666"}/>}
                 {/* your turn indication */}
-                { game.playersTurn ? <div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div> : <div/>}
+                { game.playersTurn ? (<div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>) : <div/>}
                 {/* table image */}
                 <img id="table-image" src="table.png" />
 
@@ -817,7 +822,7 @@ class OnlineGame extends Component {
                 <div id="messages-box">
                     {messages}
                 </div>
-                
+
                 {game.paused ? <GamePauseScreen  resumeGame={this.props.resumeGame}
                                                  isAdmin={this.props.isAdmin}
                                                  game={this.props.game}/> : <div/>}

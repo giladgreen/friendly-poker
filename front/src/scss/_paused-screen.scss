@@ -1,0 +1,86 @@
+
+#game-pause-screen{
+    position: fixed;
+    top:9.3vh;
+    height: 87vh;
+    width: 99vw;
+    left: 0.8vw;
+    background: #000000DD;
+    border: 2px solid grey;
+    border-radius: 10px;
+    z-index: 50;
+}
+#game-pause-info-screen-body-table{
+    color: white;
+    margin-left: 2vw;
+}
+
+#game-pause-screen table, th, td {
+    border: 1px solid #99999955
+}
+
+#game-pause-screen table th{
+    padding: 6px;
+    padding-left: 14px;
+
+}
+#game-pause-info-screen-header{
+    color: white;
+    font-size: 2em;
+    text-align: left;
+    margin-left: 3vw;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#game-pause-indication{
+    position: fixed;
+    top:0vh;
+    left:0vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background: #00000044;
+    color: white;
+    font-weight: bold;
+    font-size: 15em;
+    text-align: center;
+    padding-top: 8vh;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#game-pause-indication-text{
+    position: fixed;
+    top:0vh;
+    left:0vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    color: white;
+    font-weight: bold;
+    font-size: 5em;
+    text-align: center;
+    padding-top: 42vh;
+}
+#start-pause-game-button{
+    color: white;
+    position: fixed;
+    bottom: 2vh;
+    left: 42vw;
+    width: 16vw;
+    cursor: pointer;
+    border: 2px solid grey;
+    border-radius: 15px;
+    height: 8vh;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 1vh;
+    background: #00000066;
+    z-index: 102;
+}
+
+#start-pause-game-button:hover{
+    background: black;
+}

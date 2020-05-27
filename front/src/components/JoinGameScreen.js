@@ -36,7 +36,7 @@ class JoinGameScreen extends Component {
 
     onJoin = (positionIndex)=>{
 
-        if (this.state.showAmountError || this.state.showNameError){
+        if (this.state.showAmountError || this.state.showNameError || !this.state.name || this.state.name.length === 0){
             return;
         }
 
@@ -127,8 +127,8 @@ class JoinGameScreen extends Component {
 
                                 return <div key={player.id}
                                             id={`join-table-existing-player-${index+1}`}
-                                            className="existing-player">
-                                   {player.name}
+                                            className={player.name.length>4 ? 'existing-player-long-name' : 'existing-player'}>
+                                             {player.name}
                                 </div>
                             })
                         }
@@ -151,8 +151,8 @@ class JoinGameScreen extends Component {
                             SIT
                         </div> : <div/>}
 
-                        {playersCount >= 8 && <div id="join-button-full-game-div">
-                            <span id="join-button-full-game" >Game is Full</span>
+                        {playersCount >= 8 && <div id="full-game-div">
+                            <span id="full-game-text" >Game is Full</span>
 
                         </div>}
 

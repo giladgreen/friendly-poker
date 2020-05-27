@@ -58,7 +58,7 @@ class UserTimer extends Component {
         let seconds = (userTimer - minutes * MINUTE).toFixed(0);
         minutes = minutes>9 ? `${minutes}` : `0${minutes}`;
         seconds = seconds>9 ? `${seconds}` : `0${seconds}`;
-        return `${minutes}:${seconds}`
+        return `${minutes}:${seconds}`;
     }
 
     getTimeLeftValue = ()=>{
@@ -73,9 +73,10 @@ class UserTimer extends Component {
     render() {
         return <div>
             {/* time left to talk */}
-            <div id="hand-clock"> { this.getTimeLeft()}</div>
+            <div id="hand-clock"> { this.getTimeLeft()} </div>
+
             {/* time left to talk progess bar */}
-             <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} /> :<div/>
+             <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} />
         </div>
     }
 }

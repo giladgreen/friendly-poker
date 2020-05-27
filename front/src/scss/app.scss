@@ -1,0 +1,251 @@
+@import "./bootstrap";
+
+$mobile-horizonal: 800px;
+$mobile-vertical: 530px;
+
+@mixin mobile-horizonal {
+  @media (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+      @content;
+  }
+}
+
+@mixin mobile-vertical {
+  @media (max-width: $mobile-vertical) {
+    @content;
+  }
+}
+
+.App {
+  text-align: center;
+}
+#not-supported-screen{
+  background: black;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
+#app-version{
+  position: fixed;
+  top: 8.6vh;
+  left: 38.3vw;
+  z-index: 50;
+  color: #777777;
+}
+#app-name{
+  position: fixed;
+  top: 1.6vh;
+  left: 18vw;
+  height: 7.8vh;
+  width: 23vw;
+  z-index: 50;
+  cursor: pointer;
+}
+#app-name-loader-screen{
+  position: fixed;
+  top: 1.6vh;
+  left: 38vw;
+  height: 7.8vh;
+  width: 23vw;
+  z-index: 50;
+}
+#connection-status{
+  position: fixed;
+  top: 2vh;
+  left: 0.8vw;
+
+  height: 7vh;
+  font-family: "Arial Black";
+  z-index: 50;
+  font-size: 2em;
+  text-align: center;
+  padding: 3px 10px;
+
+  border-radius: 12px;
+  border-width: 3px;
+  border-style: solid;
+}
+
+.connected-to-server{
+  border-color: forestgreen;
+  color: forestgreen;
+}
+
+.connecting-to-server{
+  border-color: orange;
+  color: orange;
+  cursor: progress;
+  animation: blinker 2s linear infinite;
+}
+.red-border{
+  border: 2px solid red;
+}
+.red-background{
+  background: indianred;
+}
+#confirm-popup{
+  position: fixed;
+  top: 20vh;
+  left:20vw;
+  width: 60vw;
+  height: 18vh;
+  background: black;
+  border: 3px solid white;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 2.4em;
+  z-index: 100000;
+}
+#confirm-yes{
+  background: darkgreen;
+  left:62vw;
+}
+#confirm-cancel{
+
+  background: #721c24;
+ left:30vw;
+}
+
+.confirm-button{
+  z-index: 100001;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+
+  border: 2px solid white;
+  border-radius: 9px;
+  position: fixed;
+  top: 27vh;
+
+  width: 10vw;
+  height: 7vh;
+}
+
+@include mobile-horizonal{
+  #app-version{
+    color: transparent;
+  }
+
+  #app-name-loader-screen{
+    position: fixed;
+    top: 1.6vh;
+    left: 38vw;
+    height: 7.8vh;
+    width: 23vw;
+    z-index: 50;
+  }
+  #connection-status{
+    top: 1vh;
+    left: 0.8vw;
+    height: 8.5vh;
+    font-size: 1em;
+    padding: 0px 10px;
+
+    border-radius: 12px;
+    border-width: 2px;
+
+  }
+  #app-name{
+    top: 0.6vh;
+    left: 27vw;
+    height: 7vh;
+    width: 48vw;
+
+  }
+
+  #confirm-popup{
+    top: 20vh;
+    left:5vw;
+    width: 90vw;
+    height: 18vh;
+    font-size: 1em;
+
+  }
+  #confirm-yes{
+    left:59vw;
+  }
+  #confirm-cancel{
+    left:20vw;
+  }
+
+  .confirm-button{
+    border: 2px solid white;
+    border-radius: 9px;
+    top: 27vh;
+    width: 20vw;
+    height: 6vh;
+  }
+
+}
+
+@include mobile-vertical{
+
+  #app-version{
+    color: transparent;
+  }
+
+  #app-name-loader-screen{
+    position: fixed;
+    top: 1.6vh;
+    left: 38vw;
+    height: 7.8vh;
+    width: 23vw;
+    z-index: 50;
+  }
+  #connection-status{
+    top: 1vh;
+    left: 0.8vw;
+    height: 4vh;
+    font-size: 1em;
+    padding: 0px 10px;
+
+    border-radius: 12px;
+    border-width: 2px;
+
+  }
+  #app-name{
+    top: 0.6vh;
+    left: 37vw;
+    height: 7vh;
+    width: 48vw;
+
+  }
+
+  #confirm-popup{
+    top: 20vh;
+    left:5vw;
+    width: 90vw;
+    height: 18vh;
+    font-size: 1em;
+
+  }
+  #confirm-yes{
+    left:59vw;
+  }
+  #confirm-cancel{
+    left:20vw;
+  }
+
+  .confirm-button{
+    border: 2px solid white;
+    border-radius: 9px;
+    top: 27vh;
+    width: 20vw;
+    height: 5vh;
+  }
+
+}
+
+
+
+@import "./cards";
+@import "./createNewGameScreen";
+@import "./game-action-buttons";
+@import "./game-settings";
+@import "./gameInfoScreen";
+@import "./joinGameScreen";
+@import "./loader";
+@import "./logs";
+@import "./onlineGame";
+@import "./paused-screen";
+@import "./playerInfo";
