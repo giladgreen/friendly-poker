@@ -61,6 +61,11 @@ const PrettoSlider = withStyles({
 
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
+const SECOND = 1000;
+const MINUTE = 60;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+
 class OnlineGame extends Component {
 
     constructor(props) {
@@ -195,7 +200,7 @@ class OnlineGame extends Component {
     onGameUpdate = (game) =>{
 
         let rebuyEnabled = false;
-        const userTimer = game.currentTimerTime;
+        const userTimer = game.timeForDropCard ? game.timeForDropCard : game.currentTimerTime;
 
         const activeIndex = this.getActiveIndex(game.players);
         const myIndex = this.getMyIndex(game.players);
@@ -226,22 +231,7 @@ class OnlineGame extends Component {
             cheapLeader = me.balance === maxBalance;
         }
 
-        // if (game.startDate){
-        //
-        //     if (this.timerInterval) {
-        //         clearInterval(this.timerInterval);
-        //     }
-        //     this.timerInterval = setInterval(()=>{
-        //         let newUserTimer = this.state.userTimer;
-        //         newUserTimer -= 0.25;
-        //         if (newUserTimer < 0){
-        //             newUserTimer = 0;
-        //             setImmediate(()=>clearInterval(this.timerInterval));
-        //         }
-        //         this.setState({ userTimer: newUserTimer});
-        //     },250);
-        //
-        // }
+
         let checkFoldPressed = this.state.checkFoldPressed;
         if (isMyTurn){
             if (this.state.checkFoldPressed){
@@ -480,10 +470,9 @@ class OnlineGame extends Component {
     };
 
     render() {
-        console.log('online game render')
         const { options, cheapLeader, me, betRoundOver} = this.state;
         const {game, initial} = this.props;
-        const { pendingJoin, pendingRebuy} = game;
+        const { pendingJoin, pendingRebuy, timeForDropCard} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
         const { pot, displayPot, smallBlind, bigBlind, players, startDate,hand, board} = game;
@@ -500,6 +489,8 @@ class OnlineGame extends Component {
         };
 
         const skipHandEnabled = me && me.admin && startDate;
+        const showDropCardMessage = game.pineapple && game.waitingForPlayers;
+        const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
         const changePlayersBalances = me && me.admin && players.length >1;
         const quitEnabled = me && ((!me.admin && (me.fold || me.sitOut || !startDate)) || (me.admin && (game.players.length === 1)));
         const standSitEnabled = startDate && me && (me.sitOut || me.fold);
@@ -522,7 +513,7 @@ class OnlineGame extends Component {
                 </div>) :  <div />}
 
                 {hand && hand>0 ? (
-                    <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
+                    <UserTimer userTimer={this.state.userTimer} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
                     )
                     :  <div id={"666"}/>}
                 {/* your turn indication */}
@@ -540,6 +531,7 @@ class OnlineGame extends Component {
                     admin={me.admin}
                     isMe={player.id === me.id}
                     game={game}
+                    dropCard={this.props.dropCard}
                     player={player}
                     index={player.locationIndex}
                     dealIndex={player.dealIndex}
@@ -570,8 +562,11 @@ class OnlineGame extends Component {
 
                     { !game.handOver &&
                     <div>
+                        { showDropCardMessage ? <div className="DropCardMessage" >
+                             {showDropCardMessageText}
+                        </div> : <div/>}
                         {/* basic options */}
-                        { !this.state.raiseEnabled && <div>
+                        { !this.state.raiseEnabled && !showDropCardMessage && <div>
                             {/* Fold button */}
                             { options.includes('Fold') && <div id="fold-button" className="action-button " onClick={this.fold}> <span><span className="shortcut">F</span>old</span> </div>}
                             {/* Check button */}
@@ -583,13 +578,13 @@ class OnlineGame extends Component {
 
                         </div> }
                         {/* Check/Fold */}
-                        { me && !me.active && !me.sitOut && !me.fold && !me.allIn && game.startDate && <div>
+                        { me && !me.active && !me.sitOut && !me.fold && !me.allIn && game.startDate && !showDropCardMessage && <div>
                             {/* Check/Fold button */}
                             <div id="check-fold-button" className={`${this.state.checkFoldPressed ? 'check-fold-button-pressed' : 'check-fold-button-not-pressed'}`} onClick={this.checkFold}> <span>Check/<span className="shortcut">F</span>old</span>  </div>
                         </div> }
 
                         {/* Raise options */}
-                        { this.state.raiseEnabled && options.includes('Raise') && <div>
+                        { this.state.raiseEnabled && !showDropCardMessage && options.includes('Raise') && <div>
                                 {/* Cancel Raise button */}
                                 <div id="toggle-raise-button-cancel" className="action-button" onClick={this.toggleRaiseButton}><span><span className="shortcut">C</span>ancel</span> </div>
                                 {/* Raise button */}

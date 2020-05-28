@@ -6,6 +6,8 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
     const gameToSend = { ...game };
     delete gameToSend.deck;
     delete gameToSend.timerRef;
+    delete gameToSend.pineappleRef;
+
     gameToSend.players = gameToSend.players.map((p) => {
         const player = { ...p, cards: [...(p.cards || [])] };
         delete player.offline;

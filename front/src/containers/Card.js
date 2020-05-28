@@ -3,7 +3,7 @@
 import React from 'react'
 
 const Card = (props) => {
-    const { card, folded, first, second, third, fourth, highlight, shown, isMe, omaha, playerPreferences, index, initial } = props;
+    const { card, folded, first, second, third, fourth, highlight, shown, isMe, texas, omaha, pineapple, playerPreferences, index, initial,dropEnabled, dropCard } = props;
 
     const {twoColors} = playerPreferences;
 
@@ -18,7 +18,11 @@ const Card = (props) => {
         'C':club,
     }
 
-    if (!omaha && (third || fourth)){
+    if (!omaha && fourth){
+        return <div/>;
+    }
+    if (!omaha && !pineapple && (third || fourth)){
+
         return <div/>;
     }
     const number = card && (isMe || !folded) ? card[0].replace('T','10') : '';
@@ -33,11 +37,13 @@ const Card = (props) => {
         }
     }
 
-    const id = index && !omaha ? ( initial ? (`player${index}-${first?'first':'second'}-card-texas`): (`player${index}-${first?'first':'second'}-card-texas-no-anim`)) : undefined;
+    const id = index && texas ?
+        ( initial ? (`player${index}-${first?'first':'second'}-card-texas`): (`player${index}-${first?'first':'second'}-card-texas-no-anim`))
+        : undefined;
 
-    const className = `simple-card-base  ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''}`;
+    const className = `simple-card-base  ${first ? 'first-card':'' } ${second ? 'second-card':'' } ${third ? 'third-card':'' } ${fourth ? 'fourth-card':'' } ${highlight ? 'highlight-card':''} ${shown ? 'shown-card':''} ${dropEnabled ? 'drop-card-enabled':''}`;
 
-    return  <div key={`card_${card}`} id={id}
+    return  <div key={`card_${card}`} id={id} onClick={()=>{ if (dropEnabled) { dropCard();} }}
                  className={className}>
                 <div className={folded ? (isMe ? 'my-folded-card' :'simple-card-folded') : (card ? 'simple-card-front':'simple-card-back') }>
                     <div className={`card-number ${color}`}>

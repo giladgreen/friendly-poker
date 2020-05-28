@@ -38,8 +38,9 @@ class UserTimer extends Component {
         if (this.state.userTimer){
             this.startInterval();
         }
-
-        this.props.registerForceUserTimerUpdate(this.forceUpdate);
+        if (this.props.registerForceUserTimerUpdate){
+            this.props.registerForceUserTimerUpdate(this.forceUpdate);
+        }
     }
 
     componentWillUnmount() {
@@ -71,6 +72,7 @@ class UserTimer extends Component {
     }
 
     render() {
+
         return <div>
             {/* time left to talk */}
             <div id="hand-clock"> { this.getTimeLeft()} </div>

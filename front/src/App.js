@@ -161,7 +161,6 @@ class App extends Component {
     getGameClone = (game) =>{
 
         const players = game.players;
-
         const myIndex = this.getMyIndex(game.players);
         const dealerIndex = this.getDealerIndex(game.players);
 
@@ -183,9 +182,15 @@ class App extends Component {
             }
         });
 
+        if (game.pineapple && game.waitingForPlayers && !game.timeForDropCard && players.some(p=>p.needToThrow)){
+            game.timeForDropCard = 30;
+        }
+        if (game.gamePhase >0 && game.pineapple && !game.waitingForPlayers){
+            delete game.timeForDropCard;
+            game.pineapple = false;
+            game.texas = true;
+        }
 
-
-        //            players: [...game.players.slice(myIndex, game.players.length+1),...game.players.slice(0, myIndex)]
         const gameClone = {
             ...game,
             players,
@@ -285,7 +290,7 @@ class App extends Component {
         });
 
         this.socket.on('connect', ()=>{
-            console.log('App on connect.');
+            // console.log('App on connect.');
             if (!this.state.gameId){
                 if (!this.state.games){
                     setTimeout(()=>{
@@ -307,7 +312,7 @@ class App extends Component {
 
 
                 } else{
-                    console.log('App on connect. gameId:',this.state.gameId, ' has game, emitting updateplayerid, playerId:',this.state.playerId);
+                    // console.log('App on connect. gameId:',this.state.gameId, ' has game, emitting updateplayerid, playerId:',this.state.playerId);
                     this.socket.emit('updateplayerid', {playerId: this.state.playerId});
                 }
             }
@@ -318,7 +323,7 @@ class App extends Component {
         });
 
         this.socket.on('disconnect', (data) => {
-            console.log('App on disconnect',data);
+            // console.log('App on disconnect',data);
             if (this.state.connected){
                 this.setState({connected:false});
             }
@@ -335,7 +340,7 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-            console.log('on game update game.socketId',game.socketId)
+            // console.log('on game update game.socketId',game.socketId)
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
@@ -361,8 +366,14 @@ class App extends Component {
                         gameClone.hand !== this.state.game.hand ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
+                        gameClone.waitingForPlayers !== this.state.game.waitingForPlayers ||
                         activePlayerIndex !== newActivePlayerIndex){
+
+                        // console.log('GameUpdatedCallback',gameClone)
                         this.GameUpdatedCallback(gameClone);
+                    }else{
+                        // console.log('GameUpdatedCallback not calling..',gameClone.board)
+                        // console.log('gameClone.gamePhase',gameClone.gamePhase)
                     }
 
                 }
@@ -388,23 +399,20 @@ class App extends Component {
                         gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
                         this.setState({game: gameClone});
                     },playersWithCardsCount*delay + (dealIndex+1)*delay);
-
-
-
                 })
             }
 
         });
 
         this.socket.on('gamecreated', (game) => {
-            console.log('on gamecreated');
+            // console.log('on gamecreated');
             game = this.getGameClone(game);
 
             const gameId = game.id;
             const existingGames = (localStorage.getItem('games') || '').split(',');
             existingGames.push(gameId);
             localStorage.setItem('games', existingGames.join(','));
-            console.log('going to ',`${serverPrefix}?gameid=${gameId}`)
+            // console.log('going to ',`${serverPrefix}?gameid=${gameId}`)
 
             this.setState({ game, gameId, connected: true });
             setTimeout(()=>{
@@ -413,18 +421,18 @@ class App extends Component {
         });
 
         this.socket.on('operationpendingaproval', () => {
-            console.log('on operationpendingaproval');
+            // console.log('on operationpendingaproval');
             this.setState({ operationpendingaproval: true });
         });
 
         this.socket.on('joinrequestdeclined', (game) => {
-            console.log('on joinrequestdeclined');
+            //console.log('on joinrequestdeclined');
             this.setState({ operationpendingaproval: false, game });
             this.showAlertMessage('join request declined');
         });
 
         this.socket.on('rebuyrequestdeclined', () => {
-            console.log('on rebuyrequestdeclined');
+            // console.log('on rebuyrequestdeclined');
             this.showAlertMessage('rebuy request declined');
         });
 
@@ -484,10 +492,18 @@ class App extends Component {
         }
     };
 
+    dropCard = (cardToDrop) =>{
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+        // console.log('emiting pineappledropcard',  {gameId , now, playerId, cardToDrop })
+
+        this.socket.emit('pineappledropcard', {gameId , now, playerId, cardToDrop });
+    };
+
     sitBack = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        console.log('emiting sitback')
+        // console.log('emiting sitback')
 
         this.socket.emit('sitback', {gameId , now, playerId });
     };
@@ -495,7 +511,7 @@ class App extends Component {
     standUp = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        console.log('emiting standup')
+        // console.log('emiting standup')
         this.socket.emit('standup', {gameId , now, playerId });
     };
 
@@ -506,7 +522,7 @@ class App extends Component {
                 message:'Are you sure?',
                 onYes:()=>{
                     const { gameId, playerId } = this.state;
-                    console.log('emiting quitgame')
+                    //console.log('emiting quitgame')
                     this.socket.emit('quitgame', {gameId, playerId, now: (new Date()).getTime() });
                     localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
 
@@ -524,7 +540,7 @@ class App extends Component {
                 message: `Are you sure you want to ${action}?`,
                 onYes:()=>{
                     const { gameId, playerId } = this.state;
-                    console.log('emiting kickoutplayer');
+                    // console.log('emiting kickoutplayer');
                     this.socket.emit('kickoutplayer', {gameId, playerId, now: (new Date()).getTime(), playerToKickId });
                     this.onCancelPopUp();
                 },
@@ -540,7 +556,7 @@ class App extends Component {
                 onYes:()=>{
                     const now =(new Date()).getTime();
                     const { gameId, playerId } = this.state;
-                    console.log('emiting skiphand');
+                    // console.log('emiting skiphand');
                     this.socket.emit('skiphand', {gameId , now, playerId });
                     this.onCancelPopUp();
                 }
@@ -555,7 +571,7 @@ class App extends Component {
                 message:'Are you sure?',
                 onYes:()=>{
                     const { playerId } = this.state;
-                    console.log('emiting deletegame')
+                    //console.log('emiting deletegame')
                     this.socket.emit('deletegame', {gameId , playerId });
                     this.onCancelPopUp();
                 }
@@ -566,7 +582,7 @@ class App extends Component {
         if (message.length > 0){
             const now =(new Date()).getTime();
             const { gameId, playerId } = this.state;
-            console.log('emiting usermessage')
+            // console.log('emiting usermessage')
             this.socket.emit('usermessage', {gameId , now, playerId, message });
         }
     };
@@ -582,11 +598,11 @@ class App extends Component {
 
     updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances) =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting updategamesettings')
+        // console.log('emiting updategamesettings')
         const now = (new Date()).getTime();
         this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, now });
         if (adminId !== playerId){
-            console.log('emiting changeadmin')
+            // console.log('emiting changeadmin')
 
             this.socket.emit('changeadmin', {gameId, playerId, newAdminId: adminId, now });
         }
@@ -625,31 +641,31 @@ class App extends Component {
 
     approveJoin = (data) =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting approvejoin')
+        // console.log('emiting approvejoin')
         this.socket.emit('approvejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
     };
 
     approveRebuy = (data) =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting approverebuy')
+        // console.log('emiting approverebuy')
         this.socket.emit('approverebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
     };
 
     declineJoin = (data) =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting declinejoin')
+        // console.log('emiting declinejoin')
         this.socket.emit('declinejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
     };
 
     declineRebuy = (data) =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting declinerebuy')
+        // console.log('emiting declinerebuy')
         this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
     };
 
     setCreatorAsAdmin = () =>{
         const { gameId, playerId } = this.state;
-        console.log('emiting setcreatorasadmin')
+        // console.log('emiting setcreatorasadmin')
         this.socket.emit('setcreatorasadmin', {gameId , playerId, now: (new Date()).getTime() });
     };
 
@@ -717,7 +733,6 @@ class App extends Component {
     };
 
     render() {
-        console.log('app render')
         const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 
@@ -774,6 +789,7 @@ class App extends Component {
                     quitGame={this.quitGame}
                     sendMessage={this.sendMessage}
                     action={this.action}
+                    dropCard={this.dropCard}
                     approveJoin={this.approveJoin}
                     approveRebuy={this.approveRebuy}
                     fold={this.fold}

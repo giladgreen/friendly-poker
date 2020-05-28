@@ -11112,27 +11112,27 @@ body {
 }
 
 .first-card {
-  z-index: 20;
+  z-index: 23;
   position: absolute;
-  left: -4.6vw;
+  left: 4vw;
 }
 
 .second-card {
-  z-index: 21;
-  position: absolute;
-  left: -1.7vw;
-}
-
-.third-card {
   z-index: 22;
   position: absolute;
   left: 1.1vw;
 }
 
-.fourth-card {
-  z-index: 23;
+.third-card {
+  z-index: 21;
   position: absolute;
-  left: 4vw;
+  left: -1.7vw;
+}
+
+.fourth-card {
+  z-index: 20;
+  position: absolute;
+  left: -4.6vw;
 }
 
 .highlight-card {
@@ -11141,6 +11141,11 @@ body {
 
 .shown-card {
   outline: 1px solid #117a8b;
+}
+
+.drop-card-enabled:hover {
+  outline: 2px solid red;
+  cursor: pointer;
 }
 
 .simple-card-back {
@@ -11712,6 +11717,16 @@ em-spades {
 
 #show-cards-button:hover {
   background: #1e90ff99;
+}
+
+.DropCardMessage {
+  position: fixed;
+  bottom: 10vh;
+  left: 0;
+  width: 100vw;
+  font-size: 2em;
+  color: white;
+  text-align: center;
 }
 
 #fold-button {
@@ -12792,8 +12807,12 @@ em-spades {
   z-index: 3;
   border-radius: 50%;
   border: 2px solid black;
-  font-size: 0.9em;
-  padding-top: 2vh;
+  height: 8vh;
+  width: 6vw;
+  font-size: 1.7em;
+  padding-top: 1.5vh;
+  font-size: 1.3em;
+  padding-top: 1.5vh;
 }
 
 .do-not-sit {
@@ -13239,6 +13258,10 @@ em-spades {
 
 .shortcut {
   text-decoration: underline;
+}
+
+.timer-to-drop-card {
+  color: white;
 }
 
 .copy-game-link {

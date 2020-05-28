@@ -8,11 +8,15 @@ import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
 
     const {game, player, index, winningHandCards, isMe, initial, betRoundOver } = props;
-    const {cardsToShow} = player;
+    const { pineapple } = game;
+
+    const {cardsToShow, needToThrow} = player;
+    const dropEnabled = pineapple && needToThrow;
+
     const showCards = game.showPlayersHands.includes(player.id);
     const card1 = player.cards ? player.cards[0] : null;
     const card2 = player.cards ? player.cards[1] : null;
-    const card3 = player.cards && game.omaha ? player.cards[2] : null;
+    const card3 = player.cards && (game.omaha || game.pineapple) ? player.cards[2] : null;
     const card4 = player.cards && game.omaha ? player.cards[3] : null;
 
     const handsWon = `${player.handsWon}`;
@@ -24,9 +28,9 @@ const PlayerInfo = (props) => {
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
 
-            {cardsToShow > 0 &&               <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
-            {cardsToShow > 1 &&               <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha} shown={showCards} highlight={winningHandCards.includes(card2)}/>}
-            {game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
+            {cardsToShow > 0 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card1)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha}  pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
+            {cardsToShow > 1 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card2)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
+            {(game.omaha || game.pineapple) && cardsToShow > 1 && <Card dropEnabled={dropEnabled}  dropCard={()=>props.dropCard(card3)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
             {game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>

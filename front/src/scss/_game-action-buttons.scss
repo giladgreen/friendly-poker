@@ -47,6 +47,15 @@ $button-height: 7vh;
     background: #1e90ff99;
 }
 
+.DropCardMessage{
+    position: fixed;
+bottom: 10vh;
+    left:0;
+    width: 100vw;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+}
 #fold-button{
     right: 1vw;
     background: #cd5c5c77;

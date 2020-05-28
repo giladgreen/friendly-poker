@@ -152,25 +152,29 @@ $first-card-z-index: 20;
 
 
 .first-card{
-    z-index: $first-card-z-index;
+    z-index: $first-card-z-index + 3;
     position: absolute;
-    left: -4.6vw;
+    left: 4vw;
 }
 
 .second-card{
-    z-index: $first-card-z-index + 1;
-    position: absolute;
-    left: -1.7vw;
-}
-.third-card{
     z-index: $first-card-z-index + 2;
     position: absolute;
     left: 1.1vw;
 }
-.fourth-card{
-    z-index: $first-card-z-index + 3;
+.third-card{
+
+
+    z-index: $first-card-z-index + 1;
     position: absolute;
-    left: 4vw;
+    left: -1.7vw;
+}
+.fourth-card{
+
+
+    z-index: $first-card-z-index;
+    position: absolute;
+    left: -4.6vw;
 }
 
 .highlight-card{
@@ -180,6 +184,14 @@ $first-card-z-index: 20;
 .shown-card{
     outline: 1px solid #117a8b;
 }
+.drop-card-enabled{
+
+    &:hover{
+        outline: 2px solid red;
+        cursor: pointer;
+    }
+}
+
 
 .simple-card-back{
     background: #BB445588;

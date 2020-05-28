@@ -92,7 +92,7 @@ class GameSettingModal extends Component {
             toPlayerBalance = toPlayer.balance;
         }
 
-        console.log('from player changed',{fromPlayerId, fromPlayerName, fromPlayerBalance,toPlayerId,toPlayerName, toPlayerBalance, amount: 1})
+        // console.log('from player changed',{fromPlayerId, fromPlayerName, fromPlayerBalance,toPlayerId,toPlayerName, toPlayerBalance, amount: 1})
         this.setState({fromPlayerId, fromPlayerName, fromPlayerBalance,toPlayerId,toPlayerName, toPlayerBalance, amount: 1})
     };
 
