@@ -24,6 +24,7 @@ const { onApproveRebuyEvent } = require('./approveRebuy');
 const { onDeclineJoinEvent } = require('./declineJoin');
 const { onDeclineRebuyEvent } = require('./declineRebuy');
 const { onSetCreatorAsAdminEvent } = require('./setCreatorAsAdmin');
+const { onPineappleDropCard } = require('./pineappleDropCard');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -53,6 +54,7 @@ function onConnection(socket) {
   socket.on('approverebuy', data => onApproveRebuyEvent(socket, data));
   socket.on('declinerebuy', data => onDeclineRebuyEvent(socket, data));
   socket.on('setcreatorasadmin', data => onSetCreatorAsAdminEvent(socket, data));
+  socket.on('pineappledropcard', data => onPineappleDropCard(socket, data));
 }
 
 module.exports = {

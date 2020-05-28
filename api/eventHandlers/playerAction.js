@@ -9,12 +9,12 @@ const {
 } = require('../consts');
 
 
-async function sleep(milli){
-  return new Promise((resolve)=>{
-    setTimeout(()=>{
+async function sleep(milli) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
       resolve();
-    },milli)
-  })
+    }, milli);
+  });
 }
 
 
@@ -96,7 +96,27 @@ function handleRountOver(game, player, gameIsOver) {
 
   return gameIsOver;
 }
+function pineappleAutoSelectCardToThrow(game) {
+  logger.info('pineappleAutoSelectCardToThrow');
+  if (game.pineappleRef) {
+    logger.info('pineappleAutoSelectCardToThrow inside');
 
+    clearTimeout(game.pineappleRef);
+    delete game.pineappleRef;
+
+    const { players } = game;
+    players.filter(player => player.cards.length === 3).forEach((player) => {
+      player.cards.pop();
+      delete player.needToThrow;
+    });
+    delete game.waitingForPlayers;
+
+    // eslint-disable-next-line no-use-before-define
+    GamesService.resetHandTimer(game, onPlayerActionEvent);
+
+    GameHelper.updateGamePlayers(game);
+  }
+}
 function proceedToNextStreet(game, now, gameIsOver) {
   const log = `Pot size: ${game.pot}, players are in for: ${game.players.map(p => `${p.name}: ${p.pot.reduce((total, num) => total + num, 0)}`).join(', ')}`;
 
@@ -107,6 +127,13 @@ function proceedToNextStreet(game, now, gameIsOver) {
     game.messages.push({ action: 'Flop', log: `Flop: ${format(game.board.join(','))}`, now });
     game.messages.push({ action: 'FlopData', log, now });
     game.audioableAction.push(CARDS);
+    if (game.pineapple) {
+      game.waitingForPlayers = true;
+      game.players.filter(p => !p.fold && !p.sitOut).forEach((p) => { p.needToThrow = true; });
+      game.pineappleRef = setTimeout(() => pineappleAutoSelectCardToThrow(game), 30000);
+    }
+
+
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
     game.board.push(game.deck.pop());
@@ -178,9 +205,10 @@ async function onPlayerActionEvent(socket, {
     if (!game.fastForward) {
       player = handlePlayerAction(game, playerId, op, amount, hand);
     }
+    // eslint-disable-next-line no-restricted-globals
     const roundSum = game.players.filter(p => p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
-        .map(p => p.pot[game.gamePhase])
-        .reduce((all, one) => all + one, 0);
+      .map(p => p.pot[game.gamePhase])
+      .reduce((all, one) => all + one, 0);
 
     game.displayPot = game.pot - roundSum;
 
@@ -194,7 +222,6 @@ async function onPlayerActionEvent(socket, {
         GameHelper.updateGamePlayers(game, gameIsOver);
         await sleep(1500);
         handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], now);
-
       } else {
         logger.info('bet round is over!');
         GameHelper.updateGamePlayers(game, gameIsOver);
@@ -202,7 +229,7 @@ async function onPlayerActionEvent(socket, {
         game.betRoundOver = true;
         GameHelper.updateGamePlayers(game, gameIsOver);
         await sleep(750);
-        if (roundSum > 0){
+        if (roundSum > 0) {
           await sleep(750);
         }
 
@@ -240,8 +267,16 @@ async function onPlayerActionEvent(socket, {
     if (socket) socket.emit('onerror', { message: 'action failed', reason: e.message });
   }
   if (game) {
-    GamesService.resetHandTimer(game, onPlayerActionEvent);
+    if (game.waitingForPlayers) {
+      if (game.timerRef) {
+        clearTimeout(game.timerRef);
+        delete game.timerRef;
+      }
+    } else {
+      GamesService.resetHandTimer(game, onPlayerActionEvent);
+    }
   }
+
   return game;
 }
 

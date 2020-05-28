@@ -148,6 +148,7 @@ function updateGamePlayers(game, showCards = false) {
 
       const gamePrivateCopy = getPlayerCopyOfGame(playerId, game, showCards);
       gamePrivateCopy.socketId = playerId;
+
       socket.emit('gameupdate', gamePrivateCopy);
     }
   });
@@ -207,7 +208,7 @@ function givePotMoneyToWinners(game) {
             };
           }
           p.balance += amountWon;
-          p.winner = p.winner? p.winner + amountWon : amountWon;
+          p.winner = p.winner ? p.winner + amountWon : amountWon;
           p.handsWon += 1;
 
           game.pot -= amountWon;

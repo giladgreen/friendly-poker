@@ -45,7 +45,7 @@ function resumeHandTimer(game) {
 
 function startNewHand(game, dateTime) {
   logger.info('startNewHand');
-  if (game.paused){
+  if (game.paused) {
     logger.info('game is paused..');
 
     return;
@@ -157,7 +157,18 @@ function startNewHand(game, dateTime) {
 
     player.options = [];
     // eslint-disable-next-line no-nested-ternary
-    player.cards = player.sitOut ? [] : (game.omaha ? [game.deck.pop(), game.deck.pop(), game.deck.pop(), game.deck.pop()] : [game.deck.pop(), game.deck.pop()]);
+    player.cards = [];
+    if (!player.sitOut) {
+      player.cards.push(game.deck.pop());
+      player.cards.push(game.deck.pop());
+      if (game.pineapple) {
+        player.cards.push(game.deck.pop());
+      }
+      if (game.omaha) {
+        player.cards.push(game.deck.pop());
+        player.cards.push(game.deck.pop());
+      }
+    }
   });
   game.pendingPlayers = [];
   const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
