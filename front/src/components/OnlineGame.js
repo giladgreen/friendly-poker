@@ -599,19 +599,28 @@ class OnlineGame extends Component {
                     { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
                     {/* dealer choice button */}
-                    { game.handOver && isNextDealer && <div  id="dealer-choice-div" >
+                    { !isMobile && game.handOver && isNextDealer && <div  id="dealer-choice-div" >
                         Dealer's Choise
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
-                            <div className="chosen-game-limit">no limit</div>
-                            <div className="chosen-game-name">Texas Holdem</div>
+                            <div className="choose-game">
+                                <div className="chosen-game-limit">no limit</div>
+                                <div className="chosen-game-name">Texas Holdem</div>
+                                <img src="texas.svg" />
+                            </div>
                         </div>
                         <div id="choose-omaha" className={chosenGame === 'OMAHA' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('OMAHA')}}>
-                            <div className="chosen-game-limit">pot limit</div>
-                            <div className="chosen-game-name">Omaha</div>
+                            <div className="choose-game">
+                                <div className="chosen-game-limit">pot limit</div>
+                                <div className="chosen-game-name">Omaha</div>
+                                <img src="omaha.svg" />
+                            </div>
                         </div>
                         <div id="choose-pineapple" className={chosenGame === 'PINEAPPLE' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('PINEAPPLE')}}>
-                            <div className="chosen-game-limit">no limit</div>
-                            <div className="chosen-game-name">Pineapple</div>
+                            <div className="choose-game">
+                                <div className="chosen-game-limit">no limit</div>
+                                <div className="chosen-game-name">Pineapple</div>
+                                <img src="Pineapple.svg" />
+                            </div>
                         </div>
                     </div>}
 
