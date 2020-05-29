@@ -157,6 +157,9 @@ function proceedToNextStreet(game, now, gameIsOver) {
     const potInBigBlinds = Math.floor(game.pot / game.bigBlind);
     const secondsToAdd = Math.floor(potInBigBlinds / 20);
     timeToShowShowdown += 1000 * secondsToAdd;
+    if (game.dealerChoice) {
+      timeToShowShowdown += 3000;
+    }
     if (timeToShowShowdown > 10000) {
       timeToShowShowdown = 10000;
     }
@@ -167,7 +170,6 @@ function proceedToNextStreet(game, now, gameIsOver) {
     GameHelper.handleGameOverWithShowDown(game);
     gameIsOver = true;
     delete game.fastForward;
-
 
     setTimeout(() => {
       GamesService.startNewHand(game, now);
@@ -221,6 +223,7 @@ async function onPlayerActionEvent(socket, {
         logger.info('hand is over!');
         GameHelper.updateGamePlayers(game, gameIsOver);
         await sleep(1500);
+
         handlePlayerWonHandWithoutShowdown(game, activePlayersStillInGame[0], now);
       } else {
         logger.info('bet round is over!');
@@ -259,6 +262,7 @@ async function onPlayerActionEvent(socket, {
     }
 
     validateGame(game);
+
     GameHelper.updateGamePlayers(game, gameIsOver);
     delete game.betRoundOver;
   } catch (e) {
@@ -293,11 +297,16 @@ handlePlayerWonHandWithoutShowdown = (game, player, now) => {
   });
   game.pot = 0;
   game.handOver = true;
+  let timeToShowShowdown = 4000;
+  if (game.dealerChoice) {
+    timeToShowShowdown += 3000;
+  }
+
   setTimeout(() => {
     GamesService.startNewHand(game, now);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
     GameHelper.updateGamePlayers(game);
-  }, 4000);
+  }, timeToShowShowdown);
 };
 
 

@@ -6,7 +6,7 @@ const PlayerHelper = require('../helpers/players');
 
 const MINUTE = 60 * 1000;
 const {
-  FOLD, CALL, RAISE, PRE_FLOP, CHECK, BEEP,
+  FOLD, CALL, RAISE, PRE_FLOP, CHECK, BEEP, TEXAS, OMAHA, PINEAPPLE,
 } = require('../consts');
 
 function resetHandTimer(game, cb) {
@@ -47,9 +47,15 @@ function startNewHand(game, dateTime) {
   logger.info('startNewHand');
   if (game.paused) {
     logger.info('game is paused..');
-
     return;
   }
+
+  if (game.dealerChoice) {
+    game.omaha = game.dealerChoiceNextGame === OMAHA;
+    game.pineapple = game.dealerChoiceNextGame === PINEAPPLE;
+    game.texas = game.dealerChoiceNextGame === TEXAS;
+  }
+  game.dealerChoiceNextGame = TEXAS;
   game.handStartDate = dateTime;
   game.audioableAction = [BEEP];
   delete game.fastForward;
