@@ -73,6 +73,7 @@ class OnlineGame extends Component {
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
+            chosenGame: 'TEXAS',
             betRoundOver:false,
             chatFocused:false,
             chatMessage: '',
@@ -245,8 +246,41 @@ class OnlineGame extends Component {
         }
         const maxBalance = Math.max(...game.players.map(p => p.balance));
 
+        const getIsNextDealer =  () => {
+            let dealerIndex = -1;
+            game.players.forEach((player, index) => {
+                if (player.dealer) {
+                    dealerIndex = index;
+                }
+            });
+
+            const getNextPlayerIndex = (index) => {
+                return (index + 1 < game.players.length) ? index + 1 : 0;
+            };
+
+            const getNextActivePlayerIndex = (index) => {
+                let nextPlayerIndex = getNextPlayerIndex(index);
+                let count = 0;
+                while (game.players[nextPlayerIndex].justJoined || game.players[nextPlayerIndex].fold || game.players[nextPlayerIndex].allIn || game.players[nextPlayerIndex].sitOut) {
+                    nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
+                    count++;
+
+                    if (count > game.players.length + 1) {
+                        return null;
+                    }
+                }
+                return nextPlayerIndex;
+            }
+
+            const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
+            const newDealer = game.players[newDealerIndex];
+            return newDealer.id === me.id;
+        }
+
+        const isNextDealer = me ? getIsNextDealer() : false;
         const newState = {
             me,
+            isNextDealer,
             showingCards,
             cheapLeader,
             userTimer,
@@ -469,10 +503,14 @@ class OnlineGame extends Component {
         this.setState({bigBlind})
     };
 
+    dealerChooseGame = (chosenGame) =>{
+        this.setState({chosenGame});
+        this.props.dealerChooseGame(chosenGame);
+    }
     render() {
-        const { options, cheapLeader, me, betRoundOver} = this.state;
+        const { options, cheapLeader, me, betRoundOver, isNextDealer, chosenGame} = this.state;
         const {game, initial} = this.props;
-        const { pendingJoin, pendingRebuy, timeForDropCard} = game;
+        const { pendingJoin, pendingRebuy} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
         const { pot, displayPot, smallBlind, bigBlind, players, startDate,hand, board} = game;
@@ -559,6 +597,23 @@ class OnlineGame extends Component {
                 <div>
                     {/* show cards button */}
                     { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
+
+                    {/* dealer choice button */}
+                    { game.handOver && isNextDealer && <div  id="dealer-choice-div" >
+                        Dealer's Choise
+                        <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
+                            <div className="chosen-game-limit">no limit</div>
+                            <div className="chosen-game-name">Texas Holdem</div>
+                        </div>
+                        <div id="choose-omaha" className={chosenGame === 'OMAHA' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('OMAHA')}}>
+                            <div className="chosen-game-limit">pot limit</div>
+                            <div className="chosen-game-name">Omaha</div>
+                        </div>
+                        <div id="choose-pineapple" className={chosenGame === 'PINEAPPLE' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('PINEAPPLE')}}>
+                            <div className="chosen-game-limit">no limit</div>
+                            <div className="chosen-game-name">Pineapple</div>
+                        </div>
+                    </div>}
 
                     { !game.handOver &&
                     <div>

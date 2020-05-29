@@ -48,7 +48,7 @@ class CreateGameScreen extends Component {
                 {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS'},
                 {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA'},
                 {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE'},
-                // {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE'},
+                {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE'},
             ],
             selectedGame: 1,
         }

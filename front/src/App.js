@@ -508,6 +508,13 @@ class App extends Component {
         this.socket.emit('sitback', {gameId , now, playerId });
     };
 
+    dealerChooseGame = (chosenGame) =>{
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+        // console.log('emiting dealerchoosegame')
+        this.socket.emit('dealerchoosegame', {gameId , now, playerId, chosenGame });
+    };
+
     standUp = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
@@ -778,6 +785,7 @@ class App extends Component {
                     toggleShowInfo={this.toggleShowInfo}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}
+                    dealerChooseGame={this.dealerChooseGame}
                     updateGameSettings={this.updateGameSettings}
                     resumeGame={this.resumeGame}
                     showCards={this.showCards}

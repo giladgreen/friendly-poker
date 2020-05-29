@@ -11719,6 +11719,62 @@ em-spades {
   background: #1e90ff99;
 }
 
+#dealer-choice-div {
+  position: fixed;
+  top: 81vh;
+  height: 19vh;
+  right: 25vw;
+  width: 75vw;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.6em;
+  cursor: pointer;
+  color: white;
+}
+#dealer-choice-div #choose-pineapple {
+  position: fixed;
+  top: 81vh;
+  height: 7vh;
+  width: 10vw;
+  text-align: left;
+  padding: 3px 2px;
+  border-radius: 10px;
+  right: 25vw;
+}
+#dealer-choice-div #choose-omaha {
+  position: fixed;
+  top: 81vh;
+  height: 7vh;
+  width: 10vw;
+  text-align: left;
+  padding: 3px 2px;
+  border-radius: 10px;
+  right: 36vw;
+}
+#dealer-choice-div #choose-texas {
+  position: fixed;
+  top: 81vh;
+  height: 7vh;
+  width: 10vw;
+  text-align: left;
+  padding: 3px 2px;
+  border-radius: 10px;
+  right: 47vw;
+}
+#dealer-choice-div .chosen-game {
+  border: 3px solid red;
+}
+#dealer-choice-div .not-chosen-game {
+  border: 1px solid white;
+}
+#dealer-choice-div .chosen-game-limit {
+  font-size: 0.4em;
+  font-weight: normal;
+}
+#dealer-choice-div .chosen-game-name {
+  font-size: 0.8em;
+}
+
 .DropCardMessage {
   position: fixed;
   bottom: 10vh;

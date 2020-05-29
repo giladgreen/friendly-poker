@@ -46,10 +46,61 @@ $button-height: 7vh;
 #show-cards-button:hover{
     background: #1e90ff99;
 }
+#dealer-choice-div{
+    position: fixed;
+    top: 81vh;
+    height: 19vh;
+    right: 25vw;
+    width: 75vw;
+
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: white;
+
+    @mixin game-button{
+        position: fixed;
+        top: 81vh;
+        height: 7vh;
+        width: 10vw;
+        text-align: left;
+        padding: 3px 2px;
+        border-radius: 10px;
+    }
+    #choose-pineapple{
+        @include game-button;
+        right: 25vw;
+    }
+    #choose-omaha{
+        @include game-button;
+        right: 36vw;
+    }
+    #choose-texas{
+        @include game-button;
+        right: 47vw;
+    }
+
+    .chosen-game{
+        border: 3px solid red;
+    }
+    .not-chosen-game{
+        border: 1px solid white;
+    }
+    .chosen-game-limit{
+        font-size: 0.4em;
+        font-weight: normal;
+    }
+    .chosen-game-name{
+        font-size: 0.8em;
+    }
+
+
+}
 
 .DropCardMessage{
     position: fixed;
-bottom: 10vh;
+    bottom: 10vh;
     left:0;
     width: 100vw;
     font-size: 2em;
