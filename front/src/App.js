@@ -187,8 +187,8 @@ class App extends Component {
         }
         if (game.gamePhase >0 && game.pineapple && !game.waitingForPlayers){
             delete game.timeForDropCard;
-            game.pineapple = false;
-            game.texas = true;
+            // game.pineapple = false;
+            // game.texas = true;
         }
 
         const gameClone = {

@@ -70,9 +70,19 @@ class OnlineGame extends Component {
 
     constructor(props) {
         super(props);
+        const gameOptions=[
+            {name: 'No Limit Texas Holdem', type:'TEXAS'},
+            {name: 'Pot Limit Omaha', type: 'OMAHA'},
+            {name: 'No Limit Pineapple', type: 'PINEAPPLE'},
+            {name: "Dealer's Choice", type: 'DEALER_CHOICE'},
+        ];
+        const gameName = gameOptions.find(item=>item.type ===props.game.gameType).name;
+
+
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
+            gameName,
             chosenGame: 'TEXAS',
             betRoundOver:false,
             chatFocused:false,
@@ -93,7 +103,8 @@ class OnlineGame extends Component {
             showLogs: false,
             sideMenu: false,
             me:{},
-            playerPreferences
+            playerPreferences,
+            gameOptions
         }
 
         setTimeout(()=>{
@@ -278,7 +289,15 @@ class OnlineGame extends Component {
         }
 
         const isNextDealer = me ? getIsNextDealer() : false;
+
+        const {gameOptions} = this.state;
+        let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
+        if (game.gameType === 'DEALER_CHOICE') {
+            gameName += `: ${(game.omaha ? gameOptions[1].name : (game.pineapple ? gameOptions[2].name : (gameOptions[0].name)))}`
+        }
+
         const newState = {
+            gameName,
             me,
             isNextDealer,
             showingCards,
@@ -438,7 +457,10 @@ class OnlineGame extends Component {
         const maxForAllIn = this.state.me.balance + this.state.me.pot[game.gamePhase];
         const amountToCall = (game.amountToCall - this.state.me.pot[game.gamePhase]);
         if (game.omaha){
-            const max = ((game.pot + amountToCall) * 2);
+            const max = amountToCall > 0 ? (game.pot + (2*amountToCall)) : game.pot;
+            console.log('amountToCall',amountToCall)
+            console.log('game.pot',game.pot)
+            console.log('max',max)
             return max < maxForAllIn ? max : maxForAllIn;
         } else{
             return maxForAllIn;
@@ -508,9 +530,9 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
-        const { options, cheapLeader, me, betRoundOver, isNextDealer, chosenGame} = this.state;
+        const { options, cheapLeader, me, betRoundOver, isNextDealer, chosenGame, gameName} = this.state;
         const {game, initial} = this.props;
-        const { pendingJoin, pendingRebuy} = game;
+        const { pendingJoin, pendingRebuy, dealerChoice} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
         const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
         const { pot, displayPot, smallBlind, bigBlind, players, startDate,hand, board} = game;
@@ -540,6 +562,10 @@ class OnlineGame extends Component {
 
         return (
             <div id="online-game-screen">
+
+                {/* game name */}
+                {!isMobile ? <div id="game-name"> {gameName}  </div> : <div/> }
+
                 {/* game time */}
                 {startDate ? <Clock startDate={startDate}/> :  <div />}
                 {/* blinds data */}
@@ -599,7 +625,7 @@ class OnlineGame extends Component {
                     { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
                     {/* dealer choice button */}
-                    { !isMobile && game.handOver && isNextDealer && <div  id="dealer-choice-div" >
+                    { !isMobile && game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
                         Dealer's Choise
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
                             <div className="choose-game">

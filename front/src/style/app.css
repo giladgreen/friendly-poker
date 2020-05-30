@@ -13350,6 +13350,14 @@ em-spades {
   position: fixed;
 }
 
+#game-name {
+  position: fixed;
+  left: 48vw;
+  top: 1vh;
+  font-size: 1.9em;
+  color: #ffffffaa;
+}
+
 .shortcut {
   text-decoration: underline;
 }
