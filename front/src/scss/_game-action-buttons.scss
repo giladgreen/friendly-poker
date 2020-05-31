@@ -55,8 +55,6 @@ $button-height: 7vh;
     font-size: 1.6em;
     text-align: left;
     font-weight: bold;
-
-
     color: white;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
@@ -84,7 +82,7 @@ $button-height: 7vh;
         padding: 3px;
         border-radius: 10px;
         background: black;
-
+        cursor: pointer;
         @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
             top: 73vh;
             width: 15vw;
@@ -96,11 +94,10 @@ $button-height: 7vh;
             height: 10vh;
         }
 
-        cursor: pointer;
         img{
             position: absolute;
-            top: 0px;
-            right: 0px;
+            top: 2px;
+            right: 2px;
             height: 96%;
             width: auto;
             z-index: 30;
@@ -108,26 +105,34 @@ $button-height: 7vh;
     }
     #choose-pineapple{
         @include game-button;
-        right: 40vw;
+        right: 51vw;
         font-family: "Comic Sans MS", cursive, sans-serif;
 
         @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-            right: 50vw;
+            right: 66vw;
         }
         @media only screen and (max-width: $mobile-vertical) {
-            right: 50vw;
+            right: 66vw;
         }
 
     }
     #choose-omaha{
         @include game-button;
-        right: 51vw;
+        right: 40vw;
         font-family: "Arial Black", Gadget, sans-serif;
         @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-            right: 66vw;
+            right: 50vw;
         }
         @media only screen and (max-width: $mobile-vertical) {
-            right: 66vw;
+            right: 50vw;
+        }
+        img{
+            position: absolute;
+            top: 20%;
+            right: 4%;
+            height: 56%;
+            width: auto;
+            z-index: 30;
         }
 
     }
@@ -141,15 +146,19 @@ $button-height: 7vh;
         @media only screen and (max-width: $mobile-vertical) {
             right: 82vw;
         }
+
+        img{
+            position: absolute;
+            top: 10%;
+            right: 4%;
+            height: 80%;
+            width: auto;
+            z-index: 30;
+        }
     }
-    .choose-game{
-        background: white;
-        color: black;
-        border-radius: 6px;
-        padding: 1px;
-    }
+
     .chosen-game{
-        border: 3px solid red;
+        border: 3px solid darkgreen;
     }
     .not-chosen-game{
         border: 1px solid white;

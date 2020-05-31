@@ -564,7 +564,7 @@ class OnlineGame extends Component {
             <div id="online-game-screen">
 
                 {/* game name */}
-                {!isMobile ? <div id="game-name"> {gameName}  </div> : <div/> }
+                <div id="game-name"> {gameName}  </div>
 
                 {/* game time */}
                 {startDate ? <Clock startDate={startDate}/> :  <div />}
@@ -628,26 +628,21 @@ class OnlineGame extends Component {
                     {  game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
                         Dealer's Choise
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
-                            <div className="choose-game">
-                                <div className="chosen-game-limit">no limit</div>
-                                <div className="chosen-game-name">Texas Holdem</div>
-                                <img src="texas.svg" />
-                            </div>
-                        </div>
-                        <div id="choose-omaha" className={chosenGame === 'OMAHA' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('OMAHA')}}>
-                            <div className="choose-game">
-                                <div className="chosen-game-limit">pot limit</div>
-                                <div className="chosen-game-name">Omaha</div>
-                                <img src="omaha.svg" />
-                            </div>
+                            <div className="chosen-game-limit">no limit</div>
+                            <div className="chosen-game-name">Texas Holdem</div>
+                            <img src="texas.svg" />
                         </div>
                         <div id="choose-pineapple" className={chosenGame === 'PINEAPPLE' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('PINEAPPLE')}}>
-                            <div className="choose-game">
-                                <div className="chosen-game-limit">no limit</div>
-                                <div className="chosen-game-name">Pineapple</div>
-                                <img src="Pineapple.svg" />
-                            </div>
+                            <div className="chosen-game-limit">no limit</div>
+                            <div className="chosen-game-name">Pineapple</div>
+                            <img src="Pineapple.svg" />
                         </div>
+                        <div id="choose-omaha" className={chosenGame === 'OMAHA' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('OMAHA')}}>
+                            <div className="chosen-game-limit">pot limit</div>
+                            <div className="chosen-game-name">Omaha</div>
+                            <img src="omaha.svg" />
+                        </div>
+
                     </div>}
 
                     { !game.handOver &&

@@ -11656,7 +11656,7 @@ em-spades {
   border-radius: 10px;
   background: black;
   cursor: pointer;
-  right: 40vw;
+  right: 51vw;
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -11675,20 +11675,20 @@ em-spades {
 }
 #dealer-choice-div #choose-pineapple img {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 2px;
+  right: 2px;
   height: 96%;
   width: auto;
   z-index: 30;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div #choose-pineapple {
-    right: 50vw;
+    right: 66vw;
   }
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div #choose-pineapple {
-    right: 50vw;
+    right: 66vw;
   }
 }
 #dealer-choice-div #choose-omaha {
@@ -11701,7 +11701,7 @@ em-spades {
   border-radius: 10px;
   background: black;
   cursor: pointer;
-  right: 51vw;
+  right: 40vw;
   font-family: "Arial Black", Gadget, sans-serif;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -11720,21 +11720,29 @@ em-spades {
 }
 #dealer-choice-div #choose-omaha img {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 2px;
+  right: 2px;
   height: 96%;
   width: auto;
   z-index: 30;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div #choose-omaha {
-    right: 66vw;
+    right: 50vw;
   }
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div #choose-omaha {
-    right: 66vw;
+    right: 50vw;
   }
+}
+#dealer-choice-div #choose-omaha img {
+  position: absolute;
+  top: 20%;
+  right: 4%;
+  height: 56%;
+  width: auto;
+  z-index: 30;
 }
 #dealer-choice-div #choose-texas {
   position: fixed;
@@ -11765,8 +11773,8 @@ em-spades {
 }
 #dealer-choice-div #choose-texas img {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 2px;
+  right: 2px;
   height: 96%;
   width: auto;
   z-index: 30;
@@ -11781,14 +11789,16 @@ em-spades {
     right: 82vw;
   }
 }
-#dealer-choice-div .choose-game {
-  background: white;
-  color: black;
-  border-radius: 6px;
-  padding: 1px;
+#dealer-choice-div #choose-texas img {
+  position: absolute;
+  top: 10%;
+  right: 4%;
+  height: 80%;
+  width: auto;
+  z-index: 30;
 }
 #dealer-choice-div .chosen-game {
-  border: 3px solid red;
+  border: 3px solid darkgreen;
 }
 #dealer-choice-div .not-chosen-game {
   border: 1px solid white;
@@ -16283,26 +16293,15 @@ em-spades {
 }
 
 .active-player {
-  background: rgba(232, 174, 0, 0.53);
-  -webkit-box-shadow: 6px 8px 35px 24px rgba(232, 174, 0, 0.58);
-  -moz-box-shadow: 6px 8px 35px 24px rgba(232, 174, 0, 0.58);
-  box-shadow: 6px 8px 35px 24px rgba(232, 174, 0, 0.58);
   border-radius: 35%;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .active-player {
-    -webkit-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
-    -moz-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
-    box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0.58);
     border-radius: 5%;
   }
 }
 @media only screen and (max-width: 530px) {
   .active-player {
-    background: rgba(232, 174, 0, 0);
-    -webkit-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
-    -moz-box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
-    box-shadow: 13px 0px 15px 14px rgba(232, 174, 0, 0);
     border-radius: 5%;
   }
 }
@@ -16356,9 +16355,9 @@ em-spades {
 }
 
 .active-player-info {
-  background: #ffff3399;
+  background: #2c8a2ccc;
   border: 4px solid black;
-  color: black;
+  color: white;
   font-weight: bold;
   border-radius: 15px;
 }
