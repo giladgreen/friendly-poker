@@ -147,13 +147,21 @@ $button-height: 7vh;
             right: 82vw;
         }
 
-        img{
+        #texas-map-svg{
             position: absolute;
             top: 10%;
             right: 4%;
             height: 80%;
             width: auto;
             z-index: 30;
+        }
+        #bull-horns-svg{
+            position: absolute;
+            top: 31%;
+            right: 7%;
+            height: 44%;
+            width: auto;
+            z-index: 31;
         }
     }
 

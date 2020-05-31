@@ -35,6 +35,7 @@ class CreateGameScreen extends Component {
             name,
             privateGame,
             aprovalRequired,
+            straddleSupported:true,
             SB,
             BB,
             time,
@@ -75,6 +76,7 @@ class CreateGameScreen extends Component {
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
             requireRebuyAproval: this.state.aprovalRequired,
+            straddleSupported: this.state.straddleSupported,
             gameType: this.state.gameOptions.find(option=>option.value === this.state.selectedGame).type
         });
     };

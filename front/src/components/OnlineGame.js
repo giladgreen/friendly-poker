@@ -272,7 +272,7 @@ class OnlineGame extends Component {
             const getNextActivePlayerIndex = (index) => {
                 let nextPlayerIndex = getNextPlayerIndex(index);
                 let count = 0;
-                while (game.players[nextPlayerIndex].justJoined || game.players[nextPlayerIndex].fold || game.players[nextPlayerIndex].allIn || game.players[nextPlayerIndex].sitOut) {
+                while (game.players[nextPlayerIndex].sitOut) {
                     nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
                     count++;
 
@@ -630,7 +630,8 @@ class OnlineGame extends Component {
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
                             <div className="chosen-game-limit">no limit</div>
                             <div className="chosen-game-name">Texas Holdem</div>
-                            <img src="texas.svg" />
+                            <img id="texas-map-svg" src="texas.svg" />
+                            <img id="bull-horns-svg" src="horns.svg" />
                         </div>
                         <div id="choose-pineapple" className={chosenGame === 'PINEAPPLE' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('PINEAPPLE')}}>
                             <div className="chosen-game-limit">no limit</div>

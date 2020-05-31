@@ -676,7 +676,7 @@ class App extends Component {
         this.socket.emit('setcreatorasadmin', {gameId , playerId, now: (new Date()).getTime() });
     };
 
-    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval, gameType }) =>{
+    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval, gameType, straddleSupported }) =>{
         const now = (new Date()).getTime();
         const gameId = `${now}`;
         const playerId = this.state.playerId;
@@ -692,6 +692,7 @@ class App extends Component {
             privateGame,
             requireRebuyAproval,
             gameType,
+            straddleSupported,
         });
 
         this.setState({ gameId, game: null })
