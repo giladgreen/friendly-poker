@@ -3,6 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 const GamesService = require('../services/games');
 const { onPlayerActionEvent } = require('./playerAction');
+const BadRequest = require('../errors/badRequest');
 
 function onPineappleDropCard(socket, {
   playerId, gameId, cardToDrop,
@@ -14,19 +15,19 @@ function onPineappleDropCard(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     if (player.cards.length !== 3) {
-      throw new Error('already have 2 cards');
+      throw new BadRequest('already have 2 cards');
     }
 
     if (!player.cards.includes(cardToDrop)) {
-      throw new Error('did not found card on player cards');
+      throw new BadRequest('did not found card on player cards');
     }
     player.cards = player.cards.filter(c => c !== cardToDrop);
     delete player.needToThrow;

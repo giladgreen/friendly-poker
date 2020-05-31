@@ -625,7 +625,7 @@ class OnlineGame extends Component {
                     { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
                     {/* dealer choice button */}
-                    { !isMobile && game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
+                    {  game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
                         Dealer's Choise
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
                             <div className="choose-game">

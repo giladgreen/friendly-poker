@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onChangeAdminEvent(socket, {
   playerId, gameId, newAdminId, now,
@@ -12,20 +13,20 @@ function onChangeAdminEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     if (!player.admin) {
-      throw new Error('only admin can kick a user out');
+      throw new BadRequest('only admin can kick a user out');
     }
 
     const newAdmin = game.players.find(p => p.id === newAdminId);
     if (!newAdmin) {
-      throw new Error('did not find player to make admin');
+      throw new BadRequest('did not find player to make admin');
     }
     newAdmin.admin = true;
     delete player.admin;

@@ -4,6 +4,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 const { onPlayerActionEvent } = require('./playerAction');
 const { CHECK, FOLD } = require('../consts');
+const BadRequest = require('../errors/badRequest');
 
 function onKickOutEvent(socket, {
   playerId, gameId, now, playerToKickId,
@@ -15,20 +16,20 @@ function onKickOutEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     if (!player.admin) {
-      throw new Error('only admin can kick a user out');
+      throw new BadRequest('only admin can kick a user out');
     }
 
     const playerToKick = game.players.find(p => p.id === playerToKickId);
     if (!playerToKick) {
-      throw new Error('did not find player to kick');
+      throw new BadRequest('did not find player to kick');
     }
 
     if (playerToKick.active) {

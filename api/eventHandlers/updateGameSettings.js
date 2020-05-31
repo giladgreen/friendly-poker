@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
+const BadRequest = require('../errors/badRequest');
 
 function onUpdateGameSettingsEvent(socket, {
   gameId, now, playerId, time, smallBlind, bigBlind, newBalances = [],
@@ -13,14 +14,14 @@ function onUpdateGameSettingsEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot change game settings');
+      throw new BadRequest('non admin player cannot change game settings');
     }
 
     game.timePendingChane = time;
@@ -32,10 +33,10 @@ function onUpdateGameSettingsEvent(socket, {
       const fromPlayer = game.players.find(p => p.id === fromPlayerId);
       const toPlayer = game.players.find(p => p.id === toPlayerId);
       if (!fromPlayer || !toPlayer) {
-        throw new Error('player not found');
+        throw new BadRequest('player not found');
       }
       if (fromPlayer.balance < amount) {
-        throw new Error('origin player does not have enough money');
+        throw new BadRequest('origin player does not have enough money');
       }
 
       fromPlayer.balance -= amount;

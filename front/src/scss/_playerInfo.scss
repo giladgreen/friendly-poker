@@ -355,7 +355,7 @@ $players-dealer-button-left: (
             height: 7.4vh;
             font-weight: bold;
             color: #eaeaea;
-            @include font-big;
+            font-size: 2em;
         }
         to {
             position: fixed;
@@ -372,7 +372,7 @@ $players-dealer-button-left: (
             border: 3px solid transparent;
             width: 8vw;
             height: 4vw;
-            @include font-huge;
+            font-size: 3.6em;
             font-weight: bold;
         }
     }
@@ -757,7 +757,7 @@ $players-dealer-button-left: (
         top:11.6vh;
         left:0vw;
         width: 13vw;
-        @include font-small;
+        font-size: 1em;
         color: black;
 
 

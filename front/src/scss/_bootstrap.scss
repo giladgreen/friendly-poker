@@ -1869,12 +1869,6 @@ pre code {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .form-control {
-        transition: none;
-    }
-}
-
 .form-control::-ms-expand {
     background-color: transparent;
     border: 0;
@@ -1930,23 +1924,23 @@ select.form-control:focus::-ms-value {
 }
 
 .col-form-label {
-    padding-top: calc(0.375rem + 1px);
-    padding-bottom: calc(0.375rem + 1px);
+    padding-top: (0.375rem);
+    padding-bottom: (0.375rem);
     margin-bottom: 0;
     font-size: inherit;
     line-height: 1.5;
 }
 
 .col-form-label-lg {
-    padding-top: calc(0.5rem + 1px);
-    padding-bottom: calc(0.5rem + 1px);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     font-size: 1.25rem;
     line-height: 1.5;
 }
 
 .col-form-label-sm {
-    padding-top: calc(0.25rem + 1px);
-    padding-bottom: calc(0.25rem + 1px);
+    padding-top: (0.25rem);
+    padding-bottom: (0.25rem);
     font-size: 0.875rem;
     line-height: 1.5;
 }
@@ -1970,7 +1964,7 @@ select.form-control:focus::-ms-value {
 }
 
 .form-control-sm {
-    height: calc(1.5em + 0.5rem + 2px);
+    height: (1.5em);
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     line-height: 1.5;
@@ -1978,7 +1972,7 @@ select.form-control:focus::-ms-value {
 }
 
 .form-control-lg {
-    height: calc(1.5em + 1rem + 2px);
+    height: (1.5em);
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
     line-height: 1.5;
@@ -2393,11 +2387,6 @@ textarea.form-control {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .btn {
-        transition: none;
-    }
-}
 
 .btn:hover {
     color: #212529;
@@ -3000,11 +2989,6 @@ input[type="button"].btn-block {
     transition: opacity 0.15s linear;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .fade {
-        transition: none;
-    }
-}
 
 .fade:not(.show) {
     opacity: 0;
@@ -3019,19 +3003,6 @@ input[type="button"].btn-block {
     height: 0;
     overflow: hidden;
     transition: height 0.35s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .collapsing {
-        transition: none;
-    }
-}
-
-.dropup,
-.dropright,
-.dropdown,
-.dropleft {
-    position: relative;
 }
 
 .dropdown-toggle {
@@ -3734,11 +3705,7 @@ input[type="button"].btn-block {
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .custom-switch .custom-control-label::after {
-        transition: none;
-    }
-}
+
 
 .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
     background-color: #fff;
@@ -3760,8 +3727,7 @@ input[type="button"].btn-block {
     line-height: 1.5;
     color: #495057;
     vertical-align: middle;
-    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
-    background-color: #fff;
+
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     -webkit-appearance: none;
@@ -3920,11 +3886,6 @@ input[type="button"].btn-block {
     appearance: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .custom-range::-webkit-slider-thumb {
-        transition: none;
-    }
-}
 
 .custom-range::-webkit-slider-thumb:active {
     background-color: #b3d7ff;
@@ -3950,13 +3911,6 @@ input[type="button"].btn-block {
     -moz-appearance: none;
     appearance: none;
 }
-
-@media (prefers-reduced-motion: reduce) {
-    .custom-range::-moz-range-thumb {
-        transition: none;
-    }
-}
-
 .custom-range::-moz-range-thumb:active {
     background-color: #b3d7ff;
 }
@@ -3984,11 +3938,6 @@ input[type="button"].btn-block {
     appearance: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .custom-range::-ms-thumb {
-        transition: none;
-    }
-}
 
 .custom-range::-ms-thumb:active {
     background-color: #b3d7ff;
@@ -4039,14 +3988,6 @@ input[type="button"].btn-block {
 .custom-file-label,
 .custom-select {
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .custom-control-label::before,
-    .custom-file-label,
-    .custom-select {
-        transition: none;
-    }
 }
 
 .nav {
@@ -4937,11 +4878,6 @@ input[type="button"].btn-block {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .badge {
-        transition: none;
-    }
-}
 
 a.badge:hover, a.badge:focus {
     text-decoration: none;
@@ -5283,11 +5219,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     transition: width 0.6s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .progress-bar {
-        transition: none;
-    }
-}
+
 
 .progress-bar-striped {
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -5299,12 +5231,6 @@ a.badge-dark:focus, a.badge-dark.focus {
     animation: progress-bar-stripes 1s linear infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .progress-bar-animated {
-        -webkit-animation: none;
-        animation: none;
-    }
-}
 
 .media {
     display: -ms-flexbox;
@@ -5746,16 +5672,10 @@ a.close.disabled {
 .modal.fade .modal-dialog {
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
-    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
     -webkit-transform: translate(0, -50px);
     transform: translate(0, -50px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .modal.fade .modal-dialog {
-        transition: none;
-    }
-}
 
 .modal.show .modal-dialog {
     -webkit-transform: none;
@@ -5950,7 +5870,7 @@ a.close.disabled {
     font-weight: 400;
     line-height: 1.5;
     text-align: left;
-    text-align: start;
+
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -6063,7 +5983,7 @@ a.close.disabled {
     font-weight: 400;
     line-height: 1.5;
     text-align: left;
-    text-align: start;
+
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
@@ -6246,11 +6166,7 @@ a.close.disabled {
     transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .carousel-item {
-        transition: none;
-    }
-}
+
 
 .carousel-item.active,
 .carousel-item-next,
@@ -6291,12 +6207,6 @@ a.close.disabled {
     transition: 0s 0.6s opacity;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .carousel-fade .active.carousel-item-left,
-    .carousel-fade .active.carousel-item-right {
-        transition: none;
-    }
-}
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -6317,12 +6227,6 @@ a.close.disabled {
     transition: opacity 0.15s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .carousel-control-prev,
-    .carousel-control-next {
-        transition: none;
-    }
-}
 
 .carousel-control-prev:hover, .carousel-control-prev:focus,
 .carousel-control-next:hover,
@@ -6389,12 +6293,6 @@ a.close.disabled {
     border-bottom: 10px solid transparent;
     opacity: .5;
     transition: opacity 0.6s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .carousel-indicators li {
-        transition: none;
-    }
 }
 
 .carousel-indicators .active {

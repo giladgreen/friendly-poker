@@ -3,6 +3,7 @@ const { onPlayerActionEvent } = require('./playerAction');
 const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onSkipHandEvent(socket, { gameId, now, playerId }) {
   logger.info('onSkipHandEvent ');
@@ -12,14 +13,14 @@ function onSkipHandEvent(socket, { gameId, now, playerId }) {
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('game not found');
+      throw new BadRequest('game not found');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot skip hand');
+      throw new BadRequest('non admin player cannot skip hand');
     }
 
     game.players.forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });

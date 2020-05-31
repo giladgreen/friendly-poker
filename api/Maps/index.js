@@ -1,6 +1,7 @@
 const Games = new Map();
 const PlayerIdToSocketMap = new Map();
 const PlayerIdToGameIdMap = new Map();
+const BadRequest = require('../errors/badRequest');
 
 function SaveGameById(game) {
   Games.set(game.id, game);
@@ -52,7 +53,7 @@ function GetGameIdByPlayerId(id) {
 function getGameById(id) {
   const game = safeGetGameById(id);
   if (!game) {
-    throw new Error('game not found');
+    throw new BadRequest('game not found');
   }
   return game;
 }

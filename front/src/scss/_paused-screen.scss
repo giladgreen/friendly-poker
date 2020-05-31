@@ -63,6 +63,21 @@
     text-align: center;
     padding-top: 42vh;
 }
+#server-error-message{
+    position: fixed;
+    top:9.7vh;
+    left:32vw;
+    width: 60vw;
+    height: 60vh;
+    z-index: 999;
+    color: red;
+    background: #000000f4;
+    font-weight: bold;
+    font-size: 2.2em;
+    text-align: left;
+    padding-left: 1vw;
+    padding-top: 1vw;
+}
 #start-pause-game-button{
     color: white;
     position: fixed;

@@ -1,5 +1,6 @@
 const logger = require('../services/logger');
 const PlayerHelper = require('../helpers/players');
+const BadRequest = require('../errors/badRequest');
 
 const Mappings = require('../Maps');
 const {
@@ -29,23 +30,23 @@ function onDealerChooseGame(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     if (!game.dealerChoice) {
-      throw new Error('not a dealer choise game');
+      throw new BadRequest('not a dealer choise game');
     }
 
     if (playerId !== getNextDealerId(game)) {
-      throw new Error('player is not the next dealer');
+      throw new BadRequest('player is not the next dealer');
     }
 
     if (![TEXAS, OMAHA, PINEAPPLE].includes(chosenGame)) {
-      throw new Error('not a valid game to choose');
+      throw new BadRequest('not a valid game to choose');
     }
 
     game.dealerChoiceNextGame = chosenGame;

@@ -1,6 +1,7 @@
 const GameHelper = require('../helpers/game');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onDeleteGameEvent(socket, { playerId, gameId }) {
   logger.info('onDeleteGameEvent ', { playerId, gameId });
@@ -11,11 +12,11 @@ function onDeleteGameEvent(socket, { playerId, gameId }) {
   try {
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('game not found');
+      throw new BadRequest('game not found');
     }
     const admin = game.players.find(p => p.admin);
     if (admin.id !== playerId) {
-      throw new Error('only admin can delete game');
+      throw new BadRequest('only admin can delete game');
     }
     GameHelper.deleteGameInDB(gameId);
     Mappings.DeleteGameByGameId(gameId);

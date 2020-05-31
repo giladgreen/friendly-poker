@@ -1,6 +1,10 @@
+const _ = require('lodash');
 const logger = require('../services/logger');
+const BadRequest = require('../errors/badRequest');
+const FatalError = require('../errors/fatalError');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
+
 const PlayerHelper = require('../helpers/players');
 const GameHelper = require('../helpers/game');
 const { format } = require('../helpers/gameCopy');
@@ -24,28 +28,30 @@ function validateGame(game) {
     const activePlayerBalances = game.players.map(p => p.balance);
     const activePlayerBalancesSum = activePlayerBalances.reduce((all, one) => all + one, 0);
 
-    const quitPlayerBottomLines = game.playersData.filter(pd => pd.cashOut).map((pd) => {
-      const totalBuyIn = pd.buyIns.map(bi => bi.amount).reduce((all, one) => all + one, 0);
-      return pd.cashOut.amount - totalBuyIn;
-    });
-    const quitPlayerBottomLinesSum = quitPlayerBottomLines.reduce((all, one) => all + one, 0);
-
-    if (activePlayerBalancesSum + game.pot + quitPlayerBottomLinesSum !== game.moneyInGame) {
-      throw new Error("numbers don't add up");
+    if (activePlayerBalancesSum + game.pot !== game.moneyInGame) {
+      logger.info(`activePlayerBalancesSum: ${activePlayerBalancesSum}`);
+      logger.info(`game.pot: ${game.pot}`);
+      logger.info('======================');
+      logger.info(`activePlayerBalancesSum + game.pot: ${activePlayerBalancesSum + game.pot}`);
+      logger.info(`game.moneyInGame: ${game.moneyInGame}`);
+      throw new FatalError("numbers don't add up");
     }
   } catch (e) {
     logger.warn('validateGame failed', e);
+    if (e instanceof FatalError) {
+      throw e;
+    }
   }
 }
 function handlePlayerAction(game, playerId, op, amount, hand) {
   const player = game.players.find(p => p.id === playerId);
   if (!player) {
-    throw new Error('player not in game');
+    throw new BadRequest('player not in game');
   }
 
   if (!player.options.includes(op) || game.hand !== hand) {
     logger.warn(`operation is not allowed: player try to ${op} but his options are: ${player.options.join(',')} and the request hand was #${hand} while game hand is #${game.hand}`);
-    throw new Error('operation is not allowed');
+    throw new BadRequest('operation is not allowed');
   }
   delete player.offline;
   game.currentTimerTime = game.time;
@@ -179,7 +185,7 @@ function proceedToNextStreet(game, now, gameIsOver) {
     }, timeToShowShowdown);
   } else {
     logger.error('server error: game.gamePhase:', game.gamePhase);
-    throw new Error('server error');
+    throw new FatalError('server error');
   }
   return gameIsOver;
 }
@@ -187,7 +193,7 @@ async function onPlayerActionEvent(socket, {
   now, op, amount, gameId, hand, playerId,
 }) {
   let game;
-
+  let gameBackup;
   let gameIsOver = false;
   try {
     if (socket) {
@@ -197,9 +203,10 @@ async function onPlayerActionEvent(socket, {
     game = Mappings.getGameById(gameId);
     let player;
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     } else if (socket) {
       game.lastAction = (new Date()).getTime();
+      gameBackup = _.cloneDeep(game);
     }
 
     game.audioableAction = [];
@@ -266,6 +273,16 @@ async function onPlayerActionEvent(socket, {
     GameHelper.updateGamePlayers(game, gameIsOver);
     delete game.betRoundOver;
   } catch (e) {
+    if (e instanceof FatalError) {
+      Object.keys(gameBackup).forEach((key) => {
+        game[key] = gameBackup[key];
+      });
+      game.paused = true;
+      game.serverError = true;
+      GameHelper.updateGamePlayers(game, false);
+    }
+
+
     logger.error('onPlayerActionEvent error', e.message);
     logger.error('error', e);
     if (socket) socket.emit('onerror', { message: 'action failed', reason: e.message });

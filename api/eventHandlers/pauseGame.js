@@ -2,6 +2,7 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const GameHelper = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onPauseGameEvent(socket, { gameId, playerId, now }) {
   logger.info('onPauseGameEvent ');
@@ -11,14 +12,14 @@ function onPauseGameEvent(socket, { gameId, playerId, now }) {
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot pause game');
+      throw new BadRequest('non admin player cannot pause game');
     }
 
     game.paused = true;

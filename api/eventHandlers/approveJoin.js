@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
+const BadRequest = require('../errors/badRequest');
 
 
 function onApproveJoinEvent(socket, {
@@ -13,19 +14,19 @@ function onApproveJoinEvent(socket, {
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('game not found');
+      throw new BadRequest('game not found');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot approve join');
+      throw new BadRequest('non admin player cannot approve join');
     }
 
     const pendingRequest = game.pendingJoin.find(data => data.playerId === joinedPlayerId && data.balance === balance);
     if (!pendingRequest) {
-      throw new Error('did not find matching pending join request');
+      throw new BadRequest('did not find matching pending join request');
     }
     pendingRequest.approved = true;
     if (game.pendingJoin && game.pendingJoin.length > 0) {

@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onSetCreatorAsAdminEvent(socket, {
   playerId, gameId, now,
@@ -12,19 +13,19 @@ function onSetCreatorAsAdminEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     if (player.admin) {
-      throw new Error('already admin');
+      throw new BadRequest('already admin');
     }
 
     if (!player.creator) {
-      throw new Error('non creator');
+      throw new BadRequest('non creator');
     }
 
     const curAdmin = game.players.find(p => p.admin);

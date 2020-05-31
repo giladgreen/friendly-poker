@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onRebuyEvent(socket, {
   playerId, gameId, amount, now,
@@ -12,24 +13,24 @@ function onRebuyEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!game.paused && !game.handOver && player.balance !== 0 && !player.sitOut && !player.fold) {
-      throw new Error('can not perform rebuy mid-hand');
+      throw new BadRequest('can not perform rebuy mid-hand');
     }
 
     const adminPlayer = game.players.find(p => p.admin);
     if (!adminPlayer) {
-      throw new Error('did not find admin player');
+      throw new BadRequest('did not find admin player');
     }
     if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
-        throw new Error('did not find admin socket');
+        throw new BadRequest('did not find admin socket');
       }
 
       game.pendingRebuy.push({

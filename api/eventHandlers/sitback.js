@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onSitBackEvent(socket, { playerId, gameId, now }) {
   try {
@@ -10,11 +11,11 @@ function onSitBackEvent(socket, { playerId, gameId, now }) {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     game.pendingPlayers.push(playerId);

@@ -1,6 +1,7 @@
 const Hand = require('pokersolver').Hand;
 const Mappings = require('../Maps');
 const models = require('../models');
+const BadRequest = require('../errors/badRequest');
 const { getUserHandObject } = require('./deck');
 const { getPlayerCopyOfGame } = require('./gameCopy');
 const logger = require('../services/logger');
@@ -61,7 +62,7 @@ function handleRaise(game, player, amount) {
   logger.info(`${player.name} raise ${amount}`);
   const alreadyInPot = player.pot[game.gamePhase];
   if (player.balance + alreadyInPot < amount) {
-    throw new Error('insufficient funds');
+    throw new BadRequest('insufficient funds');
   }
 
   const playersCurrentPotentialAllIn = game.players.filter(p => p.id !== player.id && !p.fold && !p.sitOut).map(p => p.balance + p.pot[game.gamePhase]);
@@ -72,7 +73,7 @@ function handleRaise(game, player, amount) {
 
   const minRaise = getMinRaise(game, player);
   if (amount < minRaise && amount > alreadyInPot + player.balance) {
-    throw new Error('ilegal raise amount');
+    throw new BadRequest('ilegal raise amount');
   }
 
   player.status = player.options.includes('Call') || game.gamePhase === 0 ? RAISE : BET;

@@ -19,6 +19,17 @@
     top:1vh;
     font-size: 1.9em;
     color: #ffffffaa;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        left: 27.2vw;
+        top:6.3vh;
+        font-size: 1em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        left: 48vw;
+        top:1vh;
+        font-size: 1.9em;
+    }
 }
 .shortcut{
     text-decoration: underline;

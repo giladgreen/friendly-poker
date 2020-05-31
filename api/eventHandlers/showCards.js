@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onUserShowedCardsEvent(socket, {
   playerId, gameId,
@@ -12,14 +13,14 @@ function onUserShowedCardsEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('did not find game');
+      throw new BadRequest('did not find game');
     }
     if (!game.handOver) {
-      throw new Error('cant show mid-hand');
+      throw new BadRequest('cant show mid-hand');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
 
     game.showPlayersHands.push(playerId);

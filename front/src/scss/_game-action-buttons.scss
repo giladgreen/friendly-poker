@@ -52,12 +52,28 @@ $button-height: 7vh;
     height: 25vh;
     right: 40vw;
     width: 34vw;
-
+    font-size: 1.6em;
     text-align: left;
     font-weight: bold;
-    font-size: 1.6em;
+
 
     color: white;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top: 66vh;
+        height: 30vh;
+        left: 1vw;
+        width: 70vw;
+        font-size: 1em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top: 66vh;
+        height: 30vh;
+        left: 1vw;
+        width: 70vw;
+        font-size: 1em;
+    }
+
 
     @mixin game-button{
         position: fixed;
@@ -68,6 +84,17 @@ $button-height: 7vh;
         padding: 3px;
         border-radius: 10px;
         background: black;
+
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            top: 73vh;
+            width: 15vw;
+            height: 10vh;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            top: 73vh;
+            width: 15vw;
+            height: 10vh;
+        }
 
         cursor: pointer;
         img{
@@ -82,17 +109,38 @@ $button-height: 7vh;
     #choose-pineapple{
         @include game-button;
         right: 40vw;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            right: 50vw;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            right: 50vw;
+        }
 
     }
     #choose-omaha{
         @include game-button;
         right: 51vw;
+        font-family: "Arial Black", Gadget, sans-serif;
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            right: 66vw;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            right: 66vw;
+        }
 
     }
     #choose-texas{
         @include game-button;
         right: 62vw;
         width: 12vw;
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            right: 82vw;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            right: 82vw;
+        }
     }
     .choose-game{
         background: white;
@@ -110,10 +158,22 @@ $button-height: 7vh;
         font-size: 0.4em;
         font-weight: normal;
         z-index: 31;
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            font-size: 0.3em;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            font-size: 0.3em;
+        }
     }
     .chosen-game-name{
         font-size: 0.8em;
         z-index: 31;
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            font-size: 0.5em;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+            font-size: 0.5em;
+        }
 
     }
 
@@ -128,6 +188,15 @@ $button-height: 7vh;
     font-size: 2em;
     color: white;
     text-align: center;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        bottom: 12vh;
+        font-size: 1em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        bottom: 12vh;
+        font-size: 1em;
+    }
 }
 #fold-button{
     right: 1vw;

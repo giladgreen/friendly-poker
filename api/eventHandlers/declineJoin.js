@@ -2,6 +2,7 @@ const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
 const { getPlayerCopyOfGame } = require('../helpers/gameCopy');
+const BadRequest = require('../errors/badRequest');
 
 function onDeclineJoinEvent(socket, {
   gameId, playerId, joinedPlayerId, balance,
@@ -13,14 +14,14 @@ function onDeclineJoinEvent(socket, {
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('game not found');
+      throw new BadRequest('game not found');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot decline join');
+      throw new BadRequest('non admin player cannot decline join');
     }
 
     game.pendingJoin = game.pendingJoin.filter(data => data.playerId !== joinedPlayerId || data.balance !== balance);

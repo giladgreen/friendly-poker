@@ -3,6 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const PlayerHelper = require('../helpers/players');
 const GamesService = require('../services/games');
 const { onPlayerActionEvent } = require('./playerAction');
+const BadRequest = require('../errors/badRequest');
 
 const Mappings = require('../Maps');
 
@@ -17,7 +18,7 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
     if (game.pausedByServer) {
       const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
       if (playersCount < 2) {
-        throw new Error('game cant be resume yet');
+        throw new BadRequest('game cant be resume yet');
       } else {
         delete game.paused;
         delete game.pausedByServer;

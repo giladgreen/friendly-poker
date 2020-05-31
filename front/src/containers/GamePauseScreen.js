@@ -5,7 +5,7 @@ import React from 'react'
 const GameInfoScreen = (props) => {
 
     const {game, isAdmin, resumeGame } = props;
-    const {playersData,players} = game;
+    const {playersData,players, serverError} = game;
 
     const playersItems = playersData.map(pd=> {
         const player = players.find(p => p.id === pd.id);
@@ -36,7 +36,15 @@ const GameInfoScreen = (props) => {
 
     return  <div  id="game-pause-screen">
         <div id="game-pause-buy-ins-section">
-            <div><div id="game-pause-indication"  >וו</div><div id="game-pause-indication-text"  >Game Paused</div></div>
+            <div>
+                <div id="game-pause-indication"  >וו</div>
+                <div id="game-pause-indication-text"  >Game Paused</div>
+            </div>
+            {serverError ? <div id="server-error-message"  >
+                <div> Ooops, something went wrong.. </div>
+                <div> There is a problem in the game server </div>
+                <div> please copy the game info and start a new game.. </div>
+            </div> : <div/>}
 
 
             <div id="game-pause-info-screen-header"> Game summary</div>

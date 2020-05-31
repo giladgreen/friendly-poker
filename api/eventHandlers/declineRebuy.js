@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
+const BadRequest = require('../errors/badRequest');
 
 function onDeclineRebuyEvent(socket, {
   gameId, playerId, rebuyPlayerId, amount,
@@ -12,14 +13,14 @@ function onDeclineRebuyEvent(socket, {
     Mappings.SaveSocketByPlayerId(playerId, socket);
     const game = Mappings.getGameById(gameId);
     if (!game) {
-      throw new Error('game not found');
+      throw new BadRequest('game not found');
     }
     const player = game.players.find(p => p.id === playerId);
     if (!player) {
-      throw new Error('did not find player');
+      throw new BadRequest('did not find player');
     }
     if (!player.admin) {
-      throw new Error('non admin player cannot decline Rebuy');
+      throw new BadRequest('non admin player cannot decline Rebuy');
     }
 
     game.pendingRebuy = game.pendingRebuy.filter(data => data.playerId !== rebuyPlayerId || data.amount !== amount);

@@ -2,6 +2,7 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const { MAX_TABLE_PLAYERS } = require('../consts');
 const Mappings = require('../Maps');
+const BadRequest = require('../errors/badRequest');
 
 function onJoinGameEvent(socket, {
   gameId, playerId, name, balance, now, positionIndex,
@@ -14,15 +15,15 @@ function onJoinGameEvent(socket, {
 
     const game = Mappings.getGameById(gameId);
     if (game.players.length >= MAX_TABLE_PLAYERS) {
-      throw new Error('table is full');
+      throw new BadRequest('table is full');
     }
     if (game.players.some(p => p.id === playerId)) {
-      throw new Error('already joined game');
+      throw new BadRequest('already joined game');
     }
 
     const adminPlayer = game.players.find(p => p.admin);
     if (!adminPlayer) {
-      throw new Error('did not find admin player');
+      throw new BadRequest('did not find admin player');
     }
     if (game.players.some(p => p.name === name)) {
       name = `${name} (2)`;
@@ -30,7 +31,7 @@ function onJoinGameEvent(socket, {
     if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
-        throw new Error('did not find admin socket');
+        throw new BadRequest('did not find admin socket');
       }
       game.pendingJoin.push({
         playerId, name, balance, positionIndex,

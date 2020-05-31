@@ -331,7 +331,7 @@ class App extends Component {
 
         this.socket.on('onerror', (data) => {
             console.error('SERVER ERROR',data);
-            if (localStorage.getItem('debug')===true){
+            if (Boolean(localStorage.getItem('debug'))){
                 alert('SERVER ERROR. '+JSON.stringify(data));
             }
             if (data.forceReload){
