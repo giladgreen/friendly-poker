@@ -15,7 +15,7 @@ function getNextDealerId({ players }) {
     }
   });
 
-  const newDealerIndex = PlayerHelper.getNextActivePlayerIndex(players, dealerIndex);
+  const newDealerIndex = PlayerHelper.getNextGamePlayerIndex(players, dealerIndex);
   const newDealer = players[newDealerIndex];
   return newDealer.id;
 }

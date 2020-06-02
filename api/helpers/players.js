@@ -19,6 +19,19 @@ function getNextActivePlayerIndex(players, index) {
   }
   return nextPlayerIndex;
 }
+function getNextGamePlayerIndex(players, index) {
+  let nextPlayerIndex = getNextPlayerIndex(players, index);
+  let count = 0;
+  while (players[nextPlayerIndex].sitOut) {
+    nextPlayerIndex = getNextPlayerIndex(players, nextPlayerIndex);
+    count++;
+
+    if (count > players.length + 1) {
+      return null;
+    }
+  }
+  return nextPlayerIndex;
+}
 function getActivePlayer(game) {
   return game.players.find(p => p.active);
 }
@@ -85,6 +98,7 @@ module.exports = {
   getNextActivePlayerIndex,
   getNextActivePlayer,
   getPreviousActivePlayer,
+  getNextGamePlayerIndex,
   getActivePlayer,
   getActivePlayersStillInGame,
   getNextPlayerToTalk,

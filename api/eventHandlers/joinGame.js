@@ -1,6 +1,5 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const { MAX_TABLE_PLAYERS } = require('../consts');
 const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 
@@ -14,7 +13,7 @@ function onJoinGameEvent(socket, {
     Mappings.SaveSocketByPlayerId(playerId, socket);
 
     const game = Mappings.getGameById(gameId);
-    if (game.players.length >= MAX_TABLE_PLAYERS) {
+    if (game.players.length >= game.maxPlayers) {
       throw new BadRequest('table is full');
     }
     if (game.players.some(p => p.id === playerId)) {

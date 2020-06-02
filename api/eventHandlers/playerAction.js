@@ -277,16 +277,26 @@ async function onPlayerActionEvent(socket, {
       Object.keys(gameBackup).forEach((key) => {
         game[key] = gameBackup[key];
       });
-      game.paused = true;
-      game.serverError = true;
+      // game.paused = true;
+      // game.serverError = true;
+      game.players.forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
+      GamesService.startNewHand(game, now);
+      GamesService.resetHandTimer(game, onPlayerActionEvent);
+
+      game.messages.push({
+        action: 'server error', log: 'server error - jumping to next hand', popupMessage: 'Server Error - staring next hand..',
+      });
       GameHelper.updateGamePlayers(game, false);
+      game.messages = [];
     }
 
 
     logger.error('onPlayerActionEvent error', e.message);
     logger.error('error', e);
     if (socket) socket.emit('onerror', { message: 'action failed', reason: e.message });
+    return;
   }
+
   if (game) {
     if (game.waitingForPlayers) {
       if (game.timerRef) {

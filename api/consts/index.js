@@ -21,10 +21,8 @@ const gameStates = {
   RIVER: 3,
 };
 
-const MAX_TABLE_PLAYERS = 8;
 
 module.exports = {
-  MAX_TABLE_PLAYERS,
   ...ops,
   ...gameStates,
   BEEP: 'Beep',

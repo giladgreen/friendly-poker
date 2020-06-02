@@ -1,6 +1,6 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const GameHelper = require('../helpers/game');
+const GameService = require('../services/games');
 const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 
@@ -26,7 +26,7 @@ function onPauseGameEvent(socket, { gameId, playerId, now }) {
     game.messages.push({
       action: 'game_paused', popupMessage: 'Game Paused', log: 'Game Paused', now,
     });
-    GameHelper.pauseHandTimer(game);
+    GameService.pauseHandTimer(game);
     updateGamePlayers(game);
   } catch (e) {
     if (socket) socket.emit('onerror', { message: 'failed to pause game', reason: e.message });
