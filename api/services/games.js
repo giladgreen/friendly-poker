@@ -212,8 +212,22 @@ function startNewHand(game, dateTime) {
       newBig.allIn = true;
     }
 
-    const newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newBigIndex);
-    const newUnderTheGun = game.players[newUnderTheGunIndex];
+    let newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newBigIndex);
+    let newUnderTheGun = game.players[newUnderTheGunIndex];
+    if (newUnderTheGun.straddle) {
+      const straddlePlayer = newUnderTheGun;
+      const straddlePlayerAmount = straddlePlayer.balance >= 2 * game.bigBlind ? 2 * game.bigBlind : straddlePlayer.balance;
+      straddlePlayer.pot[game.gamePhase] = straddlePlayerAmount;
+      game.amountToCall = straddlePlayerAmount;
+      game.pot += straddlePlayerAmount;
+      straddlePlayer.balance -= straddlePlayerAmount;
+      if (straddlePlayer.balance === 0) {
+        straddlePlayer.allIn = true;
+      }
+
+      newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newUnderTheGunIndex);
+      newUnderTheGun = game.players[newUnderTheGunIndex];
+    }
     newUnderTheGun.active = true;
     newUnderTheGun.options = [FOLD, (newUnderTheGun.pot && newUnderTheGun.pot[0] === game.bigBlind ? CHECK : CALL), RAISE];
     if (newUnderTheGun.small && newUnderTheGun.allIn) {

@@ -274,6 +274,9 @@ function handleGameOverWithShowDown(game) {
     game.messages.push(msg);
   });
   game.pot = 0;
+  game.players.forEach((p) => {
+    delete p.straddle;
+  });
   game.handOver = true;
   game.winningHandCards = messages[0].cards;
 }

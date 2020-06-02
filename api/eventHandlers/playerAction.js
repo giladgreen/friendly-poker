@@ -71,7 +71,7 @@ function handlePlayerAction(game, playerId, op, amount, hand) {
   return player;
 }
 
-function handleRountOver(game, player, gameIsOver) {
+function handleRoundOver(game, player, gameIsOver) {
   const dealerIndex = PlayerHelper.getDealerIndex(game);
   const firstToTalkIndex = PlayerHelper.getNextActivePlayerIndex(game.players, dealerIndex);
   if (firstToTalkIndex === null) {
@@ -139,9 +139,12 @@ function proceedToNextStreet(game, now, gameIsOver) {
       game.pineappleRef = setTimeout(() => pineappleAutoSelectCardToThrow(game), 30000);
     }
 
-
+    game.players.forEach((p) => {
+      delete p.straddle;
+    });
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
+
     game.board.push(game.deck.pop());
     game.gamePhase = TURN;
     game.amountToCall = 0;
@@ -249,7 +252,7 @@ async function onPlayerActionEvent(socket, {
           gameIsOver = true;
           game.messages = [];
         } else {
-          gameIsOver = handleRountOver(game, player, gameIsOver);
+          gameIsOver = handleRoundOver(game, player, gameIsOver);
         }
 
         gameIsOver = proceedToNextStreet(game, now, gameIsOver);
@@ -324,6 +327,9 @@ handlePlayerWonHandWithoutShowdown = (game, player, now) => {
   });
   game.pot = 0;
   game.handOver = true;
+  game.players.forEach((p) => {
+    delete p.straddle;
+  });
   let timeToShowShowdown = 4000;
   if (game.dealerChoice) {
     timeToShowShowdown += 3000;

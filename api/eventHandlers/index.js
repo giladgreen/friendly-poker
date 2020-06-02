@@ -26,6 +26,7 @@ const { onDeclineRebuyEvent } = require('./declineRebuy');
 const { onSetCreatorAsAdminEvent } = require('./setCreatorAsAdmin');
 const { onPineappleDropCard } = require('./pineappleDropCard');
 const { onDealerChooseGame } = require('./dealerChooseGame');
+const { onStraddle } = require('./straddle');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -57,6 +58,7 @@ function onConnection(socket) {
   socket.on('setcreatorasadmin', data => onSetCreatorAsAdminEvent(socket, data));
   socket.on('pineappledropcard', data => onPineappleDropCard(socket, data));
   socket.on('dealerchoosegame', data => onDealerChooseGame(socket, data));
+  socket.on('straddle', data => onStraddle(socket, data));
 }
 
 module.exports = {
