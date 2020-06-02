@@ -269,6 +269,16 @@ class App extends Component {
 
 
     componentDidMount() {
+        try {
+            document.documentElement.requestFullscreen();
+
+        } catch (e) {
+            try {
+                window.scrollTo(0, 1);
+            } catch (e) {
+            }
+        }
+
         this.actioToMethodMap = {
             Fold: this.playFold,
             Call: this.playChips,
