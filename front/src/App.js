@@ -269,16 +269,7 @@ class App extends Component {
 
 
     componentDidMount() {
-        setTimeout(()=>{
-            try {
-                document.documentElement.requestFullscreen();
-                document.body.requestFullscreen();
-                window.scrollTo(0, 1);
 
-            } catch (e) {
-
-            }
-        },2000);
 
         this.actioToMethodMap = {
             Fold: this.playFold,
