@@ -131,7 +131,7 @@ class JoinGameScreen extends Component {
                             players.map((player,index)=>{
                                 const gamesWonId = `player-games-won-${index}`;
                                 const balanceId = `player-current-balance-${index}`;
-
+                                const longName = player.name.length>4;
                                 return <div key={player.id}
                                             onMouseOver={()=>{
                                                 const gamesWonElement =  document.getElementById(gamesWonId);
@@ -151,8 +151,8 @@ class JoinGameScreen extends Component {
                                             id={`join-table-existing-player-${index+1}`}
                                             className="existing-player">
                                             <div id={gamesWonId} className="player-games-won-hidden"> {player.handsWon}<EmojiEventsIcon/></div>
-                                            <div className={player.name.length>4 ? 'long-name' : 'short-name'} > {player.name}</div>
-                                            <div id={balanceId} className="player-games-won-hidden" >{player.balance}</div>
+                                            <div className={longName ? 'long-name' : 'short-name'} > {player.name}</div>
+                                            <div id={balanceId} className={`player-games-won-hidden ${longName ? 'player-games-won-long-name':'player-games-won-short-name'}`} >{player.balance}</div>
                                 </div>
                             })
                         }

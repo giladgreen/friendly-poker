@@ -175,11 +175,11 @@
     padding-top: 0px;
     .short-name{
         font-size: 1.6em;
-        margin-top: -6px;
+        margin-top: -11px;
     }
     .long-name{
         font-size: 0.95em;
-        margin-top: 2px;
+        margin-top: -2px;
     }
 
     .player-games-won-hidden{
@@ -199,7 +199,14 @@
         visibility: visible;
         font-size: 0.5em;
         color: #4e555b;
+
+    }
+    .player-games-won-short-name{
         margin-top: -5px;
+
+    }
+    .player-games-won-long-name{
+        margin-top: 1px;
     }
 }
 

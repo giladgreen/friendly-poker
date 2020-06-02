@@ -12936,11 +12936,11 @@ em-spades {
 }
 .existing-player .short-name {
   font-size: 1.6em;
-  margin-top: -6px;
+  margin-top: -11px;
 }
 .existing-player .long-name {
   font-size: 0.95em;
-  margin-top: 2px;
+  margin-top: -2px;
 }
 .existing-player .player-games-won-hidden {
   visibility: collapse;
@@ -12959,7 +12959,12 @@ em-spades {
   visibility: visible;
   font-size: 0.5em;
   color: #4e555b;
+}
+.existing-player .player-games-won-short-name {
   margin-top: -5px;
+}
+.existing-player .player-games-won-long-name {
+  margin-top: 1px;
 }
 
 .do-not-sit {
