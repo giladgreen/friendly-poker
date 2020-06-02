@@ -23,10 +23,6 @@ const endpoint = localhost ?  'http://127.0.0.1:5000' : window.location.origin;
 const serverPrefix = localhost ?  'http://localhost:3000' : window.location.origin;
 
 const ONLINE_GAME_ID = 'gameid';
-const body = document.getElementsByTagName('body')[0];
-const windowWidth = window.innerWidth || document.documentElement.clientWidth || body.clientWidth;
-// const SmartPhoneVertical = (windowWidth < 600);
-
 
 
 // eslint-disable-next-line

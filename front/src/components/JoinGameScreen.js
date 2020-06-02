@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/img-has-alt */
-
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import React, { Component } from 'react';
 import Loader from "../containers/Loader";
 
@@ -129,11 +129,30 @@ class JoinGameScreen extends Component {
                         <img id="join-table-image" src="table.png" />
                         {
                             players.map((player,index)=>{
+                                const gamesWonId = `player-games-won-${index}`;
+                                const balanceId = `player-current-balance-${index}`;
 
                                 return <div key={player.id}
+                                            onMouseOver={()=>{
+                                                const gamesWonElement =  document.getElementById(gamesWonId);
+                                                gamesWonElement.className = gamesWonElement.className.replace('hidden', 'visible');
+
+                                                const balanceElement =  document.getElementById(balanceId);
+                                                balanceElement.className = balanceElement.className.replace('hidden', 'visible');
+                                            }}
+                                            onMouseOut={()=>{
+                                                const gamesWonElement =  document.getElementById(gamesWonId);
+                                                gamesWonElement.className = gamesWonElement.className.replace('visible', 'hidden');
+
+                                                const balanceElement =  document.getElementById(balanceId);
+                                                balanceElement.className = balanceElement.className.replace('visible', 'hidden');
+                                            }}
+
                                             id={`join-table-existing-player-${index+1}`}
-                                            className={player.name.length>4 ? 'existing-player-long-name' : 'existing-player'}>
-                                             {player.name}
+                                            className="existing-player">
+                                            <div id={gamesWonId} className="player-games-won-hidden"> {player.handsWon}<EmojiEventsIcon/></div>
+                                            <div className={player.name.length>4 ? 'long-name' : 'short-name'} > {player.name}</div>
+                                            <div id={balanceId} className="player-games-won-hidden" >{player.balance}</div>
                                 </div>
                             })
                         }

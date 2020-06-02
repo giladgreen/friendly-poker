@@ -12931,22 +12931,35 @@ em-spades {
   width: 6vw;
   font-size: 1.7em;
   padding-top: 1.5vh;
+  font-size: 1em;
+  padding-top: 0px;
 }
-
-.existing-player-long-name {
-  position: fixed;
-  background: white;
-  text-align: center;
-  color: black;
-  z-index: 3;
-  border-radius: 50%;
-  border: 2px solid black;
-  height: 8vh;
-  width: 6vw;
-  font-size: 1.7em;
-  padding-top: 1.5vh;
-  font-size: 1.3em;
-  padding-top: 1.5vh;
+.existing-player .short-name {
+  font-size: 1.6em;
+  margin-top: -6px;
+}
+.existing-player .long-name {
+  font-size: 0.95em;
+  margin-top: 2px;
+}
+.existing-player .player-games-won-hidden {
+  visibility: collapse;
+  font-size: 0.5em;
+}
+.existing-player .player-games-won-visible {
+  visibility: visible;
+  font-size: 0.5em;
+  color: #4e555b;
+}
+.existing-player .player-current-balance-hidden {
+  visibility: collapse;
+  font-size: 0.5em;
+}
+.existing-player .player-current-balance-visible {
+  visibility: visible;
+  font-size: 0.5em;
+  color: #4e555b;
+  margin-top: -5px;
 }
 
 .do-not-sit {
@@ -14790,7 +14803,7 @@ em-spades {
   #game-pause-indication {
     color: #ffffffbb;
     font-size: 10em;
-    top: 20vh;
+    top: 16vh;
   }
 }
 @media only screen and (max-width: 530px) {

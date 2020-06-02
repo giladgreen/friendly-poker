@@ -26,6 +26,8 @@
     padding-right: 1vw;
     padding-top: 10px;
     position:fixed;
+
+
 }
 
 #join-game-section{
@@ -169,19 +171,38 @@
     border-radius: 50%;
     border: 2px solid black;
     @include circle;
+    font-size: 1em;
+    padding-top: 0px;
+    .short-name{
+        font-size: 1.6em;
+        margin-top: -6px;
+    }
+    .long-name{
+        font-size: 0.95em;
+        margin-top: 2px;
+    }
+
+    .player-games-won-hidden{
+        visibility: collapse;
+        font-size: 0.5em;
+    }
+    .player-games-won-visible{
+        visibility: visible;
+        font-size: 0.5em;
+        color: #4e555b;
+    }
+    .player-current-balance-hidden{
+        visibility: collapse;
+        font-size: 0.5em;
+    }
+    .player-current-balance-visible{
+        visibility: visible;
+        font-size: 0.5em;
+        color: #4e555b;
+        margin-top: -5px;
+    }
 }
-.existing-player-long-name{
-    position: fixed;
-    background: white;
-    text-align: center;
-    color: black;
-    z-index: 3;
-    border-radius: 50%;
-    border: 2px solid black;
-    @include circle;
-    font-size: 1.3em;
-    padding-top: 1.5vh;
-}
+
 .do-not-sit{
     position: fixed;
     background: #6c757d33;
