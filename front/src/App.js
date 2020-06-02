@@ -168,7 +168,7 @@ class App extends Component {
             if (index >= myIndex){
                 player.locationIndex = index - myIndex +1;
             } else{
-                player.locationIndex = 8 - myIndex + 1 + index;
+                player.locationIndex = game.maxPlayers - myIndex + 1 + index;
 
             }
         });

@@ -14737,6 +14737,16 @@ em-spades {
   border-radius: 10px;
   z-index: 50;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #game-pause-screen {
+    background: #000000;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #game-pause-screen {
+    background: #000000;
+  }
+}
 
 #game-pause-info-screen-body-table {
   color: white;
@@ -14776,6 +14786,20 @@ em-spades {
   padding-top: 8vh;
   font-family: Arial, Helvetica, sans-serif;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #game-pause-indication {
+    color: #ffffffbb;
+    font-size: 10em;
+    top: 20vh;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #game-pause-indication {
+    color: #ffffffbb;
+    font-size: 14em;
+    top: 27vh;
+  }
+}
 
 #game-pause-indication-text {
   position: fixed;
@@ -14789,6 +14813,18 @@ em-spades {
   font-size: 5em;
   text-align: center;
   padding-top: 42vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #game-pause-indication-text {
+    font-size: 3em;
+    padding-top: 68vh;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #game-pause-indication-text {
+    font-size: 2.7em;
+    padding-top: 69vh;
+  }
 }
 
 #server-error-message {
@@ -14823,6 +14859,26 @@ em-spades {
   padding-top: 1vh;
   background: #00000066;
   z-index: 102;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #start-pause-game-button {
+    bottom: 5vh;
+    left: 25vw;
+    width: 50vw;
+    height: 11vh;
+    font-size: 2em;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #start-pause-game-button {
+    bottom: 7vh;
+    left: 20vw;
+    width: 60vw;
+    height: 8.4vh;
+    font-size: 2em;
+    padding-top: 0vh;
+  }
 }
 
 #start-pause-game-button:hover {

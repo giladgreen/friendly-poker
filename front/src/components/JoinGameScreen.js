@@ -9,14 +9,19 @@ class JoinGameScreen extends Component {
     constructor(props) {
         super(props);
         const name = localStorage.getItem('myName') || '';
-        const maxPlayerBalance = Math.max(...props.game.players.map(p=>p.balance));
-        let maxBuyIn = maxPlayerBalance * 5;
+        const balances = props.game.players.map(p=>p.balance);
+        const maxPlayerBalance = Math.max(...balances);
+        let avaragePlayerBalance = balances.reduce((all,one)=>all+one,0) / props.game.players.length;
+        let maxBuyIn = props.game.requireRebuyAproval ? 50 * maxPlayerBalance : maxPlayerBalance * 3;
         maxBuyIn = maxBuyIn - (maxBuyIn % props.game.bigBlind);
         maxBuyIn = maxBuyIn - (maxBuyIn % 10);
 
+        avaragePlayerBalance = avaragePlayerBalance - (avaragePlayerBalance % props.game.bigBlind);
+        avaragePlayerBalance = avaragePlayerBalance - (avaragePlayerBalance % 10);
+
         const minBuyIn = 10 * props.game.bigBlind;
         this.takenNames = props.game.players.map(p=>p.name);
-        const buyIn =  maxPlayerBalance;
+        const buyIn =  avaragePlayerBalance;
         this.state = {
             name,
             buyIn,
@@ -70,7 +75,7 @@ class JoinGameScreen extends Component {
         const {game}=this.props;
         const {smallBlind, bigBlind, time, players, gameType}=game;
         const playersCount = players.length;
-        const canJoin = players.length < 8 && !this.state.showNameError && this.state.name && this.state.name.length>0;
+        const canJoin = players.length < game.maxPlayers && !this.state.showNameError && this.state.name && this.state.name.length>0;
         // console.log('this.state.gameOptions',this.state.gameOptions)
         // console.log('gameType',gameType)
         return (
@@ -94,7 +99,7 @@ class JoinGameScreen extends Component {
 
                         <div>
                             Name: <input
-                            disabled={playersCount >= 8}
+                            disabled={playersCount >= game.maxPlayers}
                             className={`join-game-input name-input 
                             ${this.state.showNameError ? 'red-border red-background':''}`}
                             type="text" value={this.state.name}
@@ -102,7 +107,7 @@ class JoinGameScreen extends Component {
                         </div>
                         <div>
                             Initial Buy-In:  <input
-                            disabled={playersCount >= 8}
+                            disabled={playersCount >= game.maxPlayers}
                             className={`join-game-input buy-in ${this.state.showAmountError ? 'red-border red-background':''}`}
                             type="number"
                             min={0}
@@ -133,7 +138,7 @@ class JoinGameScreen extends Component {
                             })
                         }
 
-                        { playersCount < 8 ?
+                        { playersCount < game.maxPlayers ?
                             players.map((player,index)=>{
 
                                 return <div key={`join_after_${player.id}`}
@@ -144,14 +149,14 @@ class JoinGameScreen extends Component {
                                 </div>
                             }) : <div/>
                         }
-                        {canJoin && playersCount < 7 ? <div key={`join_before_first`}
-                                                  id={`join-after-existing-player-7`}
+                        {canJoin && playersCount < game.maxPlayers-1 ? <div key={`join_before_first`}
+                                                  id={`join-after-existing-player-${game.maxPlayers-1}`}
                                                   onClick={()=>this.onJoin(0)}
                                                   className="sit-here-button">
                             SIT
                         </div> : <div/>}
 
-                        {playersCount >= 8 && <div id="full-game-div">
+                        {playersCount >= game.maxPlayers && <div id="full-game-div">
                             <span id="full-game-text" >Game is Full</span>
 
                         </div>}

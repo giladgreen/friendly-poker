@@ -497,7 +497,10 @@ class OnlineGame extends Component {
     };
 
     raise = ()=>{
-        return this.props.action('Raise',this.state.raiseValue);
+        if (!this.state.raiseValueError && !isNaN(this.state.raiseValue)){
+            return this.props.action('Raise',this.state.raiseValue);
+        }
+
     };
 
 
@@ -622,7 +625,7 @@ class OnlineGame extends Component {
                 {/* action buttons */}
                 <div>
                     {/* show cards button */}
-                    { game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
+                    { !game.paused && game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
                     {/* dealer choice button */}
                     {  game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
