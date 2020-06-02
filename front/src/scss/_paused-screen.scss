@@ -102,6 +102,40 @@
     padding-left: 1vw;
     padding-top: 1vw;
 }
+#straddle-choice-div{
+    color: white;
+    position: fixed;
+    bottom: 2vh;
+    left: 30vw;
+    width: 10vw;
+    cursor: pointer;
+    border: 2px solid grey;
+    border-radius: 15px;
+    height: 8vh;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 1vh;
+    background: #00000066;
+    z-index: 101;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        bottom: 5vh;
+        left: 22vw;
+        width: 50vw;
+        height: 11vh;
+        font-size: 2em;
+        padding-top: 0px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        bottom: 7vh;
+        left: 20vw;
+        width: 60vw;
+        height: 8.4vh;
+        font-size: 2em;
+        padding-top: 0vh;
+    }
+}
 #start-pause-game-button{
     color: white;
     position: fixed;

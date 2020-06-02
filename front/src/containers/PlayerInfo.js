@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
 
-    const {game, player, index, winningHandCards, isMe, initial, betRoundOver } = props;
+    const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
     const { pineapple } = game;
 
     const {cardsToShow, needToThrow} = player;
@@ -42,6 +42,7 @@ const PlayerInfo = (props) => {
                 </div>
             </div>
             { player.dealer && <div id={`player-${index}-dealer-button`} className="base-dealer-button" > D </div>}
+            { player.straddle && <div id={`player-${index}-straddle-button`} className="base-straddle-button" > S </div>}
              <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>
             { player.small && <div id="small-blind-button" > SB </div>}
             { player.big && <div id="big-blind-button" > BB </div>}

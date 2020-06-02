@@ -637,6 +637,10 @@ class App extends Component {
         }
     };
 
+    straddle = () =>{
+        const { gameId, playerId } = this.state;
+        this.socket.emit('straddle', {gameId, playerId, now: (new Date()).getTime() });
+    };
     rebuy = (amount) =>{
         const { gameId, playerId } = this.state;
         this.socket.emit('rebuy', {gameId, playerId, amount, now: (new Date()).getTime() });
@@ -672,7 +676,7 @@ class App extends Component {
         this.socket.emit('setcreatorasadmin', {gameId , playerId, now: (new Date()).getTime() });
     };
 
-    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval, gameType, straddleSupported }) =>{
+    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval, gameType, straddleEnabled, timeBankEnabled }) =>{
         const now = (new Date()).getTime();
         const gameId = `${now}`;
         const playerId = this.state.playerId;
@@ -688,7 +692,8 @@ class App extends Component {
             privateGame,
             requireRebuyAproval,
             gameType,
-            straddleSupported,
+            straddleEnabled,
+            timeBankEnabled,
         });
 
         this.setState({ gameId, game: null })
@@ -788,6 +793,7 @@ class App extends Component {
                     showCards={this.showCards}
                     kickOutPlayer={this.kickOutPlayer}
                     rebuy={this.rebuy}
+                    straddle={this.straddle}
                     sitBack={this.sitBack}
                     standUp={this.standUp}
                     SkipHand={this.SkipHand}

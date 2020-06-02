@@ -24,9 +24,17 @@ class CreateGameScreen extends Component {
 
     constructor(props) {
         super(props);
+
+        const privateGameSavedValue = localStorage.getItem('private-game');
+        const aprovalRequiredSavedValue = localStorage.getItem('rebuy-aproval-required');
+        const straddleEnabledSavedValue = localStorage.getItem('straddle-enabled');
+        const timeBankEnabledSavedValue = localStorage.getItem('timebank-enabled');
+
         const name = localStorage.getItem('myName') || '';
-        const privateGame = (localStorage.getItem('private-game') === 'true');
-        const aprovalRequired = (localStorage.getItem('rebuy-aproval-required') === 'true');
+        const privateGame = privateGameSavedValue ? privateGameSavedValue === 'true' : true;
+        const aprovalRequired = aprovalRequiredSavedValue ? aprovalRequiredSavedValue === 'true' : false;
+        const straddleEnabled = straddleEnabledSavedValue ? straddleEnabledSavedValue === 'true' : true;
+        const timeBankEnabled = timeBankEnabledSavedValue ? timeBankEnabledSavedValue === 'true' : false;
         const SB = parseInt((localStorage.getItem('create-game-sb') || '1'), 10);
         const BB = parseInt((localStorage.getItem('create-game-bb') || '2'), 10);
         const time = parseInt((localStorage.getItem('create-game-time') || '50'), 10);
@@ -35,7 +43,8 @@ class CreateGameScreen extends Component {
             name,
             privateGame,
             aprovalRequired,
-            straddleSupported:true,
+            straddleEnabled,
+            timeBankEnabled,
             SB,
             BB,
             time,
@@ -46,10 +55,10 @@ class CreateGameScreen extends Component {
             showBuyInError:false,
             showTimeError:false,
             gameOptions:[
-                {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS'},
-                {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA'},
-                {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE'},
-                {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE'},
+                {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS', icons: ["horns.svg"]  },
+                {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA',icons: ["omaha.svg"] },
+                {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE',  icons: ["black_pineapple.svg"] },
+                {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE',  icons: ["horns.svg", "omaha.svg", "black_pineapple.svg"]},
             ],
             selectedGame: 1,
         }
@@ -63,6 +72,8 @@ class CreateGameScreen extends Component {
         localStorage.setItem('myName',this.state.name);
         localStorage.setItem('private-game',this.state.privateGame ? 'true':'false');
         localStorage.setItem('rebuy-aproval-required',this.state.aprovalRequired ? 'true':'false');
+        localStorage.setItem('straddle-enabled',this.state.straddleEnabled ? 'true':'false');
+        localStorage.setItem('timebank-enabled',this.state.timeBankEnabled ? 'true':'false');
         localStorage.setItem('create-game-sb',this.state.SB);
         localStorage.setItem('create-game-bb',this.state.BB);
         localStorage.setItem('create-game-time',this.state.time) ;
@@ -76,7 +87,8 @@ class CreateGameScreen extends Component {
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
             requireRebuyAproval: this.state.aprovalRequired,
-            straddleSupported: this.state.straddleSupported,
+            straddleEnabled: this.state.straddleEnabled,
+            timeBankEnabled: this.state.timeBankEnabled,
             gameType: this.state.gameOptions.find(option=>option.value === this.state.selectedGame).type
         });
     };
@@ -124,6 +136,14 @@ class CreateGameScreen extends Component {
         this.setState({aprovalRequired: e.target.checked })
     };
 
+    setStraddleEnabled= (e) =>{
+        this.setState({straddleEnabled: e.target.checked })
+    };
+
+    setTimeBankEnabled= (e) =>{
+        this.setState({timeBankEnabled: e.target.checked })
+    };
+
     getGameCreator(game){
         let creatorName = 'N/A';
         const creator = game.players.find(p=>p.creator);
@@ -154,7 +174,9 @@ class CreateGameScreen extends Component {
                                 value={this.state.selectedGame}
                                 onChange={(e) => this.onSelectedGameChange(e.target.value)} >
                                 {this.state.gameOptions.map(option => {
-                                    return  <MenuItem value={option.value}>{ option.name}</MenuItem>
+                                    return  <MenuItem value={option.value}>
+                                       <span> {option.icons.map(src => <img key={src} style={{width: '30px'}} src={src} />)}  { option.name} </span>
+                                    </MenuItem>
                                 })}
 
                             </Select>
@@ -220,6 +242,34 @@ class CreateGameScreen extends Component {
 
                             />
                         </div>
+                        <div id="create-new-game-straddle-enabled-checkbox">
+                            <FormControlLabel
+                                control={
+                                    <WhiteCheckbox
+                                        checked={this.state.straddleEnabled}
+                                        onChange={this.setStraddleEnabled}
+                                        name="checkedB"
+                                        color="primary"
+                                    />
+                                }
+                                label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Straddle Enabled</span>}
+
+                            />
+                        </div>
+                        {/*<div id="create-new-game-timebank-enabled-checkbox">*/}
+                        {/*    <FormControlLabel*/}
+                        {/*        control={*/}
+                        {/*            <WhiteCheckbox*/}
+                        {/*                checked={this.state.timeBankEnabled}*/}
+                        {/*                onChange={this.setTimeBankEnabled}*/}
+                        {/*                name="checkedB"*/}
+                        {/*                color="primary"*/}
+                        {/*            />*/}
+                        {/*        }*/}
+                        {/*        label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Time-Bank Enabled</span>}*/}
+
+                        {/*    />*/}
+                        {/*</div>*/}
                     </div>
                     <div id="create-new-game-name-div">
                         <span id="create-new-game-name-label" >Your Name:</span>

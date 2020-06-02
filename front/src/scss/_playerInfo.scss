@@ -204,6 +204,30 @@ $players-dealer-button-left: (
 
     }
 }
+.base-straddle-button{
+    position: absolute;
+    z-index: 33;
+    border: 1px solid #00000099;
+    border-radius: 50%;
+    width: 2.2vw;
+    height: 2.2vw;
+    padding-top: 0.24vw;
+    text-align: center;
+    @include font-med;
+    font-weight: bold;
+    background: #dddd77;
+    color: #333333;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        width: 3.2vw;
+        height: 3.2vw;
+        padding-top: 0vw;
+        font-size: 0.9em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+
+
+    }
+}
 
 @mixin player-card-animation-from-section {
     top: $community-card-deck-top;
@@ -389,6 +413,12 @@ $players-dealer-button-left: (
         z-index: 33;
         top: map-get($players-dealer-button-top, 'player-#{$index}');
         left: map-get($players-dealer-button-left, 'player-#{$index}');
+    }
+    #player-#{$index}-straddle-button {
+        position: fixed;
+        z-index: 33;
+        top: map-get($players-dealer-button-top, 'player-#{$index}') + 0.5;
+        left: map-get($players-dealer-button-left, 'player-#{$index}') + 1;
     }
 }
 

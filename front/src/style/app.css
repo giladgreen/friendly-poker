@@ -11251,26 +11251,26 @@ em-spades {
 
 .config-screens-top-level-sections {
   position: fixed;
-  top: 13vh;
-  height: 83vh;
+  top: 11vh;
+  height: 86vh;
   z-index: 1;
   border: 3px solid gray;
   border-radius: 12px;
 }
 
 #create-new-game-section {
-  left: 5vw;
-  width: 53vw;
+  left: 2vw;
+  width: 58vw;
 }
 
 #my-existing-games {
-  left: 63vw;
-  width: 34vw;
+  left: 62vw;
+  width: 36vw;
 }
 
 .config-screens-top-level-sections-header {
   position: fixed;
-  top: 14vh;
+  top: 11.5vh;
   height: 4vmax;
   z-index: 2;
   text-align: center;
@@ -11280,40 +11280,40 @@ em-spades {
 }
 
 #create-new-game-section-header {
-  left: 5vw;
-  width: 53vw;
+  left: 2vw;
+  width: 58vw;
 }
 
 #my-existing-games-header {
-  left: 65vw;
-  width: 32vw;
+  left: 62vw;
+  width: 36vw;
 }
 
 .config-screens-top-level-sections-body {
   position: fixed;
-  top: 24vh;
-  height: 60vh;
+  top: 20.3vh;
+  height: 75.5vh;
   z-index: 2;
   border: 2px solid gray;
   border-radius: 12px;
 }
 
 #create-new-game-section-body {
-  left: 6vw;
-  width: 51vw;
+  left: 3.5vw;
+  width: 55vw;
 }
 
 #my-existing-games-body {
-  left: 64vw;
-  width: 32vw;
+  left: 62.5vw;
+  width: 34vw;
   padding: 4px;
   overflow-y: scroll;
-  height: 70vh;
+  height: 75.5vh;
 }
 
 .create-new-game-labels {
   color: white;
-  font-size: 2.7em;
+  font-size: 2.6em;
 }
 
 .tablecell {
@@ -11323,7 +11323,7 @@ em-spades {
 
 #select-game-div {
   position: fixed;
-  top: 26vh;
+  top: 21.6vh;
   height: 6vh;
   left: 6vw;
   width: 70vw;
@@ -11333,7 +11333,7 @@ em-spades {
   padding-right: 1vw;
   padding-top: 0px;
   color: white;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 #select-game-label {
@@ -11346,7 +11346,7 @@ em-spades {
   left: 1vw;
   background: white;
   color: black;
-  width: 31vw;
+  width: 31.7vw;
   border-radius: 8px;
   padding: 10px 0px 5px 20px;
   height: 3vh;
@@ -11355,7 +11355,7 @@ em-spades {
 
 #create-new-game-blinds-div {
   position: fixed;
-  top: 34.8vh;
+  top: 30vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11368,11 +11368,11 @@ em-spades {
 
 #create-new-game-small-blind-input {
   border-radius: 12px;
-  font-size: 2.3em;
+  font-size: 2em;
   color: black;
-  margin-left: 1vw;
-  margin-right: 6vw;
-  width: 7vw;
+  margin-left: 1.1vw;
+  margin-right: 7vw;
+  width: 8vw;
 }
 
 #create-new-game-big-blind-input {
@@ -11380,12 +11380,12 @@ em-spades {
   font-size: 2.3em;
   color: black;
   margin-left: 1vw;
-  width: 7vw;
+  width: 8vw;
 }
 
 #create-new-game-action-time-div {
   position: fixed;
-  top: 44vh;
+  top: 39vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11401,13 +11401,13 @@ em-spades {
   margin-right: 1vw;
   font-size: 2.3em;
   color: black;
-  margin-left: 1vw;
-  width: 6vw;
+  margin-left: 1.5vw;
+  width: 7vw;
 }
 
 #create-new-game-private-checkbox {
   position: fixed;
-  top: 53.6vh;
+  top: 47vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11416,17 +11416,16 @@ em-spades {
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0px;
-  color: white;
   font-size: 2em;
 }
-
 #create-new-game-private-checkbox label {
-  font-size: 2.3em;
+  color: #ffcccc;
+  font-size: 2.2em;
 }
 
 #create-new-game-aproval-required-checkbox {
   position: fixed;
-  top: 60vh;
+  top: 54vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11435,17 +11434,52 @@ em-spades {
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0px;
-  color: white;
   font-size: 2em;
 }
-
 #create-new-game-aproval-required-checkbox label {
+  color: #ccffcc;
+  font-size: 2.3em;
+}
+
+#create-new-game-timebank-enabled-checkbox {
+  position: fixed;
+  top: 47vh;
+  height: 6vh;
+  left: 35vw;
+  width: 51vw;
+  z-index: 3;
+  text-align: left;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0px;
+  font-size: 2em;
+}
+#create-new-game-timebank-enabled-checkbox label {
+  color: #cffffc;
+  font-size: 2.3em;
+}
+
+#create-new-game-straddle-enabled-checkbox {
+  position: fixed;
+  top: 61vh;
+  height: 6vh;
+  left: 6vw;
+  width: 51vw;
+  z-index: 3;
+  text-align: left;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0px;
+  font-size: 2em;
+}
+#create-new-game-straddle-enabled-checkbox label {
+  color: #ccccff;
   font-size: 2.3em;
 }
 
 #create-new-game-name-div {
   position: fixed;
-  top: 67vh;
+  top: 70vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11481,7 +11515,7 @@ em-spades {
 
 #create-new-game-buy-in-div {
   position: fixed;
-  top: 75vh;
+  top: 77.8vh;
   height: 6vh;
   left: 6vw;
   width: 51vw;
@@ -11495,7 +11529,7 @@ em-spades {
 #create-new-game-buy-in-input {
   border-radius: 12px;
   margin-right: 1vw;
-  font-size: 2.2em;
+  font-size: 2em;
   color: black;
   margin-left: 1vw;
   width: 9vw;
@@ -14861,6 +14895,44 @@ em-spades {
   padding-top: 1vw;
 }
 
+#straddle-choice-div {
+  color: white;
+  position: fixed;
+  bottom: 2vh;
+  left: 30vw;
+  width: 10vw;
+  cursor: pointer;
+  border: 2px solid grey;
+  border-radius: 15px;
+  height: 8vh;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  padding-top: 1vh;
+  background: #00000066;
+  z-index: 101;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #straddle-choice-div {
+    bottom: 5vh;
+    left: 22vw;
+    width: 50vw;
+    height: 11vh;
+    font-size: 2em;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #straddle-choice-div {
+    bottom: 7vh;
+    left: 20vw;
+    width: 60vw;
+    height: 8.4vh;
+    font-size: 2em;
+    padding-top: 0vh;
+  }
+}
+
 #start-pause-game-button {
   color: white;
   position: fixed;
@@ -14929,6 +15001,38 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .base-dealer-button {
+    width: 3.2vw;
+    height: 3.2vw;
+    padding-top: 0vw;
+    font-size: 0.9em;
+  }
+}
+.base-straddle-button {
+  position: absolute;
+  z-index: 33;
+  border: 1px solid #00000099;
+  border-radius: 50%;
+  width: 2.2vw;
+  height: 2.2vw;
+  padding-top: 0.24vw;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  background: #dddd77;
+  color: #333333;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .base-straddle-button {
+    font-size: 0.8em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .base-straddle-button {
+    height: 0.7em;
+  }
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .base-straddle-button {
     width: 3.2vw;
     height: 3.2vw;
     padding-top: 0vw;
@@ -15310,6 +15414,13 @@ em-spades {
   left: 52.5vw;
 }
 
+#player-1-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 59.1vh;
+  left: 53.5vw;
+}
+
 #player2 {
   top: 61vh;
   left: 23vw;
@@ -15459,6 +15570,13 @@ em-spades {
   z-index: 33;
   top: 54.2vh;
   left: 27vw;
+}
+
+#player-2-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 54.7vh;
+  left: 28vw;
 }
 
 #player3 {
@@ -15612,6 +15730,13 @@ em-spades {
   left: 25.4vw;
 }
 
+#player-3-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 44.72vh;
+  left: 26.4vw;
+}
+
 #player4 {
   top: 14vh;
   left: 23vw;
@@ -15761,6 +15886,13 @@ em-spades {
   z-index: 33;
   top: 25.6vh;
   left: 36.5vw;
+}
+
+#player-4-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 26.1vh;
+  left: 37.5vw;
 }
 
 #player5 {
@@ -15914,6 +16046,13 @@ em-spades {
   left: 57.2vw;
 }
 
+#player-5-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 21.5vh;
+  left: 58.2vw;
+}
+
 #player6 {
   top: 14vh;
   left: 66vw;
@@ -16063,6 +16202,13 @@ em-spades {
   z-index: 33;
   top: 14vh;
   left: 0vw;
+}
+
+#player-6-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 14.5vh;
+  left: 1vw;
 }
 
 #player7 {
@@ -16216,6 +16362,13 @@ em-spades {
   left: 77.3vw;
 }
 
+#player-7-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 37.2vh;
+  left: 78.3vw;
+}
+
 #player8 {
   top: 61vh;
   left: 66vw;
@@ -16365,6 +16518,13 @@ em-spades {
   z-index: 33;
   top: 53.6vh;
   left: 69.3vw;
+}
+
+#player-8-straddle-button {
+  position: fixed;
+  z-index: 33;
+  top: 54.1vh;
+  left: 70.3vw;
 }
 
 .player {

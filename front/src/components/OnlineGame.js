@@ -257,6 +257,22 @@ class OnlineGame extends Component {
         }
         const maxBalance = Math.max(...game.players.map(p => p.balance));
 
+        const getNextPlayerIndex = (index) => {
+            return (index + 1 < game.players.length) ? index + 1 : 0;
+        };
+        const getNextActivePlayerIndex = (index) => {
+            let nextPlayerIndex = getNextPlayerIndex(index);
+            let count = 0;
+            while (game.players[nextPlayerIndex].sitOut) {
+                nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
+                count++;
+
+                if (count > game.players.length + 1) {
+                    return null;
+                }
+            }
+            return nextPlayerIndex;
+        }
         const getIsNextDealer =  () => {
             let dealerIndex = -1;
             game.players.forEach((player, index) => {
@@ -264,32 +280,29 @@ class OnlineGame extends Component {
                     dealerIndex = index;
                 }
             });
-
-            const getNextPlayerIndex = (index) => {
-                return (index + 1 < game.players.length) ? index + 1 : 0;
-            };
-
-            const getNextActivePlayerIndex = (index) => {
-                let nextPlayerIndex = getNextPlayerIndex(index);
-                let count = 0;
-                while (game.players[nextPlayerIndex].sitOut) {
-                    nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
-                    count++;
-
-                    if (count > game.players.length + 1) {
-                        return null;
-                    }
-                }
-                return nextPlayerIndex;
-            }
-
             const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
             const newDealer = game.players[newDealerIndex];
             return newDealer.id === me.id;
         }
 
+        const getIsNextStraddle =  () => {
+            let bigIndex = -1;
+            game.players.forEach((player, index) => {
+                if (player.big) {
+                    bigIndex = index;
+                }
+            });
+            const newBigIndex = getNextActivePlayerIndex(bigIndex);
+            const newStraddleIndex = getNextActivePlayerIndex(newBigIndex);
+            const newStraddle = game.players[newStraddleIndex];
+            console.log('newStraddle',newStraddle.name)
+            return newStraddle.id === me.id;
+        }
+
         const isNextDealer = me ? getIsNextDealer() : false;
 
+        const isNextStraddle = me ? getIsNextStraddle() : false;
+        console.log('am i the Next Straddle', isNextStraddle)
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
         if (game.gameType === 'DEALER_CHOICE') {
@@ -300,6 +313,7 @@ class OnlineGame extends Component {
             gameName,
             me,
             isNextDealer,
+            isNextStraddle,
             showingCards,
             cheapLeader,
             userTimer,
@@ -533,7 +547,7 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
-        const { options, cheapLeader, me, betRoundOver, isNextDealer, chosenGame, gameName} = this.state;
+        const { options, cheapLeader, me, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName} = this.state;
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy, dealerChoice} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
@@ -562,6 +576,7 @@ class OnlineGame extends Component {
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && game.handOver;
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
+
 
         return (
             <div id="online-game-screen">
@@ -647,6 +662,10 @@ class OnlineGame extends Component {
                             <img src="omaha.svg" />
                         </div>
 
+                    </div>}
+                    {/* straddle choice button */}
+                    { game.handOver && game.straddleEnabled && isNextStraddle && <div id="straddle-choice-div" onClick={this.props.straddle}>
+                            Straddle
                     </div>}
 
                     { !game.handOver &&
