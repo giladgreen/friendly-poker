@@ -271,12 +271,10 @@ class App extends Component {
     componentDidMount() {
         try {
             document.documentElement.requestFullscreen();
+            window.scrollTo(0, 1);
 
         } catch (e) {
-            try {
-                window.scrollTo(0, 1);
-            } catch (e) {
-            }
+
         }
 
         this.actioToMethodMap = {
