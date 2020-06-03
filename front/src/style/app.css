@@ -14260,6 +14260,7 @@ em-spades {
   padding-bottom: 0.5vh;
   background: #444444;
   color: #777777;
+  z-index: 999999;
 }
 
 #messages-box:hover {
@@ -14273,6 +14274,7 @@ em-spades {
   width: 22vw;
   color: white;
   font-size: 1.5em;
+  z-index: 999999;
 }
 
 #chat-input {
@@ -14283,6 +14285,7 @@ em-spades {
   padding-left: 4px;
   border-radius: 8px 0px 0px 0px;
   height: 3.9vh;
+  z-index: 999999;
 }
 
 #send-message-button {
@@ -14298,6 +14301,7 @@ em-spades {
   text-align: center;
   padding-top: 1px;
   background: black;
+  z-index: 999999;
 }
 
 .msg-time {

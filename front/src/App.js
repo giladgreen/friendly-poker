@@ -362,6 +362,7 @@ class App extends Component {
                 if (this.GameUpdatedCallback){
                     if (gameClone.betRoundOver !== this.state.game.betRoundOver ||
                         gameClone.hand !== this.state.game.hand ||
+                        gameClone.paused !== this.state.game.paused ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
                         gameClone.waitingForPlayers !== this.state.game.waitingForPlayers ||
