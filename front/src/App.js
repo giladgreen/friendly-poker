@@ -442,8 +442,8 @@ class App extends Component {
                 })
             } else if (message.action === 'usermessage'){
                 const div = (<div key={`msg_${time}_${message.text}_${message.now}`}>
-                    <span className="msg-time" >{time}</span>
-                    <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span>
+                    { message.playerIndex < 10 ? <span className="msg-time" >{time}</span> : <spn/>}
+                    { message.playerIndex < 10 ? <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span> : <spn/>}
                     <span className="msg-text">{message.text}</span>  </div>);
 
                 this.setState({ messages: [...this.state.messages, div], connected: true });
