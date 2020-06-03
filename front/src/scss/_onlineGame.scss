@@ -26,9 +26,9 @@
         font-size: 1em;
     }
     @media only screen and (max-width: $mobile-vertical) {
-        left: 48vw;
-        top:1vh;
-        font-size: 1.9em;
+        left: 40vw;
+        top: 7.2vh;
+        font-size: 1em;
     }
 }
 .shortcut{
@@ -138,6 +138,142 @@
     animation-fill-mode: both;
 
 }
+
+$rebuy-section-top: 8.2vh;
+$rebuy-section-right: 0.2vw;
+$mobile-horizonal-rebuy-section-top: 8vh;
+$mobile-horizonal-rebuy-section-right: 1vw;
+#rebuy-section{
+    position: fixed;
+    z-index: 105;
+    top:$rebuy-section-top;
+    right:$rebuy-section-right;
+    width: 25vw;
+    height: 20vh;
+    background: #333333;
+    border-radius: 8px;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top;
+        right:$mobile-horizonal-rebuy-section-right;
+        width: 45vw;
+        height: 35vh;
+
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top;
+        right:$mobile-horizonal-rebuy-section-right;
+        width: 65vw;
+        height: 30vh;
+    }
+
+}
+
+#rebuy-header{
+    position: fixed;
+    z-index: 106;
+    top:$rebuy-section-top;
+    right:$rebuy-section-right + 2;
+    width: 45vw;
+    text-align: center;
+    height: 5vh;
+    color: white;
+    font-size: 1.7em;
+    font-weight: bold;
+    text-decoration: underline;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top;
+        right:$mobile-horizonal-rebuy-section-right+5;
+        font-size: 1em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top;
+        right:$mobile-horizonal-rebuy-section-right+15;
+        font-size: 2em;
+    }
+}
+#rebuy-amount-label{
+    position: fixed;
+    z-index: 106;
+    top:$rebuy-section-top  +6;
+    right:$rebuy-section-right;
+    width: 45vw;
+    text-align: left;
+    height: 5vh;
+    color: white;
+    font-size: 1.5em;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 11;
+        right:$mobile-horizonal-rebuy-section-right - 2;
+        font-size: 1em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 7;
+        right:$mobile-horizonal-rebuy-section-right - 2;
+        width: 61vw;
+        font-size: 1.3em;
+    }
+}
+#rebuy-input{
+    width: 15.5vw;
+    padding-left: 0.5vw;
+    text-align: center;
+    border-radius: 10px;
+
+    position: fixed;
+    z-index: 106;
+    top:$rebuy-section-top  +6.2;
+    right:$rebuy-section-right+2;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 10;
+        right:$mobile-horizonal-rebuy-section-right +2;
+        font-size: 1em;
+        width: 28vw;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 12;
+        right:$mobile-horizonal-rebuy-section-right +5;
+        font-size: 1.2em;
+        width: 53vw;
+    }
+
+}
+
+#cancel-rebuy-button{
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    position: fixed;
+    z-index: 109;
+    font-size: 1em;
+    text-align: center;
+    padding-top: 1vh;
+    top:$rebuy-section-top  +13;
+    right:$rebuy-section-right+2;
+    height: 5.4vh;
+    width: 8vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 24;
+        right:$mobile-horizonal-rebuy-section-right +2;
+        font-size: 1em;
+        width: 15vw;
+        height: 9vh;
+        border-radius: 8px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 20;
+        right:$mobile-horizonal-rebuy-section-right +3;
+        font-size: 1em;
+        width: 20vw;
+        height: 9vh;
+        border-radius: 8px;
+    }
+
+}
 #actual-rebuy-button{
     border: 1px solid white;
     border-radius: 15px;
@@ -145,38 +281,34 @@
     background: black;
     position: fixed;
     z-index: 109;
-    top:27vh;
-    right:2vw;
-    font-size: 1em;
+    top:$rebuy-section-top  +13;
+    right:$rebuy-section-right+16;
     height: 5.4vh;
     width: 8vw;
+    font-size: 1em;
+
     text-align: center;
     padding-top: 1vh;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 24;
+        right:$mobile-horizonal-rebuy-section-right +26;
+        font-size: 1em;
+        width: 15vw;
+        height: 9vh;
+        border-radius: 8px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        top:$mobile-horizonal-rebuy-section-top + 20;
+        right:$mobile-horizonal-rebuy-section-right +36;
+        font-size: 1em;
+        width: 20vw;
+        height: 9vh;
+        border-radius: 8px;
+    }
 }
 
-#rebuy-section{
-    color: white;
-    padding: 10px;
-    padding-top: 5.9vh;
-    padding-right: 1.3vh;
-    position: fixed;
-    z-index: 105;
-    top:10vh;
-    right:1.5vw;
-    width: 9vw;
-    height: 23vh;
-    font-size: 1.5em;
-    text-align: center;
-}
-#rebuy-label{
 
-}
-#rebuy-input{
-    width: 7.5vw;
-    padding-left: 0.5vw;
-    text-align: center;
-    border-radius: 10px;
-}
 
 @keyframes copy-game-link-small-anim {
     from {
@@ -841,46 +973,6 @@
         animation-fill-mode: both;
 
     }
-    #actual-rebuy-button{
-        border: 1px solid white;
-        border-radius: 15px;
-        color: white;
-        background: black;
-        position: fixed;
-        z-index: 109;
-        top:36vh;
-        right:2vw;
-        font-size: 0.5em;
-        height: 12vh;
-        width: 8vw;
-        text-align: center;
-        padding-top: 1vh;
-    }
-
-    #rebuy-section{
-        background: #4e555b;
-        padding: 10px;
-        padding-top: 13vh;
-        padding-right: 1.9vh;
-        position: fixed;
-        z-index: 105;
-        top:10vh;
-        right:0.5vw;
-        width: 11vw;
-        height: 40vh;
-        font-size: 0.6em;
-        text-align: center;
-        border: 1px solid transparent;
-        border-radius: 10px;
-    }
-    #rebuy-label{
-
-    }
-    #rebuy-input{
-        width: 8vw;
-        height: 7vh;
-        font-size: 1.5em;
-    }
 
     #copy-game-link-small{
         visibility: hidden;
@@ -1148,46 +1240,6 @@
         animation-delay: 0s;
         animation-fill-mode: both;
 
-    }
-    #actual-rebuy-button{
-        border: 1px solid white;
-        border-radius: 15px;
-        color: white;
-        background: black;
-        position: fixed;
-        z-index: 109;
-        top:27vh;
-        right:2vw;
-        font-size: 0.5em;
-        height: 8vh;
-        width: 10vw;
-        text-align: center;
-        padding-top: 1vh;
-    }
-
-    #rebuy-section{
-        background: #4e555b;
-        padding: 10px;
-        padding-top: 8.5vh;
-        padding-right: 1.9vh;
-        position: fixed;
-        z-index: 105;
-        top:10vh;
-        right:0.5vw;
-        width: 14vw;
-        height: 27vh;
-        font-size: 0.6em;
-        text-align: center;
-        border: 1px solid transparent;
-        border-radius: 10px;
-    }
-    #rebuy-label{
-
-    }
-    #rebuy-input{
-        width: 10vw;
-        height: 5vh;
-        font-size: 1.5em;
     }
 
     #copy-game-link-small{

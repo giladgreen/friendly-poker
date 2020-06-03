@@ -5,5 +5,15 @@
     font-weight: bold;
     color: white;
     font-size: 4em;
-    animation: blinker 4s linear infinite;
+    animation: blinker 3s linear infinite;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 2em;
+        animation: blinker 4s linear infinite;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        font-size: 2em;
+        animation: blinker 4s linear infinite;
+
+    }
 }

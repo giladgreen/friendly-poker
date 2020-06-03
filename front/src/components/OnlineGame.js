@@ -61,11 +61,6 @@ const PrettoSlider = withStyles({
 
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
-const SECOND = 1000;
-const MINUTE = 60;
-const HOUR = 60 * MINUTE;
-const DAY = 24 * HOUR;
-
 class OnlineGame extends Component {
 
     constructor(props) {
@@ -281,6 +276,8 @@ class OnlineGame extends Component {
                 }
             });
             const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
+            console.log('game.players',game.players)
+            console.log('newDealerIndex',newDealerIndex)
             const newDealer = game.players[newDealerIndex];
             return newDealer.id === me.id;
         }
@@ -299,9 +296,9 @@ class OnlineGame extends Component {
             return newStraddle.id === me.id;
         }
 
-        const isNextDealer = me ? getIsNextDealer() : false;
+        const isNextDealer = game.startDate && me ? getIsNextDealer() : false;
 
-        const isNextStraddle = me ? getIsNextStraddle() : false;
+        const isNextStraddle = game.startDate && me ? getIsNextStraddle() : false;
         console.log('am i the Next Straddle', isNextStraddle)
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
@@ -418,9 +415,8 @@ class OnlineGame extends Component {
         }else{
             this.rebuyValue = this.state.rebuyValue;
             this.props.showAlertMessage('Rebuy request sent')
-
         }
-        this.setState({rebuySectionOpen:false, rebuyValue:null});
+        this.setState({rebuySectionOpen:false, rebuyValue:1});
 
     };
 
@@ -520,9 +516,10 @@ class OnlineGame extends Component {
 
     setRebuy= (rebuyValue) =>{
         rebuyValue = rebuyValue < 1 ? 1 : rebuyValue;
+        const {requireRebuyAproval} = this.props.game;
         const {maxBalance, me} = this.state;
-        const maxRebuy = maxBalance - me.balance;
-        const rebuyValueError =  rebuyValue >maxRebuy;
+        const maxRebuy = requireRebuyAproval ? (100 * maxBalance) : (5 * maxBalance) - me.balance;
+        const rebuyValueError =  rebuyValue > maxRebuy;
         this.setState({rebuyValue, rebuySectionOpen:true, rebuyValueError})
     };
 
@@ -752,24 +749,35 @@ class OnlineGame extends Component {
                 </div>}
 
                 {/* rebuy.. button */}
-                { this.state.sideMenu && <div id="rebuy-button" className={` ${ startDate && !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={startDate && !cheapLeader ? this.toggleRebuyButton : ()=>{}}>  { this.state.rebuySectionOpen ? <span><CancelIcon/><span className="left-margin">Cancel</span></span> :<span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> }  </div>}
+                { this.state.sideMenu && !this.state.rebuySectionOpen && <div id="rebuy-button" className={` ${ game.requireRebuyAproval || !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={game.requireRebuyAproval || !cheapLeader ? this.toggleRebuyButton : ()=>{}}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> </div>}
 
-                {/* opened rebuy section */}
-                {this.state.rebuySectionOpen && this.state.sideMenu && <div id="actual-rebuy-button" className={this.state.rebuyValueError ? 'inactive-button' : 'active-button'} onClick={this.rebuy}>
-                    <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>
-                </div>}
-                {this.state.rebuySectionOpen &&  this.state.sideMenu && <div id="rebuy-section"  >
-                    <div>
-                        <span id="rebuy-label" >Amount</span>
-                    </div>
-                    <div>
+
+
+                {this.state.rebuySectionOpen && this.state.sideMenu && (
+                    <div id="rebuy-section"  >
+                        <div id="rebuy-header">
+                           Rebuy
+                        </div>
+                        <div id="rebuy-amount-label">
+                           Amount:
+                        </div>
+
                         <input id="rebuy-input" className={this.state.rebuyValueError ? 'red-background':''}
                                type="number"
                                min={0}
                                value={this.state.rebuyValue}
                                onChange={(e)=>this.setRebuy(Math.floor(e.target.value))} />
-                    </div>
-                </div>}
+
+
+                        {/* rebuy cancel  button */}
+                        <div id="cancel-rebuy-button" className="active-button" onClick={this.toggleRebuyButton}>  <span><CancelIcon/><span className="left-margin">Cancel</span></span> </div>
+
+                        {/* rebuy button */}
+                        <div id="actual-rebuy-button" className={this.state.rebuyValueError ? 'inactive-button' : 'active-button'} onClick={this.rebuy}>
+                            <span><ShoppingCartIcon/><span className="left-margin">Rebuy</span></span>
+                        </div>
+
+                </div>)}
 
                 {/* Game Link */}
                 {!startDate && <div id="copy-game-link-big" className="copy-game-link" onClick={linkOnClick}><span>Copy Game Link</span> </div>}
