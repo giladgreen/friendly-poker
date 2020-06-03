@@ -2,8 +2,17 @@
 /* eslint-disable jsx-a11y/img-has-alt */
 import React, { Component } from 'react';
 import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const MINUTE = 60;
+
+const theme = createMuiTheme({
+    palette: {
+        secondary: {
+            main: '#ff0000'
+        }
+    }
+});
+
 
 class UserTimer extends Component {
 
@@ -64,21 +73,27 @@ class UserTimer extends Component {
 
     getTimeLeftValue = ()=>{
         const {time} = this.props;
+        console.log('time',time)
         const userTimer = this.state.userTimer || 0;
-
+        console.log('userTimer',userTimer)
         const val = userTimer * 100 / time;
-
+        console.log('val',val)
         return val < 0 ? 0 : (val > 100 ? 100 : val)
     }
 
     render() {
+        const val = this.getTimeLeftValue();
 
         return <div>
             {/* time left to talk */}
             <div id="hand-clock"> { this.getTimeLeft()} </div>
 
-            {/* time left to talk progess bar */}
-             <LinearProgress id="hand-clock-progress" variant="determinate" value={this.getTimeLeftValue()} />
+            <MuiThemeProvider theme={theme}>
+                {/* time left to talk progess bar */}
+                <LinearProgress id="hand-clock-progress" variant="determinate" color="secondary" value={val} />
+            </MuiThemeProvider>
+
+
         </div>
     }
 }

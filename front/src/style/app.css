@@ -10707,13 +10707,13 @@ body {
 }
 
 .connected-to-server {
-  border-color: forestgreen;
-  color: forestgreen;
+  border-color: antiquewhite;
+  color: antiquewhite;
 }
 
 .connecting-to-server {
-  border-color: orange;
-  color: orange;
+  border-color: darkred;
+  color: darkred;
   cursor: progress;
   animation: blinker 2s linear infinite;
 }
@@ -11034,11 +11034,11 @@ body {
 }
 
 .highlight-card {
-  outline: 4px solid orange;
+  outline: 4px solid darkred;
 }
 
 .shown-card {
-  outline: 1px solid #117a8b;
+  outline: 1px solid #cc2222;
 }
 
 .drop-card-enabled:hover {
@@ -11419,7 +11419,7 @@ em-spades {
   font-size: 2em;
 }
 #create-new-game-private-checkbox label {
-  color: #ffcccc;
+  color: #999999;
   font-size: 2.2em;
 }
 
@@ -11437,7 +11437,7 @@ em-spades {
   font-size: 2em;
 }
 #create-new-game-aproval-required-checkbox label {
-  color: #ccffcc;
+  color: #A1A1A1;
   font-size: 2.3em;
 }
 
@@ -11455,7 +11455,7 @@ em-spades {
   font-size: 2em;
 }
 #create-new-game-timebank-enabled-checkbox label {
-  color: #cffffc;
+  color: #C9C9C9;
   font-size: 2.3em;
 }
 
@@ -11473,7 +11473,7 @@ em-spades {
   font-size: 2em;
 }
 #create-new-game-straddle-enabled-checkbox label {
-  color: #ccccff;
+  color: #C9C9C9;
   font-size: 2.3em;
 }
 
@@ -11536,9 +11536,10 @@ em-spades {
 }
 
 #create-game-button {
-  color: white;
-  background-image: linear-gradient(darkgreen, black);
-  font-size: 3em;
+  color: black;
+  font-weight: bold;
+  background-image: linear-gradient(white, black);
+  font-size: 3.2em;
   position: fixed;
   top: 84.8vh;
   height: 10vh;
@@ -11549,7 +11550,7 @@ em-spades {
   border: 3px solid gray;
   border-radius: 12px;
   cursor: pointer;
-  padding-top: 1vh;
+  padding-top: 0vh;
 }
 
 .disabled-create-game-button {
@@ -11574,7 +11575,7 @@ em-spades {
 
 .existing-game:hover {
   cursor: pointer;
-  background: #9fcdff;
+  background: #dd222299;
 }
 
 .greyGame {
@@ -11597,8 +11598,8 @@ em-spades {
 }
 
 #delete-game-button:hover {
-  background: indianred;
-  color: white;
+  background: black;
+  color: floralwhite;
   cursor: revert;
 }
 
@@ -11644,11 +11645,11 @@ em-spades {
   right: 1vw;
   width: 22vw;
   font-size: 2.2em;
-  background: #1e90ff44;
+  background: black;
 }
 
 #show-cards-button:hover {
-  background: #1e90ff99;
+  background: #212121;
 }
 
 #dealer-choice-div {
@@ -11840,7 +11841,7 @@ em-spades {
   z-index: 31;
 }
 #dealer-choice-div .chosen-game {
-  border: 3px solid darkgreen;
+  border: 3px solid darkred;
 }
 #dealer-choice-div .not-chosen-game {
   border: 1px solid white;
@@ -11899,11 +11900,10 @@ em-spades {
 
 #fold-button {
   right: 1vw;
-  background: #cd5c5c77;
+  background: #33000066;
 }
-
 #fold-button:hover {
-  background: #cd5c5cDD;
+  background: #430000DD;
 }
 
 #check-fold-button {
@@ -11919,47 +11919,50 @@ em-spades {
   font-size: 2em;
   padding-top: 0.7vh;
   cursor: pointer;
-}
-
-#check-fold-button:hover {
-  background: #cd5c5cCC;
+  color: white;
 }
 
 .check-fold-button-pressed {
-  background: #cd5c5cFF;
+  background: darkred;
+}
+.check-fold-button-pressed:hover {
+  background: #8d000077;
 }
 
 .check-fold-button-not-pressed {
-  background: #66666666;
+  background: #11111155;
+}
+.check-fold-button-not-pressed:hover {
+  background: darkred;
 }
 
 #toggle-raise-button {
   right: 11vw;
-  background: #9fcdbb77;
+  background: #cdcdcd77;
 }
 
 #toggle-raise-button:hover {
-  background: #9fcdbbDA;
+  background: #cdcdcdDA;
 }
 
 #check-button {
   right: 21vw;
-  background: #155724AA;
+  background: #555655AA;
   width: 9vw;
 }
 
 #check-button:hover {
-  background: #155724FF;
+  background: #555655FF;
 }
 
 #call-button {
   right: 21vw;
-  background: #325752AA;
+  background: #555655AA;
   width: 9vw;
 }
 
 #call-button:hover {
-  background: #325752FF;
+  background: #555655FF;
 }
 
 #toggle-raise-button-cancel {
@@ -11973,12 +11976,12 @@ em-spades {
 
 #raise-button {
   right: 9vw;
-  background-image: linear-gradient(black, #55A57755);
+  background-image: linear-gradient(black, #55555555);
   width: 16.6vw;
 }
 
 #raise-button:hover {
-  background-image: linear-gradient(#55A577CC, #55A57733);
+  background-image: linear-gradient(#444444CC, #22222233);
 }
 
 .raise-button-add-remove {
@@ -11990,11 +11993,11 @@ em-spades {
   padding-top: 1vh;
   color: white;
   z-index: 10;
-  background-image: linear-gradient(black, #222233);
+  background-image: linear-gradient(black, #222222);
 }
 
 .raise-button-add-remove:hover {
-  background-image: linear-gradient(#226633, black);
+  background-image: linear-gradient(#666666, black);
 }
 
 #raise-button-add {
@@ -12031,11 +12034,11 @@ em-spades {
   right: 40vw;
   width: 8vw;
   font-size: 1.9em;
-  background-image: linear-gradient(black, #55A57755);
+  background-image: linear-gradient(black, #55555555);
 }
 
 #all-in-button:hover {
-  background-image: linear-gradient(#55A577CC, #55A57733);
+  background-image: linear-gradient(#888888, #55555533);
 }
 
 .action-buttons-second-row {
@@ -12050,11 +12053,11 @@ em-spades {
   font-size: 2em;
   padding-top: 0.2vh;
   cursor: pointer;
-  background-image: linear-gradient(black, #55A55555);
+  background-image: linear-gradient(black, #55555555);
 }
 
 .action-buttons-second-row:hover {
-  background-image: linear-gradient(#55A555CC, #55A55533);
+  background-image: linear-gradient(#888888, #55555533);
 }
 
 #raise-button-pot {
@@ -12553,19 +12556,19 @@ em-spades {
 }
 
 .game-subsettings-save-button {
-  background: darkgreen;
-  color: white;
+  background: whitesmoke;
+  color: black;
   cursor: pointer;
 }
 
 .game-settings-save-button {
   cursor: pointer;
-  background: green;
-  color: white;
+  background: whitesmoke;
+  color: black;
 }
 
 #open-change-balances-button {
-  background: dodgerblue;
+  background: papayawhip;
   color: black;
   text-align: center;
   border: 2px solid white;
@@ -12591,7 +12594,7 @@ em-spades {
 }
 
 #force-skip-hand-button {
-  background: orangered;
+  background: #8b0000cc;
   color: white;
   text-align: center;
   border: 2px solid white;
@@ -12604,7 +12607,7 @@ em-spades {
 }
 
 #pending-requests {
-  background: #777777;
+  background: #CDCDCD;
   border: 2px solid white;
   border-radius: 20px;
   position: fixed;
@@ -12634,7 +12637,7 @@ em-spades {
 }
 
 .pending-name {
-  color: purple;
+  color: indianred;
   font-weight: bold;
 }
 
@@ -12645,13 +12648,13 @@ em-spades {
 
 .approve-pending {
   margin-left: 10px;
-  color: white;
+  color: black;
   font-weight: bold;
   cursor: pointer;
   border: 1px solid white;
   border-radius: 7px;
   padding: 1px 3px 1px 3px;
-  background: darkgreen;
+  background: white;
 }
 
 .decline-pending {
@@ -13017,7 +13020,7 @@ em-spades {
 
 .sit-here-button {
   position: fixed;
-  background: #6c757d33;
+  background: #99332277;
   text-align: center;
   color: #888888;
   z-index: 3;
@@ -13028,10 +13031,9 @@ em-spades {
   font-size: 1.7em;
   padding-top: 1.5vh;
 }
-
 .sit-here-button:hover {
   cursor: pointer;
-  background: goldenrod;
+  background: #993333DD;
   color: black;
   font-weight: bold;
 }
@@ -13999,7 +14001,7 @@ em-spades {
 }
 
 #hand-clock {
-  color: #3156b3;
+  color: red;
   z-index: 30;
   font-size: 2.2em;
   position: fixed;
@@ -14023,7 +14025,7 @@ em-spades {
   }
 }
 #your-turn-indication {
-  color: yellow;
+  color: white;
   z-index: 30;
   font-size: 2em;
   position: fixed;
@@ -15018,7 +15020,7 @@ em-spades {
   text-align: center;
   font-size: 1.3em;
   font-weight: bold;
-  background: #dddd77;
+  background: #777777;
   color: #333333;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -16597,16 +16599,16 @@ em-spades {
 }
 
 .active-player-info {
-  background: #2c8a2ccc;
+  background: #FFCCCCCC;
   border: 4px solid black;
-  color: white;
+  color: black;
   font-weight: bold;
   border-radius: 15px;
 }
 
 .winner-player {
-  background: #44ffff99;
-  border: 4px solid #3333ff;
+  background: #FF5A5ACC;
+  border: 4px solid darkred;
   color: black;
   font-weight: bold;
   border-radius: 15px;
@@ -16620,7 +16622,8 @@ em-spades {
   width: 2vw;
   height: 2vw;
   top: -1.5vh;
-  background: #9fcdff;
+  background: #cdcdcd;
+  border: 1px solid #00000044;
   color: black;
   font-size: 1em;
   padding-top: 0.35vw;
@@ -16655,8 +16658,9 @@ em-spades {
   width: 2vw;
   height: 2vw;
   top: -1.5vh;
-  background: #9fcdbb;
+  background: #dcdcdc;
   color: black;
+  border: 1px solid #00000044;
   font-size: 1em;
   padding-top: 0.35vw;
   padding-left: 0.47vw;
@@ -16691,7 +16695,6 @@ em-spades {
   padding-top: 1px;
   alignment: center;
   text-align: center;
-  background: #6f42c1;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-pot {
@@ -16719,7 +16722,7 @@ em-spades {
 }
 
 .player-pot-mid-hand {
-  background: #eec117;
+  background: #44444444;
   color: white;
   z-index: 2;
 }
@@ -16728,17 +16731,18 @@ em-spades {
   position: absolute;
   width: 4vw;
   height: 1.8vw;
+  border: 1px solid black;
   border-radius: 20px;
-  background: #117a8b;
-  color: white;
+  background: whitesmoke;
+  color: black;
   font-weight: bold;
   font-size: 1.3em;
   z-index: 30;
   padding-top: 3px;
   alignment: center;
   text-align: center;
-  top: 9.7vh;
-  left: 1.1vw;
+  top: 8.7vh;
+  left: 2.4vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-status {
@@ -16769,6 +16773,12 @@ em-spades {
   }
 }
 
+.player-name {
+  margin-left: -2vw;
+  padding-left: 2vw;
+  border-bottom: 1px solid #00000033;
+}
+
 .trophy-badge {
   position: absolute;
   width: 3.4vw;
@@ -16795,7 +16805,7 @@ em-spades {
 
 .trophy-badge-1-digit {
   font-size: 1.3em;
-  padding-top: 0px;
+  padding-top: 2px;
   padding-left: 0.7vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -16811,7 +16821,7 @@ em-spades {
 
 .trophy-badge-2-digit {
   font-size: 1em;
-  padding-top: 1px;
+  padding-top: 6px;
   padding-left: 0.3vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -16827,7 +16837,7 @@ em-spades {
 
 .trophy-badge-3-digit {
   font-size: 0.7em;
-  padding-top: 4px;
+  padding-top: 8px;
   padding-left: 3px;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -16862,7 +16872,7 @@ em-spades {
   width: 8vw;
   height: 2.2vw;
   border-radius: 10px;
-  background: red;
+  background: #ff000077;
   color: white;
   font-weight: bold;
   font-size: 1.3em;

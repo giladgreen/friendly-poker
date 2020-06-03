@@ -177,7 +177,7 @@
 
     font-size: 2em;
     label{
-        color: #ffcccc;
+        color: #999999;
         font-size:  2.2em;
     }
 }
@@ -196,7 +196,7 @@
 
     font-size: 2em;
     label{
-        color: #ccffcc;
+        color: #A1A1A1;
         font-size:  2.3em;
     }
 }
@@ -215,7 +215,7 @@
 
     font-size: 2em;
     label{
-        color: #cffffc;
+        color: #C9C9C9;
         font-size:  2.3em;
     }
 }
@@ -234,7 +234,7 @@
 
     font-size: 2em;
     label{
-        color: #ccccff;
+        color: #C9C9C9;
         font-size:  2.3em;
     }
 }
@@ -294,9 +294,10 @@
 }
 
 #create-game-button{
-    color: white;
-    background-image: linear-gradient(darkgreen, black);
-    font-size:  3em;
+    color: black;
+    font-weight: bold;
+    background-image: linear-gradient(white, black);
+    font-size:  3.2em;
     position: fixed;
     top:84.8vh;
     height: 10vh;
@@ -307,7 +308,7 @@
     border: 3px solid gray;
     border-radius: 12px;
     cursor: pointer;
-    padding-top: 1vh;
+    padding-top: 0vh;
 }
 .disabled-create-game-button{
     color: darkgray;
@@ -328,7 +329,7 @@
 }
 .existing-game:hover{
     cursor: pointer;
-    background: #9fcdff;
+    background: #dd222299;
 }
 .greyGame{
     background: #5a6268;
@@ -348,7 +349,7 @@
 }
 
 #delete-game-button:hover{
-    background: indianred;
-    color: white;
+    background: black;
+    color: floralwhite;
     cursor: revert;
 }

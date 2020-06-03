@@ -215,7 +215,7 @@ $players-dealer-button-left: (
     text-align: center;
     @include font-med;
     font-weight: bold;
-    background: #dddd77;
+    background: #777777;
     color: #333333;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         width: 3.2vw;
@@ -475,16 +475,16 @@ $players-dealer-button-left: (
 
 }
 .active-player-info{
-    background: #2c8a2ccc;
+    background: #FFCCCCCC;
     border: 4px solid black;
-    color: white;
+    color: black;
     font-weight: bold;
     border-radius: 15px;
 
 }
 .winner-player{
-    background: #44ffff99;
-    border: 4px solid #3333ff;
+    background: #FF5A5ACC;
+    border: 4px solid darkred;
     color: black;
     font-weight: bold;
     border-radius: 15px;
@@ -498,7 +498,8 @@ $players-dealer-button-left: (
     width: 2vw;
     height: 2vw;
     top:-1.5vh;
-    background: #9fcdff;
+    background: #cdcdcd;
+    border: 1px solid #00000044;
     color: black;
     @include font-small;
     padding-top: 0.35vw;
@@ -520,8 +521,9 @@ $players-dealer-button-left: (
     width: 2vw;
     height: 2vw;
     top:-1.5vh;
-    background: #9fcdbb;
+    background: #dcdcdc;
     color: black;
+    border: 1px solid #00000044;
     @include font-small;
     padding-top: 0.35vw;
     padding-left: 0.47vw;
@@ -542,7 +544,6 @@ $players-dealer-button-left: (
     padding-top: 1px;
     alignment: center;
     text-align: center;
-    background: #6f42c1;
 
     @media (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         font-size: 1em;
@@ -557,7 +558,7 @@ $players-dealer-button-left: (
 
 }
 .player-pot-mid-hand{
-    background: #eec117;
+    background: #44444444;
     color: white;
     z-index: 2;
 }
@@ -566,17 +567,18 @@ $players-dealer-button-left: (
     position: absolute;
     width: 4vw;
     height: 1.8vw;
+    border: 1px solid black;
     border-radius: 20px;
-    background: #117a8b;
-    color: white;
+    background: whitesmoke;
+    color: black;
     font-weight: bold;
     @include font-med;
     z-index: 30;
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:9.7vh;
-    left:1.1vw;
+    top:8.7vh;
+    left:2.4vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         font-size: 0.8em;
@@ -592,6 +594,11 @@ $players-dealer-button-left: (
         padding-top: 0px;
         font-weight: normal;
     }
+}
+.player-name{
+    margin-left: -2vw;
+    padding-left: 2vw;
+    border-bottom: 1px solid #00000033;
 }
 .trophy-badge{
     position: absolute;
@@ -616,18 +623,18 @@ $players-dealer-button-left: (
 
 .trophy-badge-1-digit{
     @include font-med;
-    padding-top: 0px;
+    padding-top: 2px;
     padding-left: 0.7vw;
 }
 .trophy-badge-2-digit{
     @include font-small;
-    padding-top: 1px;
+    padding-top: 6px;
     padding-left: 0.3vw;
 
 }
 .trophy-badge-3-digit{
     @include font-extra-small;
-    padding-top: 4px;
+    padding-top: 8px;
     padding-left: 3px;
 }
 .trophy-badge-4-digit{
@@ -641,7 +648,7 @@ $players-dealer-button-left: (
     width: 8vw;
     height: 2.2vw;
     border-radius: 10px;
-    background: red;
+    background: #ff000077;
     color: white;
     font-weight: bold;
     @include font-med;

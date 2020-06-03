@@ -222,20 +222,22 @@
 }
 .sit-here-button{
     position: fixed;
-    background: #6c757d33;
+    background: #99332277;
     text-align: center;
     color: #888888;
     z-index: 3;
     border-radius: 50%;
     border: 2px solid #888888;
     @include circle;
+
+    &:hover{
+        cursor: pointer;
+        background: #993333DD;
+        color: black;
+        font-weight: bold;
+    }
 }
-.sit-here-button:hover{
-    cursor: pointer;
-    background: goldenrod;
-    color: black;
-    font-weight: bold;
-}
+
 
 
 

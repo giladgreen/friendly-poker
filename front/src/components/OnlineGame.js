@@ -595,7 +595,7 @@ class OnlineGame extends Component {
                 </div>) :  <div />}
 
                 {hand && hand>0 ? (
-                    <UserTimer userTimer={this.state.userTimer} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
+                    <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
                     )
                     :  <div id={"666"}/>}
                 {/* your turn indication */}

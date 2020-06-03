@@ -75,9 +75,8 @@ class JoinGameScreen extends Component {
         const {game}=this.props;
         const {smallBlind, bigBlind, time, players, gameType}=game;
         const playersCount = players.length;
-        const canJoin = players.length < game.maxPlayers && !this.state.showNameError && this.state.name && this.state.name.length>0;
-        // console.log('this.state.gameOptions',this.state.gameOptions)
-        // console.log('gameType',gameType)
+        const canJoin = players.length < game.maxPlayers && !this.state.showNameError && this.state.name && this.state.name.length>0 && this.state.buyIn > 0 && !this.state.showAmountError;
+
         return (
             <div id="join-screen"  >
 

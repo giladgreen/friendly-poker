@@ -94,17 +94,17 @@
     cursor: default;
 }
 .game-subsettings-save-button{
-    background: darkgreen;
-    color: white;
+    background: whitesmoke;
+    color: black;
     cursor: pointer;
 }
 .game-settings-save-button{
     cursor: pointer;
-    background: green;
-    color: white;
+    background: whitesmoke;
+    color: black;
 }
 #open-change-balances-button{
-    background: dodgerblue;
+    background: papayawhip;
     color: black;
 
     text-align: center;
@@ -132,7 +132,7 @@
     left: 40vw;
 }
 #force-skip-hand-button{
-    background: orangered;
+    background: #8b0000cc;
     color: white;
 
     text-align: center;
@@ -146,7 +146,7 @@
     left: 40vw;
 }
 #pending-requests{
-    background: #777777;
+    background: #CDCDCD;
     border: 2px solid white;
     border-radius: 20px;
     position: fixed;
@@ -173,7 +173,7 @@
     height: 25vh;
 }
 .pending-name{
-    color: purple;
+    color: indianred;
     font-weight: bold;
 }
 .pending-number{
@@ -182,13 +182,13 @@
 }
 .approve-pending{
     margin-left: 10px;
-    color: white;
+    color: black;
     font-weight: bold;
     cursor: pointer;
     border: 1px solid white;
     border-radius: 7px;
     padding: 1px 3px 1px 3px;
-    background: darkgreen;
+    background: white;
 }
 .decline-pending{
     margin-left: 10px;

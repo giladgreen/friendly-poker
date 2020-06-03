@@ -66,13 +66,13 @@ $mobile-vertical: 530px;
 }
 
 .connected-to-server{
-  border-color: forestgreen;
-  color: forestgreen;
+  border-color: antiquewhite;
+  color: antiquewhite;
 }
 
 .connecting-to-server{
-  border-color: orange;
-  color: orange;
+  border-color: darkred;
+  color: darkred;
   cursor: progress;
   animation: blinker 2s linear infinite;
 }
