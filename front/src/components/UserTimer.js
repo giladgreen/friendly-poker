@@ -73,11 +73,8 @@ class UserTimer extends Component {
 
     getTimeLeftValue = ()=>{
         const {time} = this.props;
-        console.log('time',time)
         const userTimer = this.state.userTimer || 0;
-        console.log('userTimer',userTimer)
         const val = userTimer * 100 / time;
-        console.log('val',val)
         return val < 0 ? 0 : (val > 100 ? 100 : val)
     }
 

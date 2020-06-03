@@ -298,7 +298,7 @@ class OnlineGame extends Component {
 
         const isNextDealer = game.startDate && me ? getIsNextDealer() : false;
 
-        const isNextStraddle = game.startDate && me ? getIsNextStraddle() : false;
+        const isNextStraddle = game.startDate && game.players.filter(p=>!p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
         console.log('am i the Next Straddle', isNextStraddle)
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
@@ -309,6 +309,7 @@ class OnlineGame extends Component {
         const newState = {
             gameName,
             me,
+            chosenGame: isNextDealer ? this.state.chosenGame:'TEXAS',
             isNextDealer,
             isNextStraddle,
             showingCards,
