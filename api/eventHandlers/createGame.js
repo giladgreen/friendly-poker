@@ -13,6 +13,11 @@ function onCreateGameEvent(socket, gameCreatorData) {
   const gameType = gameCreatorData.gameType || TEXAS;
   Mappings.SaveSocketByPlayerId(playerId, socket);
   const amount = parseInt(gameCreatorData.balance, 10);
+  const time = gameCreatorData.timeBankEnabled ? 20 : parseInt(gameCreatorData.time, 10);
+  let bot;
+  if (gameCreatorData.name.indexOf('bot0') === 0) {
+    bot = true;
+  }
   try {
     const newGame = {
       id: gameCreatorData.id,
@@ -37,7 +42,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       gamePhase: 0,
       smallBlind: parseInt(gameCreatorData.smallBlind, 10),
       bigBlind: parseInt(gameCreatorData.bigBlind, 10),
-      time: parseInt(gameCreatorData.time, 10),
+      time,
       messages: [],
       showPlayersHands: [],
       players: [{
@@ -50,6 +55,8 @@ function onCreateGameEvent(socket, gameCreatorData) {
         sitOut: true,
         pot: [0],
         me: true,
+        bot,
+        timeBank: 80,
       }],
       playersData: [{
         id: playerId,

@@ -39,7 +39,10 @@ function onApproveJoinEvent(socket, {
         if (game.players.some(p => p.name === pendingJoinItem.name)) {
           pendingJoinItem.name = `${pendingJoinItem.name} (2)`;
         }
-
+        let bot;
+        if (pendingJoinItem.name.indexOf('bot0') === 0) {
+          bot = true;
+        }
         game.players.splice(pendingJoinItem.positionIndex, 0, {
           id: pendingJoinItem.playerId,
           name: pendingJoinItem.name,
@@ -48,6 +51,8 @@ function onApproveJoinEvent(socket, {
           handsWon: 0,
           pot: [0],
           justJoined: true,
+          bot,
+          timeBank: 80,
         });
 
         game.moneyInGame += pendingJoinItem.balance;

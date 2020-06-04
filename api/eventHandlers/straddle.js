@@ -47,6 +47,10 @@ function onStraddle(socket, {
       throw new BadRequest("player doesn't have enough");
     }
 
+    if (game.players.length < 3) {
+      throw new BadRequest("can't starddle when only two players");
+    }
+
     game.players.forEach((p) => {
       delete p.straddle;
     });

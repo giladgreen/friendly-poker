@@ -46,7 +46,10 @@ function onJoinGameEvent(socket, {
         action: 'join', log: msg, popupMessage: `${name} has join the game`,
       });
 
-
+      let bot;
+      if (name.indexOf('bot0') === 0) {
+        bot = true;
+      }
       game.players.splice(positionIndex, 0, {
         id: playerId,
         name,
@@ -55,6 +58,8 @@ function onJoinGameEvent(socket, {
         sitOut: true,
         pot: [0],
         justJoined: true,
+        bot,
+        timeBank: 80,
       });
       game.moneyInGame += balance;
       game.pendingPlayers.push(playerId);

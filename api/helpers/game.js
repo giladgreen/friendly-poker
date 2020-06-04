@@ -197,9 +197,9 @@ function givePotMoneyToWinners(game) {
       const winnerHands = Hand.winners(relevantPlayers.map(p => p.solvedHand));
       const winningHandCards = winnerHands[0].cards;
       const amountWon = Math.floor(totalSidePotMoney / winnerHands.length);
-
+      const leftOver = totalSidePotMoney - winnerHands.length * amountWon;
       relevantPlayers.filter(p => winnerHands.some(winnerHand => winnerHand.cards.join('') === p.solvedHand.cards.join('')))
-        .forEach((p) => {
+        .forEach((p, i) => {
           if (!winnings[p.id]) {
             winnings[p.id] = {
               amount: 0,
@@ -211,11 +211,14 @@ function givePotMoneyToWinners(game) {
           p.balance += amountWon;
           p.winner = p.winner ? p.winner + amountWon : amountWon;
           p.handsWon += 1;
-
           game.pot -= amountWon;
-
-
           winnings[p.id].amount += amountWon;
+          if (leftOver && i === 0) {
+            p.balance += leftOver;
+            p.winner += leftOver;
+            game.pot -= leftOver;
+            winnings[p.id].amount += leftOver;
+          }
         });
     }
   });

@@ -5,6 +5,7 @@ const FatalError = require('../errors/fatalError');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
 
+const { botActivated } = require('../helpers/bot');
 const PlayerHelper = require('../helpers/players');
 const GameHelper = require('../helpers/game');
 const { format } = require('../helpers/gameCopy');
@@ -29,7 +30,7 @@ function validateGame(game) {
     const activePlayerBalancesSum = activePlayerBalances.reduce((all, one) => all + one, 0);
 
     if (activePlayerBalancesSum + game.pot !== game.moneyInGame) {
-      logger.info(`activePlayerBalancesSum: ${activePlayerBalancesSum}`);
+      logger.info(`activePlayerBalancesSum:  ${activePlayerBalances.join('+')} = ${activePlayerBalancesSum}`);
       logger.info(`game.pot: ${game.pot}`);
       logger.info('======================');
       logger.info(`activePlayerBalancesSum + game.pot: ${activePlayerBalancesSum + game.pot}`);
@@ -71,6 +72,7 @@ function handlePlayerAction(game, playerId, op, amount, hand) {
   return player;
 }
 
+
 function handleRoundOver(game, player, gameIsOver) {
   const dealerIndex = PlayerHelper.getDealerIndex(game);
   const firstToTalkIndex = PlayerHelper.getNextActivePlayerIndex(game.players, dealerIndex);
@@ -82,6 +84,9 @@ function handleRoundOver(game, player, gameIsOver) {
     player.options = [];
     delete player.active;
     firstToTalk.active = true;
+    if (firstToTalk.bot) {
+      botActivated(game);
+    }
     game.players.forEach((p) => {
       p.needToTalk = !p.fold && !p.sitOut && !p.allIn;
       if (p.status === CALL || p.status === CHECK || p.status === RAISE) {
@@ -144,7 +149,6 @@ function proceedToNextStreet(game, now, gameIsOver) {
     });
     logger.info('Flop!');
   } else if (game.gamePhase === FLOP) {
-
     game.board.push(game.deck.pop());
     game.gamePhase = TURN;
     game.amountToCall = 0;
@@ -265,6 +269,9 @@ async function onPlayerActionEvent(socket, {
         logger.warn('no nextActivePlayer found');
       }
       nextActivePlayer.active = true;
+      if (nextActivePlayer.bot) {
+        botActivated(game);
+      }
       nextActivePlayer.options = [(nextActivePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
       if (nextActivePlayer.balance > game.amountToCall) {
         nextActivePlayer.options.push(RAISE);

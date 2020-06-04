@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const GameHelper = require('../helpers/game');
 const Deck = require('../helpers/deck');
+const { botActivated, botAction } = require('../helpers/bot');
 const Mappings = require('../Maps');
 const PlayerHelper = require('../helpers/players');
 
@@ -15,6 +16,11 @@ function resetHandTimer(game, cb) {
   }
   const time = game.fastForward ? 1700 : (game.currentTimerTime) * 1000 + 300;
   game.timerRef = setTimeout(() => {
+    logger.info('timerRef timeout.   time:', time);
+    if (game.paused) {
+      logger.warn('resetHandTimer: game is paused');
+      return;
+    }
     if (game.fastForward) {
       return cb(null, {
         gameId: game.id,
@@ -24,7 +30,14 @@ function resetHandTimer(game, cb) {
 
     if (activePlayer) {
       const activePlayerSocket = Mappings.GetSocketByPlayerId(activePlayer.id);
-      const op = activePlayer.options.includes(CHECK) ? CHECK : FOLD;
+      const op = (activePlayer.options.includes(CHECK) ? CHECK : FOLD);
+      if (activePlayer.bot) {
+        const action = botAction(game, activePlayer);
+        cb(activePlayerSocket, {
+          op: action.op, amount: action.amount, gameId: game.id, hand: game.hand, playerId: activePlayer.id,
+        });
+        return;
+      }
       cb(activePlayerSocket, {
         op, amount: 0, gameId: game.id, hand: game.hand, playerId: activePlayer.id,
       });
@@ -49,7 +62,7 @@ function startNewHand(game, dateTime) {
     logger.info('game is paused..');
     return;
   }
-
+  game.lastAction = (new Date()).getTime();
   if (game.dealerChoice) {
     game.omaha = game.dealerChoiceNextGame === OMAHA;
     game.pineapple = game.dealerChoiceNextGame === PINEAPPLE;
@@ -87,7 +100,10 @@ function startNewHand(game, dateTime) {
       game.messages.push({
         action: 'join', popupMessage: `${name} has join the game`, log: msg,
       });
-
+      let bot;
+      if (name.indexOf('bot0') === 0) {
+        bot = true;
+      }
       game.players.splice(positionIndex, 0, {
         id: playerId,
         name,
@@ -95,6 +111,8 @@ function startNewHand(game, dateTime) {
         sitOut: true,
         pot: [0],
         justJoined: true,
+        timeBank: 80,
+        bot,
       });
       game.moneyInGame += balance;
       game.pendingPlayers.push(playerId);
@@ -139,7 +157,7 @@ function startNewHand(game, dateTime) {
       dealerIndex = index;
     }
     player.pot = [0, 0, 0, 0];
-
+    player.timeBank += 1;
     delete player.winner;
     delete player.showingCards;
     delete player.totalPot;
@@ -229,6 +247,9 @@ function startNewHand(game, dateTime) {
       newUnderTheGun = game.players[newUnderTheGunIndex];
     }
     newUnderTheGun.active = true;
+    if (newUnderTheGun.bot) {
+      botActivated(game);
+    }
     newUnderTheGun.options = [FOLD, (newUnderTheGun.pot && newUnderTheGun.pot[0] === game.bigBlind ? CHECK : CALL), RAISE];
     if (newUnderTheGun.small && newUnderTheGun.allIn) {
       newUnderTheGun.options = [];
