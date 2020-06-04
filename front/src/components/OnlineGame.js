@@ -304,8 +304,8 @@ class OnlineGame extends Component {
 
         const isNextDealer = game.startDate && me ? getIsNextDealer() : false;
 
-        const isNextStraddle = game.startDate && game.players.filter(p=>!p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
-        console.log('am i the Next Straddle', isNextStraddle)
+        const isNextStraddle = !isMobile && game.startDate && game.players.filter(p=>!p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
+
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
         if (game.gameType === 'DEALER_CHOICE') {
