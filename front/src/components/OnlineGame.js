@@ -592,7 +592,7 @@ class OnlineGame extends Component {
                     <span>Hand #{hand} </span>
                 </div>) :  <div />}
 
-                {hand && hand>0 && !game.paused ? (
+                {hand && hand>0 && !game.paused && !game.handOver ? (
                     <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
                     )
                     :  <div id={"666"}/>}
