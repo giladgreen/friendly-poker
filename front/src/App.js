@@ -365,6 +365,7 @@ class App extends Component {
                         gameClone.paused !== this.state.game.paused ||
                         gameClone.gamePhase !== this.state.game.gamePhase ||
                         gameClone.currentTimerTime !== this.state.game.currentTimerTime ||
+                        gameClone.currentTimerTime !== this.state.game.time ||
                         gameClone.waitingForPlayers !== this.state.game.waitingForPlayers ||
                         activePlayerIndex !== newActivePlayerIndex){
 
@@ -602,6 +603,12 @@ class App extends Component {
         }
     };
 
+    askForMoreTime = () =>{
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+        this.socket.emit('gettime', {gameId , now, playerId });
+    };
+
     updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting updategamesettings')
@@ -800,6 +807,7 @@ class App extends Component {
                     sitBack={this.sitBack}
                     standUp={this.standUp}
                     SkipHand={this.SkipHand}
+                    askForMoreTime={this.askForMoreTime}
                     quitGame={this.quitGame}
                     sendMessage={this.sendMessage}
                     action={this.action}

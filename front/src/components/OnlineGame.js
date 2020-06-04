@@ -238,7 +238,8 @@ class OnlineGame extends Component {
             cheapLeader = me.balance === maxBalance;
         }
 
-
+        let getTimeEnabled = false;
+        let timeBankCount = 0;
         let checkFoldPressed = this.state.checkFoldPressed;
         if (isMyTurn){
             if (this.state.checkFoldPressed){
@@ -248,6 +249,11 @@ class OnlineGame extends Component {
                     this.fold();
                 }
                 checkFoldPressed = false;
+            }
+
+            if (game.timeBankEnabled){
+                getTimeEnabled = me.timeBank >= 20;
+                timeBankCount = (me.timeBank - me.timeBank % 20) / 20;
             }
         }
         const maxBalance = Math.max(...game.players.map(p => p.balance));
@@ -315,6 +321,8 @@ class OnlineGame extends Component {
             showingCards,
             cheapLeader,
             userTimer,
+            timeBankCount,
+            getTimeEnabled,
             isMyTurn,
             options,
             raiseEnabled: false,
@@ -598,6 +606,11 @@ class OnlineGame extends Component {
                     :  <div id={"666"}/>}
                 {/* your turn indication */}
                 { game.playersTurn ? (<div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>) : <div/>}
+
+                {this.state.getTimeEnabled ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
+                    Get More Time X {this.state.timeBankCount}
+                </div> : <div/>}
+
                 {/* table image */}
                 <img id="table-image" src="table.png" />
 

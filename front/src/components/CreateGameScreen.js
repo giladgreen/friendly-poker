@@ -199,17 +199,21 @@ class CreateGameScreen extends Component {
                                    type="number" value={this.state.BB}
                                    onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))} />
                         </div>
-                        <div id="create-new-game-action-time-div">
-                            <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit:</span>
-                            <input id="create-new-game-action-time-input"
+                       <div id="create-new-game-action-time-div">
+                           {this.state.timeBankEnabled ?
+                               <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit: 20 Seconds</span>:
+                               <span id="create-new-game-action-time-label" className="create-new-game-labels">Decision Time Limit:</span>}
+
+                           {this.state.timeBankEnabled ?<div/> : <input id="create-new-game-action-time-input"
                                    className={this.state.showTimeError ? 'red-border red-background':''}
                                    type="number"
                                    min="10"
                                    value={this.state.time}
                                    onChange={(e)=>this.setTime(Math.floor(e.target.value))}
                                    step="5"
-                            />
-                            <span className="create-new-game-labels">Seconds</span>
+                            />}
+
+                           {this.state.timeBankEnabled ?<div/> : <span className="create-new-game-labels">Seconds</span>}
                         </div>
 
 
@@ -256,20 +260,20 @@ class CreateGameScreen extends Component {
 
                             />
                         </div>
-                        {/*<div id="create-new-game-timebank-enabled-checkbox">*/}
-                        {/*    <FormControlLabel*/}
-                        {/*        control={*/}
-                        {/*            <WhiteCheckbox*/}
-                        {/*                checked={this.state.timeBankEnabled}*/}
-                        {/*                onChange={this.setTimeBankEnabled}*/}
-                        {/*                name="checkedB"*/}
-                        {/*                color="primary"*/}
-                        {/*            />*/}
-                        {/*        }*/}
-                        {/*        label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Time-Bank Enabled</span>}*/}
+                        <div id="create-new-game-timebank-enabled-checkbox">
+                            <FormControlLabel
+                                control={
+                                    <WhiteCheckbox
+                                        checked={this.state.timeBankEnabled}
+                                        onChange={this.setTimeBankEnabled}
+                                        name="checkedB"
+                                        color="primary"
+                                    />
+                                }
+                                label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Time-Bank Enabled</span>}
 
-                        {/*    />*/}
-                        {/*</div>*/}
+                            />
+                        </div>
                     </div>
                     <div id="create-new-game-name-div">
                         <span id="create-new-game-name-label" >Your Name:</span>

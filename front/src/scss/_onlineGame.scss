@@ -740,6 +740,36 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     animation: blinker 1.5s linear infinite;
 }
 
+#request-more-time-button{
+    color: #ffaaaa;
+    z-index: 30;
+    position: fixed;
+    font-size: 0.68em;
+    top: 16.6vh;
+    left:7.6vw;
+    padding: 4px 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 0.68em;
+        top: 30vh;
+        left:1vw;
+        max-width: 12vw;
+        padding: 4px 10px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        font-size: 0.68em;
+        top: 22vh;
+        left:1vw;
+        max-width: 12vw;
+        padding: 4px 10px;
+    }
+}
+
 #clock{
     color: #eaeaea55;
     z-index: 30;

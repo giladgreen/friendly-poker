@@ -20,7 +20,8 @@ class UserTimer extends Component {
         super(props);
         const {userTimer} = props;
         this.state = {
-            userTimer
+            userTimer,
+            time: props.time > userTimer ? props.time: userTimer
         }
     }
     forceUpdate = (userTimer)=>{
@@ -72,9 +73,8 @@ class UserTimer extends Component {
     }
 
     getTimeLeftValue = ()=>{
-        const {time} = this.props;
         const userTimer = this.state.userTimer || 0;
-        const val = userTimer * 100 / time;
+        const val = userTimer * 100 / this.state.time;
         return val < 0 ? 0 : (val > 100 ? 100 : val)
     }
 
