@@ -14357,7 +14357,7 @@ em-spades {
 }
 
 .msg-text-player-name-color1 {
-  color: forestgreen;
+  color: #ff2222;
 }
 
 .msg-text-player-name-color2 {
@@ -14365,7 +14365,7 @@ em-spades {
 }
 
 .msg-text-player-name-color3 {
-  color: cornflowerblue;
+  color: #ff9262;
 }
 
 .msg-text-player-name-color4 {
@@ -14381,7 +14381,7 @@ em-spades {
 }
 
 .msg-text-player-name-color7 {
-  color: dodgerblue;
+  color: #cc5222;
 }
 
 @media (max-width: 800px) and (min-width: 530px) {
