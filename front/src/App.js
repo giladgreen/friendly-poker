@@ -420,14 +420,14 @@ class App extends Component {
             },200)
         });
 
-        this.socket.on('operationpendingaproval', () => {
-            // console.log('on operationpendingaproval');
-            this.setState({ operationpendingaproval: true });
+        this.socket.on('operationpendingapproval', () => {
+            // console.log('on operationpendingapproval');
+            this.setState({ operationpendingapproval: true });
         });
 
         this.socket.on('joinrequestdeclined', (game) => {
             //console.log('on joinrequestdeclined');
-            this.setState({ operationpendingaproval: false, game });
+            this.setState({ operationpendingapproval: false, game });
             this.showAlertMessage('join request declined');
         });
 
@@ -443,7 +443,19 @@ class App extends Component {
                     this.showAlertMessage(message.popupMessage);
                 })
             } else if (message.action === 'usermessage'){
-                const div = (<div key={`msg_${time}_${message.text}_${message.now}`}>
+
+                const messageOnClick = ()=>{
+                    const el = document.createElement('textarea');
+                    el.value = message.text;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    this.showAlertMessage('message copied')
+                };
+
+
+                const div = (<div key={`msg_${time}_${message.text}_${message.now}`} className="pointer-copy" onClick={messageOnClick}>
                     { message.playerIndex < 10 ? <span className="msg-time" >{time}</span> : <spn/>}
                     { message.playerIndex < 10 ? <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span> : <spn/>}
                     <span className="msg-text">{message.text}</span>  </div>);
@@ -609,7 +621,7 @@ class App extends Component {
         this.socket.emit('gettime', {gameId , now, playerId });
     };
 
-    updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances) =>{
+    updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting updategamesettings')
         const now = (new Date()).getTime();
@@ -686,7 +698,7 @@ class App extends Component {
         this.socket.emit('setcreatorasadmin', {gameId , playerId, now: (new Date()).getTime() });
     };
 
-    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyAproval, gameType, straddleEnabled, timeBankEnabled }) =>{
+    createGame = ({ smallBlind, bigBlind, time, name, balance, privateGame, requireRebuyApproval, gameType, straddleEnabled, timeBankEnabled }) =>{
         const now = (new Date()).getTime();
         const gameId = `${now}`;
         const playerId = this.state.playerId;
@@ -700,7 +712,7 @@ class App extends Component {
             name,
             balance,
             privateGame,
-            requireRebuyAproval,
+            requireRebuyApproval,
             gameType,
             straddleEnabled,
             timeBankEnabled,
@@ -771,10 +783,10 @@ class App extends Component {
                 showAlertMessage={this.showAlertMessage}
                 games={this.state.games} />);
         } else{
-            const {gameId, game, playerId, operationpendingaproval, gamePaused} = this.state;
+            const {gameId, game, playerId, operationpendingapproval, gamePaused} = this.state;
 
             if (!game){
-                return <Loader waitingAproval={operationpendingaproval}/>;
+                return <Loader waitingApproval={operationpendingapproval}/>;
             }
             if (this.state.showInfoScreen) {
                 return <GameInfoScreen game={game} onClose={this.toggleShowInfo}/>

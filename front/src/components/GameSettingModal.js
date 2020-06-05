@@ -3,7 +3,21 @@
 import React, { Component } from 'react';
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Checkbox from '@material-ui/core/Checkbox';
 
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
+import { withStyles } from '@material-ui/core/styles';
+
+const WhiteCheckbox = withStyles({
+    root: {
+        color: 'white',
+        '&$checked': {
+            color: 'white',
+        },
+    },
+    checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 class GameSettingModal extends Component {
 
@@ -49,9 +63,16 @@ class GameSettingModal extends Component {
             showTimeError:false,
             amountError:false,
             showBalancesScreen:false,
+            timeBankEnabled: props.game.timeBankEnabled,
+            requireRebuyApproval: props.game.requireRebuyApproval,
+            straddleEnabled: props.game.straddleEnabled,
         }
 
     }
+    setApprovalRequired= (e) =>{
+        this.setState({requireRebuyApproval: e.target.checked })
+    };
+
     setSettingsTime = (time) =>{
         const showTimeError = time < 10 || time > 180;
         this.setState({time, showTimeError})
@@ -78,6 +99,10 @@ class GameSettingModal extends Component {
         const adminName = this.props.game.players.find(p=>p.id === adminId).name;
         this.setState({adminId, adminName})
     };
+    setStraddleEnabled= (e) =>{
+        this.setState({straddleEnabled: e.target.checked })
+    };
+
     onFromPlayerChange = (fromPlayerId)=>{
         const fromPlayer = this.props.game.players.find(p=>p.id === fromPlayerId);
         const fromPlayerName = fromPlayer.name;
@@ -96,6 +121,10 @@ class GameSettingModal extends Component {
         this.setState({fromPlayerId, fromPlayerName, fromPlayerBalance,toPlayerId,toPlayerName, toPlayerBalance, amount: 1})
     };
 
+    setTimeBankEnabled= (e) =>{
+        this.setState({timeBankEnabled: e.target.checked })
+    };
+
     onToPlayerChange = (toPlayerId)=>{
         const toPlayer = this.props.game.players.find(p=>p.id === toPlayerId);
         const toPlayerName = toPlayer.name;
@@ -110,7 +139,7 @@ class GameSettingModal extends Component {
 
     saveSettings = ()=>{
         const {showSmallBlindError, showBigBlindError, showTimeError, time, smallBlind, bigBlind,
-            adminId, sendTrasfer,  fromPlayerId, toPlayerId,  amount } = this.state;
+            adminId, sendTrasfer,  fromPlayerId, toPlayerId,  amount, requireRebuyApproval, straddleEnabled, timeBankEnabled } = this.state;
         if (showSmallBlindError || showBigBlindError || showTimeError){
             return;
         }
@@ -121,7 +150,7 @@ class GameSettingModal extends Component {
                 {fromPlayerId, toPlayerId, amount}
             ]
         }
-        this.props.saveSettings({time, smallBlind, bigBlind, adminId, newBalances});
+        this.props.saveSettings({time, smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled});
     };
 
     clostIfLastRequest = ()=>{
@@ -241,18 +270,7 @@ class GameSettingModal extends Component {
 
             <div id="game-settings-modal-title">Game Settings</div>
 
-            <div className="game-settings-item">
-                <span className="game-settings-label">Decision Time Limit:</span>
-                <input className={`game-settings-input ${this.state.showTimeError ? 'red-border red-background':''}`}
-                       type="number"
-                       min="10"
-                       value={this.state.time}
-                       onChange={(e)=>this.setSettingsTime(Math.floor(e.target.value))}
-                       step="10"
-                />
-                <span className="game-settings-secondary-label"> Seconds</span>
-            </div>
-            <div className="game-settings-item">
+            <div id="game-settings-blinds">
                 <span className="game-settings-label">Small Blind:</span>
                 <input className={`game-settings-input ${this.state.showSmallBlindError ? 'red-border red-background':''}`}
                        type="number"
@@ -262,18 +280,76 @@ class GameSettingModal extends Component {
                        onChange={(e)=>this.setSmallBlind(Math.floor(e.target.value))}
                        step="1"
                 />
-            </div>
-            <div className="game-settings-item">
                 <span className="game-settings-label">Big Blind:</span>
                 <input  className={`game-settings-input ${this.state.showBigBlindError ? 'red-border red-background':''}`}
-                       type="number"
-                       max="999"
-                       value={this.state.bigBlind}
-                       onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))}
-                       step="1"
+                        type="number"
+                        max="999"
+                        value={this.state.bigBlind}
+                        onChange={(e)=>this.setBigBlind(Math.floor(e.target.value))}
+                        step="1"
                 />
             </div>
-            {(this.props.game.players.length >1) &&  <div className="game-settings-item">
+
+            <div id="game-settings-Decision-Time-Limit">
+                {this.state.timeBankEnabled ?
+                    <span className="game-settings-label">Decision Time Limit: 20 Seconds</span>:
+                    <span className="game-settings-label">Decision Time Limit:</span>}
+
+                {this.state.timeBankEnabled ? <div/> : <input className={`game-settings-input ${this.state.showTimeError ? 'red-border red-background':''}`}
+                       type="number"
+                       min="10"
+                       value={this.state.time}
+                       onChange={(e)=>this.setSettingsTime(Math.floor(e.target.value))}
+                       step="10"
+                />}
+                {this.state.timeBankEnabled ? <div/> :<span className="game-settings-secondary-label"> Seconds</span>}
+            </div>
+
+            <div id="game-settings-timebank-enabled-checkbox">
+                <FormControlLabel
+                    control={
+                        <WhiteCheckbox
+                            checked={this.state.timeBankEnabled}
+                            onChange={this.setTimeBankEnabled}
+                            name="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Time-Bank Enabled</span>}
+
+                />
+            </div>
+
+            <div id="game-settings-approval-required-checkbox">
+                <FormControlLabel
+                    control={
+                        <WhiteCheckbox
+                            checked={this.state.requireRebuyApproval}
+                            onChange={this.setApprovalRequired}
+                            name="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Join/Rebuy Approvals Required</span>}
+
+                />
+            </div>
+            <div id="game-settings-straddle-enabled-checkbox">
+                <FormControlLabel
+                    control={
+                        <WhiteCheckbox
+                            checked={this.state.straddleEnabled}
+                            onChange={this.setStraddleEnabled}
+                            name="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Straddle Enabled</span>}
+
+                />
+            </div>
+
+            {(this.props.game.players.length >1) &&  <div id="game-settings-select-admin">
                 <span className="game-settings-label">Select Game Admin:</span>
                 <Select
 
@@ -287,7 +363,10 @@ class GameSettingModal extends Component {
                 </Select>
             </div>}
 
-            <div id="game-settings-save-button" className={saveButtonDisabled ? 'disabled-save-game-settings-button':'game-settings-save-button'} onClick={this.saveSettings}> Save Settings </div>
+            {(changePlayersBalances) && <div id="open-change-balances-button" className="active-button" onClick={this.toggleChangeBalances}>Change Players Balances</div>}
+
+            {(skipHandEnabled) && <div id="force-skip-hand-button" className="active-button" onClick={this.props.SkipHand}>Force Skip Hand</div>}
+
 
             {newBalances.length >0 ? <div id="new-balances-section" >
                 {newBalances.map(({fromPlayerId, toPlayerId, amount})=>{
@@ -296,8 +375,9 @@ class GameSettingModal extends Component {
                     return <div>{fromName} => {amount} => {toName}</div>
                 })}
             </div> :<div/>}
-            {(changePlayersBalances) && <div id="open-change-balances-button" className="active-button" onClick={this.toggleChangeBalances}>Change Players Balances</div>}
-            {(skipHandEnabled) && <div id="force-skip-hand-button" className="active-button" onClick={this.props.SkipHand}>Force Skip Hand</div>}
+
+
+
 
             {hasPendingRequests && <div id="pending-requests">
                 <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
@@ -312,6 +392,9 @@ class GameSettingModal extends Component {
 
                 </div>
             </div>}
+
+            <div id="game-settings-save-button" className={saveButtonDisabled ? 'disabled-save-game-settings-button':'game-settings-save-button'} onClick={this.saveSettings}> Save Settings </div>
+
         </div>
 
     }

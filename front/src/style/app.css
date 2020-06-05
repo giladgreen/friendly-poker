@@ -11424,7 +11424,7 @@ em-spades {
   font-size: 2.2em;
 }
 
-#create-new-game-aproval-required-checkbox {
+#create-new-game-approval-required-checkbox {
   position: fixed;
   top: 54vh;
   height: 6vh;
@@ -11437,7 +11437,7 @@ em-spades {
   padding-top: 0px;
   font-size: 2em;
 }
-#create-new-game-aproval-required-checkbox label {
+#create-new-game-approval-required-checkbox label {
   color: #A1A1A1;
   font-size: 2.3em;
 }
@@ -12453,12 +12453,12 @@ em-spades {
 #game-settings-modal {
   z-index: 99;
   position: fixed;
-  width: 88vw;
+  width: 98vw;
   height: 89vh;
   top: 10vh;
   left: 1vw;
-  background: #000000BB;
-  padding: 20px;
+  background: #000000CC;
+  padding: 10px 20px;
   border: 2px solid white;
   border-radius: 20px;
   color: white;
@@ -12481,7 +12481,131 @@ em-spades {
   color: white;
   font-weight: bold;
   text-decoration: underline;
-  margin-bottom: 1.8vh;
+  margin-bottom: 1vh;
+}
+
+#game-settings-blinds {
+  position: fixed;
+  top: 20vh;
+  left: 2vw;
+}
+
+#game-settings-Decision-Time-Limit {
+  position: fixed;
+  top: 30.2vh;
+  left: 2vw;
+}
+
+#game-settings-timebank-enabled-checkbox {
+  position: fixed;
+  top: 36vh;
+  left: 4vw;
+}
+
+#game-settings-approval-required-checkbox {
+  position: fixed;
+  top: 46vh;
+  left: 4vw;
+}
+
+#game-settings-straddle-enabled-checkbox {
+  position: fixed;
+  top: 54vh;
+  left: 4vw;
+}
+
+#game-settings-select-admin {
+  position: fixed;
+  top: 20.2vh;
+  left: 55vw;
+}
+
+#open-change-balances-button {
+  background: papayawhip;
+  color: black;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 33vw;
+  font-size: 2.5em;
+  position: fixed;
+  top: 30.2vh;
+  left: 57vw;
+}
+
+#force-skip-hand-button {
+  background: #8b0000cc;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 33vw;
+  font-size: 2.5em;
+  position: fixed;
+  top: 40.2vh;
+  left: 57vw;
+}
+
+#pending-requests {
+  background: #CDCDCD;
+  border: 2px solid white;
+  border-radius: 20px;
+  position: fixed;
+  top: 20vh;
+  left: 2vw;
+  width: 96vw;
+  height: 81.6vh;
+}
+
+#pending-requests-header {
+  padding-top: 5px;
+  margin-left: 19px;
+  margin-bottom: 15px;
+  font-size: 2em;
+  color: black;
+  text-decoration: underline;
+  font-weight: bold;
+  height: 4vh;
+}
+
+#pending-requests-body {
+  padding-left: 15px;
+  font-size: 2em;
+  color: #333333;
+  overflow-y: scroll;
+  height: 25vh;
+}
+
+.pending-name {
+  color: indianred;
+  font-weight: bold;
+}
+
+.pending-number {
+  color: #16181b;
+  font-weight: bold;
+}
+
+.approve-pending {
+  margin-left: 10px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 7px;
+  padding: 1px 3px 1px 3px;
+  background: white;
+}
+
+.decline-pending {
+  margin-left: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background: darkred;
+  border: 1px solid white;
+  border-radius: 7px;
+  padding: 1px 5px 1px 3px;
 }
 
 .game-settings-item {
@@ -12537,8 +12661,8 @@ em-spades {
   border: 1px solid white;
   border-radius: 8px;
   position: fixed;
-  top: 55vh;
-  left: 10vw;
+  top: 89vh;
+  left: 40vw;
 }
 
 #game-subsettings-save-button {
@@ -12568,19 +12692,6 @@ em-spades {
   color: black;
 }
 
-#open-change-balances-button {
-  background: papayawhip;
-  color: black;
-  text-align: center;
-  border: 2px solid white;
-  border-radius: 10px;
-  width: 40vw;
-  font-size: 2.5em;
-  position: fixed;
-  top: 38vh;
-  left: 40vw;
-}
-
 #new-balances-section {
   background: white;
   color: black;
@@ -12592,81 +12703,6 @@ em-spades {
   position: fixed;
   top: 42vh;
   left: 40vw;
-}
-
-#force-skip-hand-button {
-  background: #8b0000cc;
-  color: white;
-  text-align: center;
-  border: 2px solid white;
-  border-radius: 10px;
-  width: 23vw;
-  font-size: 2.5em;
-  position: fixed;
-  top: 55vh;
-  left: 40vw;
-}
-
-#pending-requests {
-  background: #CDCDCD;
-  border: 2px solid white;
-  border-radius: 20px;
-  position: fixed;
-  top: 65vh;
-  left: 2vw;
-  width: 86vw;
-  height: 31.6vh;
-}
-
-#pending-requests-header {
-  padding-top: 5px;
-  margin-left: 19px;
-  margin-bottom: 15px;
-  font-size: 2em;
-  color: black;
-  text-decoration: underline;
-  font-weight: bold;
-  height: 4vh;
-}
-
-#pending-requests-body {
-  padding-left: 15px;
-  font-size: 2em;
-  color: #333333;
-  overflow-y: scroll;
-  height: 25vh;
-}
-
-.pending-name {
-  color: indianred;
-  font-weight: bold;
-}
-
-.pending-number {
-  color: #16181b;
-  font-weight: bold;
-}
-
-.approve-pending {
-  margin-left: 10px;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid white;
-  border-radius: 7px;
-  padding: 1px 3px 1px 3px;
-  background: white;
-}
-
-.decline-pending {
-  margin-left: 10px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  background: darkred;
-  border: 1px solid white;
-  border-radius: 7px;
-  padding: 1px 5px 1px 3px;
 }
 
 #select-admin-label {
@@ -13457,6 +13493,10 @@ em-spades {
   position: fixed;
 }
 
+.pointer-copy {
+  cursor: copy;
+}
+
 #game-name {
   position: fixed;
   left: 48vw;
@@ -14177,20 +14217,23 @@ em-spades {
 
 @keyframes blinker {
   50% {
-    opacity: 0.5;
+    opacity: 0.3;
+    color: red;
   }
 }
 #your-turn-indication {
   color: white;
   z-index: 30;
-  font-size: 2em;
+  font-size: 3em;
   position: fixed;
   top: 21vh;
   left: 1vw;
   font-weight: bold;
+  text-transform: uppercase;
   font-family: "Arial Black";
   padding: 10px;
-  animation: blinker 1.5s linear infinite;
+  animation: blinker 0.3s linear infinite;
+  text-align: center;
 }
 
 #request-more-time-button {
@@ -15134,8 +15177,8 @@ em-spades {
   text-align: center;
   font-size: 1.3em;
   font-weight: bold;
-  background: #777777;
-  color: #333333;
+  background: red;
+  color: white;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .base-straddle-button {
@@ -16220,21 +16263,21 @@ em-spades {
   z-index: 33;
   position: fixed;
   top: 23.5vh;
-  left: 60vw;
+  left: 62vw;
 }
 
 .player6-pot-mid-enter {
   z-index: 33;
   position: fixed;
   top: 25.5vh;
-  left: 62vw;
+  left: 64vw;
 }
 
 .player6-pot-mid-enter-active {
   z-index: 33;
   position: fixed;
   top: 23.5vh;
-  left: 60vw;
+  left: 62vw;
   transition: all 1000ms;
 }
 
@@ -16242,7 +16285,7 @@ em-spades {
   z-index: 33;
   position: fixed;
   top: 23.5vh;
-  left: 60vw;
+  left: 62vw;
 }
 
 .player6-pot-mid-exit-active {
@@ -16316,15 +16359,15 @@ em-spades {
 #player-6-dealer-button {
   position: fixed;
   z-index: 33;
-  top: 14vh;
-  left: 0vw;
+  top: 26vh;
+  left: 66vw;
 }
 
 #player-6-straddle-button {
   position: fixed;
   z-index: 33;
-  top: 14.5vh;
-  left: 1vw;
+  top: 26.5vh;
+  left: 67vw;
 }
 
 #player7 {
@@ -16713,9 +16756,9 @@ em-spades {
 }
 
 .active-player-info {
-  background: #FFCCCCCC;
-  border: 4px solid black;
-  color: black;
+  background: #000000cc;
+  border: 4px solid red;
+  color: red;
   font-weight: bold;
   border-radius: 15px;
 }
@@ -16732,7 +16775,7 @@ em-spades {
   z-index: 22;
   border-radius: 50%;
   position: absolute;
-  left: 12.1vw;
+  left: 11.1vw;
   width: 2vw;
   height: 2vw;
   top: -1.5vh;
@@ -16768,7 +16811,7 @@ em-spades {
   z-index: 22;
   border-radius: 50%;
   position: absolute;
-  left: 12.1vw;
+  left: 11.1vw;
   width: 2vw;
   height: 2vw;
   top: -1.5vh;
@@ -16986,15 +17029,15 @@ em-spades {
   width: 8vw;
   height: 2.2vw;
   border-radius: 10px;
-  background: #ff000077;
+  background: #ff0000;
   color: white;
   font-weight: bold;
   font-size: 1.3em;
-  z-index: 11;
+  z-index: 31;
   padding-top: 3px;
   alignment: center;
   text-align: center;
-  top: 11.7vh;
+  top: -1.7vh;
   left: 0vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {

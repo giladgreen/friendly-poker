@@ -94,9 +94,9 @@ $player5-dealer-button-left: 57.2vw;
 $player6-top: 14vh;
 $player6-left: 66vw;
 $player6-pot-top: 23.5vh;
-$player6-pot-left: 60vw;
-$player6-dealer-button-top: 14vh;
-$player6-dealer-button-left: 0vw;
+$player6-pot-left: 62vw;
+$player6-dealer-button-top: 26vh;
+$player6-dealer-button-left: 66vw;
 
 $player7-top: 36vh;
 $player7-left: 80vw;
@@ -215,8 +215,8 @@ $players-dealer-button-left: (
     text-align: center;
     @include font-med;
     font-weight: bold;
-    background: #777777;
-    color: #333333;
+    background: red;
+    color: white;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         width: 3.2vw;
         height: 3.2vw;
@@ -475,9 +475,9 @@ $players-dealer-button-left: (
 
 }
 .active-player-info{
-    background: #FFCCCCCC;
-    border: 4px solid black;
-    color: black;
+    background: #000000cc;
+    border: 4px solid red;
+    color: red;
     font-weight: bold;
     border-radius: 15px;
 
@@ -494,7 +494,7 @@ $players-dealer-button-left: (
     z-index: 22;
     border-radius: 50%;
     position: absolute;
-    left: 12.1vw;
+    left: 11.1vw;
     width: 2vw;
     height: 2vw;
     top:-1.5vh;
@@ -517,7 +517,7 @@ $players-dealer-button-left: (
     z-index: 22;
     border-radius: 50%;
     position: absolute;
-    left: 12.1vw;
+    left: 11.1vw;
     width: 2vw;
     height: 2vw;
     top:-1.5vh;
@@ -648,15 +648,15 @@ $players-dealer-button-left: (
     width: 8vw;
     height: 2.2vw;
     border-radius: 10px;
-    background: #ff000077;
+    background: #ff0000;
     color: white;
     font-weight: bold;
     @include font-med;
-    z-index: 11;
+    z-index: 31;
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:11.7vh;
+    top:-1.7vh;
     left:0vw;
 
 }

@@ -4,7 +4,7 @@ import React from 'react'
 
 export default (props) => (<div id="loader-screen">
     <div>Please Wait..</div>
-    {props.waitingAproval && <div>Waiting for game admin approval..</div>}
+    {props.waitingApproval && <div>Waiting for game admin approval..</div>}
     <img id="app-name-loader-screen" src="./friendly-poker.png"/></div> );
 
 

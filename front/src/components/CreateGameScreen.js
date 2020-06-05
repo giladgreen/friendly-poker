@@ -19,6 +19,7 @@ import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 class CreateGameScreen extends Component {
 
@@ -26,13 +27,13 @@ class CreateGameScreen extends Component {
         super(props);
 
         const privateGameSavedValue = localStorage.getItem('private-game');
-        const aprovalRequiredSavedValue = localStorage.getItem('rebuy-aproval-required');
+        const approvalRequiredSavedValue = localStorage.getItem('rebuy-approval-required');
         const straddleEnabledSavedValue = localStorage.getItem('straddle-enabled');
         const timeBankEnabledSavedValue = localStorage.getItem('timebank-enabled');
 
         const name = localStorage.getItem('myName') || '';
         const privateGame = privateGameSavedValue ? privateGameSavedValue === 'true' : true;
-        const aprovalRequired = aprovalRequiredSavedValue ? aprovalRequiredSavedValue === 'true' : false;
+        const approvalRequired = approvalRequiredSavedValue ? approvalRequiredSavedValue === 'true' : false;
         const straddleEnabled = straddleEnabledSavedValue ? straddleEnabledSavedValue === 'true' : true;
         const timeBankEnabled = timeBankEnabledSavedValue ? timeBankEnabledSavedValue === 'true' : false;
         const SB = parseInt((localStorage.getItem('create-game-sb') || '1'), 10);
@@ -42,7 +43,7 @@ class CreateGameScreen extends Component {
         this.state = {
             name,
             privateGame,
-            aprovalRequired,
+            approvalRequired,
             straddleEnabled,
             timeBankEnabled,
             SB,
@@ -71,7 +72,7 @@ class CreateGameScreen extends Component {
         }
         localStorage.setItem('myName',this.state.name);
         localStorage.setItem('private-game',this.state.privateGame ? 'true':'false');
-        localStorage.setItem('rebuy-aproval-required',this.state.aprovalRequired ? 'true':'false');
+        localStorage.setItem('rebuy-approval-required',this.state.approvalRequired ? 'true':'false');
         localStorage.setItem('straddle-enabled',this.state.straddleEnabled ? 'true':'false');
         localStorage.setItem('timebank-enabled',this.state.timeBankEnabled ? 'true':'false');
         localStorage.setItem('create-game-sb',this.state.SB);
@@ -86,7 +87,7 @@ class CreateGameScreen extends Component {
             name:this.state.name,
             balance:parseInt(this.state.buyIn, 10),
             privateGame: this.state.privateGame,
-            requireRebuyAproval: this.state.aprovalRequired,
+            requireRebuyApproval: this.state.approvalRequired,
             straddleEnabled: this.state.straddleEnabled,
             timeBankEnabled: this.state.timeBankEnabled,
             gameType: this.state.gameOptions.find(option=>option.value === this.state.selectedGame).type
@@ -132,8 +133,8 @@ class CreateGameScreen extends Component {
         this.setState({selectedGame})
     }
 
-    setAprovalRequired= (e) =>{
-        this.setState({aprovalRequired: e.target.checked })
+    setApprovalRequired= (e) =>{
+        this.setState({approvalRequired: e.target.checked })
     };
 
     setStraddleEnabled= (e) =>{
@@ -157,7 +158,6 @@ class CreateGameScreen extends Component {
         return creatorName;
     }
     render() {
-        const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
         const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError } = this.state;
         const createButtonEnabled = this.props.connected && !showNameError && !showBuyInError && !showSmallBlindError && !showBigBlindError && !showTimeError;
         return (
@@ -232,12 +232,12 @@ class CreateGameScreen extends Component {
 
                             />
                         </div>
-                        <div id="create-new-game-aproval-required-checkbox">
+                        <div id="create-new-game-approval-required-checkbox">
                             <FormControlLabel
                                 control={
                                     <WhiteCheckbox
-                                        checked={this.state.aprovalRequired}
-                                        onChange={this.setAprovalRequired}
+                                        checked={this.state.approvalRequired}
+                                        onChange={this.setApprovalRequired}
                                         name="checkedB"
                                         color="primary"
                                     />

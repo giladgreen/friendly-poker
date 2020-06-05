@@ -108,8 +108,10 @@ class OnlineGame extends Component {
     }
 
     keypress = (event)=>{
-        const game = this.props.game;
         const keycode = event.keyCode;
+        console.log('keypress ',keycode)
+        const game = this.props.game;
+
         const key = String.fromCharCode(keycode).toLowerCase();
 
         if (!chatFocused && (key === 'm' || key === 'צ')){
@@ -197,12 +199,20 @@ class OnlineGame extends Component {
     componentDidMount() {
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
 
+        setInterval(()=>{
+            document.removeEventListener("keypress", this.keypress, true);
+            document.addEventListener('keypress', this.keypress, true);
+        },10000)
 
         setTimeout(()=>{
-            document.addEventListener('keypress', this.keypress);
-
+            document.addEventListener('keypress', this.keypress, true);
         },1000)
     }
+
+    componentWillUnmount() {
+        document.addEventListener('keypress', this.keypress, true);
+    }
+
 
     onGameUpdate = (game) =>{
 
@@ -384,8 +394,8 @@ class OnlineGame extends Component {
         this.setState({showLogs:!this.state.showLogs})
     };
 
-    saveSettings = ({time,smallBlind, bigBlind, adminId, newBalances})=>{
-        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId, newBalances);
+    saveSettings = ({time,smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled})=>{
+        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled);
         this.setState({showSettings:false})
     };
 
@@ -525,9 +535,9 @@ class OnlineGame extends Component {
 
     setRebuy= (rebuyValue) =>{
         rebuyValue = rebuyValue < 1 ? 1 : rebuyValue;
-        const {requireRebuyAproval} = this.props.game;
+        const {requireRebuyApproval} = this.props.game;
         const {maxBalance, me} = this.state;
-        const maxRebuy = requireRebuyAproval ? (100 * maxBalance) : (5 * maxBalance) - me.balance;
+        const maxRebuy = requireRebuyApproval ? (100 * maxBalance) : (5 * maxBalance) - me.balance;
         const rebuyValueError =  rebuyValue > maxRebuy;
         this.setState({rebuyValue, rebuySectionOpen:true, rebuyValueError})
     };
@@ -605,7 +615,11 @@ class OnlineGame extends Component {
                     )
                     :  <div id={"666"}/>}
                 {/* your turn indication */}
-                { game.playersTurn ? (<div id="your-turn-indication"> <ul><li> Your Turn</li></ul></div>) : <div/>}
+                { game.playersTurn ? (<div id="your-turn-indication">
+                    <div> Your</div>
+                    <div> Turn</div>
+
+                </div>) : <div/>}
 
                 {this.state.getTimeEnabled ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
                     Get More Time X {this.state.timeBankCount}
@@ -763,7 +777,7 @@ class OnlineGame extends Component {
                 </div>}
 
                 {/* rebuy.. button */}
-                { this.state.sideMenu && !this.state.rebuySectionOpen && <div id="rebuy-button" className={` ${ game.requireRebuyAproval || !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={game.requireRebuyAproval || !cheapLeader ? this.toggleRebuyButton : ()=>{}}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> </div>}
+                { this.state.sideMenu && !this.state.rebuySectionOpen && <div id="rebuy-button" className={` ${ game.requireRebuyApproval || !cheapLeader ? 'active-button' : 'inactive-button'} `} onClick={game.requireRebuyApproval || !cheapLeader ? this.toggleRebuyButton : ()=>{}}> <span><ShoppingCartIcon/><span className="left-margin">Rebuy..</span></span> </div>}
 
 
 

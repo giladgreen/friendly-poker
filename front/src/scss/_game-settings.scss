@@ -1,12 +1,12 @@
 #game-settings-modal{
     z-index: 99;
     position: fixed;
-    width: 88vw;
+    width: 98vw;
     height: 89vh;
     top: 10vh;
     left: 1vw;
-    background: #000000BB;
-    padding: 20px;
+    background: #000000CC;
+    padding: 10px 20px;
     border: 2px solid white;
     border-radius: 20px;
     color: white;
@@ -27,7 +27,126 @@
     color: white;
     font-weight: bold;
     text-decoration: underline;
-    margin-bottom: 1.8vh;
+    margin-bottom: 1vh;
+}
+#game-settings-blinds{
+    position: fixed;
+    top:20vh;
+    left: 2vw;
+}
+#game-settings-Decision-Time-Limit{
+    position: fixed;
+
+    top:30.2vh;
+    left: 2vw;
+}
+#game-settings-timebank-enabled-checkbox{
+    position: fixed;
+
+    top:36vh;
+    left: 4vw;
+}
+#game-settings-approval-required-checkbox{
+    position: fixed;
+    top:46vh;
+    left: 4vw;
+}
+
+#game-settings-straddle-enabled-checkbox{
+    position: fixed;
+    top:54vh;
+    left: 4vw;
+}
+
+#game-settings-select-admin{
+    position: fixed;
+    top:20.2vh;
+    left: 55vw;
+}
+
+#open-change-balances-button{
+    background: papayawhip;
+    color: black;
+
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 33vw;
+    font-size: 2.5em;
+
+    position: fixed;
+    top:30.2vh;
+    left: 57vw;
+}
+#force-skip-hand-button{
+    background: #8b0000cc;
+    color: white;
+
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 33vw;
+    font-size: 2.5em;
+
+    position: fixed;
+    top:40.2vh;
+    left: 57vw;
+}
+
+#pending-requests{
+    background: #CDCDCD;
+    border: 2px solid white;
+    border-radius: 20px;
+    position: fixed;
+    top: 20vh;
+    left: 2vw;
+    width: 96vw;
+    height: 81.6vh;
+}
+#pending-requests-header{
+    padding-top: 5px;
+    margin-left: 19px;
+    margin-bottom: 15px;
+    font-size: 2em;
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+    height: 4vh;
+}
+#pending-requests-body{
+    padding-left: 15px;
+    font-size: 2em;
+    color: #333333;
+    overflow-y: scroll;
+    height: 25vh;
+}
+.pending-name{
+    color: indianred;
+    font-weight: bold;
+}
+.pending-number{
+    color: #16181b;
+    font-weight: bold;
+}
+.approve-pending{
+    margin-left: 10px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding: 1px 3px 1px 3px;
+    background: white;
+}
+.decline-pending{
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background: darkred;
+    border: 1px solid white;
+    border-radius: 7px;
+    padding: 1px 5px 1px 3px;
 }
 .game-settings-item{
     margin-bottom: 2.5vh;
@@ -76,8 +195,8 @@
     border: 1px solid white;
     border-radius: 8px;
     position: fixed;
-    top: 55vh;
-    left: 10vw;
+    top: 89vh;
+    left: 40vw;
 }
 #game-subsettings-save-button{
     width: 16vw;
@@ -103,20 +222,7 @@
     background: whitesmoke;
     color: black;
 }
-#open-change-balances-button{
-    background: papayawhip;
-    color: black;
 
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 10px;
-    width: 40vw;
-    font-size: 2.5em;
-
-    position: fixed;
-    top: 38vh;
-    left: 40vw;
-}
 #new-balances-section{
     background: white;
     color: black;
@@ -131,75 +237,7 @@
     top: 42vh;
     left: 40vw;
 }
-#force-skip-hand-button{
-    background: #8b0000cc;
-    color: white;
 
-    text-align: center;
-    border: 2px solid white;
-    border-radius: 10px;
-    width: 23vw;
-    font-size: 2.5em;
-
-    position: fixed;
-    top: 55vh;
-    left: 40vw;
-}
-#pending-requests{
-    background: #CDCDCD;
-    border: 2px solid white;
-    border-radius: 20px;
-    position: fixed;
-    top: 65vh;
-    left: 2vw;
-    width: 86vw;
-    height: 31.6vh;
-}
-#pending-requests-header{
-    padding-top: 5px;
-    margin-left: 19px;
-    margin-bottom: 15px;
-    font-size: 2em;
-    color: black;
-    text-decoration: underline;
-    font-weight: bold;
-    height: 4vh;
-}
-#pending-requests-body{
-    padding-left: 15px;
-    font-size: 2em;
-    color: #333333;
-    overflow-y: scroll;
-    height: 25vh;
-}
-.pending-name{
-    color: indianred;
-    font-weight: bold;
-}
-.pending-number{
-    color: #16181b;
-    font-weight: bold;
-}
-.approve-pending{
-    margin-left: 10px;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    border: 1px solid white;
-    border-radius: 7px;
-    padding: 1px 3px 1px 3px;
-    background: white;
-}
-.decline-pending{
-    margin-left: 10px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    background: darkred;
-    border: 1px solid white;
-    border-radius: 7px;
-    padding: 1px 5px 1px 3px;
-}
 #select-admin-label{
     color: white;
     font-size: 2em;

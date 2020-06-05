@@ -12,7 +12,7 @@ class JoinGameScreen extends Component {
         const balances = props.game.players.map(p=>p.balance);
         const maxPlayerBalance = Math.max(...balances);
         let avaragePlayerBalance = balances.reduce((all,one)=>all+one,0) / props.game.players.length;
-        let maxBuyIn = props.game.requireRebuyAproval ? 50 * maxPlayerBalance : maxPlayerBalance * 3;
+        let maxBuyIn = props.game.requireRebuyApproval ? 50 * maxPlayerBalance : maxPlayerBalance * 3;
         maxBuyIn = maxBuyIn - (maxBuyIn % props.game.bigBlind);
         maxBuyIn = maxBuyIn - (maxBuyIn % 10);
 

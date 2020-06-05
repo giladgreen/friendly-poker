@@ -13,6 +13,9 @@
     height: 100vh;
     position:fixed;
 }
+.pointer-copy{
+    cursor: copy;
+}
 #game-name{
     position: fixed;
     left: 48vw;
@@ -724,20 +727,24 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 
 @keyframes blinker {
     50% {
-        opacity: 0.5;
+        opacity: 0.3;
+        color: red;
     }
 }
 #your-turn-indication{
     color: white;
     z-index: 30;
-    font-size: 2em;
+    font-size: 3em;
     position: fixed;
     top: 21vh;
     left:1vw;
     font-weight: bold;
+    text-transform: uppercase;
     font-family: "Arial Black";
     padding: 10px;
-    animation: blinker 1.5s linear infinite;
+    animation: blinker 0.3s linear infinite;
+    text-align: center;
+
 }
 
 #request-more-time-button{
