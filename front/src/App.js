@@ -625,7 +625,7 @@ class App extends Component {
         const { gameId, playerId } = this.state;
         // console.log('emiting updategamesettings')
         const now = (new Date()).getTime();
-        this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, now });
+        this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, requireRebuyApproval, straddleEnabled, timeBankEnabled, now });
         if (adminId !== playerId){
             // console.log('emiting changeadmin')
 
