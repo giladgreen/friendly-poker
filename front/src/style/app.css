@@ -16420,30 +16420,30 @@ em-spades {
 .player7-pot-mid {
   z-index: 33;
   position: fixed;
-  top: 41.5vh;
-  left: 74vw;
+  top: 45.5vh;
+  left: 73vw;
 }
 
 .player7-pot-mid-enter {
   z-index: 33;
   position: fixed;
-  top: 43.5vh;
-  left: 76vw;
+  top: 47.5vh;
+  left: 75vw;
 }
 
 .player7-pot-mid-enter-active {
   z-index: 33;
   position: fixed;
-  top: 41.5vh;
-  left: 74vw;
+  top: 45.5vh;
+  left: 73vw;
   transition: all 1000ms;
 }
 
 .player7-pot-mid-exit {
   z-index: 33;
   position: fixed;
-  top: 41.5vh;
-  left: 74vw;
+  top: 45.5vh;
+  left: 73vw;
 }
 
 .player7-pot-mid-exit-active {
