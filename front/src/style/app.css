@@ -14277,7 +14277,7 @@ em-spades {
   position: fixed;
   font-size: 0.68em;
   top: 16.6vh;
-  left: 7.6vw;
+  left: 8.6vw;
   padding: 4px 10px;
   border: 1px solid red;
   border-radius: 10px;
@@ -14287,7 +14287,7 @@ em-spades {
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #request-more-time-button {
     font-size: 0.68em;
-    top: 30vh;
+    top: 45vh;
     left: 1vw;
     max-width: 12vw;
     padding: 4px 10px;
