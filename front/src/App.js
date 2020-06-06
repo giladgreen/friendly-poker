@@ -745,20 +745,6 @@ class App extends Component {
 
     wrapWithAlerts = (item)=>{
         return <div>
-            {item}
-            <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
-            <img id="app-name" src="./friendly-poker.png" onClick={()=>window.location = serverPrefix}/>
-            <div id="app-version" > v{ version }</div>
-            <Confirm show={this.state.popupData.show} message={this.state.popupData.message} onYes={this.state.popupData.onYes} onCancel={this.onCancelPopUp} />
-            <audio id='fold-audio' src="./fold.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='two-taps-audio' src="./two-taps.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='beep-audio' src="./beep.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='card-place-audio1' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='card-place-audio2' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='card-place-audio3' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='card-place-audio45' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <audio id='chips-audio' src="./chips.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <div id="connection-status" className={this.state.connected ? 'connected-to-server':'connecting-to-server'}> { this.state.connected ? 'Connected' : 'Connecting..'}</div>
             <div id="bottom-line">
                 <div>1</div>
                 <div>2</div>
@@ -774,6 +760,21 @@ class App extends Component {
                 <div>12</div>
                 <div>13</div>
             </div>
+            {item}
+            <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
+            <img id="app-name" src="./friendly-poker.png" onClick={()=>window.location = serverPrefix}/>
+            <div id="app-version" > v{ version }</div>
+            <Confirm show={this.state.popupData.show} message={this.state.popupData.message} onYes={this.state.popupData.onYes} onCancel={this.onCancelPopUp} />
+            <audio id='fold-audio' src="./fold.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='two-taps-audio' src="./two-taps.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='beep-audio' src="./beep.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio1' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio2' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio3' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='card-place-audio45' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <audio id='chips-audio' src="./chips.mp3" preload="auto" controls="none" style={{display:'none'}}/>
+            <div id="connection-status" className={this.state.connected ? 'connected-to-server':'connecting-to-server'}> { this.state.connected ? 'Connected' : 'Connecting..'}</div>
+
         </div>
     };
 
