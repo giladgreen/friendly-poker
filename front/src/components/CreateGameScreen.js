@@ -67,7 +67,7 @@ class CreateGameScreen extends Component {
 
     onCreate = ()=>{
         const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError} = this.state;
-        if (!this.props.connected || showNameError || showBuyInError || showSmallBlindError || showBigBlindError || showTimeError){
+        if (!this.props.connected || showNameError || !this.state.name || this.state.name.length === 0 || showBuyInError || showSmallBlindError || showBigBlindError || showTimeError){
             return;
         }
         localStorage.setItem('myName',this.state.name);
