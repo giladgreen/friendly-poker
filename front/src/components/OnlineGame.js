@@ -964,7 +964,7 @@ class OnlineGame extends Component {
                     this.setState({chatFocused:false});
                 }} >send</div>)}
                 {/* chat box input */}
-                { (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box">
+                { this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box">
                     {messages}
                 </div>}
 
