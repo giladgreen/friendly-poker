@@ -16692,8 +16692,8 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-info {
-    height: 10vh;
-    width: 11vw;
+    height: 12vh;
+    width: 13vw;
     padding-top: 2px;
     padding-bottom: 2px;
     font-size: 0.66em;
@@ -16717,6 +16717,16 @@ em-spades {
   font-weight: bold;
   border-radius: 15px;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .active-player-info {
+    border-radius: 8px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .active-player-info {
+    border-radius: 8px;
+  }
+}
 
 .winner-player {
   background: #FF5A5ACC;
@@ -16724,6 +16734,16 @@ em-spades {
   color: black;
   font-weight: bold;
   border-radius: 15px;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .winner-player {
+    border-radius: 8px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .winner-player {
+    border-radius: 8px;
+  }
 }
 
 #small-blind-button {
@@ -16869,8 +16889,8 @@ em-spades {
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-status {
     font-size: 0.8em;
-    width: 7vw;
-    height: 2.5vw;
+    width: 9vw;
+    height: 2.9vw;
     padding-top: 0px;
     font-weight: normal;
   }
@@ -16887,8 +16907,18 @@ em-spades {
 
 .player-name {
   margin-left: -2vw;
-  padding-left: 2vw;
+  padding-left: 2.2vw;
   border-bottom: 1px solid #00000033;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .player-name {
+    font-size: 0.9em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .player-name {
+    font-size: 0.9em;
+  }
 }
 
 .trophy-badge {
@@ -17136,6 +17166,20 @@ em-spades {
     height: 0.7em;
   }
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .player-sitOut-indication {
+    width: 18vw;
+    height: 2.4vw;
+    font-size: 0.8em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .player-sitOut-indication {
+    width: 18vw;
+    height: 2.4vw;
+    font-size: 0.8em;
+  }
+}
 
 .player-hand-description {
   position: absolute;
@@ -17165,10 +17209,10 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-hand-description {
-    width: 31vw;
-    height: 4vw;
+    width: 37vw;
+    height: 6vw;
     padding-top: 1px;
-    font-size: 0.6em;
+    font-size: 0.4em;
   }
 }
 @media only screen and (max-width: 530px) {

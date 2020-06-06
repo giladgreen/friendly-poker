@@ -458,8 +458,8 @@ $players-dealer-button-left: (
     color: #6c757d;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        height: 10vh;
-        width: 11vw;
+        height: 12vh;
+        width: 13vw;
         padding-top: 2px;
         padding-bottom: 2px;
         font-size: 0.66em;
@@ -480,6 +480,12 @@ $players-dealer-button-left: (
     color: red;
     font-weight: bold;
     border-radius: 15px;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        border-radius: 8px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        border-radius: 8px;
+    }
 
 }
 .winner-player{
@@ -488,6 +494,12 @@ $players-dealer-button-left: (
     color: black;
     font-weight: bold;
     border-radius: 15px;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        border-radius: 8px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        border-radius: 8px;
+    }
 }
 
 #small-blind-button{
@@ -582,8 +594,8 @@ $players-dealer-button-left: (
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         font-size: 0.8em;
-        width: 7vw;
-        height: 2.5vw;
+        width: 9vw;
+        height: 2.9vw;
         padding-top: 0px;
         font-weight: normal;
     }
@@ -597,8 +609,14 @@ $players-dealer-button-left: (
 }
 .player-name{
     margin-left: -2vw;
-    padding-left: 2vw;
+    padding-left: 2.2vw;
     border-bottom: 1px solid #00000033;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+       font-size: 0.9em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        font-size: 0.9em;
+    }
 }
 .trophy-badge{
     position: absolute;
@@ -738,6 +756,17 @@ $players-dealer-button-left: (
     text-align: center;
     top:13.7vh;
     left:0vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        width: 18vw;
+        height: 2.4vw;
+        font-size: 0.8em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        width: 18vw;
+        height: 2.4vw;
+        font-size: 0.8em;
+    }
 }
 
 .player-hand-description{
@@ -757,10 +786,10 @@ $players-dealer-button-left: (
     left:0vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        width: 31vw;
-        height: 4vw;
+        width: 37vw;
+        height: 6vw;
         padding-top: 1px;
-        font-size: 0.6em;
+        font-size: 0.4em;
     }
     @media only screen and (max-width: $mobile-vertical) {
         width: 21vw;
