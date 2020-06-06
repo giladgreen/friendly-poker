@@ -3,6 +3,7 @@
 import React from 'react'
 import Card from "./Card";
 import { CSSTransition } from "react-transition-group";
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const PlayerInfo = (props) => {
@@ -38,7 +39,7 @@ const PlayerInfo = (props) => {
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
-                    {player.name} {player.isMobile ? ' 📱':' 🖥️'}
+                    {player.name} {!isMobile ? (player.isMobile ? ' 📱':' 🖥️') : ''}
                 </div>
                 <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
                       {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/img-has-alt */
 import React from 'react'
-const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 const Card = (props) => {
     const { card, folded, first, second, third, fourth, highlight, shown, isMe, texas, omaha, pineapple, playerPreferences, index, initial,dropEnabled, dropCard } = props;
