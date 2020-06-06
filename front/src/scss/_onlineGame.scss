@@ -1196,18 +1196,52 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 
     }
     #messages-box{
-        visibility: hidden;
+        position: fixed;
+        bottom: 0vh;
+        left: 0vw;
+        width: 35vw;
+        height: 10.7vh;
+        border: 1px solid #666666;
+        border-radius: 3px;
+
+        padding-left: 2px;
+        padding-top: 2px;
+        padding-bottom: 1px;
+        background: #444444;
+        font-size: 0.2em;
+        z-index: 999999;
     }
 
     #chat-header{
         visibility: hidden;
     }
     #chat-input{
-        visibility: hidden;
+        position: fixed;
+        bottom: 10.8vh;
+        left: 0vw;
+        width: 30vw;
+        padding-left: 4px;
+        border-radius: 8px 0px 0px 0px;
+        height: 3.9vh;
+        z-index: 999999;
+        font-size: 0.3em;
     }
 
     #send-message-button{
-        visibility: hidden;
+        position: fixed;
+        bottom: 10.8vh;
+        left: 30vw;
+        width: 5vw;
+        color: white;
+        height: 3.88vh;
+        border: 2px solid white;
+        border-radius: 0px 8px 0px 0px;
+        cursor: pointer;
+        text-align: center;
+        padding-top: 1px;
+        background: black;
+        font-size: 0.1em;
+        z-index: 999999;
     }
 
 

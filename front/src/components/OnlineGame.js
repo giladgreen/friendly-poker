@@ -938,6 +938,7 @@ class OnlineGame extends Component {
 
                 <div id="chat-header" > <span className="shortcut">M</span>essages </div>
                 {/* chat box input */}
+                {this.state.raiseEnabled ? <div/> : (
                 <input id="chat-input"
                        type="text"
                        value={this.state.chatMessage}
@@ -956,12 +957,12 @@ class OnlineGame extends Component {
                                 },120)
                             }
                         }}
-                />
+                />)}
                 {/* chat box send button */}
-                <div id="send-message-button" onClick={()=>{
+                {this.state.raiseEnabled ? <div/> : (<div id="send-message-button" onClick={()=>{
                     this.onSendMessage();
                     this.setState({chatFocused:false});
-                }} >send</div>
+                }} >send</div>)}
                 {/* chat box input */}
                 <div id="messages-box">
                     {messages}

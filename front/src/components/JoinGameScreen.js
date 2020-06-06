@@ -3,6 +3,7 @@
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import React, { Component } from 'react';
 import Loader from "../containers/Loader";
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 class JoinGameScreen extends Component {
 
@@ -149,9 +150,9 @@ class JoinGameScreen extends Component {
 
                                             id={`join-table-existing-player-${index+1}`}
                                             className="existing-player">
-                                            <div id={gamesWonId} className="player-games-won-hidden"> {player.handsWon}<EmojiEventsIcon/></div>
+                                            {!isMobile ? <div id={gamesWonId} className="player-games-won-hidden"> {player.handsWon}<EmojiEventsIcon/></div> : <div/>}
                                             <div className={longName ? 'long-name' : 'short-name'} > {player.name}</div>
-                                            <div id={balanceId} className={`player-games-won-hidden ${longName ? 'player-games-won-long-name':'player-games-won-short-name'}`} >{player.balance}</div>
+                                            {!isMobile ? <div id={balanceId} className={`player-games-won-hidden ${longName ? 'player-games-won-long-name':'player-games-won-short-name'}`} >{player.balance}</div>: <div/>}
                                 </div>
                             })
                         }
