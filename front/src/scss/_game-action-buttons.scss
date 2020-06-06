@@ -74,7 +74,7 @@ $button-height: 7vh;
 
     @mixin game-button{
         position: fixed;
-        top: $button-top;
+        top: $button-top + 1;
         height: 7vh;
         width: 10vw;
         text-align: left;
