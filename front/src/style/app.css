@@ -11116,11 +11116,18 @@ body {
   left: 0.1vw;
 }
 
-.card-sign {
+.card-sign-2-cards {
   font-size: 0.7em;
   position: relative;
   bottom: 0.8vw;
-  left: 1.3vw;
+  left: 1vw;
+}
+
+.card-sign-3-4-cards {
+  font-size: 0.5em;
+  position: relative;
+  bottom: 0.55vw;
+  left: 0.15vw;
 }
 
 .em, .em-svg {
@@ -11192,11 +11199,18 @@ em-spades {
     top: -4px;
   }
 
-  .card-sign {
-    font-size: 0.5em;
+  .card-sign-2-cards {
+    font-size: 0.4em;
     position: relative;
     bottom: 1.3vw;
-    left: 1vw;
+    left: 1.1vw;
+  }
+
+  .card-sign-3-4-cards {
+    font-size: 0.4em;
+    position: relative;
+    bottom: 1.5vw;
+    left: 0.2vw;
   }
 
   .simple-card-front {
@@ -11227,11 +11241,18 @@ em-spades {
     left: 1px;
   }
 
-  .card-sign {
+  .card-sign-2-cards {
     font-size: 0.7em;
     position: relative;
-    bottom: 1.5vw;
-    left: 1px;
+    bottom: 1.3vw;
+    left: 1vw;
+  }
+
+  .card-sign-3-4-cards {
+    font-size: 0.5em;
+    position: relative;
+    bottom: 1vw;
+    left: 0.2vw;
   }
 
   .simple-card-front {

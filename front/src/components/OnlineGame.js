@@ -660,11 +660,11 @@ class OnlineGame extends Component {
                     <div id="community-card-deck1" ><Card playerPreferences={this.state.playerPreferences}/></div>
                     <div id="community-card-deck2" ><Card playerPreferences={this.state.playerPreferences}/></div>
                     <div id="community-card-deck3" ><Card playerPreferences={this.state.playerPreferences}/></div>
-                    {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[0]}/></div> }
-                    {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[1]}/></div> }
-                    {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[2]}/></div> }
-                    {board[3] && <div id="community-card-4" className={winningHandCards.includes(board[3]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[3]}/></div> }
-                    {board[4] && <div id="community-card-5" className={winningHandCards.includes(board[4]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences}  card={board[4]}/></div> }
+                    {board[0] && <div id="community-card-1" className={winningHandCards.includes(board[0]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences} texas={true} card={board[0]}/></div> }
+                    {board[1] && <div id="community-card-2" className={winningHandCards.includes(board[1]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences} texas={true} card={board[1]}/></div> }
+                    {board[2] && <div id="community-card-3" className={winningHandCards.includes(board[2]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences} texas={true} card={board[2]}/></div> }
+                    {board[3] && <div id="community-card-4" className={winningHandCards.includes(board[3]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences} texas={true} card={board[3]}/></div> }
+                    {board[4] && <div id="community-card-5" className={winningHandCards.includes(board[4]) ? 'highlight-card':''}><Card playerPreferences={this.state.playerPreferences} texas={true} card={board[4]}/></div> }
                 </div>}
 
                 {/* action buttons */}
