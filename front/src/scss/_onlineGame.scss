@@ -12,6 +12,16 @@
     width: 100vw;
     height: 100vh;
     position:fixed;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        height: 130vh;
+        background-color: black; /* For browsers that do not support gradients */
+        background-image: linear-gradient(to right, black, #774444AA, black); /* Standard syntax (must be last) */
+
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        height: 150vh;
+    }
 }
 .pointer-copy{
     cursor: copy;

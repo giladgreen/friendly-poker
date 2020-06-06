@@ -18,6 +18,18 @@ $mobile-vertical: 530px;
 .App {
   text-align: center;
 }
+#bottom-line{
+  z-index: 0;
+  position: absolute;
+  top: 0vh;
+  left:0;
+  width: 100vw;
+  height: 200vh;
+  background: transparent;
+  color: transparent;
+  font-size: 2em;
+
+}
 #not-supported-screen{
   background: black;
   color: white;
