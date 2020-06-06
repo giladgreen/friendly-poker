@@ -295,11 +295,11 @@ $players-dealer-button-left: (
     animation-duration: 2s;
     animation-fill-mode: both;
     @if ($first){
-        @include first-player-card($index);
+        //@include first-player-card($index);
         animation-name: player#{$index}-first-card-texas-anim;
         animation-delay: 0s;
     } @else {
-        @include second-player-card($index);
+        //@include second-player-card($index);
         animation-name: player#{$index}-second-card-texas-anim;
         animation-delay: 0.5s;
     }

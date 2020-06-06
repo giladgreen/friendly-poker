@@ -379,7 +379,7 @@ class App extends Component {
                 }
             }
             gameClone.players.forEach(p=>{
-                p.cardsToShow = newHand ? 0 : 2;
+                p.cardsToShow = newHand && gameClone.texas ? 0 : 2;
             });
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver && game.gamePhase === 0});
             if (newHand){

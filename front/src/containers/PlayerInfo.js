@@ -25,11 +25,14 @@ const PlayerInfo = (props) => {
     const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
     const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
+    console.log(' index ',index, ' texas ',game.texas, ' initial ',initial)
+
+
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
 
-            {cardsToShow > 0 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card1)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} omaha={game.omaha}  pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
-            {cardsToShow > 1 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card2)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
+            {cardsToShow > 0 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card1)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} texas={game.texas}  omaha={game.omaha}  pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
+            {cardsToShow > 1 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card2)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} texas={game.texas}  omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
             {(game.omaha || game.pineapple) && cardsToShow > 1 && <Card dropEnabled={dropEnabled}  dropCard={()=>props.dropCard(card3)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
             {game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
 

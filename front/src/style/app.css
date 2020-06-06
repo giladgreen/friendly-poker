@@ -15431,11 +15431,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 65vh;
-  left: 44vw;
   animation-name: player1-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -15444,11 +15439,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 65vh;
-  left: 47vw;
   animation-name: player1-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -15589,11 +15579,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 61vh;
-  left: 23vw;
   animation-name: player2-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -15602,11 +15587,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 61vh;
-  left: 26vw;
   animation-name: player2-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -15747,11 +15727,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 36vh;
-  left: 9vw;
   animation-name: player3-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -15760,11 +15735,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 36vh;
-  left: 12vw;
   animation-name: player3-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -15905,11 +15875,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 14vh;
-  left: 23vw;
   animation-name: player4-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -15918,11 +15883,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 14vh;
-  left: 26vw;
   animation-name: player4-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -16063,11 +16023,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 9vh;
-  left: 44vw;
   animation-name: player5-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -16076,11 +16031,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 9vh;
-  left: 47vw;
   animation-name: player5-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -16221,11 +16171,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 14vh;
-  left: 66vw;
   animation-name: player6-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -16234,11 +16179,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 14vh;
-  left: 69vw;
   animation-name: player6-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -16379,11 +16319,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 36vh;
-  left: 80vw;
   animation-name: player7-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -16392,11 +16327,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 36vh;
-  left: 83vw;
   animation-name: player7-second-card-texas-anim;
   animation-delay: 0.5s;
 }
@@ -16537,11 +16467,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(-8deg);
-  position: fixed;
-  top: 61vh;
-  left: 66vw;
   animation-name: player8-first-card-texas-anim;
   animation-delay: 0s;
 }
@@ -16550,11 +16475,6 @@ em-spades {
   position: fixed;
   animation-duration: 2s;
   animation-fill-mode: both;
-  z-index: 30;
-  transform: rotate(8deg);
-  position: fixed;
-  top: 61vh;
-  left: 69vw;
   animation-name: player8-second-card-texas-anim;
   animation-delay: 0.5s;
 }

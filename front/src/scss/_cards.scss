@@ -163,15 +163,11 @@ $first-card-z-index: 20;
     left: 1.1vw;
 }
 .third-card{
-
-
     z-index: $first-card-z-index + 1;
     position: absolute;
     left: -1.7vw;
 }
 .fourth-card{
-
-
     z-index: $first-card-z-index;
     position: absolute;
     left: -4.6vw;
