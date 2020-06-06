@@ -24,6 +24,7 @@ const serverPrefix = localhost ?  'http://localhost:3000' : window.location.orig
 
 const ONLINE_GAME_ID = 'gameid';
 
+const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 // eslint-disable-next-line
 Date.prototype.AsGameName = function() {
@@ -716,6 +717,7 @@ class App extends Component {
             gameType,
             straddleEnabled,
             timeBankEnabled,
+            isMobile,
         });
 
         this.setState({ gameId, game: null })
@@ -730,6 +732,7 @@ class App extends Component {
             name,
             balance,
             positionIndex,
+            isMobile,
             now: (new Date()).getTime()
         });
 
@@ -764,7 +767,6 @@ class App extends Component {
     };
 
     render() {
-        const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 
         if (this.state.Incognito){

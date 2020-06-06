@@ -38,7 +38,7 @@ const PlayerInfo = (props) => {
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
-                    {player.name}
+                    {player.name} {player.isMobile ? '(mobile)':''}
                 </div>
                 <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
                       {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}

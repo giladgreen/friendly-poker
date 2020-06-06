@@ -325,7 +325,7 @@ class OnlineGame extends Component {
         const newState = {
             gameName,
             me,
-            chosenGame: isNextDealer ? this.state.chosenGame:'TEXAS',
+            chosenGame: this.state.chosenGame || 'TEXAS',
             isNextDealer,
             isNextStraddle,
             showingCards,
@@ -564,6 +564,11 @@ class OnlineGame extends Component {
     }
     render() {
         const { options, cheapLeader, me, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName} = this.state;
+        if (chosenGame !== 'TEXAS'){
+            setTimeout(()=>{
+                this.props.dealerChooseGame(chosenGame);
+            },150);
+        }
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy, dealerChoice} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
