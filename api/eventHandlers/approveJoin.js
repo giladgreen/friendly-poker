@@ -47,6 +47,7 @@ function onApproveJoinEvent(socket, {
           id: pendingJoinItem.playerId,
           name: pendingJoinItem.name,
           balance: pendingJoinItem.balance,
+          isMobile: pendingJoinItem.isMobile,
           sitOut: true,
           handsWon: 0,
           pot: [0],

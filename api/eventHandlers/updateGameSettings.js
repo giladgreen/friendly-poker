@@ -4,9 +4,9 @@ const { updateGamePlayers } = require('../helpers/game');
 const BadRequest = require('../errors/badRequest');
 
 function onUpdateGameSettingsEvent(socket, {
-  gameId, now, playerId, time, smallBlind, bigBlind, newBalances = [],
+  gameId, now, playerId, time, smallBlind, bigBlind, newBalances = [], requireRebuyApproval, straddleEnabled, timeBankEnabled,
 }) {
-  logger.info('onUpdateGameSettingsEvent ', gameId, now, playerId, time, smallBlind, bigBlind, newBalances);
+  logger.info('onUpdateGameSettingsEvent ', gameId, now, playerId, time, smallBlind, bigBlind, requireRebuyApproval, straddleEnabled, timeBankEnabled, newBalances);
 
   try {
     socket.playerId = playerId;
@@ -24,9 +24,23 @@ function onUpdateGameSettingsEvent(socket, {
       throw new BadRequest('non admin player cannot change game settings');
     }
 
-    game.timePendingChane = time;
-    game.smallBlindPendingChane = smallBlind;
-    game.bigBlindPendingChane = bigBlind;
+    if (game.startDate) {
+      // change next hand
+      game.smallBlindPendingChange = smallBlind;
+      game.bigBlindPendingChange = bigBlind;
+      game.requireRebuyApprovalPendingChange = requireRebuyApproval;
+      game.straddleEnabledPendingChange = straddleEnabled;
+      game.timeBankEnabledPendingChange = timeBankEnabled;
+      game.timePendingChange = timeBankEnabled ? 20 : time;
+    } else {
+      // change now
+      game.time = timeBankEnabled ? 20 : time;
+      game.smallBlind = smallBlind;
+      game.bigBlind = bigBlind;
+      game.requireRebuyApproval = requireRebuyApproval;
+      game.straddleEnabled = straddleEnabled;
+      game.timeBankEnabled = timeBankEnabled;
+    }
 
 
     newBalances.forEach(({ fromPlayerId, toPlayerId, amount }) => {

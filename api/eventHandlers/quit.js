@@ -1,4 +1,5 @@
 const logger = require('../services/logger');
+const GamesService = require('../services/games');
 const { updateGamePlayers } = require('../helpers/game');
 const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
@@ -31,6 +32,7 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
     game.players = game.players.filter(p => p.id !== playerId);
     if (game.players.filter(p => !p.sitOut).length < 2) {
       game.paused = true;
+      GamesService.pauseHandTimer(game);
     }
     let bottomLine = playerData.cashOut.amount - playerData.totalBuyIns;
     bottomLine = bottomLine > 0 ? `+${bottomLine}` : bottomLine;

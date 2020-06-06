@@ -4,7 +4,7 @@ const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 
 function onJoinGameEvent(socket, {
-  gameId, playerId, name, balance, now, positionIndex,
+  gameId, playerId, name, balance, now, positionIndex, isMobile
 }) {
   logger.info('onJoinGameEvent ');
 
@@ -27,15 +27,15 @@ function onJoinGameEvent(socket, {
     if (game.players.some(p => p.name === name)) {
       name = `${name} (2)`;
     }
-    if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
+    if (game.requireRebuyApproval && playerId !== adminPlayer.id) {
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
         throw new BadRequest('did not find admin socket');
       }
       game.pendingJoin.push({
-        playerId, name, balance, positionIndex,
+        playerId, name, balance, positionIndex, isMobile,
       });
-      socket.emit('operationpendingaproval');
+      socket.emit('operationpendingapproval');
       game.messages.push({
         action: 'pendingjoin', popupMessage: `${name} has requested to join the game`, now,
       });
@@ -53,6 +53,7 @@ function onJoinGameEvent(socket, {
       game.players.splice(positionIndex, 0, {
         id: playerId,
         name,
+        isMobile,
         balance,
         handsWon: 0,
         sitOut: true,

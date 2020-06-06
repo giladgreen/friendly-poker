@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+
 const logger = require('../services/logger');
 const GameHelper = require('../helpers/game');
 const Deck = require('../helpers/deck');
@@ -87,9 +89,12 @@ function startNewHand(game, dateTime) {
     log: `hand started. ${game.players.map(p => `${p.name} has ${p.balance}`).join(', ')}`,
   }];
   game.deck = Deck.getShuffledDeck();
-  game.time = game.timePendingChane || game.time;
-  game.smallBlind = game.smallBlindPendingChane || game.smallBlind;
-  game.bigBlind = game.bigBlindPendingChane || game.bigBlind;
+  game.time = game.timePendingChange || game.time;
+  game.smallBlind = game.smallBlindPendingChange || game.smallBlind;
+  game.bigBlind = game.bigBlindPendingChange || game.bigBlind;
+  game.requireRebuyApproval = game.requireRebuyApprovalPendingChange || game.requireRebuyApproval;
+  game.straddleEnabled = game.straddleEnabledPendingChange || game.straddleEnabled;
+  game.timeBankEnabled = game.timeBankEnabledPendingChange || game.timeBankEnabled;
 
 
   if (game.pendingJoin && game.pendingJoin.length > 0) {
@@ -199,6 +204,7 @@ function startNewHand(game, dateTime) {
   if (playersCount < 2) {
     game.paused = true;
     game.pausedByServer = true;
+    pauseHandTimer(game);
   } else {
     const newDealerIndex = PlayerHelper.getNextActivePlayerIndex(game.players, dealerIndex);
     const newDealer = game.players[newDealerIndex];
@@ -257,10 +263,18 @@ function startNewHand(game, dateTime) {
     }
   }
 
-  if (game.timePendingChane || game.smallBlindPendingChane || game.bigBlindPendingChane) {
-    delete game.timePendingChane;
-    delete game.smallBlindPendingChane;
-    delete game.bigBlindPendingChane;
+  if (game.hasOwnProperty('timePendingChange')
+    || game.hasOwnProperty('smallBlindPendingChange')
+    || game.hasOwnProperty('bigBlindPendingChange')
+    || game.hasOwnProperty('requireRebuyApprovalPendingChange')
+    || game.hasOwnProperty('straddleEnabledPendingChange')
+    || game.hasOwnProperty('timeBankEnabledPendingChange')) {
+    delete game.timePendingChange;
+    delete game.smallBlindPendingChange;
+    delete game.bigBlindPendingChange;
+    delete game.requireRebuyApprovalPendingChange;
+    delete game.straddleEnabledPendingChange;
+    delete game.timeBankEnabledPendingChange;
     game.messages.push({
       action: 'game-settings-change', popupMessage: 'Game Settings Changed',
     });

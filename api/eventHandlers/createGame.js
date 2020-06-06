@@ -24,7 +24,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       pendingJoin: [],
       pendingRebuy: [],
       maxPlayers: 8,
-      requireRebuyAproval: gameCreatorData.requireRebuyAproval || false,
+      requireRebuyApproval: gameCreatorData.requireRebuyApproval || false,
       pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
@@ -48,6 +48,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       players: [{
         id: playerId,
         name: gameCreatorData.name,
+        isMobile: gameCreatorData.isMobile,
         handsWon: 0,
         balance: amount,
         creator: true,

@@ -65,6 +65,7 @@ function onKickOutEvent(socket, {
       game.players = game.players.filter(p => p.id !== playerToKickId);
       if (game.players.filter(p => !p.sitOut).length < 2) {
         game.paused = true;
+        GamesService.pauseHandTimer(game);
       }
       game.messages.push({
         action: 'kickout', popupMessage: `${playerToKick.name} was removed from the game`, log: `${playerToKick.name} was removed from the game by the admin`, now,

@@ -27,7 +27,7 @@ function onRebuyEvent(socket, {
     if (!adminPlayer) {
       throw new BadRequest('did not find admin player');
     }
-    if (game.requireRebuyAproval && playerId !== adminPlayer.id) {
+    if (game.requireRebuyApproval && playerId !== adminPlayer.id) {
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
         throw new BadRequest('did not find admin socket');
