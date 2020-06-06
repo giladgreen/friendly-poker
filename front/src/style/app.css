@@ -11678,7 +11678,6 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div {
-    top: 66vh;
     height: 30vh;
     left: 1vw;
     width: 70vw;
@@ -11687,7 +11686,6 @@ em-spades {
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div {
-    top: 66vh;
     height: 30vh;
     left: 1vw;
     width: 70vw;
@@ -11709,14 +11707,12 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div #choose-pineapple {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div #choose-pineapple {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
@@ -11754,14 +11750,12 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div #choose-omaha {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div #choose-omaha {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
@@ -11807,14 +11801,12 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div #choose-texas {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
 }
 @media only screen and (max-width: 530px) {
   #dealer-choice-div #choose-texas {
-    top: 73vh;
     width: 15vw;
     height: 10vh;
   }
@@ -11900,13 +11892,13 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .DropCardMessage {
-    bottom: 12vh;
+    bottom: 7vh;
     font-size: 1em;
   }
 }
 @media only screen and (max-width: 530px) {
   .DropCardMessage {
-    bottom: 12vh;
+    bottom: 7vh;
     font-size: 1em;
   }
 }
@@ -12104,7 +12096,6 @@ em-spades {
 
   .action-button {
     position: fixed;
-    top: 72vh;
     border: 2px solid grey;
     border-radius: 6px;
     height: 8.3vh;
@@ -12152,12 +12143,11 @@ em-spades {
 
   #check-fold-button {
     right: 2vw;
-    width: 12.5vw;
+    width: 20.5vw;
     position: fixed;
-    top: 72vh;
     border: 2px solid grey;
-    border-radius: 10px;
-    height: 7vh;
+    border-radius: 8px;
+    height: 8vh;
     text-align: center;
     font-weight: bold;
     font-size: 1em;
@@ -12237,7 +12227,6 @@ em-spades {
 
   #raise-input {
     position: fixed;
-    top: 71.9vh;
     right: 64vw;
     height: 5vh;
     width: 18vw;
@@ -12249,7 +12238,7 @@ em-spades {
 
   #raise-input-slider {
     position: fixed;
-    top: 71.8vh;
+    top: 81.18vh;
     right: 64vw;
     width: 18vw;
     z-index: 9;
@@ -12268,7 +12257,6 @@ em-spades {
 
   .action-buttons-second-row {
     position: fixed;
-    top: 82.3vh;
     border: 2px solid grey;
     border-radius: 10px;
     height: 8.3vh;
@@ -12349,7 +12337,7 @@ em-spades {
 
   #check-fold-button {
     right: 2vw;
-    width: 23vw;
+    width: 40vw;
     position: fixed;
     top: 81vh;
     border: 2px solid grey;

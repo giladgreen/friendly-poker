@@ -14,6 +14,7 @@ $button-height: 7vh;
 .action-button{
     position: fixed;
     top: $button-top;
+
     border: 2px solid grey;
     border-radius: 15px;
     height: $button-height;
@@ -58,14 +59,12 @@ $button-height: 7vh;
     color: white;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        top: 66vh;
         height: 30vh;
         left: 1vw;
         width: 70vw;
         font-size: 1em;
     }
     @media only screen and (max-width: $mobile-vertical) {
-        top: 66vh;
         height: 30vh;
         left: 1vw;
         width: 70vw;
@@ -75,7 +74,7 @@ $button-height: 7vh;
 
     @mixin game-button{
         position: fixed;
-        top: 81vh;
+        top: $button-top;
         height: 7vh;
         width: 10vw;
         text-align: left;
@@ -84,12 +83,11 @@ $button-height: 7vh;
         background: black;
         cursor: pointer;
         @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-            top: 73vh;
             width: 15vw;
             height: 10vh;
         }
         @media only screen and (max-width: $mobile-vertical) {
-            top: 73vh;
+
             width: 15vw;
             height: 10vh;
         }
@@ -207,11 +205,11 @@ $button-height: 7vh;
     text-align: center;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        bottom: 12vh;
+        bottom: 7vh;
         font-size: 1em;
     }
     @media only screen and (max-width: $mobile-vertical) {
-        bottom: 12vh;
+        bottom: 7vh;
         font-size: 1em;
     }
 }
@@ -237,6 +235,7 @@ $button-height: 7vh;
     padding-top: 0.7vh;
     cursor: pointer;
     color: white;
+
 }
 
 
@@ -330,6 +329,7 @@ $button-height: 7vh;
     font-weight: bold;
     font-size: 2em;
     border-radius: 0px;
+
 }
 #raise-input-slider{
     position: fixed;
@@ -371,6 +371,7 @@ $button-height: 7vh;
     padding-top: 0.2vh;
     cursor: pointer;
     background-image: linear-gradient(black, #55555555);
+
 }
 
 .action-buttons-second-row:hover{
@@ -397,7 +398,6 @@ $button-height: 7vh;
 }
 
 @include mobile-horizonal {
-    $button-top: 72vh;
     $button-width: 14vw;
     $button-height: 8.3vh;
 
@@ -414,7 +414,7 @@ $button-height: 7vh;
     }
     .action-button {
         position: fixed;
-        top: $button-top;
+
         border: 2px solid grey;
         border-radius: 6px;
         height: $button-height;
@@ -460,12 +460,12 @@ $button-height: 7vh;
 
     #check-fold-button {
         right: 2vw;
-        width: 12.5vw;
+        width: 20.5vw;
         position: fixed;
-        top: $button-top;
+
         border: 2px solid grey;
-        border-radius: 10px;
-        height: 7vh;
+        border-radius: 8px;
+        height: 8vh;
         text-align: center;
         font-weight: bold;
         font-size: 1em;
@@ -541,7 +541,7 @@ $button-height: 7vh;
 
     #raise-input {
         position: fixed;
-        top: $button-top - 0.1;
+
         right: 64vw;
         height: 5vh;
         width: 18vw;
@@ -552,7 +552,7 @@ $button-height: 7vh;
     }
     #raise-input-slider {
         position: fixed;
-        top: $button-top - 0.2;
+        top: $button-top + 0.18;
         right: 64vw;
         width: 18vw;
         z-index: 9;
@@ -572,7 +572,7 @@ $button-height: 7vh;
 
     .action-buttons-second-row {
         position: fixed;
-        top: $button-top + $button-height + 2;
+
         border: 2px solid grey;
         border-radius: 10px;
         height: $button-height;
@@ -654,7 +654,7 @@ $button-height: 7vh;
 
     #check-fold-button {
         right: 2vw;
-        width: 23vw;
+        width: 40vw;
         position: fixed;
         top: 81vh;
         border: 2px solid grey;
