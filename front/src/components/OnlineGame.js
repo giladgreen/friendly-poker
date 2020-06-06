@@ -938,7 +938,7 @@ class OnlineGame extends Component {
 
                 <div id="chat-header" > <span className="shortcut">M</span>essages </div>
                 {/* chat box input */}
-                {this.state.raiseEnabled ? <div/> : (
+                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
                 <input id="chat-input"
                        type="text"
                        value={this.state.chatMessage}
@@ -959,14 +959,14 @@ class OnlineGame extends Component {
                         }}
                 />)}
                 {/* chat box send button */}
-                {this.state.raiseEnabled ? <div/> : (<div id="send-message-button" onClick={()=>{
+                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (<div id="send-message-button" onClick={()=>{
                     this.onSendMessage();
                     this.setState({chatFocused:false});
                 }} >send</div>)}
                 {/* chat box input */}
-                <div id="messages-box">
+                { (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box">
                     {messages}
-                </div>
+                </div>}
 
                 {game.paused ? <GamePauseScreen  resumeGame={this.props.resumeGame}
                                                  isAdmin={this.props.isAdmin}
