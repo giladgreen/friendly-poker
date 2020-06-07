@@ -1,28 +1,21 @@
 const logger = require('../services/logger');
-const Mappings = require('../Maps');
 const { updateGamePlayers } = require('../helpers/game');
-const BadRequest = require('../errors/badRequest');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+
+const {
+  TIME_BANK_DEFAULT,
+} = require('../consts');
 
 function onUpdateGameSettingsEvent(socket, {
-  gameId, now, playerId, time, smallBlind, bigBlind, newBalances = [], requireRebuyApproval, straddleEnabled, timeBankEnabled,
+  gameId, now, playerId, time, smallBlind, bigBlind,
+  newBalances = [], requireRebuyApproval, straddleEnabled, timeBankEnabled,
 }) {
   logger.info('onUpdateGameSettingsEvent ', gameId, now, playerId, time, smallBlind, bigBlind, requireRebuyApproval, straddleEnabled, timeBankEnabled, newBalances);
 
   try {
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
-    if (!player.admin) {
-      throw new BadRequest('non admin player cannot change game settings');
-    }
+    const { game } = extractRequestGameAndPlayer({
+      socket, gameId, playerId, adminOperation: true,
+    });
 
     if (game.startDate) {
       // change next hand
@@ -31,10 +24,10 @@ function onUpdateGameSettingsEvent(socket, {
       game.requireRebuyApprovalPendingChange = requireRebuyApproval;
       game.straddleEnabledPendingChange = straddleEnabled;
       game.timeBankEnabledPendingChange = timeBankEnabled;
-      game.timePendingChange = timeBankEnabled ? 20 : time;
+      game.timePendingChange = timeBankEnabled ? TIME_BANK_DEFAULT : time;
     } else {
       // change now
-      game.time = timeBankEnabled ? 20 : time;
+      game.time = timeBankEnabled ? TIME_BANK_DEFAULT : time;
       game.smallBlind = smallBlind;
       game.bigBlind = bigBlind;
       game.requireRebuyApproval = requireRebuyApproval;
@@ -47,24 +40,56 @@ function onUpdateGameSettingsEvent(socket, {
       const fromPlayer = game.players.find(p => p.id === fromPlayerId);
       const toPlayer = game.players.find(p => p.id === toPlayerId);
       if (!fromPlayer || !toPlayer) {
-        throw new BadRequest('player not found');
+        logger.error('new balance failed - did not found one of the players');
+        return;
       }
       if (fromPlayer.balance < amount) {
-        throw new BadRequest('origin player does not have enough money');
+        logger.error('new balance failed - origin player does not have enough money');
+        return;
       }
 
       fromPlayer.balance -= amount;
       toPlayer.balance += amount;
-      const msg = `admin moved ${amount} from ${fromPlayer.name} to ${toPlayer.name}`;
+      const msg = `admin has transferred ${amount} from ${fromPlayer.name} to ${toPlayer.name}`;
       logger.info(msg);
       game.messages.push({
-        action: 'balance transfer', name: player.name, popupMessage: msg, log: msg, now,
+        action: 'balance transfer', popupMessage: msg, log: msg, now,
       });
     });
 
-    const msg = `admin changed game settings. Small-Blind:${smallBlind}, Big-Blind:${bigBlind}, time:${time}`;
+    const msg = 'admin changed game settings.';
+
     game.messages.push({
-      action: 'settings change', log: msg, popupMessage: 'admin changed game settings', now,
+      action: 'settings change',
+      log: msg,
+      popupMessage: msg,
+      now,
+    });
+
+    game.messages.push({
+      action: 'settings change',
+      log: `new small: ${smallBlind},`,
+      now,
+    });
+    game.messages.push({
+      action: 'settings change',
+      log: `new big: ${bigBlind}, `,
+      now,
+    });
+    game.messages.push({
+      action: 'settings change',
+      log: `new time: ${time} ${timeBankEnabled ? '(time bank)' : ''}, `,
+      now,
+    });
+    game.messages.push({
+      action: 'settings change',
+      log: `straddle: ${straddleEnabled ? 'Enabled' : 'No'}, `,
+      now,
+    });
+    game.messages.push({
+      action: 'settings change',
+      log: `require Join/Rebuy Approval: ${requireRebuyApproval ? 'Yes' : 'No'} `,
+      now,
     });
 
     updateGamePlayers(game);

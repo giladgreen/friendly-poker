@@ -1,26 +1,19 @@
 const logger = require('../services/logger');
 const GamesService = require('../services/games');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+
 const { updateGamePlayers } = require('../helpers/game');
-const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 
 function onQuitEvent(socket, { playerId, gameId, now }) {
   try {
     logger.info('onQuitEvent');
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
+    const { game, player } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
+    });
 
     if (player.admin && game.players.length > 1) {
-      throw new BadRequest("admin can't quit yet");
+      throw new BadRequest("admin can't quit while there are still other players");
     }
 
     const playerData = game.playersData.find(p => p.id === playerId);

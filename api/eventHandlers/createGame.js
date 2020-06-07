@@ -1,30 +1,32 @@
+const { isBot } = require('../helpers/handlers');
 const GameHelper = require('../helpers/game');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const {
-  TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE,
+  TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE, TIME_BANK_DEFAULT, TABLE_MAX_PLAYERS, TIME_BANK_INITIAL_VALUE,
 } = require('../consts');
 
 function onCreateGameEvent(socket, gameCreatorData) {
-  const { playerId } = gameCreatorData;
-  logger.info('onCreateGameEvent ', playerId);
-  logger.info('onCreateGameEvent gameCreatorData.privateGame', gameCreatorData.privateGame);
-  socket.playerId = playerId;
-  const gameType = gameCreatorData.gameType || TEXAS;
-  Mappings.SaveSocketByPlayerId(playerId, socket);
-  const amount = parseInt(gameCreatorData.balance, 10);
-  const time = gameCreatorData.timeBankEnabled ? 20 : parseInt(gameCreatorData.time, 10);
-  let bot;
-  if (gameCreatorData.name.indexOf('bot0') === 0) {
-    bot = true;
-  }
   try {
+    const { playerId } = gameCreatorData;
+    logger.info('onCreateGameEvent ', playerId);
+    logger.info(`onCreateGameEvent gameCreatorData: ${JSON.stringify(gameCreatorData)}`);
+    socket.playerId = playerId;
+    Mappings.SaveSocketByPlayerId(playerId, socket);
+
+
+    const gameType = gameCreatorData.gameType || TEXAS;
+    const amount = parseInt(gameCreatorData.balance, 10);
+    const time = gameCreatorData.timeBankEnabled ? TIME_BANK_DEFAULT : parseInt(gameCreatorData.time, 10);
+
+
     const newGame = {
       id: gameCreatorData.id,
+      defaultBuyIn: amount,
       pendingJoin: [],
       pendingRebuy: [],
-      maxPlayers: 8,
-      requireRebuyApproval: gameCreatorData.requireRebuyApproval || false,
+      maxPlayers: TABLE_MAX_PLAYERS,
+      requireRebuyApproval: Boolean(gameCreatorData.requireRebuyApproval),
       pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
@@ -32,7 +34,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       timeBankEnabled: gameCreatorData.timeBankEnabled,
       gameType,
       dealerChoice: gameType === DEALER_CHOICE,
-      dealerChoiceNextGame: gameType === TEXAS,
+      dealerChoiceNextGame: TEXAS,
       texas: gameType === TEXAS,
       omaha: gameType === OMAHA,
       pineapple: gameType === PINEAPPLE,
@@ -55,9 +57,8 @@ function onCreateGameEvent(socket, gameCreatorData) {
         admin: true,
         sitOut: true,
         pot: [0],
-        me: true,
-        bot,
-        timeBank: 80,
+        bot: isBot({ name: gameCreatorData.name }),
+        timeBank: TIME_BANK_INITIAL_VALUE,
       }],
       playersData: [{
         id: playerId,

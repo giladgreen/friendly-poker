@@ -1,18 +1,23 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
+const { extractRequestGameAndPlayer, isBot } = require('../helpers/handlers');
+
 const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
+const {
+  TIME_BANK_INITIAL_VALUE,
+} = require('../consts');
 
 function onJoinGameEvent(socket, {
-  gameId, playerId, name, balance, now, positionIndex, isMobile
+  gameId, playerId, name, balance, now, positionIndex, isMobile,
 }) {
   logger.info('onJoinGameEvent ');
 
   try {
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
+    const { game } = extractRequestGameAndPlayer({
+      socket, gameId,
+    });
 
-    const game = Mappings.getGameById(gameId);
     if (game.players.length >= game.maxPlayers) {
       throw new BadRequest('table is full');
     }
@@ -20,21 +25,38 @@ function onJoinGameEvent(socket, {
       throw new BadRequest('already joined game');
     }
 
-    const adminPlayer = game.players.find(p => p.admin);
-    if (!adminPlayer) {
-      throw new BadRequest('did not find admin player');
-    }
     if (game.players.some(p => p.name === name)) {
       name = `${name} (2)`;
     }
-    if (game.requireRebuyApproval && playerId !== adminPlayer.id) {
+
+    const bot = isBot({ name });
+
+    const playerData = {
+      id: playerId,
+      name,
+      balance,
+      isMobile,
+      bot,
+      positionIndex,
+      sitOut: true,
+      handsWon: 0,
+      pot: [0],
+      justJoined: true,
+      timeBank: TIME_BANK_INITIAL_VALUE,
+    };
+
+    if (game.requireRebuyApproval) {
+      const adminPlayer = game.players.find(p => p.admin);
+      if (!adminPlayer) {
+        throw new BadRequest('did not find admin player');
+      }
+
       const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
       if (!adminSocket) {
         throw new BadRequest('did not find admin socket');
       }
-      game.pendingJoin.push({
-        playerId, name, balance, positionIndex, isMobile,
-      });
+      game.pendingJoin.push(playerData);
+
       socket.emit('operationpendingapproval');
       game.messages.push({
         action: 'pendingjoin', popupMessage: `${name} has requested to join the game`, now,
@@ -45,23 +67,8 @@ function onJoinGameEvent(socket, {
       game.messages.push({
         action: 'join', log: msg, popupMessage: `${name} has join the game`,
       });
-
-      let bot;
-      if (name.indexOf('bot0') === 0) {
-        bot = true;
-      }
-      game.players.splice(positionIndex, 0, {
-        id: playerId,
-        name,
-        isMobile,
-        balance,
-        handsWon: 0,
-        sitOut: true,
-        pot: [0],
-        justJoined: true,
-        bot,
-        timeBank: 80,
-      });
+      delete playerData.positionIndex;
+      game.players.splice(positionIndex, 0, playerData);
       game.moneyInGame += balance;
       game.pendingPlayers.push(playerId);
       game.playersData.push({

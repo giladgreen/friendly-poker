@@ -1,26 +1,18 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const Mappings = require('../Maps');
 const GamesService = require('../services/games');
 const { onPlayerActionEvent } = require('./playerAction');
 const BadRequest = require('../errors/badRequest');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 function onPineappleDropCard(socket, {
   playerId, gameId, cardToDrop,
 }) {
   try {
     logger.info('onPineappleDropCard', cardToDrop);
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
+    const { game, player } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
+    });
 
     if (player.cards.length !== 3) {
       throw new BadRequest('already have 2 cards');
@@ -40,7 +32,7 @@ function onPineappleDropCard(socket, {
       action: 'usermessage',
       playerIndex,
       name: player.name,
-      text: '👍',
+      text: "👍 I've dropped a card..",
     });
     if (game.players.filter(p => p.needToThrow).length === 0) {
       clearTimeout(game.pineappleRef);

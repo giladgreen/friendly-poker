@@ -2,21 +2,20 @@ const logger = require('../services/logger');
 const { onPlayerActionEvent } = require('./playerAction');
 const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
-const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 function onStartGameEvent(socket, { gameId, now, playerId }) {
   logger.info('onStartGameEvent ');
 
   try {
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-    const game = Mappings.getGameById(gameId);
+    const { game } = extractRequestGameAndPlayer({
+      socket, gameId, playerId, adminOperation: true,
+    });
+
+
     if (game.players.length < 2) {
       throw new BadRequest('not enough players');
-    }
-    if (!game.players.some(p => p.id === playerId)) {
-      throw new BadRequest('non game player');
     }
 
     GamesService.startNewHand(game, now);

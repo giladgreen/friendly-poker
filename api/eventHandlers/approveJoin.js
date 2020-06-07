@@ -1,74 +1,26 @@
 const logger = require('../services/logger');
-const Mappings = require('../Maps');
+const GamesService = require('../services/games');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 const { updateGamePlayers } = require('../helpers/game');
 const BadRequest = require('../errors/badRequest');
 
 
 function onApproveJoinEvent(socket, {
-  gameId, playerId, joinedPlayerId, balance, now,
+  gameId, playerId, joinedPlayerId, balance, now
 }) {
   logger.info('onApproveJoinEvent ');
 
   try {
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('game not found');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
-    if (!player.admin) {
-      throw new BadRequest('non admin player cannot approve join');
-    }
+    const { game } = extractRequestGameAndPlayer({
+      socket, gameId, playerId, adminOperation: true,
+    });
 
     const pendingRequest = game.pendingJoin.find(data => data.playerId === joinedPlayerId && data.balance === balance);
     if (!pendingRequest) {
       throw new BadRequest('did not find matching pending join request');
     }
     pendingRequest.approved = true;
-    if (game.pendingJoin && game.pendingJoin.length > 0) {
-      game.pendingJoin.filter(data => data.approved).forEach((pendingJoinItem) => {
-        const msg = `${pendingJoinItem.name} has join the game, initial balance of ${pendingJoinItem.balance}`;
-        game.messages.push({
-          action: 'join', log: msg, popupMessage: `${pendingJoinItem.name} has join the game`, now,
-        });
-
-        if (game.players.some(p => p.name === pendingJoinItem.name)) {
-          pendingJoinItem.name = `${pendingJoinItem.name} (2)`;
-        }
-        let bot;
-        if (pendingJoinItem.name.indexOf('bot0') === 0) {
-          bot = true;
-        }
-        game.players.splice(pendingJoinItem.positionIndex, 0, {
-          id: pendingJoinItem.playerId,
-          name: pendingJoinItem.name,
-          balance: pendingJoinItem.balance,
-          isMobile: pendingJoinItem.isMobile,
-          sitOut: true,
-          handsWon: 0,
-          pot: [0],
-          justJoined: true,
-          bot,
-          timeBank: 80,
-        });
-
-        game.moneyInGame += pendingJoinItem.balance;
-        game.pendingPlayers.push(pendingJoinItem.playerId);
-
-        game.playersData.push({
-          id: pendingJoinItem.playerId,
-          name: pendingJoinItem.name,
-          totalBuyIns: pendingJoinItem.balance,
-          buyIns: [{ amount: pendingJoinItem.balance, time: now }],
-        });
-      });
-    }
-    game.pendingJoin = game.pendingJoin.filter(data => !data.approved);
-
+    GamesService.gamePendingJoinings(game, now);
     updateGamePlayers(game);
   } catch (e) {
     if (socket) socket.emit('onerror', { message: 'failed to approve Join', reason: e.message });

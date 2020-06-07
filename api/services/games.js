@@ -1,7 +1,9 @@
 /* eslint-disable no-prototype-builtins */
+/* eslint-disable no-nested-ternary */
 
 const logger = require('../services/logger');
 const GameHelper = require('../helpers/game');
+
 const Deck = require('../helpers/deck');
 const { botActivated, botAction } = require('../helpers/bot');
 const Mappings = require('../Maps');
@@ -18,33 +20,45 @@ function resetHandTimer(game, cb) {
   }
   const time = game.fastForward ? 1700 : (game.currentTimerTime) * 1000 + 300;
   game.timerRef = setTimeout(() => {
-    logger.info('timerRef timeout.   time:', time);
-    if (game.paused) {
-      logger.warn('resetHandTimer: game is paused');
-      return;
-    }
-    if (game.fastForward) {
-      return cb(null, {
-        gameId: game.id,
-      });
-    }
-    const activePlayer = PlayerHelper.getActivePlayer(game);
-
-    if (activePlayer) {
-      const activePlayerSocket = Mappings.GetSocketByPlayerId(activePlayer.id);
-      const op = (activePlayer.options.includes(CHECK) ? CHECK : FOLD);
-      if (activePlayer.bot) {
-        const action = botAction(game, activePlayer);
-        cb(activePlayerSocket, {
-          op: action.op, amount: action.amount, gameId: game.id, hand: game.hand, playerId: activePlayer.id,
-        });
+    try {
+      logger.info('timerRef timeout.   time:', time);
+      if (game.paused) {
+        logger.warn('resetHandTimer: game is paused');
         return;
       }
-      cb(activePlayerSocket, {
-        op, amount: 0, gameId: game.id, hand: game.hand, playerId: activePlayer.id,
-      });
-    } else {
-      logger.warn('resetHandTimer: could not find any active player..', { game });
+      if (game.fastForward) {
+        return cb(null, {
+          gameId: game.id,
+        });
+      }
+      const activePlayer = PlayerHelper.getActivePlayer(game);
+
+      if (activePlayer) {
+        const activePlayerSocket = Mappings.GetSocketByPlayerId(activePlayer.id);
+        const op = (activePlayer.options.includes(CHECK) ? CHECK : FOLD);
+        if (activePlayer.bot) {
+          const action = botAction(game, activePlayer);
+          cb(activePlayerSocket, {
+            op: action.op,
+            amount: action.amount,
+            gameId: game.id,
+            hand: game.hand,
+            playerId: activePlayer.id,
+          });
+          return;
+        }
+        cb(activePlayerSocket, {
+          op,
+          amount: 0,
+          gameId: game.id,
+          hand: game.hand,
+          playerId: activePlayer.id,
+        });
+      } else {
+        logger.warn('resetHandTimer: could not find any active player..', { game });
+      }
+    } catch (e) {
+      logger.error('resetHandTimer: ERROR', e);
     }
   }, time);
 }
@@ -57,6 +71,62 @@ function pauseHandTimer(game) {
 function resumeHandTimer(game) {
   resetHandTimer(game, () => {});
 }
+
+function gamePendingJoinings(game, now) {
+  if (game.pendingJoin && game.pendingJoin.length > 0) {
+    game.pendingJoin.filter(data => data.approved).forEach((pendingJoinItem) => {
+      const msg = `${pendingJoinItem.name} has join the game, initial balance of ${pendingJoinItem.balance}`;
+      game.messages.push({
+        action: 'join', log: msg, popupMessage: `${pendingJoinItem.name} has join the game`, now,
+      });
+
+      if (game.players.some(p => p.name === pendingJoinItem.name)) {
+        pendingJoinItem.name = `${pendingJoinItem.name} (2)`;
+      }
+
+      const { positionIndex } = pendingJoinItem;
+      delete pendingJoinItem.positionIndex;
+      game.players.splice(positionIndex, 0, pendingJoinItem);
+
+      game.moneyInGame += pendingJoinItem.balance;
+      game.pendingPlayers.push(pendingJoinItem.id || pendingJoinItem.playerId);
+
+      game.playersData.push({
+        id: pendingJoinItem.playerId,
+        name: pendingJoinItem.name,
+        totalBuyIns: pendingJoinItem.balance,
+        buyIns: [{ amount: pendingJoinItem.balance, time: now }],
+      });
+    });
+  }
+  game.pendingJoin = game.pendingJoin.filter(data => !data.approved);
+}
+
+function gamePendingRebuys(game, now) {
+  if (game.pendingRebuy && game.pendingRebuy.length > 0) {
+    game.pendingRebuy.filter(data => data.approved).forEach((pendingRebuyItem) => {
+      const playerToAddMoneyTo = game.players.find(p => p.id === pendingRebuyItem.playerId);
+      if (playerToAddMoneyTo) {
+        playerToAddMoneyTo.balance += pendingRebuyItem.amount;
+        if (playerToAddMoneyTo.sitOut && playerToAddMoneyTo.sitOutByServer) {
+          game.pendingPlayers.push(pendingRebuyItem.id || pendingRebuyItem.playerId);
+          delete playerToAddMoneyTo.sitOutByServer;
+        }
+        const playerData = game.playersData.find(p => p.id === pendingRebuyItem.playerId);
+        playerData.buyIns.push({ amount: pendingRebuyItem.amount, time: now });
+        playerData.totalBuyIns += pendingRebuyItem.amount;
+
+        game.moneyInGame += pendingRebuyItem.amount;
+        const msg = `${playerToAddMoneyTo.name} did a rebuy of ${pendingRebuyItem.amount}`;
+        game.messages.push({
+          action: 'rebuy', popupMessage: msg, log: msg, now,
+        });
+      }
+    });
+  }
+  game.pendingRebuy = game.pendingRebuy.filter(data => !data.approved);
+}
+
 
 function startNewHand(game, dateTime) {
   logger.info('startNewHand');
@@ -96,71 +166,13 @@ function startNewHand(game, dateTime) {
   game.straddleEnabled = game.straddleEnabledPendingChange || game.straddleEnabled;
   game.timeBankEnabled = game.timeBankEnabledPendingChange || game.timeBankEnabled;
 
+  gamePendingJoinings(game, dateTime);
 
-  if (game.pendingJoin && game.pendingJoin.length > 0) {
-    game.pendingJoin.filter(data => data.approved).forEach(({
-      playerId, name, balance, positionIndex,
-    }) => {
-      const msg = `${name} has join the game, initial balance of ${balance}`;
-      game.messages.push({
-        action: 'join', popupMessage: `${name} has join the game`, log: msg,
-      });
-      let bot;
-      if (name.indexOf('bot0') === 0) {
-        bot = true;
-      }
-      game.players.splice(positionIndex, 0, {
-        id: playerId,
-        name,
-        balance,
-        sitOut: true,
-        pot: [0],
-        justJoined: true,
-        timeBank: 80,
-        bot,
-      });
-      game.moneyInGame += balance;
-      game.pendingPlayers.push(playerId);
-      game.playersData.push({
-        id: playerId,
-        name,
-        buyIns: [{ amount: balance, time: dateTime }],
-      });
-    });
-  }
-  game.pendingJoin = game.pendingJoin.filter(data => !data.approved);
+  gamePendingRebuys(game, dateTime);
 
-  if (game.pendingRebuy && game.pendingRebuy.length > 0) {
-    game.pendingRebuy.filter(data => data.approved).forEach(({
-      playerId, amount,
-    }) => {
-      const playerToAddMoneyTo = game.players.find(p => p.id === playerId);
-      if (playerToAddMoneyTo) {
-        playerToAddMoneyTo.balance += amount;
-        if (playerToAddMoneyTo.sitOut && playerToAddMoneyTo.sitOutByServer) {
-          game.pendingPlayers.push(playerId);
-          delete playerToAddMoneyTo.sitOutByServer;
-        }
-        const playerData = game.playersData.find(p => p.id === playerId);
-        playerData.buyIns.push({ amount, time: dateTime });
-        game.moneyInGame += amount;
+  const dealerIndex = PlayerHelper.getDealerIndex(game);
 
-        const msg = `${playerToAddMoneyTo.name} did a rebuy of ${amount}`;
-
-        game.messages.push({
-          action: 'rebuy', popupMessage: msg, log: msg,
-        });
-      }
-    });
-  }
-  game.pendingRebuy = game.pendingRebuy.filter(data => !data.approved);
-
-
-  let dealerIndex = -1;
-  game.players.forEach((player, index) => {
-    if (player.dealer) {
-      dealerIndex = index;
-    }
+  game.players.forEach((player) => {
     player.pot = [0, 0, 0, 0];
     player.timeBank += 1;
     delete player.winner;
@@ -182,10 +194,9 @@ function startNewHand(game, dateTime) {
     delete player.small;
     delete player.big;
     delete player.fold;
-    player.needToTalk = !player.fold && !player.sitOut;
+    player.needToTalk = !player.sitOut;
 
     player.options = [];
-    // eslint-disable-next-line no-nested-ternary
     player.cards = [];
     if (!player.sitOut) {
       player.cards.push(game.deck.pop());
@@ -200,7 +211,7 @@ function startNewHand(game, dateTime) {
     }
   });
   game.pendingPlayers = [];
-  const playersCount = PlayerHelper.getActivePlayersStillInGame(game).filter(p => p.balance > 0).length;
+  const playersCount = PlayerHelper.getPotentialPlayersCountForNextHand(game);
   if (playersCount < 2) {
     game.paused = true;
     game.pausedByServer = true;
@@ -256,7 +267,12 @@ function startNewHand(game, dateTime) {
     if (newUnderTheGun.bot) {
       botActivated(game);
     }
-    newUnderTheGun.options = [FOLD, (newUnderTheGun.pot && newUnderTheGun.pot[0] === game.bigBlind ? CHECK : CALL), RAISE];
+    newUnderTheGun.options = [FOLD, (newUnderTheGun.pot && newUnderTheGun.pot[0] === game.amountToCall ? CHECK : CALL)];
+
+    if (newUnderTheGun.balance + newUnderTheGun.pot[0] - game.amountToCall > 0) {
+      newUnderTheGun.options.push(RAISE);
+    }
+
     if (newUnderTheGun.small && newUnderTheGun.allIn) {
       newUnderTheGun.options = [];
       game.currentTimerTime = 1;
@@ -294,6 +310,7 @@ async function restoreGamesFromDB() {
       game.players.forEach((player) => {
         Mappings.SaveGameByPlayerId(player.id, game);
       });
+      resumeHandTimer(game);
     });
   } else {
     logger.info('no games in DB to restore');
@@ -308,15 +325,15 @@ async function deleteOldGames() {
     let shouldDelete = false;
     if (!game.startDate) {
       const gameCreationTime = typeof game.gameCreationTime === 'string' ? parseInt(game.gameCreationTime, 10) : game.gameCreationTime;
-      if (now - gameCreationTime > 30 * MINUTE) {
+      if (now - gameCreationTime > 60 * MINUTE) {
         shouldDelete = true;
       }
     } else {
       const gameLastAction = typeof game.lastAction === 'string' ? parseInt(game.lastAction, 10) : game.lastAction;
-      if (!game.paused && now - gameLastAction > 5 * MINUTE) {
+      if (!game.paused && now - gameLastAction > 15 * MINUTE) {
         shouldDelete = true;
       }
-      if (game.paused && now - gameLastAction > 120 * MINUTE) {
+      if (game.paused && now - gameLastAction > 240 * MINUTE) {
         shouldDelete = true;
       }
     }
@@ -336,4 +353,6 @@ module.exports = {
   restoreGamesFromDB,
   pauseHandTimer,
   resumeHandTimer,
+  gamePendingJoinings,
+  gamePendingRebuys,
 };

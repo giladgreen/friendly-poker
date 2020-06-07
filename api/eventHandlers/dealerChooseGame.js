@@ -1,19 +1,14 @@
 const logger = require('../services/logger');
 const PlayerHelper = require('../helpers/players');
 const BadRequest = require('../errors/badRequest');
-
-const Mappings = require('../Maps');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 const {
   TEXAS, OMAHA, PINEAPPLE,
 } = require('../consts');
 
+// TODO: index
 function getNextDealerId({ players }) {
-  let dealerIndex = -1;
-  players.forEach((player, index) => {
-    if (player.dealer) {
-      dealerIndex = index;
-    }
-  });
+  const dealerIndex = PlayerHelper.getDealerIndex({ players });
 
   const newDealerIndex = PlayerHelper.getNextGamePlayerIndex(players, dealerIndex);
   const newDealer = players[newDealerIndex];
@@ -25,28 +20,20 @@ function onDealerChooseGame(socket, {
 }) {
   try {
     logger.info('onDealerChooseGame', chosenGame);
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
+    const { game } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
+    });
 
     if (!game.dealerChoice) {
-      throw new BadRequest('not a dealer choise game');
+      throw new BadRequest('not a dealer choice game');
     }
 
     if (playerId !== getNextDealerId(game)) {
-      throw new BadRequest('player is not the next dealer');
+      throw new BadRequest(`player is not the next dealer: ${playerId}`);
     }
 
     if (![TEXAS, OMAHA, PINEAPPLE].includes(chosenGame)) {
-      throw new BadRequest('not a valid game to choose');
+      throw new BadRequest(`not a valid game to choose: ${chosenGame}`);
     }
 
     game.dealerChoiceNextGame = chosenGame;

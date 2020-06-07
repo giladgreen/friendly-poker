@@ -1,25 +1,19 @@
 const logger = require('../services/logger');
 const GamesService = require('../services/games');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 const { updateGamePlayers } = require('../helpers/game');
-const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 
 function onStandupEvent(socket, { playerId, gameId, now }) {
   try {
     logger.info('onStandupEvent');
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
+    const { game, player } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
+    });
+    if (player.sitOut) {
+      throw new BadRequest('already sitting out');
     }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
-
     player.sitOut = true;
 
     if (game.players.filter(p => !p.sitOut).length < 2) {

@@ -1,24 +1,17 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 function onSetCreatorAsAdminEvent(socket, {
   playerId, gameId, now,
 }) {
   try {
     logger.info('onSetCreatorAsAdminEvent');
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
+    const { game, player } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
+    });
 
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
 
     if (player.admin) {
       throw new BadRequest('already admin');

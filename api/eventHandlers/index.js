@@ -27,7 +27,7 @@ const { onSetCreatorAsAdminEvent } = require('./setCreatorAsAdmin');
 const { onPineappleDropCard } = require('./pineappleDropCard');
 const { onDealerChooseGame } = require('./dealerChooseGame');
 const { onStraddle } = require('./straddle');
-const { onGetTime } = require('./getTime');
+const { onGetTimeFromBank } = require('./getTime');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -60,7 +60,7 @@ function onConnection(socket) {
   socket.on('pineappledropcard', data => onPineappleDropCard(socket, data));
   socket.on('dealerchoosegame', data => onDealerChooseGame(socket, data));
   socket.on('straddle', data => onStraddle(socket, data));
-  socket.on('gettime', data => onGetTime(socket, data));
+  socket.on('gettime', data => onGetTimeFromBank(socket, data));
 }
 
 module.exports = {

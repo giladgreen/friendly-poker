@@ -21,6 +21,10 @@ const gameStates = {
   RIVER: 3,
 };
 
+const TIME_BANK_DEFAULT = 20;
+const TIME_BANK_INITIAL_VALUE = 80;
+const TABLE_MAX_PLAYERS = 8;
+const PINEAPPLE_THROW_AFTER_SLEEP = 30;
 
 module.exports = {
   ...ops,
@@ -29,4 +33,8 @@ module.exports = {
   CARD: 'Card',
   CARDS: 'Cards',
   ...games,
+  TIME_BANK_DEFAULT,
+  TIME_BANK_INITIAL_VALUE,
+  TABLE_MAX_PLAYERS,
+  PINEAPPLE_THROW_AFTER_SLEEP,
 };

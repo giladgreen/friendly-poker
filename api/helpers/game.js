@@ -20,7 +20,6 @@ function handleFold(game, player) {
 
 function handleCheck(player) {
   logger.info(`${player.name} check`);
-
   player.status = CHECK;
   delete player.needToTalk;
   delete player.active;
@@ -47,6 +46,7 @@ function handleCall(game, player) {
     player.status = ALL_IN;
   }
 }
+
 function getMinRaise(game, me) {
   const amountForMeToCall = game.amountToCall - me.pot[game.gamePhase];
   if (amountForMeToCall > 0) {
@@ -72,8 +72,8 @@ function handleRaise(game, player, amount) {
   }
 
   const minRaise = getMinRaise(game, player);
-  if (amount < minRaise && amount > alreadyInPot + player.balance) {
-    throw new BadRequest('ilegal raise amount');
+  if (amount < minRaise || amount > alreadyInPot + player.balance) {
+    throw new BadRequest('illegal raise amount');
   }
 
   player.status = player.options.includes('Call') || game.gamePhase === 0 ? RAISE : BET;
@@ -106,7 +106,7 @@ async function saveGameToDB(g) {
     const game = { ...g };
     const id = game.id;
     delete game.timerRef;
-
+    delete game.pineappleRef;
 
     return await models.onlineGames
       .findOne({ where: { id } })
@@ -119,7 +119,7 @@ async function saveGameToDB(g) {
         return models.onlineGames.create({ id, data: { ...game } });
       });
   } catch (e) {
-    logger.error('saveGameToDB ', e.message);
+    // logger.error('saveGameToDB ', e.message);
   }
 }
 async function loadGamesFromDb() {
@@ -190,8 +190,6 @@ function givePotMoneyToWinners(game) {
         relevantPlayers[0].balance += totalSidePotMoney;
         game.pot -= totalSidePotMoney;
         relevantPlayers[0].winner = relevantPlayers[0].winner ? relevantPlayers[0].winner + totalSidePotMoney : totalSidePotMoney;
-
-        relevantPlayers[0].handsWon += 1;
         return;
       }
       const winnerHands = Hand.winners(relevantPlayers.map(p => p.solvedHand));
@@ -210,7 +208,7 @@ function givePotMoneyToWinners(game) {
           }
           p.balance += amountWon;
           p.winner = p.winner ? p.winner + amountWon : amountWon;
-          p.handsWon += 1;
+
           game.pot -= amountWon;
           winnings[p.id].amount += amountWon;
           if (leftOver && i === 0) {
@@ -254,6 +252,9 @@ function givePotMoneyToWinners(game) {
   });
 
   players.forEach((p) => {
+    if (p.winner) {
+      p.handsWon += 1;
+    }
     const handBottomLine = p.balance - p.moneyBefore;
     if (handBottomLine > 0) {
       const msg = `${p.name} won. (+${handBottomLine})`;

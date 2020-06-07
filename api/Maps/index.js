@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const Games = new Map();
 const PlayerIdToSocketMap = new Map();
 const PlayerIdToGameIdMap = new Map();
@@ -9,7 +10,7 @@ function SaveGameById(game) {
 
 function GetAllGames() {
   const allGames = [];
-  // eslint-disable-next-line no-restricted-syntax
+
   for (const value of Games.values()) {
     allGames.push(value);
   }
@@ -18,7 +19,6 @@ function GetAllGames() {
 
 function getAllActiveSockets() {
   const allSockets = [];
-  // eslint-disable-next-line no-restricted-syntax
   for (const value of PlayerIdToSocketMap.values()) {
     allSockets.push(value);
   }
@@ -32,7 +32,9 @@ function DeleteSocketByPlayerId(playerId) {
   PlayerIdToSocketMap.delete(playerId);
 }
 function SaveSocketByPlayerId(playerId, socket) {
-  PlayerIdToSocketMap.set(playerId, socket);
+  if (playerId) {
+    PlayerIdToSocketMap.set(playerId, socket);
+  }
 }
 function SaveGameByPlayerId(playerId, game) {
   PlayerIdToGameIdMap.set(playerId, game);

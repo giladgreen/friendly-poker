@@ -1,16 +1,12 @@
+const _ = require('lodash');
 const logger = require('../services/logger');
 const PlayerHelper = require('../helpers/players');
 const BadRequest = require('../errors/badRequest');
-const Mappings = require('../Maps');
 
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
-function getStraddleId({ players }) {
-  let bigIndex = -1;
-  players.forEach((player, index) => {
-    if (player.big) {
-      bigIndex = index;
-    }
-  });
+function getNextStraddleId({ players }) {
+  const bigIndex = _.findIndex(players, player => player.big);
 
   const newUTGIndex = PlayerHelper.getNextGamePlayerIndex(players, bigIndex);
   const newStraddleIndex = PlayerHelper.getNextGamePlayerIndex(players, newUTGIndex);
@@ -23,32 +19,25 @@ function onStraddle(socket, {
 }) {
   try {
     logger.info('onStraddle');
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
+    const { game, player } = extractRequestGameAndPlayer({
+      socket, gameId, playerId,
 
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
+    });
 
     if (!game.straddleEnabled) {
       throw new BadRequest('straddle not enabled');
     }
 
-    if (playerId !== getStraddleId(game)) {
-      throw new BadRequest('player is not in the straddle position');
+    if (playerId !== getNextStraddleId(game)) {
+      throw new BadRequest('player is not in straddle position on next hand');
     }
 
     if (player.balance < 2 * game.bigBlind) {
       throw new BadRequest("player doesn't have enough");
     }
 
-    if (game.players.length < 3) {
-      throw new BadRequest("can't starddle when only two players");
+    if (game.players.filter(p => !p.sitOut).length < 3) {
+      throw new BadRequest("can't starddle when less then 3 players");
     }
 
     game.players.forEach((p) => {

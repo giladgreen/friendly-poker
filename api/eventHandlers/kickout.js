@@ -1,7 +1,9 @@
+const _ = require('lodash');
 const logger = require('../services/logger');
 const GamesService = require('../services/games');
 const { updateGamePlayers } = require('../helpers/game');
-const Mappings = require('../Maps');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+
 const { onPlayerActionEvent } = require('./playerAction');
 const { CHECK, FOLD } = require('../consts');
 const BadRequest = require('../errors/badRequest');
@@ -9,27 +11,17 @@ const BadRequest = require('../errors/badRequest');
 function onKickOutEvent(socket, {
   playerId, gameId, now, playerToKickId,
 }) {
+  let gameBackup;
+  let game;
   try {
     logger.info('onKickOutEvent');
-    socket.playerId = playerId;
-    Mappings.SaveSocketByPlayerId(playerId, socket);
-
-    const game = Mappings.getGameById(gameId);
-    if (!game) {
-      throw new BadRequest('did not find game');
-    }
-    const player = game.players.find(p => p.id === playerId);
-    if (!player) {
-      throw new BadRequest('did not find player');
-    }
-
-    if (!player.admin) {
-      throw new BadRequest('only admin can kick a user out');
-    }
-
+    ({ game } = extractRequestGameAndPlayer({
+      socket, gameId, playerId, adminOperation: true,
+    }));
+    gameBackup = _.cloneDeep(game);
     const playerToKick = game.players.find(p => p.id === playerToKickId);
     if (!playerToKick) {
-      throw new BadRequest('did not find player to kick');
+      throw new BadRequest(`did not find player to kick: ${playerToKickId}`);
     }
 
     if (playerToKick.active) {
@@ -59,8 +51,8 @@ function onKickOutEvent(socket, {
       GamesService.resetHandTimer(game, onPlayerActionEvent);
     } else {
       const playerData = game.playersData.find(p => p.id === playerToKickId);
-      playerData.cashOut = { amount: player.balance, time: now };
-      game.moneyInGame -= player.balance;
+      playerData.cashOut = { amount: playerToKick.balance, time: now };
+      game.moneyInGame -= playerToKick.balance;
 
       game.players = game.players.filter(p => p.id !== playerToKickId);
       if (game.players.filter(p => !p.sitOut).length < 2) {
@@ -72,9 +64,11 @@ function onKickOutEvent(socket, {
       });
     }
 
-
     updateGamePlayers(game);
   } catch (e) {
+    Object.keys(gameBackup).forEach((key) => {
+      game[key] = gameBackup[key];
+    });
     logger.error(`onKickOutEvent error:${e.message}`);
     if (socket) socket.emit('onerror', { message: 'failed to kick out', reason: e.message });
   }

@@ -53,9 +53,9 @@ function getOmahaHand(cards, board) {
 function getTexasHand(cards, board) {
   return Hand.solve([...board, ...cards]);
 }
+
 function getUserHandObject(game, cards, board) {
-  const getHand = game.omaha ? getOmahaHand : getTexasHand;
-  return getHand(cards, board);
+  return game.omaha ? getOmahaHand(cards, board) : getTexasHand(cards, board);
 }
 
 module.exports = {
