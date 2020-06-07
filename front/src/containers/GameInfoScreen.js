@@ -59,8 +59,9 @@ const GameInfoScreen = (props) => {
             <div id="info-screen-total-amount"> Total amount still in game: {moneyInGame}</div>
             <div id="info-screen-body">
                 {
+
                     playersData.map(pd=>{
-                        const player = players.find(p=>p.id === pd.id);
+                        const player = players.find(p=>p.id === (pd.id || pd.playerId));
                         if (!player){
                             return <div/>;
                         }
