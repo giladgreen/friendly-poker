@@ -11,7 +11,7 @@ const PlayerInfo = (props) => {
     const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
     const { pineapple } = game;
 
-    const {cardsToShow, needToThrow} = player;
+    const {cardsToShow, needToThrow, sitOut} = player;
     const dropEnabled = pineapple && needToThrow;
 
     const showCards = game.showPlayersHands.includes(player.id);
@@ -26,25 +26,23 @@ const PlayerInfo = (props) => {
     const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
     const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
-    console.log(' index ',index, ' texas ',game.texas, ' initial ',initial)
-
-
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
 
-            {cardsToShow > 0 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card1)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} texas={game.texas}  omaha={game.omaha}  pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
-            {cardsToShow > 1 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card2)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} texas={game.texas}  omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
-            {(game.omaha || game.pineapple) && cardsToShow > 1 && <Card dropEnabled={dropEnabled}  dropCard={()=>props.dropCard(card3)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
-            {game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
+            {!sitOut && cardsToShow > 0 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card1)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card1} folded={!showCards && (player.fold || !game.startDate)} first={true} texas={game.texas}  omaha={game.omaha}  pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card1)}/>}
+            {!sitOut && cardsToShow > 1 &&               <Card dropEnabled={dropEnabled} dropCard={()=>props.dropCard(card2)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card2} folded={!showCards && (player.fold || !game.startDate)} second={true} texas={game.texas}  omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card2)}/>}
+            {!sitOut && (game.omaha || (game.pineapple && (game.gamePhase === 0 || needToThrow))) && cardsToShow > 1 && <Card dropEnabled={dropEnabled}  dropCard={()=>props.dropCard(card3)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
+            {!sitOut && game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
-                    {player.name} {!isMobile ? (player.isMobile ? ' 📱':' 🖥️') : ''}
+                    {player.name}
                 </div>
                 <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
                       {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}
                 </div>
             </div>
+            { !isMobile && player.isMobile && <div className="player-mobile-indication" > 📱  </div>}
             { player.dealer && <div id={`player-${index}-dealer-button`} className="base-dealer-button" > D </div>}
             { player.straddle && <div id={`player-${index}-straddle-button`} className="base-straddle-button" > S </div>}
              <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>
@@ -64,7 +62,7 @@ const PlayerInfo = (props) => {
 
             { game.handOver && player.winner  && <div className="player-pot player-pot-hand-over" id={`player${index}-pot-end`} >+{player.winner}</div>}
 
-            { player.status && <div  className="player-status">{player.status}</div>}
+            { !sitOut && player.status && <div  className="player-status">{player.status}</div>}
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
             { props.admin && !props.isMe && <div className="user-menu" onClick={()=>props.kickOutPlayer(player.id)}><span className={actionClass}>{forceAction}</span></div>}
             {/*{ false && props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}*/}

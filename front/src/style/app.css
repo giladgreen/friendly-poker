@@ -12801,21 +12801,37 @@ em-spades {
 }
 
 #info-screen-header {
-  width: 100%;
+  width: 50%;
   text-align: center;
   font-weight: bold;
   font-size: 1.9em;
   border-bottom: 2px solid #5a6268;
 }
 
+#info-screen-summary-header {
+  position: fixed;
+  left: 58vw;
+  top: 8.5vh;
+  font-weight: bold;
+  font-size: 1.9em;
+  z-index: 100091;
+}
+
+#info-screen-summary-body {
+  position: fixed;
+  left: 55vw;
+  top: 14vh;
+  z-index: 100091;
+}
+
 #info-screen-total-amount {
-  width: 100%;
+  width: 50%;
   text-align: left;
   font-size: 1.2em;
 }
 
 #info-screen-body {
-  width: 100%;
+  width: 50%;
   padding-top: 10px;
 }
 
@@ -13690,7 +13706,7 @@ em-spades {
   z-index: 106;
   top: 8.2vh;
   right: 2.2vw;
-  width: 45vw;
+  width: 25vw;
   text-align: center;
   height: 5vh;
   color: white;
@@ -13703,6 +13719,7 @@ em-spades {
     top: 8vh;
     right: 6vw;
     font-size: 1em;
+    width: 45vw;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -13718,7 +13735,7 @@ em-spades {
   z-index: 106;
   top: 14.2vh;
   right: 0.2vw;
-  width: 45vw;
+  width: 23vw;
   text-align: left;
   height: 5vh;
   color: white;
@@ -13729,6 +13746,7 @@ em-spades {
     top: 19vh;
     right: -1vw;
     font-size: 1em;
+    width: 45vw;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -14259,10 +14277,10 @@ em-spades {
 #your-turn-indication {
   color: white;
   z-index: 30;
-  font-size: 3em;
+  font-size: 2.8em;
   position: fixed;
-  top: 21vh;
-  left: 1vw;
+  top: 20.4vh;
+  left: 0.5vw;
   font-weight: bold;
   text-transform: uppercase;
   font-family: "Arial Black";
@@ -14712,7 +14730,7 @@ em-spades {
     padding-top: 2px;
     padding-bottom: 1px;
     background: #444444;
-    font-size: 0.5em;
+    font-size: 0.7em;
     z-index: 999999;
   }
 
@@ -15123,20 +15141,17 @@ em-spades {
 }
 
 #straddle-choice-div {
-  color: white;
   position: fixed;
   bottom: 2vh;
   left: 30vw;
   width: 10vw;
   cursor: pointer;
-  border: 2px solid grey;
   border-radius: 15px;
   height: 8vh;
   text-align: center;
   font-weight: bold;
   font-size: 2em;
   padding-top: 1vh;
-  background: #00000066;
   z-index: 101;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
@@ -15147,6 +15162,7 @@ em-spades {
     height: 11vh;
     font-size: 2em;
     padding-top: 0px;
+    border-radius: 8px;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -15158,6 +15174,18 @@ em-spades {
     font-size: 2em;
     padding-top: 0vh;
   }
+}
+
+.straddle-button-Pressed {
+  color: white;
+  background: #99000066;
+  border: 2px solid red;
+}
+
+.straddle-button-not-Pressed {
+  color: red;
+  background: #00000066;
+  border: 2px solid grey;
 }
 
 #start-pause-game-button {
@@ -16726,7 +16754,7 @@ em-spades {
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .player-info {
     height: 12vh;
-    width: 13vw;
+    width: 11vw;
     padding-top: 2px;
     padding-bottom: 2px;
     font-size: 0.66em;
@@ -16779,6 +16807,22 @@ em-spades {
   .winner-player {
     border-radius: 8px;
   }
+}
+
+.player-mobile-indication {
+  z-index: 22;
+  border-radius: 50%;
+  position: absolute;
+  left: 13.96vw;
+  width: 1.8vw;
+  height: 1.8vw;
+  top: -1vh;
+  background: white;
+  border: 1px solid #00000044;
+  color: black;
+  font-size: 1.3em;
+  padding-top: 0.1vw;
+  padding-left: 0.2vw;
 }
 
 #small-blind-button {
@@ -17188,7 +17232,7 @@ em-spades {
   padding-top: 3px;
   alignment: center;
   text-align: center;
-  top: 13.7vh;
+  top: 10.7vh;
   left: 0vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {

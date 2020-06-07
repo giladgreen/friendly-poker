@@ -10,6 +10,7 @@ import DnsIcon from '@material-ui/icons/Dns';
 import LinkIcon from '@material-ui/icons/Link';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import AccessibleForwardIcon from '@material-ui/icons/AccessibleForward';
 import { withStyles } from '@material-ui/core/styles';
 
 import Modal from '@material-ui/core/Modal';
@@ -77,6 +78,7 @@ class OnlineGame extends Component {
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
+            straddlePressed: false,
             gameName,
             chosenGame: 'TEXAS',
             betRoundOver:false,
@@ -109,7 +111,7 @@ class OnlineGame extends Component {
 
     keypress = (event)=>{
         const keycode = event.keyCode;
-        console.log('keypress ',keycode)
+
         const game = this.props.game;
 
         const key = String.fromCharCode(keycode).toLowerCase();
@@ -138,15 +140,15 @@ class OnlineGame extends Component {
         }
 
         if (raiseEnabled ){
-            if (key === 'a'){
+            if (key === 'a' || key === 'ש'){
                 this.setRaiseValue(this.getMaxRaise());
                 return;
             }
-            if (key === 'p'){
+            if (key === 'p'  || key === 'פ'){
                 this.setRaiseValue(game.pot);
                 return;
             }
-            if (key === 'c'){
+            if (key === 'c'  || key === 'ב'){
                 this.toggleRaiseButton();
                 return;
             }
@@ -172,7 +174,7 @@ class OnlineGame extends Component {
                     this.fold();
                     return;
                 }
-                if (key === 'c' || key === 'c'){
+                if (key === 'c' || key === 'ב'){
                     if (options.includes('Check')){
                         this.check();
                     }else{
@@ -198,21 +200,8 @@ class OnlineGame extends Component {
 
     componentDidMount() {
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
-
-        setInterval(()=>{
-            document.removeEventListener("keypress", this.keypress, true);
-            document.addEventListener('keypress', this.keypress, true);
-        },10000)
-
-        setTimeout(()=>{
-            document.addEventListener('keypress', this.keypress, true);
-        },1000)
+        this.props.registerKeypressCallback(this.keypress);
     }
-
-    componentWillUnmount() {
-        document.addEventListener('keypress', this.keypress, true);
-    }
-
 
     onGameUpdate = (game) =>{
 
@@ -292,8 +281,7 @@ class OnlineGame extends Component {
                 }
             });
             const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
-            console.log('game.players',game.players)
-            console.log('newDealerIndex',newDealerIndex)
+
             const newDealer = game.players[newDealerIndex];
             return newDealer.id === me.id;
         }
@@ -308,7 +296,7 @@ class OnlineGame extends Component {
             const newBigIndex = getNextActivePlayerIndex(bigIndex);
             const newStraddleIndex = getNextActivePlayerIndex(newBigIndex);
             const newStraddle = game.players[newStraddleIndex];
-            console.log('newStraddle',newStraddle.name)
+
             return newStraddle.id === me.id;
         }
 
@@ -345,8 +333,9 @@ class OnlineGame extends Component {
             adminName: this.props.game.players.find(p=>p.admin).name,
             checkFoldPressed,
             maxBalance,
-            rebuyValue:maxBalance - me.balance,
-            rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled
+            rebuyValue: this.props.game.defaultBuyIn,
+            rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled,
+            straddlePressed: false,
         };
 
 
@@ -366,6 +355,14 @@ class OnlineGame extends Component {
         this.setState({raiseEnabled:!this.state.raiseEnabled, raiseValue: this.getMinRaise()})
     };
 
+    straddle = ()=>{
+        const straddlePressed =!this.state.straddlePressed;
+        if (straddlePressed){
+            this.props.straddle();
+            this.setState({straddlePressed});
+        }
+
+    };
     toggleSideMenu = ()=>{
         const rebuySectionOpen = this.state.sideMenu ? this.state.rebuySectionOpen : false;
         this.setState({sideMenu:!this.state.sideMenu, rebuySectionOpen})
@@ -487,9 +484,7 @@ class OnlineGame extends Component {
         const amountToCall = (game.amountToCall - this.state.me.pot[game.gamePhase]);
         if (game.omaha){
             const max = amountToCall > 0 ? (game.pot + (2*amountToCall)) : game.pot;
-            console.log('amountToCall',amountToCall)
-            console.log('game.pot',game.pot)
-            console.log('max',max)
+
             return max < maxForAllIn ? max : maxForAllIn;
         } else{
             return maxForAllIn;
@@ -590,11 +585,11 @@ class OnlineGame extends Component {
         const showDropCardMessage = game.pineapple && game.waitingForPlayers;
         const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
         const changePlayersBalances = me && me.admin && players.length >1;
-        const quitEnabled = me && ((!me.admin && (me.fold || me.sitOut || !startDate)) || (me.admin && (game.players.length === 1)));
-        const standSitEnabled = startDate && me && (me.sitOut || me.fold);
+        const quitEnabled = me && ((!me.admin && (me.sitOut || !startDate || game.handOver)) || (me.admin && (game.players.length === 1)));
+        const standSitEnabled = startDate && me && ((me.sitOut && me.balance > 0) || me.fold || game.handOver);
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.length>1;
-        const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && game.handOver;
+        const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
 
@@ -620,7 +615,7 @@ class OnlineGame extends Component {
                     )
                     :  <div id={"666"}/>}
                 {/* your turn indication */}
-                { game.playersTurn ? (<div id="your-turn-indication">
+                { game.playersTurn && !game.handOver && !showDropCardMessage ? (<div id="your-turn-indication">
                     <div> Your</div>
                     <div> Turn</div>
 
@@ -674,7 +669,7 @@ class OnlineGame extends Component {
 
                     {/* dealer choice button */}
                     {  game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
-                        Dealer's Choise
+                        Dealer's Choice
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
                             <div className="chosen-game-limit">no limit</div>
                             <div className="chosen-game-name">Texas Holdem</div>
@@ -694,7 +689,7 @@ class OnlineGame extends Component {
 
                     </div>}
                     {/* straddle choice button */}
-                    { game.handOver && game.straddleEnabled && isNextStraddle && <div id="straddle-choice-div" onClick={this.props.straddle}>
+                    { game.handOver && game.straddleEnabled && isNextStraddle && <div id="straddle-choice-div" className={this.state.straddlePressed ? 'straddle-button-Pressed': 'straddle-button-not-Pressed'} onClick={this.straddle}>
                             Straddle
                     </div>}
 
@@ -818,7 +813,7 @@ class OnlineGame extends Component {
                 {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="copy-game-link-small" className="copy-game-link" onClick={linkOnClick}> <LinkIcon/><span className="left-margin">Link</span> </div>}
 
                 {/* stand-sit button */}
-                { !this.state.rebuySectionOpen && this.state.sideMenu && <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}><AccessibilityNewIcon/><span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>}
+                { !this.state.rebuySectionOpen && this.state.sideMenu && <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}>{this.state.me.sitOut ? <AccessibleForwardIcon/> :<AccessibilityNewIcon/>}<span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>}
                 {/* info button */}
                 {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>}
                 {/* logs button */}

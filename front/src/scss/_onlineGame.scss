@@ -187,7 +187,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     z-index: 106;
     top:$rebuy-section-top;
     right:$rebuy-section-right + 2;
-    width: 45vw;
+    width: 25vw;
     text-align: center;
     height: 5vh;
     color: white;
@@ -199,6 +199,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
         top:$mobile-horizonal-rebuy-section-top;
         right:$mobile-horizonal-rebuy-section-right+5;
         font-size: 1em;
+        width: 45vw;
     }
     @media only screen and (max-width: $mobile-vertical) {
         top:$mobile-horizonal-rebuy-section-top;
@@ -211,7 +212,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     z-index: 106;
     top:$rebuy-section-top  +6;
     right:$rebuy-section-right;
-    width: 45vw;
+    width: 23vw;
     text-align: left;
     height: 5vh;
     color: white;
@@ -220,6 +221,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
         top:$mobile-horizonal-rebuy-section-top + 11;
         right:$mobile-horizonal-rebuy-section-right - 2;
         font-size: 1em;
+        width: 45vw;
     }
     @media only screen and (max-width: $mobile-vertical) {
         top:$mobile-horizonal-rebuy-section-top + 7;
@@ -744,10 +746,10 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 #your-turn-indication{
     color: white;
     z-index: 30;
-    font-size: 3em;
+    font-size: 2.8em;
     position: fixed;
-    top: 21vh;
-    left:1vw;
+    top: 20.4vh;
+    left:0.5vw;
     font-weight: bold;
     text-transform: uppercase;
     font-family: "Arial Black";
@@ -1208,7 +1210,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
         padding-top: 2px;
         padding-bottom: 1px;
         background: #444444;
-        font-size: 0.5em;
+        font-size: 0.7em;
         z-index: 999999;
     }
 

@@ -103,20 +103,19 @@
     padding-top: 1vw;
 }
 #straddle-choice-div{
-    color: white;
+
     position: fixed;
     bottom: 2vh;
     left: 30vw;
     width: 10vw;
     cursor: pointer;
-    border: 2px solid grey;
     border-radius: 15px;
     height: 8vh;
     text-align: center;
     font-weight: bold;
     font-size: 2em;
     padding-top: 1vh;
-    background: #00000066;
+
     z-index: 101;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
@@ -126,6 +125,7 @@
         height: 11vh;
         font-size: 2em;
         padding-top: 0px;
+        border-radius: 8px;
     }
     @media only screen and (max-width: $mobile-vertical) {
         bottom: 7vh;
@@ -136,6 +136,20 @@
         padding-top: 0vh;
     }
 }
+.straddle-button-Pressed{
+    color: white;
+    background: #99000066;
+    border: 2px solid red;
+}
+
+.straddle-button-not-Pressed{
+    color: red;
+    background: #00000066;
+    border: 2px solid grey;
+
+}
+
+
 #start-pause-game-button{
     color: white;
     position: fixed;

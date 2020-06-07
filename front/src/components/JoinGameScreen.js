@@ -12,17 +12,13 @@ class JoinGameScreen extends Component {
         const name = localStorage.getItem('myName') || '';
         const balances = props.game.players.map(p=>p.balance);
         const maxPlayerBalance = Math.max(...balances);
-        let avaragePlayerBalance = balances.reduce((all,one)=>all+one,0) / props.game.players.length;
         let maxBuyIn = props.game.requireRebuyApproval ? 50 * maxPlayerBalance : maxPlayerBalance * 3;
         maxBuyIn = maxBuyIn - (maxBuyIn % props.game.bigBlind);
         maxBuyIn = maxBuyIn - (maxBuyIn % 10);
 
-        avaragePlayerBalance = avaragePlayerBalance - (avaragePlayerBalance % props.game.bigBlind);
-        avaragePlayerBalance = avaragePlayerBalance - (avaragePlayerBalance % 10);
-
         const minBuyIn = 10 * props.game.bigBlind;
         this.takenNames = props.game.players.map(p=>p.name);
-        const buyIn =  avaragePlayerBalance;
+        const buyIn =  props.game.defaultBuyIn;
         this.state = {
             name,
             buyIn,

@@ -38,19 +38,34 @@
 }
 
 #info-screen-header{
-   width: 100%;
+   width: 50%;
     text-align: center;
     font-weight: bold;
     font-size: 1.9em;
     border-bottom: 2px solid #5a6268;
 }
+#info-screen-summary-header{
+   position: fixed;
+    left: 58vw;
+    top:8.5vh;
+    font-weight: bold;
+    font-size: 1.9em;
+    z-index: 100091;
+}
+#info-screen-summary-body{
+   position: fixed;
+    left: 55vw;
+    top:14vh;
+
+    z-index: 100091;
+}
 #info-screen-total-amount{
-    width: 100%;
+    width: 50%;
     text-align: left;
     font-size: 1.2em;
 }
 #info-screen-body{
-    width: 100%;
+    width: 50%;
     padding-top: 10px;
 }
 .player-info-player-name{

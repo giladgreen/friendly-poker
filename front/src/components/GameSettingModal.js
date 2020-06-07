@@ -167,11 +167,14 @@ class GameSettingModal extends Component {
     };
 
     declineJoin = (joinData)=>{
+        joinData.message = prompt("Why?", "bad join amount..");
+
         this.props.declineJoin(joinData);
         this.clostIfLastRequest();
     };
 
     approveRebuy = (rebuyData)=>{
+        rebuyData.message = prompt("Why?", "bad rebuy amount..");
         this.props.approveRebuy(rebuyData);
         this.clostIfLastRequest();
     };

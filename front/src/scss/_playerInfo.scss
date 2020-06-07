@@ -459,7 +459,7 @@ $players-dealer-button-left: (
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         height: 12vh;
-        width: 13vw;
+        width: 11vw;
         padding-top: 2px;
         padding-bottom: 2px;
         font-size: 0.66em;
@@ -504,6 +504,21 @@ $players-dealer-button-left: (
     }
 }
 
+.player-mobile-indication{
+    z-index: 22;
+    border-radius: 50%;
+    position: absolute;
+    left: 13.96vw;
+    width: 1.8vw;
+    height: 1.8vw;
+    top:-1vh;
+    background: white;
+    border: 1px solid #00000044;
+    color: black;
+   font-size: 1.3em;
+    padding-top: 0.1vw;
+    padding-left: 0.2vw;
+}
 #small-blind-button{
     z-index: 22;
     border-radius: 50%;
@@ -756,7 +771,7 @@ $players-dealer-button-left: (
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:13.7vh;
+    top:10.7vh;
     left:0vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {

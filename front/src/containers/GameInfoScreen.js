@@ -8,8 +8,52 @@ const GameInfoScreen = (props) => {
     const {game} = props;
     const {playersData, moneyInGame,players} = game;
 
+    const playersItems = playersData.map(pd=> {
+        const player = players.find(p => p.id === pd.id);
+        let bottomLine = pd.cashOut ?
+            pd.cashOut.amount - pd.totalBuyIns :
+            player ? player.balance - pd.totalBuyIns : null;
+        const bottomLineStyle = (!bottomLine || bottomLine === 0) ? 'player-info-bottom-line-gray' : (bottomLine > 0 ? 'player-info-bottom-line-green' : 'player-info-bottom-line-red');
+        if (bottomLine && bottomLine > 0) {
+            bottomLine = `+${bottomLine}`;
+        }
+
+        const data = {
+            name: pd.name,
+            totalBuyIns: pd.totalBuyIns,
+            cashOut: pd.cashOut ? pd.cashOut.amount : (player ? player.balance : null),
+            bottomLine,
+            bottomLineStyle
+        }
+
+        return  <tr>
+            <th>{data.name}</th>
+            <th>{data.totalBuyIns}</th>
+            <th>{data.cashOut} {pd.cashOut ? '': '(still in game)'}</th>
+            <th><span className={data.bottomLineStyle}> {data.bottomLine}</span></th>
+        </tr>
+
+    });
+
     return  <div  id="game-info-screen">
         <div id="exit-game-info-screen-button" onClick={props.onClose}>X</div>
+
+        <div id="info-screen-summary-header"> Game summary</div>
+
+        <div id="info-screen-summary-body">
+            <table id="game-pause-info-screen-body-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Buy-in</th>
+                    <th>Cash-Out / Current Balance</th>
+                    <th>Bottom-Line</th>
+                </tr>
+                { playersItems }
+            </table>
+
+
+        </div>
+
         <div id="buy-ins-section">
             <div id="info-screen-header"> Players BuyIn/CashOut Info</div>
             <div id="info-screen-total-amount"> Total amount still in game: {moneyInGame}</div>
@@ -17,6 +61,9 @@ const GameInfoScreen = (props) => {
                 {
                     playersData.map(pd=>{
                         const player = players.find(p=>p.id === pd.id);
+                        if (!player){
+                            return <div/>;
+                        }
                         let bottomLine =  pd.cashOut ?
                             pd.cashOut.amount - pd.totalBuyIns :
                             (player && (player.fold || player.sitOut || player.balance===0)) ? player.balance - pd.totalBuyIns : null;

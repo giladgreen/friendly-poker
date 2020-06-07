@@ -268,9 +268,20 @@ class App extends Component {
         }
     };
 
+    keypress = (event)=>{
+        const keycode = event.keyCode;
+        console.log('keypress ',keycode);
+        if (this.KeypressCallback){
+            this.KeypressCallback(event)
+        } else{
+            console.log('no one is registered on this keypress event')
+        }
+    }
+
 
     componentDidMount() {
 
+        document.addEventListener('keypress', this.keypress, true);
 
         this.actioToMethodMap = {
             Fold: this.playFold,
@@ -427,14 +438,16 @@ class App extends Component {
         });
 
         this.socket.on('joinrequestdeclined', (game) => {
-            //console.log('on joinrequestdeclined');
+            console.log('on joinrequestdeclined', game);
             this.setState({ operationpendingapproval: false, game });
             this.showAlertMessage('join request declined');
+            this.showAlertMessage(game.declineMessage);
         });
 
-        this.socket.on('rebuyrequestdeclined', () => {
+        this.socket.on('rebuyrequestdeclined', (game) => {
             // console.log('on rebuyrequestdeclined');
             this.showAlertMessage('rebuy request declined');
+            this.showAlertMessage(game.declineMessage);
         });
 
         this.socket.on('onmessage', (message) => {
@@ -457,8 +470,8 @@ class App extends Component {
 
 
                 const div = (<div key={`msg_${time}_${message.text}_${message.now}`} className="pointer-copy" onClick={messageOnClick}>
-                    { message.playerIndex < 10 ? <span className="msg-time" >{time}</span> : <spn/>}
-                    { message.playerIndex < 10 ? <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span> : <spn/>}
+                    { message.playerIndex < 10 ? <span className="msg-time" >{time}</span> : <span/>}
+                    { message.playerIndex < 10 ? <span className={`msg-text-player-name msg-text-player-name-color${message.playerIndex}`}>{message.name}:</span> : <span/>}
                     <span className="msg-text">{message.text}</span>  </div>);
 
                 this.setState({ messages: [...this.state.messages, div], connected: true });
@@ -684,13 +697,13 @@ class App extends Component {
     declineJoin = (data) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting declinejoin')
-        this.socket.emit('declinejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
+        this.socket.emit('declinejoin', {gameId , playerId, joinedPlayerId: data.id || data.playerId, balance:data.balance, declineMessage: data.message ,now: (new Date()).getTime() });
     };
 
     declineRebuy = (data) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting declinerebuy')
-        this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
+        this.socket.emit('declinerebuy', {gameId , playerId, rebuyPlayerId: data.id || data.playerId, amount:data.amount,declineMessage: data.message, now: (new Date()).getTime() });
     };
 
     setCreatorAsAdmin = () =>{
@@ -741,6 +754,10 @@ class App extends Component {
 
     registerGameUpdatedCallback = (cb)=>{
         this.GameUpdatedCallback = cb;
+    };
+
+    registerKeypressCallback = (cb)=>{
+        this.KeypressCallback = cb;
     };
 
     wrapWithAlerts = (item)=>{
@@ -823,6 +840,7 @@ class App extends Component {
                     initial={this.state.initial}
                     showAlertMessage={this.showAlertMessage}
                     registerGameUpdatedCallback={this.registerGameUpdatedCallback}
+                    registerKeypressCallback={this.registerKeypressCallback}
                     isAdmin={isAdmin}
                     toggleShowInfo={this.toggleShowInfo}
                     startGame={this.startGame}

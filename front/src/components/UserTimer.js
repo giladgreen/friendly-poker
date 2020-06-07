@@ -53,12 +53,6 @@ class UserTimer extends Component {
         }
     }
 
-    componentWillUnmount() {
-        if (this.timerInterval){
-            clearInterval(this.timerInterval);
-        }
-
-    }
 
     getTimeLeft = ()=>{
         const {userTimer} = this.state;
