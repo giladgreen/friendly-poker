@@ -685,13 +685,13 @@ class App extends Component {
     approveJoin = (data) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting approvejoin')
-        this.socket.emit('approvejoin', {gameId , playerId, joinedPlayerId: data.playerId, balance:data.balance, now: (new Date()).getTime() });
+        this.socket.emit('approvejoin', {gameId , playerId, joinedPlayerId: data.id || data.playerId, balance:data.balance, now: (new Date()).getTime() });
     };
 
     approveRebuy = (data) =>{
         const { gameId, playerId } = this.state;
         // console.log('emiting approverebuy')
-        this.socket.emit('approverebuy', {gameId , playerId, rebuyPlayerId: data.playerId, amount:data.amount, now: (new Date()).getTime() });
+        this.socket.emit('approverebuy', {gameId , playerId, rebuyPlayerId: data.id || data.playerId, amount:data.amount, now: (new Date()).getTime() });
     };
 
     declineJoin = (data) =>{
@@ -762,7 +762,7 @@ class App extends Component {
 
     wrapWithAlerts = (item)=>{
         return <div>
-            <div id="bottom-line">
+            {isMobile || true? <div id="bottom-line">
                 <div>1</div>
                 <div>2</div>
                 <div>3</div>
@@ -776,7 +776,8 @@ class App extends Component {
                 <div>11</div>
                 <div>12</div>
                 <div>13</div>
-            </div>
+                <div id="dot">...</div>
+            </div> : <div/>}
             {item}
             <ShowAlert message={this.alertMessage} hideAlertMessage={this.hideAlertMessage}/>
             <img id="app-name" src="./friendly-poker.png" onClick={()=>window.location = serverPrefix}/>

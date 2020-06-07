@@ -10663,10 +10663,14 @@ body {
   top: 0vh;
   left: 0;
   width: 100vw;
-  height: 200vh;
+  height: 300vh;
   background: transparent;
   color: transparent;
-  font-size: 2em;
+  font-size: 30em;
+}
+#bottom-line #dot {
+  font-size: 1em;
+  color: #44444444;
 }
 
 #not-supported-screen {
@@ -12565,6 +12569,19 @@ em-spades {
   position: fixed;
   top: 40.2vh;
   left: 57vw;
+}
+
+#toggle-show-requests-button {
+  background: #444444;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 17vw;
+  font-size: 2em;
+  position: fixed;
+  top: 11.8vh;
+  right: 3vw;
 }
 
 #pending-requests {

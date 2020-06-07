@@ -24,11 +24,15 @@ $mobile-vertical: 530px;
   top: 0vh;
   left:0;
   width: 100vw;
-  height: 200vh;
+  height: 300vh;
   background: transparent;
   color: transparent;
-  font-size: 2em;
+  font-size: 30em;
 
+  #dot{
+    font-size: 1em;
+    color: #44444444;
+  }
 }
 #not-supported-screen{
   background: black;

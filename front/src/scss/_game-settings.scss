@@ -92,7 +92,20 @@
     top:40.2vh;
     left: 57vw;
 }
+#toggle-show-requests-button{
+    background: #444444;
+    color: white;
 
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 17vw;
+    font-size: 2em;
+
+    position: fixed;
+    top:11.8vh;
+    right: 3vw;
+}
 #pending-requests{
     background: #CDCDCD;
     border: 2px solid white;

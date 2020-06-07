@@ -66,9 +66,14 @@ class GameSettingModal extends Component {
             timeBankEnabled: props.game.timeBankEnabled,
             requireRebuyApproval: props.game.requireRebuyApproval,
             straddleEnabled: props.game.straddleEnabled,
+            showPendingRequests: true,
         }
 
     }
+    toggleShowPendingRequests= () =>{
+        this.setState({showPendingRequests: !this.state.showPendingRequests })
+    };
+
     setApprovalRequired= (e) =>{
         this.setState({requireRebuyApproval: e.target.checked })
     };
@@ -174,12 +179,12 @@ class GameSettingModal extends Component {
     };
 
     approveRebuy = (rebuyData)=>{
-        rebuyData.message = prompt("Why?", "bad rebuy amount..");
         this.props.approveRebuy(rebuyData);
         this.clostIfLastRequest();
     };
 
     declineRebuy = (rebuyData)=>{
+        rebuyData.message = prompt("Why?", "bad rebuy amount..");
         this.props.declineRebuy(rebuyData);
         this.clostIfLastRequest();
     };
@@ -370,6 +375,8 @@ class GameSettingModal extends Component {
 
             {(skipHandEnabled) && <div id="force-skip-hand-button" className="active-button" onClick={this.props.SkipHand}>Force Skip Hand</div>}
 
+            {(hasPendingRequests) && <div id="toggle-show-requests-button" className="active-button" onClick={this.toggleShowPendingRequests}>{this.state.showPendingRequests ? 'Hide requests':'Show requests..'}</div>}
+
 
             {newBalances.length >0 ? <div id="new-balances-section" >
                 {newBalances.map(({fromPlayerId, toPlayerId, amount})=>{
@@ -382,7 +389,7 @@ class GameSettingModal extends Component {
 
 
 
-            {hasPendingRequests && <div id="pending-requests">
+            {hasPendingRequests && this.state.showPendingRequests && <div id="pending-requests">
                 <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
                 <div id="pending-requests-body">
                     {pendingJoin.map(joinData =>{
