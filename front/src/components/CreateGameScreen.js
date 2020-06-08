@@ -40,7 +40,7 @@ class CreateGameScreen extends Component {
             BB,
             time,
             buyIn,
-            showNameError:false,
+            showNameError: name.length === 0,
             showSmallBlindError:false,
             showBigBlindError:false,
             showBuyInError:false,

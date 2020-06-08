@@ -92,7 +92,7 @@
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         position: fixed;
         top: 19vh;
-        left: 45vw;
+        left: 41vw;
         font-size: 1.3em;
     }
     @media only screen and (max-width: $mobile-vertical) {
@@ -102,7 +102,7 @@
     input{
         width: 23vw;
         @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-           width: 39vw;
+           width: 33vw;
         }
         @media only screen and (max-width: $mobile-vertical) {
             width: 62vw;
@@ -114,11 +114,21 @@
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
       position: fixed;
         top: 30vh;
-        left: 45vw;
+        left: 41vw;
         font-size: 1.3em;
     }
     @media only screen and (max-width: $mobile-vertical) {
 
+    }
+
+    input{
+
+        @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+            width: 25vw;
+        }
+        @media only screen and (max-width: $mobile-vertical) {
+
+        }
     }
 }
 

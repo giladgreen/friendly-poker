@@ -13089,7 +13089,7 @@ em-spades {
   #join-screen-name-input {
     position: fixed;
     top: 19vh;
-    left: 45vw;
+    left: 41vw;
     font-size: 1.3em;
   }
 }
@@ -13098,7 +13098,7 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-screen-name-input input {
-    width: 39vw;
+    width: 33vw;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -13111,8 +13111,13 @@ em-spades {
   #join-screen-balance-input {
     position: fixed;
     top: 30vh;
-    left: 45vw;
+    left: 41vw;
     font-size: 1.3em;
+  }
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #join-screen-balance-input input {
+    width: 25vw;
   }
 }
 #full-game-div {
