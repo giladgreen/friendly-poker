@@ -23,12 +23,12 @@ class GameSettingModal extends Component {
 
     resetPlayers=(players)=>{
         if (players.filter(p=>Boolean(p)).length >1){
-            const fromPlayer = players[0];
+            const fromPlayer = players.filter(p=>Boolean(p))[0];
             const fromPlayerId = fromPlayer.id;
             const fromPlayerName = fromPlayer.name;
             const fromPlayerBalance = fromPlayer.balance;
 
-            const toPlayer = players[1];
+            const toPlayer = players.filter(p=>Boolean(p))[1];
             const toPlayerId = toPlayer.id;
             const toPlayerName = toPlayer.name;
             const toPlayerBalance = toPlayer.balance;
