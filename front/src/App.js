@@ -306,6 +306,12 @@ class App extends Component {
             this.setState({ games, connected:true });
         });
 
+        this.socket.on('forcequit', () => {
+            setTimeout(()=>{
+                window.location = serverPrefix;
+            },1500)
+        });
+
         this.socket.on('connect', ()=>{
             // console.log('App on connect.');
             if (!this.state.gameId){
@@ -825,7 +831,7 @@ class App extends Component {
                 showAlertMessage={this.showAlertMessage}
                 games={this.state.games} />);
         } else{
-            const {gameId, game, playerId, operationpendingapproval, gamePaused} = this.state;
+            const {gameId, game, playerId, operationpendingapproval} = this.state;
 
             if (!game){
                 return <Loader waitingApproval={operationpendingapproval}/>;
@@ -835,7 +841,7 @@ class App extends Component {
             }
 
             const admin = game.players.find(p=>p && p.admin);
-            const isAdmin =  (admin.id === playerId);
+            const isAdmin = admin && (admin.id === playerId);
 
             const gamePlayer =  game.players.find(p=>p && p.id === playerId);
 
