@@ -14415,12 +14415,12 @@ em-spades {
   padding-top: 0.5vh;
   padding-bottom: 0.5vh;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .messages-box-focus {
     bottom: 0.2vh;
     left: 0.6vw;
     width: 84.6vw;
-    height: 17vh;
+    height: 27vh;
     border: 1px solid #666666;
     border-radius: 3px;
     padding-left: 2px;
@@ -14441,7 +14441,7 @@ em-spades {
   padding-top: 0.5vh;
   padding-bottom: 0.5vh;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .messages-box-blur {
     bottom: 0vh;
     left: 0vw;
@@ -14487,9 +14487,9 @@ em-spades {
   width: 22vw;
   height: 3.9vh;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .chat-input-focus {
-    bottom: 17vh;
+    bottom: 27vh;
     left: 0.5vw;
     width: 99vw;
     padding-left: 4px;
@@ -14508,14 +14508,14 @@ em-spades {
   background: white;
   color: black;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .chat-input-blur {
     bottom: 10.8vh;
     left: 0vw;
-    width: 30vw;
+    width: 35vw;
     padding-left: 4px;
     border-radius: 0px;
-    height: 3.9vh;
+    height: 5vh;
     z-index: 999999;
     font-size: 0.3em;
   }
@@ -14529,7 +14529,7 @@ em-spades {
   text-align: center;
   z-index: 999999;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   #send-message-button {
     border-radius: 2px;
   }
@@ -14544,15 +14544,16 @@ em-spades {
   border-radius: 0px 8px 0px 0px;
   padding-top: 4px;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .send-message-button-focus {
     background: red;
     border-radius: 8px;
     bottom: 0.5vh;
     left: 85.5vw;
     width: 14vw;
-    height: 17vh;
+    height: 27vh;
     font-size: 2em;
+    padding-top: 5vh;
   }
 }
 
@@ -14566,16 +14567,9 @@ em-spades {
   padding-top: 4px;
   font-size: 1em;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   .send-message-button-blur {
-    border-radius: 2px;
-    background: black;
-    bottom: 10.4vh;
-    left: 29.7vw;
-    width: 5.5vw;
-    height: 3.88vh;
-    padding-top: 0px;
-    font-size: 0.2em;
+    visibility: hidden;
   }
 }
 
@@ -15105,10 +15099,6 @@ em-spades {
   }
 
   .total-pot-amount {
-    visibility: hidden;
-  }
-
-  #messages-box {
     visibility: hidden;
   }
 
