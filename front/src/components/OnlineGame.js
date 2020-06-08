@@ -201,6 +201,12 @@ class OnlineGame extends Component {
     componentDidMount() {
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);
+        if (isMobile){
+            setTimeout(()=>{
+                document.getElementById('dot').scrollIntoView();
+            },150)
+        }
+
     }
 
     onGameUpdate = (game) =>{
@@ -941,10 +947,16 @@ class OnlineGame extends Component {
 
                        onFocus={()=>{
                            this.setState({ chatFocused:true })
+                           setTimeout(()=>{
+                               document.getElementById('dot').scrollIntoView();
+                           },50)
                             }
                        }
                        onBlur={()=>{
                            this.setState({ chatFocused:false })
+                           setTimeout(()=>{
+                               document.getElementById('dot').scrollIntoView();
+                           },50)
                          }
                        }
 
@@ -964,7 +976,9 @@ class OnlineGame extends Component {
                 {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
                     <div id="send-message-button" className={chatFocused ? 'send-message-button-focus' : 'send-message-button-blur'} onClick={()=>{
                     this.onSendMessage();
-
+                       setTimeout(()=>{
+                           document.getElementById('dot').scrollIntoView();
+                       },50)
                     this.setState({chatFocused:false});
                 }} >send</div>)}
                 {/* chat box input */}
