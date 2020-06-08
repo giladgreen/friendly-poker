@@ -227,7 +227,7 @@ class OnlineGame extends Component {
         let showingCards = false;
         let amountToCall = 0;
         if (myIndex >= 0){
-            me =  game.players[myIndex];
+            me = game.players[myIndex];
             options = me.options || [];
             showingCards = me.showingCards;
 
@@ -241,7 +241,7 @@ class OnlineGame extends Component {
             if (game.paused || game.handOver || me.balance === 0 || me.sitOut || me.fold){
                 rebuyEnabled = true
             }
-            const maxBalance = Math.max(...this.props.game.players.map(p => p.balance));
+            const maxBalance = Math.max(...this.props.game.players.filter(p=>Boolean(p)).map(p => p.balance));
             cheapLeader = me.balance === maxBalance;
         }
 
@@ -263,7 +263,7 @@ class OnlineGame extends Component {
                 timeBankCount = (me.timeBank - me.timeBank % 20) / 20;
             }
         }
-        const maxBalance = Math.max(...game.players.map(p => p.balance));
+        const maxBalance = Math.max(...game.players.filter(p=>Boolean(p)).map(p => p.balance));
 
         const getNextPlayerIndex = (index) => {
             return (index + 1 < game.players.length) ? index + 1 : 0;
@@ -271,7 +271,7 @@ class OnlineGame extends Component {
         const getNextActivePlayerIndex = (index) => {
             let nextPlayerIndex = getNextPlayerIndex(index);
             let count = 0;
-            while (game.players[nextPlayerIndex].sitOut) {
+            while (!game.players[nextPlayerIndex] || game.players[nextPlayerIndex].sitOut) {
                 nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
                 count++;
 
@@ -284,7 +284,7 @@ class OnlineGame extends Component {
         const getIsNextDealer =  () => {
             let dealerIndex = -1;
             game.players.forEach((player, index) => {
-                if (player.dealer) {
+                if (player && player.dealer) {
                     dealerIndex = index;
                 }
             });
@@ -297,7 +297,7 @@ class OnlineGame extends Component {
         const getIsNextStraddle =  () => {
             let bigIndex = -1;
             game.players.forEach((player, index) => {
-                if (player.big) {
+                if (player && player.big) {
                     bigIndex = index;
                 }
             });
@@ -310,17 +310,17 @@ class OnlineGame extends Component {
 
         const isNextDealer = game.startDate && me ? getIsNextDealer() : false;
 
-        const isNextStraddle = !isMobile && game.startDate && game.players.filter(p=>!p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
+        const isNextStraddle = !isMobile && game.startDate && game.players.filter(p=>Boolean(p)).filter(p=> !p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
 
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
         if (game.gameType === 'DEALER_CHOICE') {
             gameName += `: ${(game.omaha ? gameOptions[1].name : (game.pineapple ? gameOptions[2].name : (gameOptions[0].name)))}`
         }
-        console.log('game update, this.autoTimebankPressRef exist:', Boolean(this.autoTimebankPressRef))
+
         if (!this.autoTimebankPressRef){
             if (getTimeEnabled){
-                console.log('about to try auto time banking')
+
                 const str = localStorage.getItem('playerPreferences');
                 let manualTimeBank = true;
                 if (str){
@@ -343,6 +343,7 @@ class OnlineGame extends Component {
                 delete this.autoTimebankPressRef;
             }
         }
+        const admin = this.props.game.players.filter(p=>Boolean(p)).find(p=>p.admin);
         const newState = {
             gameName,
             me,
@@ -362,8 +363,8 @@ class OnlineGame extends Component {
             rebuyEnabled,
             amountToCall,
             raiseValue: this.getMinRaise(),
-            adminId: this.props.game.players.find(p=>p.admin).id,
-            adminName: this.props.game.players.find(p=>p.admin).name,
+            adminId: admin.id,
+            adminName: admin.name,
             checkFoldPressed,
             maxBalance,
             rebuyValue: this.props.game.defaultBuyIn,
@@ -473,7 +474,7 @@ class OnlineGame extends Component {
     getActiveIndex(players){
         let index = -1;
         players.forEach((player,i)=>{
-            if (player.active){
+            if (player && player.active){
                 index = i;
             }
         });
@@ -483,7 +484,7 @@ class OnlineGame extends Component {
     getMyIndex(players){
         let index = -1;
         players.forEach((player,i)=>{
-            if (player.me){
+            if (player && player.me){
                 index = i;
             }
         });
@@ -618,11 +619,11 @@ class OnlineGame extends Component {
         const skipHandEnabled = me && me.admin && startDate;
         const showDropCardMessage = game.pineapple && game.waitingForPlayers;
         const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
-        const changePlayersBalances = me && me.admin && players.length >1;
-        const quitEnabled = me && ((!me.admin && (me.sitOut || !startDate || game.handOver)) || (me.admin && (game.players.length === 1)));
+        const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
+        const quitEnabled = me && ((!me.admin && (me.sitOut || !startDate || game.handOver)) || (me.admin && (players.filter(p=>Boolean(p)).length === 1)));
         const standSitEnabled = startDate && me && ((me.sitOut && me.balance > 0) || me.fold || game.handOver);
 
-        const startButtonEnabled = this.props.isAdmin && !startDate && players.length>1;
+        const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
@@ -664,7 +665,7 @@ class OnlineGame extends Component {
 
 
                 {/* players */}
-                {players.map((player)=> <PlayerInfo
+                {players.filter(p=>Boolean(p)).map((player)=> <PlayerInfo
                     betRoundOver={betRoundOver}
                     initial={initial}
                     key={player.id}

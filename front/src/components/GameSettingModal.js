@@ -22,7 +22,7 @@ const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Min
 class GameSettingModal extends Component {
 
     resetPlayers=(players)=>{
-        if (players.length >1){
+        if (players.filter(p=>Boolean(p)).length >1){
             const fromPlayer = players[0];
             const fromPlayerId = fromPlayer.id;
             const fromPlayerName = fromPlayer.name;
@@ -48,14 +48,15 @@ class GameSettingModal extends Component {
     }
     constructor(props) {
         super(props);
+        const admin = props.game.players.find(p=>p && p.admin)
         const playersData = this.resetPlayers(props.game.players);
         this.state = {
             time: props.game.time,
             smallBlind: props.game.smallBlind,
             bigBlind: props.game.bigBlind,
             ...playersData,
-            adminId: props.game.players.find(p=>p.admin).id,
-            adminName: props.game.players.find(p=>p.admin).name,
+            adminId: admin.id,
+            adminName: admin.name,
             newBalances: [],
             sendTrasfer:false,
             showSmallBlindError:false,
@@ -101,7 +102,7 @@ class GameSettingModal extends Component {
     };
 
     onAdminChange = (adminId)=>{
-        const adminName = this.props.game.players.find(p=>p.id === adminId).name;
+        const adminName = this.props.game.players.find(p=>p && p.id === adminId).name;
         this.setState({adminId, adminName})
     };
     setStraddleEnabled= (e) =>{
@@ -109,14 +110,14 @@ class GameSettingModal extends Component {
     };
 
     onFromPlayerChange = (fromPlayerId)=>{
-        const fromPlayer = this.props.game.players.find(p=>p.id === fromPlayerId);
+        const fromPlayer = this.props.game.players.find(p=>p && p.id === fromPlayerId);
         const fromPlayerName = fromPlayer.name;
         const fromPlayerBalance = fromPlayer.balance;
         let toPlayerId = this.state.toPlayerId;
         let toPlayerName = this.state.toPlayerName;
         let toPlayerBalance = this.state.toPlayerBalance;
         if (this.state.toPlayerId === fromPlayerId){
-            const toPlayer = this.props.game.players.filter(player => player.id !== fromPlayerId)[0];
+            const toPlayer = this.props.game.players.filter(player => player && player.id !== fromPlayerId)[0];
             toPlayerId = toPlayer.id;
             toPlayerName = toPlayer.name;
             toPlayerBalance = toPlayer.balance;
@@ -131,7 +132,7 @@ class GameSettingModal extends Component {
     };
 
     onToPlayerChange = (toPlayerId)=>{
-        const toPlayer = this.props.game.players.find(p=>p.id === toPlayerId);
+        const toPlayer = this.props.game.players.find(p=>p && p.id === toPlayerId);
         const toPlayerName = toPlayer.name;
         const toPlayerBalance = toPlayer.balance;
         this.setState({toPlayerId, toPlayerName, toPlayerBalance, amount: 1})
@@ -364,7 +365,7 @@ class GameSettingModal extends Component {
                     id="select-admin-dropdown"
                     value={this.state.adminId}
                     onChange={(e) => this.onAdminChange(e.target.value)} >
-                    {this.props.game.players.map(player => {
+                    {this.props.game.players.filter(player=>Boolean(player)).map(player => {
                         return <MenuItem value={player.id}>{ player.name}</MenuItem>
                     })}
 
@@ -380,8 +381,8 @@ class GameSettingModal extends Component {
 
             {newBalances.length >0 ? <div id="new-balances-section" >
                 {newBalances.map(({fromPlayerId, toPlayerId, amount})=>{
-                    const fromName = players.find(p=>p.id===fromPlayerId).name;
-                    const toName = players.find(p=>p.id===toPlayerId).name;
+                    const fromName = players.find(p=>p && p.id===fromPlayerId).name;
+                    const toName = players.find(p=>p && p.id===toPlayerId).name;
                     return <div>{fromName} => {amount} => {toName}</div>
                 })}
             </div> :<div/>}

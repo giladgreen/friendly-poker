@@ -137,7 +137,7 @@ class CreateGameScreen extends Component {
 
     getGameCreator(game){
         let creatorName = 'N/A';
-        const creator = game.players.find(p=>p.creator);
+        const creator = game.players.find(p=>p && p.creator);
         if (creator){
             if (creator.id === this.props.playerId){
                 creatorName = 'me'
@@ -307,7 +307,7 @@ class CreateGameScreen extends Component {
                             this.props.games.length === 0 ? <div/> :
 
                                 this.props.games.map((game,index)=>{
-                                    const admin = game.players.find(p=>p.admin);
+                                    const admin = game.players.find(p=>p && p.admin);
                                     const isAdmin = admin && admin.id === this.props.playerId;
                                     const gameId = game.id;
                                     const epoc = parseInt(gameId, 10);
@@ -320,7 +320,7 @@ class CreateGameScreen extends Component {
                                             <div> created by {this.getGameCreator(game)}</div>
                                             <div> blinds: {game.smallBlind}/{game.bigBlind}</div>
                                             <div>{date.AsGameName()} {date.AsExactTime()}</div>
-                                            <div>{game.players.length} players</div>
+                                            <div>{game.players.filter(p=>Boolean(p)).length} players</div>
                                         </div>
                                         {isAdmin && <div id="delete-game-button" onClick={()=>this.props.deleteGame(game.id)}>Delete Game</div>}
                                     </div>

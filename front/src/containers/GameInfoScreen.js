@@ -9,7 +9,7 @@ const GameInfoScreen = (props) => {
     const {playersData, moneyInGame,players} = game;
 
     const playersItems = playersData.map(pd=> {
-        const player = players.find(p => p.id === pd.id);
+        const player = players.find(p => p && p.id === pd.id);
         let bottomLine = pd.cashOut ?
             pd.cashOut.amount - pd.totalBuyIns :
             player ? player.balance - pd.totalBuyIns : null;
@@ -61,7 +61,7 @@ const GameInfoScreen = (props) => {
                 {
 
                     playersData.map(pd=>{
-                        const player = players.find(p=>p.id === (pd.id || pd.playerId));
+                        const player = players.find(p=>p && p.id === (pd.id || pd.playerId));
                         if (!player){
                             return <div/>;
                         }

@@ -139,7 +139,7 @@ class App extends Component {
     getDealerIndex(players){
         let index = -1;
         players.forEach((player,i)=>{
-            if (player.dealer){
+            if (player && player.dealer){
                 index = i;
             }
         });
@@ -149,7 +149,7 @@ class App extends Component {
     getMyIndex(players){
         let index = -1;
         players.forEach((player,i)=>{
-            if (player.me){
+            if (player && player.me){
                 index = i;
             }
         });
@@ -163,24 +163,30 @@ class App extends Component {
         const dealerIndex = this.getDealerIndex(game.players);
 
         players.forEach((player, index)=>{
-            if (index >= myIndex){
-                player.locationIndex = index - myIndex +1;
-            } else{
-                player.locationIndex = game.maxPlayers - myIndex + 1 + index;
+            if (player){
+                if (index >= myIndex){
+                    player.locationIndex = index - myIndex +1;
+                } else{
+                    player.locationIndex = game.maxPlayers - myIndex + 1 + index;
 
+                }
             }
+
         });
 
         players.forEach((player, index)=>{
-            if (index > dealerIndex){
-                player.dealIndex = index - dealerIndex;
-            } else{
-                player.dealIndex = players.length - dealerIndex + index;
+            if (player){
+                if (index > dealerIndex){
+                    player.dealIndex = index - dealerIndex;
+                } else{
+                    player.dealIndex = players.length - dealerIndex + index;
 
+                }
             }
+
         });
 
-        if (game.pineapple && game.waitingForPlayers && !game.timeForDropCard && players.some(p=>p.needToThrow)){
+        if (game.pineapple && game.waitingForPlayers && !game.timeForDropCard && players.some(p=>p && p.needToThrow)){
             game.timeForDropCard = 30;
         }
         if (game.gamePhase >0 && game.pineapple && !game.waitingForPlayers){
@@ -364,8 +370,8 @@ class App extends Component {
             const gameClone = this.getGameClone(game);
 
             if (this.state.game){
-                const activePlayerIndex = this.state.game.players.findIndex(p=>p.active);
-                const newActivePlayerIndex = gameClone.players.findIndex(p=>p.active);
+                const activePlayerIndex = this.state.game.players.findIndex(p=>p && p.active);
+                const newActivePlayerIndex = gameClone.players.findIndex(p=>p && p.active);
                 if (activePlayerIndex !== newActivePlayerIndex){
                     const myIndex = this.getMyIndex(this.state.game.players);
                     if (myIndex === newActivePlayerIndex){
@@ -391,25 +397,25 @@ class App extends Component {
 
                 }
             }
-            gameClone.players.forEach(p=>{
+            gameClone.players.filter(p=>Boolean(p)).forEach(p=>{
                 p.cardsToShow = newHand && gameClone.texas ? 0 : 2;
             });
             this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver && game.gamePhase === 0});
             if (newHand){
-                const playersWithCards = game.players.filter(p=>!p.sitOut);
+                const playersWithCards = game.players.filter(p=>Boolean(p)).filter(p=>!p.sitOut);
                 const playersWithCardsCount = playersWithCards.length;
                 const delay = 150;
                 playersWithCards.forEach((p)=>{
                     const {dealIndex} = p;
 
                     setTimeout(()=>{
-                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        gameClone.players.filter(p=>Boolean(p)).find(pl=>pl.id===p.id).cardsToShow += 1;
                         this.setState({game: gameClone});
 
                     },(dealIndex+1)*delay);
 
                     setTimeout(()=>{
-                        gameClone.players.find(pl=>pl.id===p.id).cardsToShow += 1;
+                        gameClone.players.find(pl=>pl && pl.id===p.id).cardsToShow += 1;
                         this.setState({game: gameClone});
                     },playersWithCardsCount*delay + (dealIndex+1)*delay);
                 })
@@ -567,7 +573,7 @@ class App extends Component {
     };
 
     kickOutPlayer = (playerToKickId) =>{
-        const player = this.state.game.players.find(p=>p.id ===playerToKickId);
+        const player = this.state.game.players.find(p=>p && p.id === playerToKickId);
         const action = player.active ? (player.options.includes('Call') ? 'Force Fold Player':'Force Check Player') :'Kick Out Player';
         this.setState({ popupData: {
                 show: true,
@@ -625,7 +631,7 @@ class App extends Component {
     startGame = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const admin = this.state.game.players.find(p=>p.admin);
+        const admin = this.state.game.players.find(p=>p && p.admin);
         if (admin.id === playerId){
             this.socket.emit('startgame', {gameId , now, playerId });
         }
@@ -654,7 +660,7 @@ class App extends Component {
     pauseGame = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const admin = this.state.game.players.find(p=>p.admin);
+        const admin = this.state.game.players.find(p=>p && p.admin);
         if (admin.id === playerId){
             this.socket.emit('pausegame', {gameId , now, playerId });
         }
@@ -669,7 +675,7 @@ class App extends Component {
     resumeGame = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
-        const admin = this.state.game.players.find(p=>p.admin);
+        const admin = this.state.game.players.find(p=>p && p.admin);
         if (admin.id === playerId){
             this.socket.emit('resumegame', {gameId , now, playerId });
         }
@@ -828,10 +834,10 @@ class App extends Component {
                 return <GameInfoScreen game={game} onClose={this.toggleShowInfo}/>
             }
 
-            const admin = game.players.find(p=>p.admin);
+            const admin = game.players.find(p=>p && p.admin);
             const isAdmin =  (admin.id === playerId);
 
-            const gamePlayer =  game.players.find(p=>p.id === playerId);
+            const gamePlayer =  game.players.find(p=>p && p.id === playerId);
 
             if (gamePlayer){
 
