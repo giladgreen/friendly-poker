@@ -14394,16 +14394,7 @@ em-spades {
 
 #messages-box {
   position: fixed;
-  bottom: 3.2vh;
-  left: 0.5vw;
-  width: 25vw;
-  height: 15.5vh;
-  border: 2px solid #444444;
-  border-radius: 0px 0px 12px 12px;
   overflow-y: hidden;
-  padding-left: 0.6vw;
-  padding-top: 0.5vh;
-  padding-bottom: 0.5vh;
   background: #444444;
   color: #777777;
   z-index: 999999;
@@ -14411,6 +14402,58 @@ em-spades {
 
 #messages-box:hover {
   overflow-y: scroll;
+}
+
+.messages-box-focus {
+  bottom: 3.2vh;
+  left: 0.5vw;
+  width: 25vw;
+  height: 15.5vh;
+  border: 2px solid #444444;
+  border-radius: 0px 0px 12px 12px;
+  padding-left: 0.6vw;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .messages-box-focus {
+    bottom: 0.2vh;
+    left: 0.6vw;
+    width: 84.6vw;
+    height: 17vh;
+    border: 1px solid #666666;
+    border-radius: 3px;
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    font-size: 1em;
+  }
+}
+
+.messages-box-blur {
+  bottom: 3.2vh;
+  left: 0.5vw;
+  width: 25vw;
+  height: 15.5vh;
+  border: 2px solid #444444;
+  border-radius: 0px 0px 12px 12px;
+  padding-left: 0.6vw;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .messages-box-blur {
+    bottom: 0vh;
+    left: 0vw;
+    width: 35vw;
+    height: 10.7vh;
+    border: 1px solid #666666;
+    border-radius: 3px;
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    font-size: 0.7em;
+  }
 }
 
 #chat-header {
@@ -14425,29 +14468,115 @@ em-spades {
 
 #chat-input {
   position: fixed;
+  padding-left: 4px;
+  border-radius: 8px 0px 0px 0px;
+  z-index: 999999;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #chat-input {
+    border-radius: 0px;
+  }
+}
+
+.chat-input-focus {
+  background: #882222;
+  color: white;
+  outline: none;
   bottom: 18.8vh;
   left: 0.5vw;
   width: 22vw;
-  padding-left: 4px;
-  border-radius: 8px 0px 0px 0px;
   height: 3.9vh;
-  z-index: 999999;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .chat-input-focus {
+    bottom: 17vh;
+    left: 0.5vw;
+    width: 99vw;
+    padding-left: 4px;
+    border-radius: 0px;
+    height: 9vh;
+    z-index: 999999;
+    font-size: 1.7em;
+  }
+}
+
+.chat-input-blur {
+  bottom: 18.8vh;
+  left: 0.5vw;
+  width: 22vw;
+  height: 3.9vh;
+  background: white;
+  color: black;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .chat-input-blur {
+    bottom: 10.8vh;
+    left: 0vw;
+    width: 30vw;
+    padding-left: 4px;
+    border-radius: 0px;
+    height: 3.9vh;
+    z-index: 999999;
+    font-size: 0.3em;
+  }
 }
 
 #send-message-button {
   position: fixed;
+  color: white;
+  border: 2px solid white;
+  cursor: pointer;
+  text-align: center;
+  z-index: 999999;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #send-message-button {
+    border-radius: 2px;
+  }
+}
+
+.send-message-button-focus {
+  background: black;
   bottom: 18.77vh;
   left: 22.5vw;
   width: 3vw;
-  color: white;
   height: 3.88vh;
-  border: 2px solid white;
   border-radius: 0px 8px 0px 0px;
-  cursor: pointer;
-  text-align: center;
-  padding-top: 1px;
+  padding-top: 4px;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .send-message-button-focus {
+    background: red;
+    border-radius: 8px;
+    bottom: 0.5vh;
+    left: 85.5vw;
+    width: 14vw;
+    height: 17vh;
+    font-size: 2em;
+  }
+}
+
+.send-message-button-blur {
   background: black;
-  z-index: 999999;
+  bottom: 18.77vh;
+  left: 22.5vw;
+  width: 3vw;
+  height: 3.88vh;
+  border-radius: 0px 8px 0px 0px;
+  padding-top: 4px;
+  font-size: 1em;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .send-message-button-blur {
+    border-radius: 2px;
+    background: black;
+    bottom: 10.4vh;
+    left: 29.7vw;
+    width: 5.5vw;
+    height: 3.88vh;
+    padding-top: 0px;
+    font-size: 0.2em;
+  }
 }
 
 .msg-time {
@@ -14735,53 +14864,8 @@ em-spades {
     visibility: hidden;
   }
 
-  #messages-box {
-    position: fixed;
-    bottom: 0vh;
-    left: 0vw;
-    width: 35vw;
-    height: 10.7vh;
-    border: 1px solid #666666;
-    border-radius: 3px;
-    padding-left: 2px;
-    padding-top: 2px;
-    padding-bottom: 1px;
-    background: #444444;
-    font-size: 0.7em;
-    z-index: 999999;
-  }
-
   #chat-header {
     visibility: hidden;
-  }
-
-  #chat-input {
-    position: fixed;
-    bottom: 10.8vh;
-    left: 0vw;
-    width: 30vw;
-    padding-left: 4px;
-    border-radius: 8px 0px 0px 0px;
-    height: 3.9vh;
-    z-index: 999999;
-    font-size: 0.3em;
-  }
-
-  #send-message-button {
-    position: fixed;
-    bottom: 10.8vh;
-    left: 30vw;
-    width: 5vw;
-    color: white;
-    height: 3.88vh;
-    border: 2px solid white;
-    border-radius: 0px 8px 0px 0px;
-    cursor: pointer;
-    text-align: center;
-    padding-top: 1px;
-    background: black;
-    font-size: 0.1em;
-    z-index: 999999;
   }
 }
 @media (max-width: 530px) {

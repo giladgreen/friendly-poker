@@ -558,7 +558,7 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
-        const { options, cheapLeader, me, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName} = this.state;
+        const { options, cheapLeader, me, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
         if (chosenGame !== 'TEXAS'){
             setTimeout(()=>{
                 this.props.dealerChooseGame(chosenGame);
@@ -935,11 +935,18 @@ class OnlineGame extends Component {
                 {/* chat box input */}
                 {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
                 <input id="chat-input"
+                       className={chatFocused ? 'chat-input-focus' : 'chat-input-blur'}
                        type="text"
                        value={this.state.chatMessage}
 
-                       onFocus={()=>{this.setState({ chatFocused:true })}}
-                       onBlur={()=>{this.setState({ chatFocused:false })}}
+                       onFocus={()=>{
+                           this.setState({ chatFocused:true })
+                            }
+                       }
+                       onBlur={()=>{
+                           this.setState({ chatFocused:false })
+                         }
+                       }
 
                        onChange={(e)=>this.setChatMessage(e.target.value)}
                         onKeyUp={(event)=>{
@@ -954,12 +961,14 @@ class OnlineGame extends Component {
                         }}
                 />)}
                 {/* chat box send button */}
-                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (<div id="send-message-button" onClick={()=>{
+                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
+                    <div id="send-message-button" className={chatFocused ? 'send-message-button-focus' : 'send-message-button-blur'} onClick={()=>{
                     this.onSendMessage();
+
                     this.setState({chatFocused:false});
                 }} >send</div>)}
                 {/* chat box input */}
-                { this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box">
+                { this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box" className={chatFocused ? 'messages-box-focus' : 'messages-box-blur'}>
                     {messages}
                 </div>}
 
