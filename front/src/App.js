@@ -63,6 +63,7 @@ if (!localStorage.getItem('playerId')){
 
 const basePreferences = {
     twoColors:true,
+    manualTimeBank: true
 }
 if (!localStorage.getItem('playerPreferences')){
     localStorage.setItem('playerPreferences', JSON.stringify(basePreferences));
@@ -612,6 +613,7 @@ class App extends Component {
     };
 
     sendMessage = (message) =>{
+
         if (message.length > 0){
             const now =(new Date()).getTime();
             const { gameId, playerId } = this.state;

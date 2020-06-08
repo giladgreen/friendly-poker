@@ -24,9 +24,11 @@ import TuneIcon from '@material-ui/icons/Tune';
 import CancelIcon from '@material-ui/icons/Cancel';
 import UserTimer from "./UserTimer";
 import GamePauseScreen from "../containers/GamePauseScreen";
+import WhiteCheckbox from '../containers/WhiteCheckbox';
 
 import GameSettingModal from "./GameSettingModal";
 import Clock from "./Clock";
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 const PrettoSlider = withStyles({
@@ -315,7 +317,32 @@ class OnlineGame extends Component {
         if (game.gameType === 'DEALER_CHOICE') {
             gameName += `: ${(game.omaha ? gameOptions[1].name : (game.pineapple ? gameOptions[2].name : (gameOptions[0].name)))}`
         }
+        console.log('game update, this.autoTimebankPressRef exist:', Boolean(this.autoTimebankPressRef))
+        if (!this.autoTimebankPressRef){
+            if (getTimeEnabled){
+                console.log('about to try auto time banking')
+                const str = localStorage.getItem('playerPreferences');
+                let manualTimeBank = true;
+                if (str){
+                    const playerPreferences = JSON.parse(str);
+                    manualTimeBank = playerPreferences.manualTimeBank;
+                }
+                if (!manualTimeBank && amountToCall > 0){
 
+                    //auto press the button when the time reach 1 sec (only if call is needed):
+                    this.autoTimebankPressRef = setTimeout(()=>{
+                        this.props.askForMoreTime();
+                        delete this.autoTimebankPressRef;
+                    }, (game.time - 1) * 1000)
+                }
+            }
+
+        }else{
+            if (!getTimeEnabled){
+                clearTimeout(this.autoTimebankPressRef);
+                delete this.autoTimebankPressRef;
+            }
+        }
         const newState = {
             gameName,
             me,
@@ -408,6 +435,7 @@ class OnlineGame extends Component {
     };
 
     onSendMessage = ()=>{
+
         this.props.sendMessage(this.state.chatMessage);
         this.setState({chatMessage:'' });
     };
@@ -930,6 +958,49 @@ class OnlineGame extends Component {
 
 
                             </div>
+                            <div id="time-bank-preferences">
+                                Time Bank:
+                                <div id="manual-timebank-checkbox">
+                                    <FormControlLabel
+                                        control={
+                                            <WhiteCheckbox
+                                                checked={this.state.playerPreferences.manualTimeBank}
+                                                onChange={()=>{
+                                                    const newPlayerPreferences = this.state.playerPreferences;
+                                                    newPlayerPreferences.manualTimeBank = true;
+                                                    localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
+                                                    this.setState({playerPreferences: newPlayerPreferences})
+                                                }}
+                                                name="checkedB"
+                                                color="primary"
+                                            />
+                                        }
+                                        label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Use Time-Bank Manually</span>}
+
+                                    />
+                                </div>
+                                <div id="auto-timebank-checkbox">
+                                    <FormControlLabel
+                                        control={
+                                            <WhiteCheckbox
+                                                checked={!this.state.playerPreferences.manualTimeBank}
+                                                onChange={()=>{
+                                                    const newPlayerPreferences = this.state.playerPreferences;
+                                                    newPlayerPreferences.manualTimeBank = false;
+                                                    localStorage.setItem('playerPreferences', JSON.stringify(newPlayerPreferences));
+                                                    this.setState({playerPreferences: newPlayerPreferences})
+                                                }}
+                                                name="checkedB"
+                                                color="primary"
+                                            />
+                                        }
+                                        label={<span style={{ fontSize: isMobile ? '1em': '2em' }}>Use Auto-Time-Bank</span>}
+
+                                    />
+                                </div>
+
+
+                            </div>
                         </div>
                     </Fade>
                 </Modal>
@@ -948,15 +1019,22 @@ class OnlineGame extends Component {
                        onFocus={()=>{
                            this.setState({ chatFocused:true })
                            setTimeout(()=>{
-                               document.getElementById('dot').scrollIntoView();
+                               if (isMobile) {
+                                   document.getElementById('dot').scrollIntoView();
+                               }
                            },50)
                             }
                        }
                        onBlur={()=>{
-                           this.setState({ chatFocused:false })
-                           setTimeout(()=>{
-                               document.getElementById('dot').scrollIntoView();
-                           },50)
+                           if (isMobile){
+                               setTimeout(()=>{
+                                   this.setState({ chatFocused:false })
+                                   document.getElementById('dot').scrollIntoView();
+
+                               },100)
+                           } else{
+                               this.setState({ chatFocused:false })
+                           }
                          }
                        }
 
@@ -975,12 +1053,11 @@ class OnlineGame extends Component {
                 {/* chat box send button */}
                 {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
                     <div id="send-message-button" className={chatFocused ? 'send-message-button-focus' : 'send-message-button-blur'} onClick={()=>{
-                    this.onSendMessage();
-                       setTimeout(()=>{
-                           document.getElementById('dot').scrollIntoView();
-                       },50)
+
+                        this.onSendMessage();
+
                     this.setState({chatFocused:false});
-                }} >send</div>)}
+                }} >Send</div>)}
                 {/* chat box input */}
                 { this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box" className={chatFocused ? 'messages-box-focus' : 'messages-box-blur'}>
                     {messages}

@@ -630,7 +630,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     height: 89vh;
     top: 10vh;
     left: 1vw;
-    background: #000000BB;
+    background: #000000DD;
     padding: 20px;
     border: 2px solid white;
     border-radius: 20px;
@@ -646,7 +646,29 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 
 }
 #Deck-Style-selection{
+    position: fixed;
+    top: 30vh;
+    left: 2vw;
+    width: 25vw;
+    height: 50vh;
+}
+#time-bank-preferences{
+    position: fixed;
+    top: 30vh;
+    left: 28vw;
+    width: 35vw;
+    height: 50vh;
 
+}
+#manual-timebank-checkbox{
+    position: fixed;
+    top: 35vh;
+    left: 30vw;
+}
+#auto-timebank-checkbox{
+    position: fixed;
+    top: 39vh;
+    left: 30vw;
 }
 .base-Deck-Style{
     width: 9vw;
@@ -660,12 +682,12 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 #two-colors-button{
     position: fixed;
     left:2vw;
-    top:35vh;
+    top:37vh;
 }
 #four-colors-button{
     position: fixed;
     left:12vw;
-    top:35vh;
+    top:37vh;
 }
 .selected-Deck-Style{
     background: darkgreen;
@@ -938,7 +960,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
         padding-left: 4px;
         border-radius: 0px;
         height: 9vh;
-        z-index: 999999;
+        z-index: 9999999;
         font-size: 1.7em;
     }
 }

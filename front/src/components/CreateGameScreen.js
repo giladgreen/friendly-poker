@@ -1,20 +1,10 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/img-has-alt */
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
-
-const WhiteCheckbox = withStyles({
-    root: {
-        color: 'white',
-        '&$checked': {
-            color: 'white',
-        },
-    },
-    checked: {},
-})((props) => <Checkbox color="default" {...props} />);
 
 import React, { Component } from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import WhiteCheckbox from '../containers/WhiteCheckbox';
+
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
