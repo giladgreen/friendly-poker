@@ -807,9 +807,7 @@ class App extends Component {
            return <NotSupported message="Incognito Mode is not supported"/>
         }
         if (!this.state.gameId){
-            if (isMobile){
-               return <NotSupported message="Game creation not supported on mobile view"/>
-            }
+
             return this.wrapWithAlerts(<CreateGameScreen
                 connected={this.state.connected}
                 playerId={this.state.playerId}

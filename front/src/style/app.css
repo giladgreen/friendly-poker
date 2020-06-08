@@ -11282,6 +11282,16 @@ em-spades {
   background: black;
   z-index: 0;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-screen {
+    font-size: 0.5em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-screen {
+    visibility: hidden;
+  }
+}
 
 #create-new-game-screen input {
   text-align: center;
@@ -11353,6 +11363,16 @@ em-spades {
   color: white;
   font-size: 2.6em;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  .create-new-game-labels {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .create-new-game-labels {
+    visibility: hidden;
+  }
+}
 
 .tablecell {
   width: 1px;
@@ -11373,6 +11393,16 @@ em-spades {
   color: white;
   font-size: 1.8em;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #select-game-div {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #select-game-div {
+    visibility: hidden;
+  }
+}
 
 #select-game-label {
   width: 15vw;
@@ -11389,6 +11419,17 @@ em-spades {
   padding: 10px 0px 5px 20px;
   height: 3vh;
   font-size: 2em;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #select-game-dropdown {
+    font-size: 0.8em;
+    padding: 5px 0px 15px 20px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #select-game-dropdown {
+    visibility: hidden;
+  }
 }
 
 #create-new-game-blinds-div {
@@ -11412,6 +11453,16 @@ em-spades {
   margin-right: 7vw;
   width: 8vw;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-small-blind-input {
+    font-size: 1.4em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-small-blind-input {
+    visibility: hidden;
+  }
+}
 
 #create-new-game-big-blind-input {
   border-radius: 12px;
@@ -11419,6 +11470,16 @@ em-spades {
   color: black;
   margin-left: 1vw;
   width: 8vw;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-big-blind-input {
+    font-size: 1.4em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-big-blind-input {
+    visibility: hidden;
+  }
 }
 
 #create-new-game-action-time-div {
@@ -11441,6 +11502,16 @@ em-spades {
   color: black;
   margin-left: 1.5vw;
   width: 7vw;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-action-time-input {
+    font-size: 1.4em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-action-time-input {
+    visibility: hidden;
+  }
 }
 
 #create-new-game-private-checkbox {
@@ -11496,6 +11567,16 @@ em-spades {
   color: #C9C9C9;
   font-size: 2.3em;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-timebank-enabled-checkbox {
+    left: 30vw;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-timebank-enabled-checkbox {
+    visibility: hidden;
+  }
+}
 
 #create-new-game-straddle-enabled-checkbox {
   position: fixed;
@@ -11550,6 +11631,16 @@ em-spades {
   display: table-cell;
   width: 50%;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-name-input {
+    font-size: 1.7em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-name-input {
+    visibility: hidden;
+  }
+}
 
 #create-new-game-buy-in-div {
   position: fixed;
@@ -11572,6 +11663,16 @@ em-spades {
   margin-left: 1vw;
   width: 9vw;
 }
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-new-game-buy-in-input {
+    font-size: 1.6em;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-new-game-buy-in-input {
+    visibility: hidden;
+  }
+}
 
 #create-game-button {
   color: black;
@@ -11589,6 +11690,17 @@ em-spades {
   border-radius: 12px;
   cursor: pointer;
   padding-top: 0vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #create-game-button {
+    font-size: 2em;
+    padding-top: 3px;
+  }
+}
+@media only screen and (max-width: 530px) {
+  #create-game-button {
+    visibility: hidden;
+  }
 }
 
 .disabled-create-game-button {
@@ -15103,14 +15215,6 @@ em-spades {
   }
 
   #chat-header {
-    visibility: hidden;
-  }
-
-  #chat-input {
-    visibility: hidden;
-  }
-
-  #send-message-button {
     visibility: hidden;
   }
 }

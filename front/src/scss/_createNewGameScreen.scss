@@ -6,6 +6,12 @@
     height: 100vh;
     background: black;
     z-index: 0;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 0.5em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+      visibility: hidden;
+    }
 }
 #create-new-game-screen input{
     text-align: center;
@@ -75,6 +81,12 @@
 .create-new-game-labels{
     color: white;
     font-size: 2.6em;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.5em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 .tablecell{
@@ -95,6 +107,12 @@
     padding-top: 0px;
     color: white;
     font-size: 1.8em;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.5em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 #select-game-label{
     width: 15vw;
@@ -112,6 +130,13 @@
     padding: 10px 0px 5px 20px;
     height: 3vh;
     font-size: 2em;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 0.8em;
+        padding: 5px 0px 15px 20px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 #create-new-game-blinds-div{
@@ -134,6 +159,12 @@
     margin-left: 1.1vw;
     margin-right: 7vw;
     width: 8vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.4em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 #create-new-game-big-blind-input{
     border-radius: 12px;
@@ -141,6 +172,12 @@
     color: black;
     margin-left: 1vw;
     width: 8vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.4em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 #create-new-game-action-time-div{
     position: fixed;
@@ -161,6 +198,12 @@
     color: black;
     margin-left: 1.5vw;
     width: 7vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.4em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 #create-new-game-private-checkbox{
@@ -218,6 +261,13 @@
         color: #C9C9C9;
         font-size:  2.3em;
     }
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        left: 30vw;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 #create-new-game-straddle-enabled-checkbox{
@@ -270,6 +320,12 @@
     color: black;
     display:table-cell;
     width:50%;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.7em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 
 }
 #create-new-game-buy-in-div{
@@ -291,6 +347,12 @@
     color: black;
     margin-left: 1vw;
     width: 9vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 1.6em;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
 }
 
 #create-game-button{
@@ -309,6 +371,14 @@
     border-radius: 12px;
     cursor: pointer;
     padding-top: 0vh;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        font-size: 2em;
+        padding-top: 3px;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        visibility: hidden;
+    }
+
 }
 .disabled-create-game-button{
     color: darkgray;
