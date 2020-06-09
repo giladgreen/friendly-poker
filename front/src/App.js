@@ -569,11 +569,15 @@ class App extends Component {
                 onYes:()=>{
                     const { gameId, playerId } = this.state;
                     //console.log('emiting quitgame')
+
                     this.socket.emit('quitgame', {gameId, playerId, now: (new Date()).getTime() });
                     localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
 
                     window.location = serverPrefix;
+
+
                     this.onCancelPopUp();
+
                 },
             }} );
     };
