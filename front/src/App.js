@@ -562,22 +562,24 @@ class App extends Component {
     };
 
     quitGame = () =>{
+        const { gameId, playerId } = this.state;
+        let isAdmin = false;
+        const admin = this.state.game.players.find(p=>p && p.admin);
+        if (admin && admin.id === playerId){
+            isAdmin = true;
+        }
 
         this.setState({ popupData: {
                 show: true,
                 message:'Are you sure?',
                 onYes:()=>{
-                    const { gameId, playerId } = this.state;
+
                     //console.log('emiting quitgame')
-
                     this.socket.emit('quitgame', {gameId, playerId, now: (new Date()).getTime() });
-                    localStorage.setItem('playerId', `playerId_${(new Date()).getTime()}`);
-
-                    window.location = serverPrefix;
-
-
+                    if (!isAdmin){
+                        window.location = serverPrefix;
+                    }
                     this.onCancelPopUp();
-
                 },
             }} );
     };

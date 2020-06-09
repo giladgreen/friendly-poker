@@ -590,7 +590,7 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
-        const { options, cheapLeader, me, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
+        const { options, cheapLeader, me, isMyTurn, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
         if (chosenGame !== 'TEXAS'){
             setTimeout(()=>{
                 this.props.dealerChooseGame(chosenGame);
@@ -617,14 +617,14 @@ class OnlineGame extends Component {
         const showDropCardMessage = game.pineapple && game.waitingForPlayers;
         const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
         const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
-        const quitEnabled = me && (!me.admin && (me.sitOut || !startDate || game.handOver)) ;
+
         const standSitEnabled = startDate && me && ((me.sitOut && me.balance > 0) || me.fold || game.handOver);
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
-
+        const cantQuit =  isMyTurn || (me.admin && players.filter(p=>p && p.id !== me.id).length > 0);
 
         return (
             <div id="online-game-screen">
@@ -855,7 +855,7 @@ class OnlineGame extends Component {
                 {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="player-settings-button"  onClick={this.togglePlayerSettings}><TuneIcon/>Preferences </div>}
 
                 {/* quit button */}
-                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="quit-button" className="active-button active-quit-button" onClick={this.props.quitGame}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>}
+                {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="quit-button" className={ cantQuit ? "inactive-quit-button" : "active-button active-quit-button" } onClick={(cantQuit ?  ()=>{} : this.props.quitGame)}><EmojiPeopleIcon/><span className="left-margin">Quit</span> </div>}
 
                 {/* settings button */}
                 { this.props.isAdmin && !this.state.rebuySectionOpen && this.state.sideMenu && <div id="game-settings-button" className="active-button" onClick={this.toggleSettings}><SettingsIcon/><span className="left-margin">settings</span> </div>}
