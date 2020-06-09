@@ -66,7 +66,8 @@ const PlayerInfo = (props) => {
             { player.offline && <div  className="player-offline-indication">OFFLINE</div>}
             { props.admin && !props.isMe && <div className="user-menu" onClick={()=>props.kickOutPlayer(player.id)}><span className={actionClass}>{forceAction}</span></div>}
             {/*{ false && props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}*/}
-            { player.sitOut && <div  className="player-sitOut-indication">{game.pendingPlayers.includes(player.id) ? 'Joining next hand': 'Sitting Out'}</div>}
+            { player.sitOut && game.pendingPlayers.includes(player.id) ? <div className="player-joining-next-hand-indication">Joining next hand</div> : <div/>}
+            { player.sitOut && !game.pendingPlayers.includes(player.id) ? <div className="player-sitOut-indication">Sitting Out</div> : <div/>}
             { player.userDesc && game.gamePhase === 1 && <div  className={`player-hand-description player-hand-description-at-game-phase-1`}>{player.userDesc}</div>}
             { player.userDesc && game.gamePhase === 2 && <div  className={`player-hand-description player-hand-description-at-game-phase-2`}>{player.userDesc}</div>}
             { player.userDesc && game.gamePhase === 3 && <div  className={`player-hand-description player-hand-description-at-game-phase-3`}>{player.userDesc}</div>}

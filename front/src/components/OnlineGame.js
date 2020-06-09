@@ -209,6 +209,8 @@ class OnlineGame extends Component {
             },150)
         }
 
+        const name = localStorage.getItem('myName') || '♠️ ♦️ ♣️ ♥️';
+        document.title = `F.L.O.P - ${name}`;
     }
 
     onGameUpdate = (game) =>{
@@ -621,6 +623,7 @@ class OnlineGame extends Component {
         const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
 
         const standSitEnabled = startDate && me && ((me.sitOut && me.balance > 0) || me.fold || game.handOver);
+        const cantStandSit = !me || (me.sitOut && me.balance === 0) || isMyTurn;
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
@@ -847,7 +850,7 @@ class OnlineGame extends Component {
                 {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="copy-game-link-small" className="copy-game-link" onClick={linkOnClick}> <LinkIcon/><span className="left-margin">Link</span> </div>}
 
                 {/* stand-sit button */}
-                { !this.state.rebuySectionOpen && this.state.sideMenu && <div id="stand-sit-button" className={standSitEnabled ? "active-button": "inactive-button"} onClick={standSitEnabled ? this.sitStand : ()=>{}}>{this.state.me.sitOut ? <AccessibleForwardIcon/> :<AccessibilityNewIcon/>}<span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>}
+                { !this.state.rebuySectionOpen && this.state.sideMenu && <div id="stand-sit-button" className={cantStandSit ? "inactive-button":"active-button"} onClick={cantStandSit ? ()=>{} : this.sitStand}>{this.state.me.sitOut ? <AccessibleForwardIcon/> :<AccessibilityNewIcon/>}<span className="left-margin">{ this.state.me.sitOut ? 'Sit Back' : 'Stand Up'}</span>  </div>}
                 {/* info button */}
                 {!this.state.rebuySectionOpen && this.state.sideMenu && <div id="info-button" className="active-button" onClick={this.props.toggleShowInfo}><DnsIcon/><span className="left-margin">Info</span> </div>}
                 {/* logs button */}

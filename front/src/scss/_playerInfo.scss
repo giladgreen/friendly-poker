@@ -762,24 +762,55 @@ $players-dealer-button-left: (
 }
 .player-sitOut-indication{
     position: absolute;
-    width: 15vw;
+    width: 7vw;
+    height: 5vw;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    @include font-med;
+    z-index: 22;
+    padding-top: 3vh;
+    alignment: center;
+    text-align: center;
+    top:0vh;
+    left:1vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        width: 9vw;
+        height: 7vw;
+        font-size: 0.6em;
+        left:-1vw;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+        width: 18vw;
+        height: 2.4vw;
+        font-size: 0.8em;
+    }
+}
+
+.player-joining-next-hand-indication{
+    position: absolute;
+    width: 12vw;
     height: 2.2vw;
     border-radius: 10px;
     background: black;
     color: white;
     font-weight: bold;
     @include font-med;
-    z-index: 12;
+    z-index: 22;
     padding-top: 3px;
     alignment: center;
     text-align: center;
-    top:10.7vh;
-    left:0vw;
+    top:10vh;
+    left:4.5vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        width: 18vw;
+        width: 14vw;
         height: 2.6vw;
-        font-size: 0.7em;
+        font-size: 0.6em;
+        left:4vw;
+        top:8.5vh;
     }
     @media only screen and (max-width: $mobile-vertical) {
         width: 18vw;
