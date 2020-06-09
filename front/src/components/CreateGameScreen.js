@@ -22,6 +22,7 @@ class CreateGameScreen extends Component {
         const timeBankEnabledSavedValue = localStorage.getItem('timebank-enabled');
 
         const name = localStorage.getItem('myName') || '';
+        document.title = `F.L.O.P - ${name}`;
         const privateGame = privateGameSavedValue ? privateGameSavedValue === 'true' : true;
         const approvalRequired = approvalRequiredSavedValue ? approvalRequiredSavedValue === 'true' : false;
         const straddleEnabled = straddleEnabledSavedValue ? straddleEnabledSavedValue === 'true' : true;
@@ -61,6 +62,7 @@ class CreateGameScreen extends Component {
             return;
         }
         localStorage.setItem('myName',this.state.name);
+        document.title = `F.L.O.P - ${this.state.name}`;
         localStorage.setItem('private-game',this.state.privateGame ? 'true':'false');
         localStorage.setItem('rebuy-approval-required',this.state.approvalRequired ? 'true':'false');
         localStorage.setItem('straddle-enabled',this.state.straddleEnabled ? 'true':'false');

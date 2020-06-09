@@ -541,7 +541,9 @@ class OnlineGame extends Component {
     };
 
     showCards = ()=>{
+        this.setState({showingCards: true})
         return this.props.showCards();
+
     };
 
     call = ()=>{
@@ -1006,7 +1008,8 @@ class OnlineGame extends Component {
 
 
 
-                <div id="chat-header" > <span className="shortcut">M</span>essages </div>
+                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
+                    <div id="chat-header" > <span className="shortcut">M</span>essages </div>)}
                 {/* chat box input */}
                 {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
                 <input id="chat-input"

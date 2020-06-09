@@ -178,7 +178,12 @@ $first-card-z-index: 20;
 }
 
 .shown-card{
-    outline: 1px solid #cc2222;
+    outline: 6px solid #cc2222BB;
+
+    @media only screen and (max-width: $mobile-horizonal) {
+        outline: 2px solid #cc222266;
+    }
+
 }
 .drop-card-enabled{
 

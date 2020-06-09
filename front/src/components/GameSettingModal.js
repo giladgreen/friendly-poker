@@ -192,9 +192,10 @@ class GameSettingModal extends Component {
 
     render() {
         const { skipHandEnabled, changePlayersBalances, game} = this.props;
-        const { pendingJoin, pendingRebuy, players} = game;
+        const { pendingJoin, pendingRebuy, players, requireRebuyApproval} = game;
         const { showSmallBlindError, showBigBlindError, showTimeError, showBalancesScreen, newBalances, amountError } = this.state;
-
+        const gamePendingJoin = requireRebuyApproval ? pendingJoin : [];
+        const gamePendingRebuy = requireRebuyApproval ? pendingRebuy : [];
         if (showBalancesScreen){
             return  <div id="game-settings-modal">
                 <div id="game-settings-modal-close-x" onClick={()=>{
@@ -270,7 +271,7 @@ class GameSettingModal extends Component {
 
         const saveButtonDisabled = showSmallBlindError || showBigBlindError || showTimeError;
 
-        const pendingIndicationCount = pendingJoin.length + pendingRebuy.length;
+        const pendingIndicationCount = gamePendingJoin.length + gamePendingRebuy.length;
         const hasPendingRequests = pendingIndicationCount > 0;
 
 
@@ -393,10 +394,10 @@ class GameSettingModal extends Component {
             {hasPendingRequests && this.state.showPendingRequests && <div id="pending-requests">
                 <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
                 <div id="pending-requests-body">
-                    {pendingJoin.map(joinData =>{
+                    {gamePendingJoin.map(joinData =>{
                         return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineJoin(joinData)}> Decline</span>   </div>
                     }) }
-                    {pendingRebuy.map(rebuyData =>{
+                    {gamePendingRebuy.map(rebuyData =>{
                         return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineRebuy(rebuyData)}> Decline</span>  </div>
                     }) }
 

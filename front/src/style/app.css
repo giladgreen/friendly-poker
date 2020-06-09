@@ -11055,7 +11055,12 @@ body {
 }
 
 .shown-card {
-  outline: 1px solid #cc2222;
+  outline: 6px solid #cc2222BB;
+}
+@media only screen and (max-width: 800px) {
+  .shown-card {
+    outline: 2px solid #cc222266;
+  }
 }
 
 .drop-card-enabled:hover {
