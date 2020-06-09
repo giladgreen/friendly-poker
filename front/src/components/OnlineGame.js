@@ -794,7 +794,7 @@ class OnlineGame extends Component {
                                 <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> <span><span className="shortcut">A</span>ll In</span></div>
 
                                 {/* pot */}
-                                { options.includes('Check') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> <span><span className="shortcut">P</span>ot</span></div>}
+                                { options.includes('Raise') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> <span><span className="shortcut">P</span>ot</span></div>}
                                 {/*/!* 2/3 pot *!/*/}
                                 { options.includes('Check') && <div id="raise-button-2-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(2*pot / 3)}> 2/3 Pot</div>}
                                 {/*/!* 1/2 pot *!/*/}
