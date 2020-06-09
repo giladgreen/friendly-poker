@@ -240,10 +240,6 @@ class OnlineGame extends Component {
             }
             if (game.handOver || me.balance === 0 || me.sitOut || me.fold){
                 rebuyEnabled = true
-                if (this.rebuyValue){
-                    this.props.rebuy(this.rebuyValue);
-                    this.rebuyValue = null;
-                }
             }
             const maxBalance = Math.max(...this.props.game.players.filter(p=>Boolean(p)).map(p => p.balance));
             cheapLeader = me.balance === maxBalance;
@@ -459,20 +455,13 @@ class OnlineGame extends Component {
 
     rebuy = ()=>{
         if (this.state.rebuyValueError){
-            console.log('rebuyValueError')
             return;
         }
         if (this.state.rebuyValue === 0){
-            console.log('this.state.rebuyValue', this.state.rebuyValue)
             return this.props.showAlertMessage('Rebuy is not possible');
         }
-
-        if (this.state.rebuyEnabled){
-            console.log('calling this.props.rebuy with ', this.state.rebuyValue)
-            this.props.rebuy(this.state.rebuyValue);
-        }else{
-            console.log('rebuyValue ', this.state.rebuyValue)
-            this.rebuyValue = this.state.rebuyValue;
+        this.props.rebuy(this.state.rebuyValue);
+        if (!this.state.rebuyEnabled){
             this.props.showAlertMessage('Rebuy request sent')
         }
         this.setState({rebuySectionOpen:false, rebuyValue:this.props.game.defaultBuyIn});
