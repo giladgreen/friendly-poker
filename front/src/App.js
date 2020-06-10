@@ -277,7 +277,7 @@ class App extends Component {
 
     keypress = (event)=>{
         const keycode = event.keyCode;
-        console.log('keypress ',keycode);
+        //console.log('keypress ',keycode);
         if (this.KeypressCallback){
             this.KeypressCallback(event)
         } else{

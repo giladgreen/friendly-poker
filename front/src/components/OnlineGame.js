@@ -215,7 +215,7 @@ class OnlineGame extends Component {
 
     onGameUpdate = (game) =>{
 
-        let rebuyEnabled = false;
+        let rebuyEnabled = true;
         const userTimer = game.timeForDropCard ? game.timeForDropCard : game.currentTimerTime;
 
         const activeIndex = this.getActiveIndex(game.players);
@@ -240,9 +240,7 @@ class OnlineGame extends Component {
             if (me.userDesc){
                 userHand = me.userDesc;
             }
-            if (game.handOver || me.balance === 0 || me.sitOut || me.fold){
-                rebuyEnabled = true
-            }
+
             const maxBalance = Math.max(...this.props.game.players.filter(p=>Boolean(p)).map(p => p.balance));
             cheapLeader = me.balance === maxBalance;
         }
@@ -292,13 +290,13 @@ class OnlineGame extends Component {
         }
 
         const getIsNextStraddle =  () => {
-
             const dealerIndex = game.players.findIndex(p=>p && p.dealer);
             const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
             const newSmallIndex = getNextActivePlayerIndex(newDealerIndex);
             const newBigIndex = getNextActivePlayerIndex(newSmallIndex);
             const newStraddleIndex = getNextActivePlayerIndex(newBigIndex);
             const newStraddle = game.players[newStraddleIndex];
+
             return newStraddle && newStraddle.id === me.id;
         }
 
@@ -341,6 +339,7 @@ class OnlineGame extends Component {
             }
         }
         const admin = this.props.game.players.filter(p=>Boolean(p)).find(p=>p.admin);
+        console.log(' new state rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled', this.state.rebuySectionOpen ,'&&', rebuyEnabled)
         const newState = {
             gameName,
             me,
@@ -439,6 +438,7 @@ class OnlineGame extends Component {
     };
 
     toggleRebuyButton = ()=>{
+        console.log('toggleRebuyButton')
         this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
     };
 
@@ -461,6 +461,7 @@ class OnlineGame extends Component {
         if (!this.state.rebuyEnabled){
             this.props.showAlertMessage('Rebuy request sent')
         }
+        console.log('after rebuy pressed')
         this.setState({rebuySectionOpen:false, rebuyValue:this.props.game.defaultBuyIn});
 
     };
@@ -589,6 +590,9 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
+        console.log('this.state.sideMenu',this.state.sideMenu)
+        console.log('this.state.rebuySectionOpen',this.state.rebuySectionOpen)
+
         const { options, cheapLeader, me, isMyTurn, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
         if (chosenGame !== 'TEXAS'){
             setTimeout(()=>{

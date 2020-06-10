@@ -66,7 +66,11 @@ class JoinGameScreen extends Component {
         this.setState({buyIn, showAmountError})
     };
 
-
+    componentDidMount() {
+        setTimeout(()=>{
+            document.getElementById("join-game-name-input").focus();
+        },300)
+    }
     render() {
         if (this.state.joinRequestSent){
             return <Loader/>;
@@ -96,7 +100,7 @@ class JoinGameScreen extends Component {
                         </div>
 
                         <div id="join-screen-name-input">
-                            Name: <input
+                            Name: <input id="join-game-name-input"
                             disabled={playersCount >= game.maxPlayers}
                             className={`join-game-input
                             ${this.state.showNameError ? 'red-border red-background':''}`}
