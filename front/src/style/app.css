@@ -13378,10 +13378,10 @@ em-spades {
   text-align: center;
   color: black;
   z-index: 3;
-  border-radius: 5px;
   border: 2px solid black;
-  height: 8vh;
+  height: 8.7vh;
   width: 7vw;
+  border-radius: 18px;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .existing-player {
@@ -13389,6 +13389,7 @@ em-spades {
     width: 14vw;
     font-size: 0.8em;
     padding-top: 1vh;
+    border-radius: 8px;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -13445,10 +13446,10 @@ em-spades {
   text-align: center;
   color: #888888;
   z-index: 3;
-  border-radius: 5px;
   border: 2px solid #888888;
-  height: 8vh;
+  height: 8.7vh;
   width: 7vw;
+  border-radius: 18px;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   .do-not-sit {
@@ -13456,6 +13457,7 @@ em-spades {
     width: 14vw;
     font-size: 0.8em;
     padding-top: 1vh;
+    border-radius: 8px;
   }
 }
 @media only screen and (max-width: 530px) {
@@ -13473,10 +13475,10 @@ em-spades {
   text-align: center;
   color: #888888;
   z-index: 3;
-  border-radius: 5px;
   border: 2px solid #888888;
-  height: 8vh;
+  height: 8.7vh;
   width: 7vw;
+  border-radius: 18px;
   font-size: 2em;
   padding-top: 9px;
 }
@@ -13486,6 +13488,7 @@ em-spades {
     width: 14vw;
     font-size: 0.8em;
     padding-top: 1vh;
+    border-radius: 8px;
     font-size: 1.1em;
   }
 }

@@ -1,15 +1,17 @@
-@mixin circle{
-    height: 8vh;
+@mixin sit{
+    height: 8.7vh;
     width: 7vw;
+    border-radius: 18px;
 }
-@mixin mobile-horizonal-circle{
+@mixin mobile-horizonal-sit{
     height: 9vh;
     width: 14vw;
     font-size: 0.8em;
     padding-top: 1vh;
+    border-radius: 8px;
 }
 
-@mixin mobile-circle-vertical{
+@mixin mobile-vertical-sit{
     height: 7vh;
     width: 17vw;
     font-size: 1em;
@@ -343,16 +345,16 @@
     text-align: center;
     color: black;
     z-index: 3;
-    border-radius: 5px;
+
     border: 2px solid black;
-    @include circle;
+    @include sit;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        @include mobile-horizonal-circle;
+        @include mobile-horizonal-sit;
 
     }
     @media only screen and (max-width: $mobile-vertical) {
-        @include mobile-circle-vertical;
+        @include mobile-vertical-sit;
     }
     .player-games-won{
         font-size: 0.5em;
@@ -397,15 +399,15 @@
     text-align: center;
     color: #888888;
     z-index: 3;
-    border-radius: 5px;
+
     border: 2px solid #888888;
-    @include circle;
+    @include sit;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        @include mobile-horizonal-circle;
+        @include mobile-horizonal-sit;
 
     }
     @media only screen and (max-width: $mobile-vertical) {
-        @include mobile-circle-vertical;
+        @include mobile-vertical-sit;
     }
 }
 .sit-here-button{
@@ -414,18 +416,18 @@
     text-align: center;
     color: #888888;
     z-index: 3;
-    border-radius: 5px;;
+
     border: 2px solid #888888;
-    @include circle;
+    @include sit;
     font-size: 2em;
     padding-top: 9px;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        @include mobile-horizonal-circle;
+        @include mobile-horizonal-sit;
         font-size: 1.1em;
 
     }
     @media only screen and (max-width: $mobile-vertical) {
-        @include mobile-circle-vertical;
+        @include mobile-vertical-sit;
         font-size: 1.2em;
     }
 
