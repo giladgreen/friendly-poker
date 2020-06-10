@@ -621,7 +621,7 @@ class OnlineGame extends Component {
         const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
         const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
 
-        const standSitEnabled = startDate && me && ((me.sitOut && me.balance > 0) || me.fold || game.handOver);
+
         const cantStandSit = !me || (me.sitOut && me.balance === 0) || isMyTurn;
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
@@ -629,6 +629,10 @@ class OnlineGame extends Component {
         const resumeButtonEnabled = this.props.isAdmin && game.paused;
         const messages = this.props.messages;
         const cantQuit =  isMyTurn || (me.admin && players.filter(p=>p && p.id !== me.id).length > 0);
+        const showStraddleButton = game.handOver && game.straddleEnabled && isNextStraddle;
+
+        const showDealerChoiceButtons = (game.handOver && isNextDealer && dealerChoice);
+
 
         return (
             <div id="online-game-screen">
@@ -704,7 +708,7 @@ class OnlineGame extends Component {
                     { !game.paused && game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
 
                     {/* dealer choice button */}
-                    {  game.handOver && isNextDealer && dealerChoice && <div  id="dealer-choice-div" >
+                    {  showDealerChoiceButtons && <div  id="dealer-choice-div" >
                         Dealer's Choice
                         <div id="choose-texas" className={chosenGame === 'TEXAS' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('TEXAS')}}>
                             <div className="chosen-game-limit">no limit</div>
@@ -725,7 +729,7 @@ class OnlineGame extends Component {
 
                     </div>}
                     {/* straddle choice button */}
-                    { game.handOver && game.straddleEnabled && isNextStraddle && <div id="straddle-choice-div" className={this.state.straddlePressed ? 'straddle-button-Pressed': 'straddle-button-not-Pressed'} onClick={this.straddle}>
+                    { showStraddleButton && <div id="straddle-choice-div" className={this.state.straddlePressed ? 'straddle-button-Pressed': 'straddle-button-not-Pressed'} onClick={this.straddle}>
                             Straddle
                     </div>}
 
@@ -1010,10 +1014,10 @@ class OnlineGame extends Component {
 
 
 
-                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
+                {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
                     <div id="chat-header" > <span className="shortcut">M</span>essages </div>)}
                 {/* chat box input */}
-                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
+                {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
                 <input id="chat-input"
                        className={chatFocused ? 'chat-input-focus' : 'chat-input-blur'}
                        type="text"
@@ -1054,7 +1058,7 @@ class OnlineGame extends Component {
                         }}
                 />)}
                 {/* chat box send button */}
-                {this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : (
+                {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton ? <div/> : (
                     <div id="send-message-button" className={chatFocused ? 'send-message-button-focus' : 'send-message-button-blur'} onClick={()=>{
 
                         this.onSendMessage();
@@ -1062,7 +1066,7 @@ class OnlineGame extends Component {
                     this.setState({chatFocused:false});
                 }} >Send</div>)}
                 {/* chat box input */}
-                { this.state.raiseEnabled || (game.handOver && isNextDealer && dealerChoice) ? <div/> : <div id="messages-box" className={chatFocused ? 'messages-box-focus' : 'messages-box-blur'}>
+                { this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton ? <div/> : <div id="messages-box" className={chatFocused ? 'messages-box-focus' : 'messages-box-blur'}>
                     {messages}
                 </div>}
 
