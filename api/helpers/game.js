@@ -9,6 +9,28 @@ const {
   FOLD, CALL, CHECK, RAISE, ALL_IN, BET,
 } = require('../consts');
 
+function handlePlayerQuit(game, player, now) {
+  const playerData = game.playersData.find(p => p.id === player.id);
+  if (playerData) {
+    playerData.cashOut = { amount: player.balance, time: now };
+  }
+  const playerIndex = game.players.findIndex(p => p && p.id === player.id);
+  if (playerIndex) {
+    logger.info(`${player.name} - player is quiting game, he has ${player.balance}, the game.moneyInGame before he quit is ${game.moneyInGame}`);
+    game.moneyInGame -= player.balance;
+    logger.info(`the game.moneyInGame after he quit is ${game.moneyInGame}`);
+    game.players[playerIndex] = null;
+  }
+
+  let bottomLine = playerData.cashOut.amount - playerData.totalBuyIns;
+  bottomLine = bottomLine > 0 ? `+${bottomLine}` : bottomLine;
+  const msg = `${player.name} has quit the game (${bottomLine})`;
+  logger.info(msg);
+  game.messages.push({
+    action: 'quit', popupMessage: msg, log: msg, now,
+  });
+}
+
 function handleFold(game, player) {
   logger.info(`${player.name} fold`);
   player.status = FOLD;
@@ -65,7 +87,7 @@ function handleRaise(game, player, amount) {
     throw new BadRequest('insufficient funds');
   }
 
-  const playersCurrentPotentialAllIn = game.players.filter(p => p.id !== player.id && !p.fold && !p.sitOut).map(p => p.balance + p.pot[game.gamePhase]);
+  const playersCurrentPotentialAllIn = game.players.filter(p => p && p.id !== player.id && !p.fold && !p.sitOut).map(p => p.balance + p.pot[game.gamePhase]);
   const maxAllInValue = Math.max(...playersCurrentPotentialAllIn);
   if (amount > maxAllInValue) {
     amount = maxAllInValue;
@@ -79,7 +101,7 @@ function handleRaise(game, player, amount) {
   player.status = player.options.includes('Call') || game.gamePhase === 0 ? RAISE : BET;
   delete player.active;
   player.options = [];
-  game.players.forEach((p) => {
+  game.players.filter(p => Boolean(p)).forEach((p) => {
     p.needToTalk = !p.fold && !p.sitOut && !p.allIn;
   });
   delete player.needToTalk;
@@ -139,7 +161,7 @@ function updateGamePlayers(game, showCards = false) {
   const messages = (game.messages || []).filter(m => m.action === 'usermessage' || m.popupMessage);
   game.messages = [];
   saveGameToDB(game);
-  game.players.forEach((player) => {
+  game.players.filter(p => Boolean(p)).forEach((player) => {
     const playerId = player.id;
     const socket = Mappings.GetSocketByPlayerId(playerId);
     if (socket) {
@@ -160,7 +182,7 @@ function givePotMoneyToWinners(game) {
   const { board } = game;
   const potSizesCount = {};
   const totalPot = [];
-  game.players.forEach((p) => {
+  game.players.filter(p => Boolean(p)).forEach((p) => {
     p.totalPot = p.pot.reduce((total, num) => total + num, 0);
     p.moneyBefore = p.balance + p.totalPot;
     totalPot.push(p.totalPot);
@@ -170,11 +192,11 @@ function givePotMoneyToWinners(game) {
   });
 
   [...new Set(totalPot)].forEach((val) => {
-    potSizesCount[val] = game.players.filter(p => p.totalPot >= val).length;
+    potSizesCount[val] = game.players.filter(p => p && p.totalPot >= val).length;
   });
 
 
-  const players = game.players.filter(p => !p.fold && !p.sitOut);
+  const players = game.players.filter(p => p && !p.fold && !p.sitOut);
 
   const potSizes = Object.keys(potSizesCount).map(stringSize => parseInt(stringSize, 10)).sort((a, b) => b - a);
 
@@ -184,7 +206,7 @@ function givePotMoneyToWinners(game) {
   potSizes.forEach((size, index) => {
     if (index < potSizes.length - 1) {
       const totalSidePotMoney = (size - potSizes[index + 1]) * potSizesCount[size];
-      const relevantPlayers = players.filter(p => p.totalPot >= size);
+      const relevantPlayers = players.filter(p => p && p.totalPot >= size);
 
       if (relevantPlayers.length === 1) {
         relevantPlayers[0].balance += totalSidePotMoney;
@@ -251,7 +273,7 @@ function givePotMoneyToWinners(game) {
     }
   });
 
-  players.forEach((p) => {
+  players.filter(p => Boolean(p)).forEach((p) => {
     if (p.winner) {
       p.handsWon += 1;
     }
@@ -278,8 +300,9 @@ function handleGameOverWithShowDown(game) {
     game.messages.push(msg);
   });
   game.pot = 0;
-  game.players.forEach((p) => {
+  game.players.filter(p => Boolean(p)).forEach((p) => {
     delete p.straddle;
+    p.pot = [0, 0, 0, 0];
   });
   game.handOver = true;
   game.winningHandCards = messages[0].cards;
@@ -289,7 +312,7 @@ function onGetGamesEvent(socket, { playerId }) {
   socket.playerId = playerId;
   Mappings.SaveSocketByPlayerId(playerId, socket);
   const allGames = Mappings.GetAllGames();
-  const gamesToReturn = allGames.filter(game => !game.privateGame || game.players.some(p => p.id === playerId)).map(game => getPlayerCopyOfGame(playerId, game));
+  const gamesToReturn = allGames.filter(game => !game.privateGame || game.players.some(p => p && p.id === playerId)).map(game => getPlayerCopyOfGame(playerId, game));
   socket.emit('gamesdata', gamesToReturn);
 }
 
@@ -320,5 +343,6 @@ module.exports = {
   onGetGamesEvent,
   publishPublicGames,
   getUserHandObject,
-
+  handlePlayerQuit,
+  getMinRaise,
 };

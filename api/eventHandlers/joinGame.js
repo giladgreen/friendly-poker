@@ -1,32 +1,48 @@
+
+/* eslint-disable no-await-in-loop */
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const { extractRequestGameAndPlayer, isBot } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, isBot, validateGameWithMessage } = require('../helpers/handlers');
 
-const Mappings = require('../Maps');
 const BadRequest = require('../errors/badRequest');
 const {
   TIME_BANK_INITIAL_VALUE,
 } = require('../consts');
 
-function onJoinGameEvent(socket, {
+async function onJoinGameEvent(socket, {
   gameId, playerId, name, balance, now, positionIndex, isMobile,
 }) {
-  logger.info('onJoinGameEvent ');
+  logger.info('onJoinGameEvent ', {
+    gameId, playerId, name, balance, now, positionIndex, isMobile,
+  });
 
   try {
     const { game } = extractRequestGameAndPlayer({
       socket, gameId,
     });
+    validateGameWithMessage(game, ' before onJoinGameEvent');
 
-    if (game.players.length >= game.maxPlayers) {
+    if (balance < 1) {
+      socket.emit('joinrequestdeclined', game);
+      throw new BadRequest(`illegal amount:${balance}`);
+    }
+    if (game.players.filter(p => Boolean(p)).length >= game.maxPlayers) {
+      socket.emit('joinrequestdeclined', game);
       throw new BadRequest('table is full');
     }
-    if (game.players.some(p => p.id === playerId)) {
-      throw new BadRequest('already joined game');
+    if (game.players.some(p => p && p.id === playerId)) {
+      updateGamePlayers(game);
+      return;
     }
 
-    if (game.players.some(p => p.name === name)) {
+    // eslint-disable-next-line no-loop-func
+    while (game.players.some(p => p && p.name === name)) {
       name = `${name} (2)`;
+      name = name.replace('(2) (2)', '(3)');
+      name = name.replace('(3) (2)', '(4)');
+      name = name.replace('(4) (2)', '(5)');
+      name = name.replace('(5) (2)', '(6)');
+      name = name.replace('(6) (2)', '(7)');
     }
 
     const bot = isBot({ name });
@@ -39,24 +55,14 @@ function onJoinGameEvent(socket, {
       bot,
       positionIndex,
       sitOut: true,
+      justJoined: true,
       handsWon: 0,
       pot: [0],
-      justJoined: true,
       timeBank: TIME_BANK_INITIAL_VALUE,
     };
 
     if (game.requireRebuyApproval) {
-      const adminPlayer = game.players.find(p => p.admin);
-      if (!adminPlayer) {
-        throw new BadRequest('did not find admin player');
-      }
-
-      const adminSocket = Mappings.GetSocketByPlayerId(adminPlayer.id);
-      if (!adminSocket) {
-        throw new BadRequest('did not find admin socket');
-      }
       game.pendingJoin.push(playerData);
-
       socket.emit('operationpendingapproval');
       game.messages.push({
         action: 'pendingjoin', popupMessage: `${name} has requested to join the game`, now,
@@ -67,10 +73,13 @@ function onJoinGameEvent(socket, {
       game.messages.push({
         action: 'join', log: msg, popupMessage: `${name} has join the game`,
       });
-      delete playerData.positionIndex;
-      game.players.splice(positionIndex, 0, playerData);
+
+      if (game.players[positionIndex]) {
+        positionIndex = game.players.findIndex(p => !p);
+      }
+      game.players[positionIndex] = playerData;
       game.moneyInGame += balance;
-      game.pendingPlayers.push(playerId);
+
       game.playersData.push({
         id: playerId,
         name,
@@ -78,9 +87,12 @@ function onJoinGameEvent(socket, {
         buyIns: [{ amount: balance, time: now }],
       });
     }
+
+    validateGameWithMessage(game, ' after onJoinGameEvent');
+
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('failed to join game. ', e.message);
+    logger.error('failed to join game. ', e);
     if (socket) socket.emit('onerror', { message: 'failed to join game', reason: e.message });
   }
 }

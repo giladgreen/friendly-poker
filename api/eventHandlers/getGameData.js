@@ -15,7 +15,8 @@ function onGetGameDataEvent(socket, { gameId, playerId }) {
     const gamePrivateCopy = getPlayerCopyOfGame(playerId, Mappings.getGameById(gameId));
     socket.emit('gameupdate', gamePrivateCopy);
   } catch (e) {
-    logger.error('onGetGameDataEvent error:', e.message);
+    logger.error('onGetGameDataEvent ', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to get game data', reason: e.message, forceReload: true });
   }
 }

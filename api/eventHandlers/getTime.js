@@ -2,7 +2,7 @@ const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const { onPlayerActionEvent } = require('./playerAction');
-const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
 const BadRequest = require('../errors/badRequest');
 const {
   TIME_BANK_DEFAULT,
@@ -12,10 +12,11 @@ function onGetTimeFromBank(socket, {
   playerId, gameId,
 }) {
   try {
-    logger.info('onGetTimeFromBank');
+    logger.info('onGetTimeFromBank', { playerId, gameId });
     const { game, player } = extractRequestGameAndPlayer({
       socket, gameId, playerId,
     });
+    validateGameWithMessage(game, ' before onGetTimeFromBank');
 
 
     if (!game.timeBankEnabled) {
@@ -37,9 +38,13 @@ function onGetTimeFromBank(socket, {
     }
     game.lastAction = (new Date()).getTime();
     GamesService.resetHandTimer(game, onPlayerActionEvent);
+
+    validateGameWithMessage(game, ' after onGetTimeFromBank');
+
     updateGamePlayers(game);
   } catch (e) {
-    logger.error(`onStraddle error:${e.message}`);
+    logger.error('onGetTimeFromBank ', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to Get Time', reason: e.message });
   }
 }

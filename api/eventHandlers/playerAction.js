@@ -8,50 +8,21 @@ const FatalError = require('../errors/fatalError');
 const GamesService = require('../services/games');
 const Mappings = require('../Maps');
 
+const sleep = require('../helpers/sleep');
 const { botActivated } = require('../helpers/bot');
 const PlayerHelper = require('../helpers/players');
+const { validateGameWithMessage, validateGame } = require('../helpers/handlers');
 const GameHelper = require('../helpers/game');
 const { format } = require('../helpers/gameCopy');
 const {
   FOLD, CALL, CHECK, RAISE, PRE_FLOP, FLOP, TURN, RIVER, CARD, CARDS, PINEAPPLE_THROW_AFTER_SLEEP,
 } = require('../consts');
 
-async function sleep(milli) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, milli);
-  });
-}
-
 let handlePlayerWonHandWithoutShowdown;
-function validateGame(game) {
-  try {
-    const activePlayerBalances = game.players.map(p => p.balance);
-    const activePlayerBalancesSum = activePlayerBalances.reduce((all, one) => all + one, 0);
-    const diff = Math.abs(activePlayerBalancesSum + game.pot - game.moneyInGame);
-    if (diff !== 0) {
-      logger.info(`activePlayerBalancesSum:  ${activePlayerBalances.join('+')} = ${activePlayerBalancesSum}`);
-      logger.info(`game.pot: ${game.pot}`);
-      logger.info('======================');
-      logger.info(`activePlayerBalancesSum + game.pot: ${activePlayerBalancesSum + game.pot}`);
-      logger.info(`game.moneyInGame: ${game.moneyInGame}`);
-      logger.error("WTF!!!!  numbers don't add up!!");
-      // if its a very small amount its ok:
-      if (diff > game.bigBlind * 2) {
-        throw new FatalError("numbers don't add up");
-      }
-    }
-  } catch (e) {
-    logger.warn('validateGame failed', e);
-    if (e instanceof FatalError) {
-      throw e;
-    }
-  }
-}
 
-function handlePlayerAction(game, playerId, op, amount, hand) {
-  const player = game.players.find(p => p.id === playerId);
+
+function handlePlayerAction(game, playerId, op, amount, hand, force) {
+  const player = game.players.find(p => p && p.id === playerId);
   if (!player) {
     throw new BadRequest('player not in game');
   }
@@ -60,7 +31,7 @@ function handlePlayerAction(game, playerId, op, amount, hand) {
     logger.warn(`operation is not allowed: request hand was #${hand} while game hand is #${game.hand}`);
     throw new BadRequest('operation is not allowed');
   }
-  if (!player.options.includes(op)) {
+  if (!player.options.includes(op) && !force) {
     logger.warn(`operation is not allowed: player try to ${op} but his options are: ${player.options.join(',')}`);
     throw new BadRequest('operation is not allowed');
   }
@@ -95,7 +66,7 @@ function handleRoundOver(game, player, gameIsOver) {
     if (firstToTalk.bot) {
       botActivated(game); // for dubug purposes, when a "BOT" turn we drop the time left to 1-3 sec
     }
-    game.players.forEach((p) => {
+    game.players.filter(p => Boolean(p)).forEach((p) => {
       p.needToTalk = !p.fold && !p.sitOut && !p.allIn;
       if (p.status === CALL || p.status === CHECK || p.status === RAISE) {
         p.status = '';
@@ -103,7 +74,7 @@ function handleRoundOver(game, player, gameIsOver) {
     });
     firstToTalk.options = [RAISE, CHECK, FOLD];
 
-    const fastForwardToShowdown = game.players.filter(p => p.needToTalk).length <= 1;
+    const fastForwardToShowdown = game.players.filter(p => p && p.needToTalk).length <= 1;
     if (fastForwardToShowdown) {
       delete firstToTalk.active;
       delete firstToTalk.needToTalk;
@@ -124,7 +95,7 @@ function pineappleAutoSelectCardToThrow(game) {
     clearTimeout(game.pineappleRef);
     delete game.pineappleRef;
 
-    game.players.filter(player => player.cards.length === 3).forEach((player) => {
+    game.players.filter(player => player && player.cards && player.cards.length === 3).forEach((player) => {
       player.cards.pop();
       delete player.needToThrow;
     });
@@ -137,7 +108,7 @@ function pineappleAutoSelectCardToThrow(game) {
 }
 
 function proceedToNextStreet(game, now, gameIsOver) {
-  const log = `Pot size: ${game.pot}, players are in for: ${game.players.map(p => `${p.name}: ${p.pot.reduce((total, num) => total + num, 0)}`).join(', ')}`;
+  const log = `Pot size: ${game.pot}, players are in for: ${game.players.filter(p => Boolean(p)).map(p => `${p.name}: ${p.pot.reduce((total, num) => total + num, 0)}`).join(', ')}`;
 
   if (game.gamePhase === PRE_FLOP) {
     game.board = [game.deck.pop(), game.deck.pop(), game.deck.pop()];
@@ -148,11 +119,11 @@ function proceedToNextStreet(game, now, gameIsOver) {
     game.audioableAction.push(CARDS);
     if (game.pineapple) {
       game.waitingForPlayers = true;
-      game.players.filter(p => !p.fold && !p.sitOut).forEach((p) => { p.needToThrow = true; });
+      game.players.filter(p => p && !p.fold && !p.sitOut).forEach((p) => { p.needToThrow = true; });
       game.pineappleRef = setTimeout(() => pineappleAutoSelectCardToThrow(game), PINEAPPLE_THROW_AFTER_SLEEP * 1000);
     }
 
-    game.players.forEach((p) => {
+    game.players.filter(p => Boolean(p)).forEach((p) => {
       delete p.straddle;
     });
     logger.info('Flop!');
@@ -174,15 +145,15 @@ function proceedToNextStreet(game, now, gameIsOver) {
 
     logger.info('River!');
   } else if (game.gamePhase === RIVER) {
-    let timeToShowShowdown = 5000;
+    let timeToShowShowdown = 3000;
     const potInBigBlinds = Math.floor(game.pot / game.bigBlind);
     const secondsToAdd = Math.floor(potInBigBlinds / 20);
     timeToShowShowdown += 1000 * secondsToAdd;
     if (game.dealerChoice || game.straddleEnabled) {
-      timeToShowShowdown += 2500;
+      timeToShowShowdown += 2000;
     }
-    if (timeToShowShowdown > 10000) {
-      timeToShowShowdown = 10000;
+    if (timeToShowShowdown > 6500) {
+      timeToShowShowdown = 6500;
     }
     game.messages.push({ action: 'ShowDown', log: 'ShowDown', now });
     game.messages.push({ action: 'ShowDownData', log, now });
@@ -193,7 +164,7 @@ function proceedToNextStreet(game, now, gameIsOver) {
     delete game.fastForward;
 
     setTimeout(() => {
-      GamesService.startNewHand(game, now);
+      GamesService.startNewHand(game, now + timeToShowShowdown);
       GamesService.resetHandTimer(game, onPlayerActionEvent);
       GameHelper.updateGamePlayers(game);
     }, timeToShowShowdown);
@@ -203,9 +174,11 @@ function proceedToNextStreet(game, now, gameIsOver) {
   }
   return gameIsOver;
 }
+
 async function onPlayerActionEvent(socket, {
-  now, op, amount, gameId, hand, playerId,
+  now, op, amount, gameId, hand, playerId, force,
 }) {
+  now = now || (new Date()).getTime();
   let game;
   let gameBackup;
   let gameIsOver = false;
@@ -215,28 +188,30 @@ async function onPlayerActionEvent(socket, {
       Mappings.SaveSocketByPlayerId(playerId, socket);
     }
     game = Mappings.getGameById(gameId);
+    validateGameWithMessage(game, ' before onPlayerActionEvent');
+
     let player;
     if (!game) {
       throw new BadRequest('did not find game');
-    } else if (socket) {
+    } else {
       game.lastAction = (new Date()).getTime();
       gameBackup = _.cloneDeep(game);
     }
 
     game.audioableAction = [];
 
-    if (!game.fastForward) {
-      player = handlePlayerAction(game, playerId, op, amount, hand);
+    if (!game.fastForward || game.handOver) {
+      player = handlePlayerAction(game, playerId, op, amount, hand, force);
     }
 
-    const roundSum = game.players.filter(p => p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
+    const roundSum = game.players.filter(p => p && p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
       .map(p => p.pot[game.gamePhase])
       .reduce((all, one) => all + one, 0);
 
     game.displayPot = game.pot - roundSum;
 
-    const betRoundOver = game.fastForward || game.players.filter(p => p.needToTalk).length === 0;
-    const allButOneHaveFolded = game.players.filter(p => p.needToTalk).length === 1 && game.players.filter(p => !p.fold && !p.sitOut).length === 1;
+    const betRoundOver = game.fastForward || game.players.filter(p => p && p.needToTalk).length === 0;
+    const allButOneHaveFolded = game.players.filter(p => p && p.needToTalk).length === 1 && game.players.filter(p => p && !p.fold && !p.sitOut).length === 1;
     if (betRoundOver || allButOneHaveFolded) {
       const activePlayersStillInGame = PlayerHelper.getActivePlayersStillInGame(game);
 
@@ -289,6 +264,8 @@ async function onPlayerActionEvent(socket, {
       }
     }
 
+    validateGameWithMessage(game, ' after onPlayerActionEvent');
+
     validateGame(game);
 
     GameHelper.updateGamePlayers(game, gameIsOver);
@@ -300,7 +277,7 @@ async function onPlayerActionEvent(socket, {
       });
       // game.paused = true;
       // game.serverError = true;
-      game.players.forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
+      game.players.filter(p => Boolean(p)).forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
       GamesService.startNewHand(game, now);
       GamesService.resetHandTimer(game, onPlayerActionEvent);
 
@@ -320,10 +297,7 @@ async function onPlayerActionEvent(socket, {
 
   if (game) {
     if (game.waitingForPlayers) {
-      if (game.timerRef) {
-        clearTimeout(game.timerRef);
-        delete game.timerRef;
-      }
+      GamesService.pauseHandTimer(game);
     } else {
       GamesService.resetHandTimer(game, onPlayerActionEvent);
     }
@@ -339,14 +313,16 @@ handlePlayerWonHandWithoutShowdown = (game, player, now) => {
   player.balance += game.pot;
   player.winner = game.pot;
   player.handsWon += 1;
+
   const actualProfit = game.pot - player.pot.reduce((all, one) => all + one, 0);
   game.messages.push({
     action: 'won_without_showdown', log: `${player.name} took hand (+${actualProfit}) without showdown`, popupMessage: `${player.name} Won - No Showdown (+${actualProfit})`,
   });
   game.pot = 0;
   game.handOver = true;
-  game.players.forEach((p) => {
+  game.players.filter(p => Boolean(p)).forEach((p) => {
     delete p.straddle;
+    p.pot = [0, 0, 0, 0];
   });
   let timeToShowShowdown = 3000;
   if (game.dealerChoice) {
@@ -354,7 +330,7 @@ handlePlayerWonHandWithoutShowdown = (game, player, now) => {
   }
 
   setTimeout(() => {
-    GamesService.startNewHand(game, now);
+    GamesService.startNewHand(game, now + timeToShowShowdown);
     GamesService.resetHandTimer(game, onPlayerActionEvent);
     GameHelper.updateGamePlayers(game);
   }, timeToShowShowdown);

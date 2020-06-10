@@ -3,7 +3,7 @@ const { onPlayerActionEvent } = require('./playerAction');
 const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const BadRequest = require('../errors/badRequest');
-const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
 
 function onStartGameEvent(socket, { gameId, now, playerId }) {
   logger.info('onStartGameEvent ');
@@ -12,9 +12,10 @@ function onStartGameEvent(socket, { gameId, now, playerId }) {
     const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
+    validateGameWithMessage(game, ' before onStartGameEvent');
 
 
-    if (game.players.length < 2) {
+    if (game.players.filter(p => Boolean(p)).length < 2) {
       throw new BadRequest('not enough players');
     }
 
@@ -28,9 +29,13 @@ function onStartGameEvent(socket, { gameId, now, playerId }) {
     }];
     game.startDate = now;
     game.lastAction = (new Date()).getTime();
+    validateGameWithMessage(game, ' after onStartGameEvent');
+
     updateGamePlayers(game);
     game.messages = [];
   } catch (e) {
+    logger.error('onStartGameEvent error', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to start game', reason: e.message });
   }
 }

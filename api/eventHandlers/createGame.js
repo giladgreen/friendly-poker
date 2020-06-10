@@ -1,4 +1,7 @@
+const htmlStringify = require('html-stringify');
 const { isBot } = require('../helpers/handlers');
+const { sendHtmlMail } = require('../helpers/emails');
+
 const GameHelper = require('../helpers/game');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
@@ -14,20 +17,43 @@ function onCreateGameEvent(socket, gameCreatorData) {
     socket.playerId = playerId;
     Mappings.SaveSocketByPlayerId(playerId, socket);
 
+    const smallBlind = parseInt(gameCreatorData.smallBlind, 10) || 1;
+    const bigBlind = parseInt(gameCreatorData.bigBlind, 10) || smallBlind;
 
     const gameType = gameCreatorData.gameType || TEXAS;
-    const amount = parseInt(gameCreatorData.balance, 10);
+    let amount = parseInt(gameCreatorData.balance, 10);
+    if (amount < 1) {
+      amount = 100 * bigBlind;
+    }
+
     const time = gameCreatorData.timeBankEnabled ? TIME_BANK_DEFAULT : parseInt(gameCreatorData.time, 10);
 
+    const player = {
+      id: playerId,
+      name: gameCreatorData.name,
+      isMobile: gameCreatorData.isMobile,
+      handsWon: 0,
+      balance: amount,
+      creator: true,
+      admin: true,
+      sitOut: true,
+      justJoined: true,
+      pot: [0],
+      bot: isBot({ name: gameCreatorData.name }),
+      timeBank: TIME_BANK_INITIAL_VALUE,
+    };
+    const players = (new Array(TABLE_MAX_PLAYERS)).fill(null);
+    players[0] = player;
 
     const newGame = {
       id: gameCreatorData.id,
       defaultBuyIn: amount,
       pendingJoin: [],
       pendingRebuy: [],
+      pendingQuit: [],
+      pendingStandUp: [],
       maxPlayers: TABLE_MAX_PLAYERS,
       requireRebuyApproval: Boolean(gameCreatorData.requireRebuyApproval),
-      pendingPlayers: [playerId],
       gameCreationTime: (new Date()).getTime(),
       privateGame: gameCreatorData.privateGame,
       straddleEnabled: gameCreatorData.straddleEnabled,
@@ -41,25 +67,13 @@ function onCreateGameEvent(socket, gameCreatorData) {
       moneyInGame: amount,
       hand: 0,
       logs: [],
-      gamePhase: 0,
-      smallBlind: parseInt(gameCreatorData.smallBlind, 10),
-      bigBlind: parseInt(gameCreatorData.bigBlind, 10),
-      time,
       messages: [],
+      gamePhase: 0,
+      smallBlind,
+      bigBlind,
+      time,
       showPlayersHands: [],
-      players: [{
-        id: playerId,
-        name: gameCreatorData.name,
-        isMobile: gameCreatorData.isMobile,
-        handsWon: 0,
-        balance: amount,
-        creator: true,
-        admin: true,
-        sitOut: true,
-        pot: [0],
-        bot: isBot({ name: gameCreatorData.name }),
-        timeBank: TIME_BANK_INITIAL_VALUE,
-      }],
+      players,
       playersData: [{
         id: playerId,
         name: gameCreatorData.name,
@@ -74,8 +88,11 @@ function onCreateGameEvent(socket, gameCreatorData) {
     if (!newGame.privateGame) {
       GameHelper.publishPublicGames();
     }
+
+    sendHtmlMail(`Game Created by ${gameCreatorData.name}`, htmlStringify(newGame));
   } catch (e) {
-    logger.error('failed to create game, error', e.message);
+    logger.error('failed to create game - error', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to create game', reason: e.message });
   }
 }

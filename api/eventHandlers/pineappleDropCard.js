@@ -3,7 +3,7 @@ const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
 const { onPlayerActionEvent } = require('./playerAction');
 const BadRequest = require('../errors/badRequest');
-const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
 
 function onPineappleDropCard(socket, {
   playerId, gameId, cardToDrop,
@@ -13,6 +13,7 @@ function onPineappleDropCard(socket, {
     const { game, player } = extractRequestGameAndPlayer({
       socket, gameId, playerId,
     });
+    validateGameWithMessage(game, ' before onPineappleDropCard');
 
     if (player.cards.length !== 3) {
       throw new BadRequest('already have 2 cards');
@@ -26,7 +27,7 @@ function onPineappleDropCard(socket, {
 
     logger.info(`${player.name} drop 1 card`);
 
-    const playerIndex = game.players.findIndex(p => p.id === playerId);
+    const playerIndex = game.players.findIndex(p => p && p.id === playerId);
 
     game.messages.push({
       action: 'usermessage',
@@ -34,18 +35,20 @@ function onPineappleDropCard(socket, {
       name: player.name,
       text: "👍 I've dropped a card..",
     });
-    if (game.players.filter(p => p.needToThrow).length === 0) {
+    if (game.players.filter(p => p && p.needToThrow).length === 0) {
       clearTimeout(game.pineappleRef);
       delete game.pineappleRef;
       delete game.waitingForPlayers;
       logger.info('all players have drop 1 card');
       GamesService.resetHandTimer(game, onPlayerActionEvent);
     }
+    validateGameWithMessage(game, ' after onPineappleDropCard');
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error(`onRebuyEvent error:${e.message}`);
-    if (socket) socket.emit('onerror', { message: 'failed to rebuy', reason: e.message });
+    logger.error('onPineappleDropCard error', e);
+
+    if (socket) socket.emit('onerror', { message: 'failed to drop card', reason: e.message });
   }
 }
 

@@ -1,6 +1,6 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
 
 const {
   TIME_BANK_DEFAULT,
@@ -16,6 +16,37 @@ function onUpdateGameSettingsEvent(socket, {
     const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
+    validateGameWithMessage(game, ' before onUpdateGameSettingsEvent');
+
+    if (game.requireRebuyApproval && !requireRebuyApproval) {
+      game.pendingRebuy.forEach(({ id, amount }) => {
+        const pl = game.players.find(p => p && p.id === id);
+        if (pl) {
+          pl.justDidRebuyAmount = amount;
+        }
+      });
+      game.pendingRebuy = [];
+      game.pendingJoin.forEach((playerData) => {
+        if (game.players[playerData.positionIndex]) {
+          playerData.positionIndex = game.players.findIndex(p => !p);
+        }
+        if (playerData.positionIndex) {
+          const { positionIndex } = playerData;
+          delete playerData.positionIndex;
+          game.players[positionIndex] = playerData;
+          game.moneyInGame += playerData.balance;
+
+          game.playersData.push({
+            id: playerData.id,
+            name: playerData.name,
+            totalBuyIns: playerData.balance,
+            buyIns: [{ amount: playerData.balance, time: now }],
+          });
+        }
+      });
+      game.pendingJoin = [];
+    }
+
 
     if (game.startDate) {
       // change next hand
@@ -37,8 +68,8 @@ function onUpdateGameSettingsEvent(socket, {
 
 
     newBalances.forEach(({ fromPlayerId, toPlayerId, amount }) => {
-      const fromPlayer = game.players.find(p => p.id === fromPlayerId);
-      const toPlayer = game.players.find(p => p.id === toPlayerId);
+      const fromPlayer = game.players.find(p => p && p.id === fromPlayerId);
+      const toPlayer = game.players.find(p => p && p.id === toPlayerId);
       if (!fromPlayer || !toPlayer) {
         logger.error('new balance failed - did not found one of the players');
         return;
@@ -92,10 +123,13 @@ function onUpdateGameSettingsEvent(socket, {
       now,
     });
 
+    validateGameWithMessage(game, ' after onUpdateGameSettingsEvent');
+
     updateGamePlayers(game);
     game.messages = [];
   } catch (e) {
-    logger.error('failed to join game. ', e.message);
+    logger.error('failed to update game settings- error', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to update game settings', reason: e.message });
   }
 }

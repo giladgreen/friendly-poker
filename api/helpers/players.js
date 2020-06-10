@@ -3,10 +3,12 @@ function getNextPlayerIndex(players, index) {
 }
 
 function getNextActivePlayerIndex(players, index) {
+  if (index === null) {
+    return null;
+  }
   let nextPlayerIndex = getNextPlayerIndex(players, index);
   let count = 0;
   while (!players[nextPlayerIndex]
-  || players[nextPlayerIndex].justJoined
   || players[nextPlayerIndex].fold
   || players[nextPlayerIndex].allIn
   || players[nextPlayerIndex].sitOut) {
@@ -35,16 +37,16 @@ function getNextGamePlayerIndex(players, index) {
 }
 
 function getActivePlayer(game) {
-  return game.players.find(p => p.active);
+  return game.players.find(p => p && p.active);
 }
 function getDealerIndex(game) {
-  return game.players.findIndex(p => p.dealer);
+  return game.players.findIndex(p => p && p.dealer);
 }
 function getSmallIndex(game) {
-  return game.players.findIndex(p => p.small);
+  return game.players.findIndex(p => p && p.small);
 }
 function getNextActivePlayer(players, playerId) {
-  const playerIndex = players.findIndex(p => p.id === playerId);
+  const playerIndex = players.findIndex(p => p && p.id === playerId);
   let nextPlayerIndex = getNextPlayerIndex(players, playerIndex);
   let count = 0;
 
@@ -63,7 +65,7 @@ function getNextActivePlayer(players, playerId) {
   return players[nextPlayerIndex];
 }
 function getNextPlayerToTalk(players, playerId) {
-  const playerIndex = players.findIndex(p => p.id === playerId);
+  const playerIndex = players.findIndex(p => p && p.id === playerId);
   let nextPlayerIndex = getNextPlayerIndex(players, playerIndex);
   let count = 0;
 
@@ -79,16 +81,16 @@ function getNextPlayerToTalk(players, playerId) {
 }
 
 function getActivePlayersStillInGame(game) {
-  return game.players.filter(player => !player.justJoined && !player.fold && !player.sitOut);
+  return game.players.filter(player => player && !player.justJoined && !player.fold && !player.sitOut);
 }
 
 function getPotentialPlayersCountForNextHand(game) {
-  return game.players.filter(player => !player.sitOut);
+  return game.players.filter(player => player && !player.sitOut);
 }
 
 
 function getActivePlayersForNextRound(game) {
-  return game.players.filter(player => !player.justJoined && !player.fold && (!player.sitOut || game.pendingPlayers.includes(player.id)));
+  return game.players.filter(player => player && !player.justJoined && !player.fold && (!player.sitOut || game.pendingPlayers.includes(player.id)));
 }
 
 

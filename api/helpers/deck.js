@@ -40,7 +40,7 @@ function getOmahaHand(cards, board) {
     [board[1], board[2], board[4]],
     [board[1], board[3], board[4]],
     [board[2], board[3], board[4]],
-  ];
+  ].filter(item => item[0] && item[1] && item[2]);
 
   const allOptions = playerCardsOptions.reduce((results, playerOption) => [...results, ...boardOptions.map(boardOption => [...boardOption, ...playerOption])], []);
 

@@ -9,7 +9,9 @@ function onSitBackEvent(socket, { playerId, gameId, now }) {
       socket, gameId, playerId,
     });
 
-    game.pendingPlayers.push(playerId);
+    player.sitOut = true;
+    player.justJoined = true;
+
     const msg = `${player.name} will re-joined next hand`;
     game.messages.push({
       action: 'sitback', popupMessage: msg, log: msg, now,
@@ -17,7 +19,8 @@ function onSitBackEvent(socket, { playerId, gameId, now }) {
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error(`onSitBackEvent error:${e.message}`);
+    logger.error('onSitBackEvent error', e);
+
     if (socket) socket.emit('onerror', { message: 'failed to sit back', reason: e.message });
   }
 }

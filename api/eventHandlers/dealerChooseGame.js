@@ -1,28 +1,28 @@
 const logger = require('../services/logger');
 const PlayerHelper = require('../helpers/players');
 const BadRequest = require('../errors/badRequest');
-const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
 const {
   TEXAS, OMAHA, PINEAPPLE,
 } = require('../consts');
 
-// TODO: index
 function getNextDealerId({ players }) {
   const dealerIndex = PlayerHelper.getDealerIndex({ players });
 
   const newDealerIndex = PlayerHelper.getNextGamePlayerIndex(players, dealerIndex);
   const newDealer = players[newDealerIndex];
-  return newDealer.id;
+  return newDealer ? newDealer.id : '-';
 }
 
 function onDealerChooseGame(socket, {
   playerId, gameId, chosenGame,
 }) {
   try {
-    logger.info('onDealerChooseGame', chosenGame);
+    logger.info('onDealerChooseGame', { playerId, gameId, chosenGame });
     const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId,
     });
+    validateGameWithMessage(game, ' before onDealerChooseGame');
 
     if (!game.dealerChoice) {
       throw new BadRequest('not a dealer choice game');
@@ -37,8 +37,10 @@ function onDealerChooseGame(socket, {
     }
 
     game.dealerChoiceNextGame = chosenGame;
+
+    validateGameWithMessage(game, ' after onDealerChooseGame');
   } catch (e) {
-    logger.error(`onDealerChooseGame error:${e.message}`);
+    logger.error('onDealerChooseGame ', e);
     if (socket) socket.emit('onerror', { message: 'failed to change Dealer Game', reason: e.message });
   }
 }
