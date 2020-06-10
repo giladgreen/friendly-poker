@@ -13622,7 +13622,7 @@ em-spades {
 
 #game-name {
   position: fixed;
-  left: 48vw;
+  left: 45vw;
   top: 1vh;
   font-size: 1.9em;
   color: #ffffffaa;
@@ -14463,7 +14463,7 @@ em-spades {
   font-weight: bold;
   color: #eaeaea;
   font-size: 2em;
-  border: 1px solid transparent;
+  border: 2px solid #8b000077;
   border-radius: 16px;
   background: #00000044;
 }
@@ -16977,18 +16977,18 @@ em-spades {
 
 .player-mobile-indication {
   z-index: 22;
-  border-radius: 50%;
+  border-radius: 0px 10px 10px 0px;
   position: absolute;
-  left: 13.96vw;
-  width: 1.8vw;
+  left: 14.9vw;
+  width: 1.5vw;
   height: 1.8vw;
-  top: -1vh;
+  top: 0.2vh;
   background: white;
-  border: 1px solid #00000044;
+  border: 1px solid transparent;
   color: black;
   font-size: 1.3em;
   padding-top: 0.1vw;
-  padding-left: 0.2vw;
+  padding-left: 0vw;
 }
 
 #small-blind-button {

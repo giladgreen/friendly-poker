@@ -28,7 +28,7 @@
 }
 #game-name{
     position: fixed;
-    left: 48vw;
+    left: 45vw;
     top:1vh;
     font-size: 1.9em;
     color: #ffffffaa;
@@ -853,11 +853,9 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     font-weight: bold;
     color: #eaeaea;
     font-size: 2em;
-    border: 1px solid transparent;
+    border: 2px solid #8b000077;
     border-radius: 16px;
     background: #00000044;
-
-
 }
 .total-pot-amount{
     font-weight: normal;

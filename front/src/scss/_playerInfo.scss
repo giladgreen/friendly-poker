@@ -506,18 +506,18 @@ $players-dealer-button-left: (
 
 .player-mobile-indication{
     z-index: 22;
-    border-radius: 50%;
+    border-radius: 0px 10px 10px 0px;
     position: absolute;
-    left: 13.96vw;
-    width: 1.8vw;
+    left: 14.9vw;
+    width: 1.5vw;
     height: 1.8vw;
-    top:-1vh;
+    top:0.2vh;
     background: white;
-    border: 1px solid #00000044;
+    border: 1px solid transparent;
     color: black;
-   font-size: 1.3em;
+    font-size: 1.3em;
     padding-top: 0.1vw;
-    padding-left: 0.2vw;
+    padding-left: 0vw;
 }
 #small-blind-button{
     z-index: 22;

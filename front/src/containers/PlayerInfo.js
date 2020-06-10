@@ -46,8 +46,8 @@ const PlayerInfo = (props) => {
             { player.dealer && <div id={`player-${index}-dealer-button`} className="base-dealer-button" > D </div>}
             { player.straddle && <div id={`player-${index}-straddle-button`} className="base-straddle-button" > S </div>}
              <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>
-            { player.small && <div id="small-blind-button" > SB </div>}
-            { player.big && <div id="big-blind-button" > BB </div>}
+            {/*{ player.small && <div id="small-blind-button" > SB </div>}*/}
+            {/*{ player.big && <div id="big-blind-button" > BB </div>}*/}
 
             <CSSTransition
                 in={!game.handOver && player.pot && player.pot[game.gamePhase] > 0 && !betRoundOver}
