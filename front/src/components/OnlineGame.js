@@ -273,7 +273,7 @@ class OnlineGame extends Component {
         const getNextActivePlayerIndex = (index) => {
             let nextPlayerIndex = getNextPlayerIndex(index);
             let count = 0;
-            while (!game.players[nextPlayerIndex] || game.players[nextPlayerIndex].sitOut) {
+            while (!game.players[nextPlayerIndex] || (game.players[nextPlayerIndex].sitOut && !game.players[nextPlayerIndex].justJoined)) {
                 nextPlayerIndex = getNextPlayerIndex(nextPlayerIndex);
                 count++;
 
@@ -284,12 +284,7 @@ class OnlineGame extends Component {
             return nextPlayerIndex;
         }
         const getIsNextDealer =  () => {
-            let dealerIndex = -1;
-            game.players.forEach((player, index) => {
-                if (player && player.dealer) {
-                    dealerIndex = index;
-                }
-            });
+            const dealerIndex = game.players.findIndex(p=>p && p.dealer);
             const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
 
             const newDealer = game.players[newDealerIndex];
@@ -297,22 +292,22 @@ class OnlineGame extends Component {
         }
 
         const getIsNextStraddle =  () => {
-            let bigIndex = -1;
-            game.players.forEach((player, index) => {
-                if (player && player.big) {
-                    bigIndex = index;
-                }
-            });
-            const newBigIndex = getNextActivePlayerIndex(bigIndex);
+
+            const dealerIndex = game.players.findIndex(p=>p && p.dealer);
+            const newDealerIndex = getNextActivePlayerIndex(dealerIndex);
+            const newSmallIndex = getNextActivePlayerIndex(newDealerIndex);
+            const newBigIndex = getNextActivePlayerIndex(newSmallIndex);
             const newStraddleIndex = getNextActivePlayerIndex(newBigIndex);
             const newStraddle = game.players[newStraddleIndex];
-
-            return newStraddle.id === me.id;
+            return newStraddle && newStraddle.id === me.id;
         }
 
         const isNextDealer = game.startDate && me ? getIsNextDealer() : false;
 
-        const isNextStraddle = !isMobile && game.startDate && game.players.filter(p=>Boolean(p)).filter(p=> !p.sitOut).length > 2 && me ? getIsNextStraddle() : false;
+        const isNextStraddle = game.startDate &&
+                               game.players.filter(p=>Boolean(p)).filter(p=> !p.sitOut || p.justJoined).length > 2 &&
+                               me &&
+                               me.balance >= 2 * game.bigBlind ? getIsNextStraddle() : false;
 
         const {gameOptions} = this.state;
         let gameName = gameOptions.find(item=>item.type ===game.gameType).name;
