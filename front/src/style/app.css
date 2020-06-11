@@ -15379,6 +15379,10 @@ em-spades {
   color: white;
   margin-left: 2vw;
 }
+#game-pause-info-screen-body-table th {
+  padding: 2px 8px;
+  border: 2px solid #4e555b;
+}
 
 #game-pause-screen table, th, td {
   border: 1px solid #99999955;
@@ -17554,9 +17558,11 @@ em-spades {
 .player-sitOut-indication {
   position: absolute;
   width: 7vw;
-  height: 5vw;
+  height: 4.8vw;
   border-radius: 10px;
   background: black;
+  background-image: linear-gradient(to right, #000000cc 63%, #ffffff);
+  border: 1px solid white;
   color: white;
   font-weight: bold;
   font-size: 1.3em;
@@ -17564,7 +17570,7 @@ em-spades {
   padding-top: 3vh;
   alignment: center;
   text-align: center;
-  top: 0vh;
+  top: 0.1vh;
   left: 1vw;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {

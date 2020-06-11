@@ -763,9 +763,11 @@ $players-dealer-button-left: (
 .player-sitOut-indication{
     position: absolute;
     width: 7vw;
-    height: 5vw;
+    height: 4.8vw;
     border-radius: 10px;
     background: black;
+    background-image: linear-gradient(to right, #000000cc 63%, #ffffff);
+    border: 1px solid white;
     color: white;
     font-weight: bold;
     @include font-med;
@@ -773,7 +775,7 @@ $players-dealer-button-left: (
     padding-top: 3vh;
     alignment: center;
     text-align: center;
-    top:0vh;
+    top:0.1vh;
     left:1vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
