@@ -763,26 +763,29 @@ $players-dealer-button-left: (
 .player-sitOut-indication{
     position: absolute;
     width: 7vw;
-    height: 4.8vw;
+    height: 4.85vw;
     border-radius: 10px;
     background: black;
-    background-image: linear-gradient(to right, #000000cc 63%, #ffffff);
+    background-image: linear-gradient(to right, #000000cc 33%, white);
     border: 1px solid white;
-    color: white;
+    color: red;
     font-weight: bold;
-    @include font-med;
+    font-size: 1.9em;
     z-index: 22;
-    padding-top: 3vh;
+    padding-top: 0.3vh;
+    padding-left: 5px;
     alignment: center;
-    text-align: center;
+    text-align: left;
     top:0.1vh;
     left:1vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         width: 9vw;
-        height: 7vw;
-        font-size: 0.6em;
+        height: 6.7vw;
+        font-size: 0.9em;
         left:-1vw;
+        background-image: linear-gradient(to right, #000000cc 47%, white);
+        border: 2px solid white;
     }
     @media only screen and (max-width: $mobile-vertical) {
         width: 18vw;

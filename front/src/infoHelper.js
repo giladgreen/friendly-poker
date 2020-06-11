@@ -26,7 +26,7 @@ function getPlayersInfo(playersData, players){
         handsCount += data.handsWon;
         totalMoney += data.totalBuyIns;
         totalCashout += (pd.cashOut ? pd.cashOut.amount : 0)
-        return  <tr>
+        return  <tr key={`_table-data_${data.name}`}>
             <th>{data.name}</th>
             <th>{data.totalBuyIns}</th>
             <th>{data.cashOut} {pd.cashOut ? '': '(still in game)'}</th>
