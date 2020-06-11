@@ -766,9 +766,9 @@ $players-dealer-button-left: (
     height: 4.85vw;
     border-radius: 10px;
     background: black;
-    background-image: linear-gradient(to right, #000000cc 33%, white);
+    background-image: linear-gradient(to right, #000000cc 63%, white);
     border: 1px solid white;
-    color: red;
+    color: white;
     font-weight: bold;
     font-size: 1.9em;
     z-index: 22;
@@ -784,7 +784,7 @@ $players-dealer-button-left: (
         height: 6.7vw;
         font-size: 0.9em;
         left:-1vw;
-        background-image: linear-gradient(to right, #000000cc 47%, white);
+        background-image: linear-gradient(to right, #000000cc 53%, white);
         border: 2px solid white;
     }
     @media only screen and (max-width: $mobile-vertical) {
