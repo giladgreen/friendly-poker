@@ -14369,9 +14369,173 @@ em-spades {
 }
 
 @keyframes blinker {
-  50% {
-    opacity: 0.3;
-    color: red;
+  0% {
+    color: #ff000022;
+  }
+  5% {
+    color: #ff0000ff;
+  }
+  10% {
+    color: #ff000000;
+  }
+  15% {
+    color: #ff0000ff;
+  }
+  20% {
+    color: #ff000000;
+  }
+  24% {
+    color: #ff0000ff;
+  }
+  28% {
+    color: #ff000000;
+  }
+  32% {
+    color: #ff0000ff;
+  }
+  35% {
+    color: #ff000000;
+  }
+  38% {
+    color: #ff0000ff;
+  }
+  41% {
+    color: #ff000000;
+  }
+  44% {
+    color: #ff0000ff;
+  }
+  46% {
+    color: #ff000000;
+  }
+  49% {
+    color: #ff0000ff;
+  }
+  52% {
+    color: #ff000000;
+  }
+  54% {
+    color: #ff0000ff;
+  }
+  56% {
+    color: #ff000000;
+  }
+  58% {
+    color: #ff0000ff;
+  }
+  60% {
+    color: #ff000000;
+  }
+  62% {
+    color: #ff0000ff;
+  }
+  64% {
+    color: #ff000000;
+  }
+  66% {
+    color: #ff0000ff;
+  }
+  67% {
+    color: #ff000000;
+  }
+  68% {
+    color: #ff0000ff;
+  }
+  69% {
+    color: #ff000000;
+  }
+  70% {
+    color: #ff0000ff;
+  }
+  71% {
+    color: #ff000000;
+  }
+  72% {
+    color: #ff0000ff;
+  }
+  73% {
+    color: #ff000000;
+  }
+  74% {
+    color: #ff0000ff;
+  }
+  75% {
+    color: #ff000000;
+  }
+  76% {
+    color: #ff0000ff;
+  }
+  77% {
+    color: #ff000000;
+  }
+  78% {
+    color: #ff0000ff;
+  }
+  79% {
+    color: #ff000000;
+  }
+  80% {
+    color: #ff0000ff;
+  }
+  81% {
+    color: #ff000000;
+  }
+  82% {
+    color: #ff0000ff;
+  }
+  83% {
+    color: #ff000000;
+  }
+  84% {
+    color: #ff0000ff;
+  }
+  85% {
+    color: #ff000000;
+  }
+  86% {
+    color: #ff0000ff;
+  }
+  87% {
+    color: #ff000000;
+  }
+  88% {
+    color: #ff0000ff;
+  }
+  89% {
+    color: #ff000000;
+  }
+  90% {
+    color: #ff0000ff;
+  }
+  91% {
+    color: #ff000000;
+  }
+  92% {
+    color: #ff0000ff;
+  }
+  93% {
+    color: #ff000000;
+  }
+  94% {
+    color: #ff0000ff;
+  }
+  95% {
+    color: #ff000000;
+  }
+  96% {
+    color: #ff0000ff;
+  }
+  97% {
+    color: #ff000000;
+  }
+  98% {
+    color: #ff0000ff;
+  }
+  99% {
+    color: #ff000000;
+  }
+  100% {
+    color: #ff0000ff;
   }
 }
 #your-turn-indication {
@@ -14385,7 +14549,7 @@ em-spades {
   text-transform: uppercase;
   font-family: "Arial Black";
   padding: 10px;
-  animation: blinker 0.3s linear infinite;
+  animation: blinker 20s linear infinite;
   text-align: center;
 }
 
