@@ -759,7 +759,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
 
 }
 
-@keyframes blinker {
+@keyframes turn-indication-blink {
     0%   { color: #ff000022;}
     5%   { color: #ff0000ff;}
     10%   { color: #ff000000;}
@@ -829,7 +829,7 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     text-transform: uppercase;
     font-family: "Arial Black";
     padding: 10px;
-    animation: blinker 20s linear infinite;
+    animation: turn-indication-blink 20s linear infinite;
     text-align: center;
 
 }

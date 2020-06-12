@@ -1,3 +1,10 @@
+
+@keyframes loader-blinker {
+    0%   { color: white;}
+    25% { color: red;}
+    50% { color: black;}
+    100% { color: white;}
+}
 #loader-screen{
     background: black;
     text-align: center;
@@ -5,15 +12,13 @@
     font-weight: bold;
     color: white;
     font-size: 4em;
-    animation: blinker 3s linear infinite;
+    animation: loader-blinker 4s linear infinite;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         font-size: 2em;
-        animation: blinker 4s linear infinite;
     }
     @media only screen and (max-width: $mobile-vertical) {
         font-size: 2em;
-        animation: blinker 4s linear infinite;
 
     }
 }

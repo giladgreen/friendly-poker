@@ -10653,6 +10653,14 @@ body {
   user-select: none;
 }
 
+@keyframes blinker {
+  0% {
+    color: #ff000022;
+  }
+  50% {
+    color: #ff0000ff;
+  }
+}
 .App {
   text-align: center;
 }
@@ -10727,9 +10735,15 @@ body {
   color: antiquewhite;
 }
 
+@keyframes blinker {
+  0% {
+    color: #86000055;
+  }
+  50% {
+    color: darkred;
+  }
+}
 .connecting-to-server {
-  border-color: darkred;
-  color: darkred;
   cursor: progress;
   animation: blinker 2s linear infinite;
 }
@@ -13544,6 +13558,20 @@ em-spades {
   }
 }
 
+@keyframes loader-blinker {
+  0% {
+    color: white;
+  }
+  25% {
+    color: red;
+  }
+  50% {
+    color: black;
+  }
+  100% {
+    color: white;
+  }
+}
 #loader-screen {
   background: black;
   text-align: center;
@@ -13551,18 +13579,16 @@ em-spades {
   font-weight: bold;
   color: white;
   font-size: 4em;
-  animation: blinker 3s linear infinite;
+  animation: loader-blinker 4s linear infinite;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #loader-screen {
     font-size: 2em;
-    animation: blinker 4s linear infinite;
   }
 }
 @media only screen and (max-width: 530px) {
   #loader-screen {
     font-size: 2em;
-    animation: blinker 4s linear infinite;
   }
 }
 
@@ -14368,7 +14394,7 @@ em-spades {
   width: 11vw;
 }
 
-@keyframes blinker {
+@keyframes turn-indication-blink {
   0% {
     color: #ff000022;
   }
@@ -14549,7 +14575,7 @@ em-spades {
   text-transform: uppercase;
   font-family: "Arial Black";
   padding: 10px;
-  animation: blinker 20s linear infinite;
+  animation: turn-indication-blink 20s linear infinite;
   text-align: center;
 }
 

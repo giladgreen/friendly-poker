@@ -14,7 +14,10 @@ $mobile-vertical: 530px;
     @content;
   }
 }
-
+@keyframes blinker {
+  0%   { color: #ff000022;}
+  50% { color: #ff0000ff;}
+}
 .App {
   text-align: center;
 }
@@ -85,10 +88,11 @@ $mobile-vertical: 530px;
   border-color: antiquewhite;
   color: antiquewhite;
 }
-
+@keyframes blinker {
+  0%   { color: #86000055;}
+  50% { color: darkred;}
+}
 .connecting-to-server{
-  border-color: darkred;
-  color: darkred;
   cursor: progress;
   animation: blinker 2s linear infinite;
 }
