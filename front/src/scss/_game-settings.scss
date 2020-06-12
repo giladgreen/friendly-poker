@@ -105,6 +105,15 @@
     position: fixed;
     top:11.8vh;
     right: 3vw;
+
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        right: 2vw;
+        font-size: 1em;
+        width: 27vw;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+
+    }
 }
 #pending-requests{
     background: #CDCDCD;
@@ -210,6 +219,12 @@
     position: fixed;
     top: 89vh;
     left: 40vw;
+    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
+        top: 80vh;
+    }
+    @media only screen and (max-width: $mobile-vertical) {
+
+    }
 }
 #game-subsettings-save-button{
     width: 16vw;

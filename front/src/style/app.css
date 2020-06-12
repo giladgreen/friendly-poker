@@ -12714,7 +12714,13 @@ em-spades {
   top: 11.8vh;
   right: 3vw;
 }
-
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #toggle-show-requests-button {
+    right: 2vw;
+    font-size: 1em;
+    width: 27vw;
+  }
+}
 #pending-requests {
   background: #CDCDCD;
   border: 2px solid white;
@@ -12833,7 +12839,11 @@ em-spades {
   top: 89vh;
   left: 40vw;
 }
-
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #game-settings-save-button {
+    top: 80vh;
+  }
+}
 #game-subsettings-save-button {
   width: 16vw;
   font-size: 2.5em;
@@ -15022,6 +15032,31 @@ em-spades {
     animation-duration: 0.8s;
     animation-delay: 0s;
     animation-fill-mode: both;
+    background: black;
+  }
+
+  @keyframes game-settings-button-anim {
+    from {
+      top: 10vh;
+      right: 2vw;
+      height: 1vh;
+      width: 8vw;
+    }
+    to {
+      top: 51vh;
+      right: 2vw;
+      height: 13vh;
+      width: 8vw;
+    }
+  }
+  #game-settings-button {
+    border-radius: 10px;
+    font-size: 0.6em;
+    padding-top: 4px;
+    animation-name: game-settings-button-anim;
+    animation-duration: 0.8s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
   }
 
   #player-settings-button {
@@ -15043,20 +15078,52 @@ em-spades {
     background: #660000;
   }
 
-  #game-settings-button {
-    visibility: hidden;
-  }
-
   #settings-pending-indication {
-    visibility: hidden;
+    border-radius: 50%;
+    border: 1px solid white;
+    color: white;
+    background: red;
+    position: fixed;
+    z-index: 104;
+    font-size: 0.9em;
+    font-weight: bold;
+    height: 3.5vw;
+    width: 3.5vw;
+    text-align: center;
   }
 
+  @keyframes settings-pending-indication-on-menu-anim {
+    from {
+      top: 9vh;
+      right: 8.7vw;
+    }
+    to {
+      top: 49.5vh;
+      right: 8.7vw;
+    }
+  }
   .settings-pending-indication-on-menu {
-    visibility: hidden;
+    animation-name: settings-pending-indication-on-menu-anim;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
   }
 
+  @keyframes settings-pending-indication-on-settings-button {
+    from {
+      top: -5vh;
+      right: 8.7vw;
+    }
+    to {
+      top: 9vh;
+      right: 8.7vw;
+    }
+  }
   .settings-pending-indication-on-settings-button {
-    visibility: hidden;
+    animation-name: settings-pending-indication-on-settings-button;
+    animation-duration: 0.9s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
   }
 
   #game-logs-modal {
