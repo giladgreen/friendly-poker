@@ -70,7 +70,6 @@ if (!localStorage.getItem('playerPreferences')){
 }
 
 
-
 const search = window.location.search || '';
 class App extends Component {
     constructor(props) {
@@ -284,7 +283,6 @@ class App extends Component {
             console.log('no one is registered on this keypress event')
         }
     }
-
 
     componentDidMount() {
 

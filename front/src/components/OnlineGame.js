@@ -619,7 +619,7 @@ class OnlineGame extends Component {
         const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
 
 
-        const cantStandSit = !me || (me.sitOut && me.balance === 0) || isMyTurn;
+        const cantStandSit = !game.startDate || !me || (me.sitOut && me.balance === 0) || isMyTurn;
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
