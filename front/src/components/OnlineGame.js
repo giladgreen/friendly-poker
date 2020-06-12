@@ -369,6 +369,12 @@ class OnlineGame extends Component {
         };
 
 
+        if (isNextDealer && newState.chosenGame !== 'TEXAS'){
+            setTimeout(()=>{
+                this.props.dealerChooseGame(newState.chosenGame);
+            },150);
+        }
+
         if (this.forceUserTimerUpdate){
             this.forceUserTimerUpdate(newState.userTimer)
         }
@@ -594,11 +600,7 @@ class OnlineGame extends Component {
         console.log('this.state.rebuySectionOpen',this.state.rebuySectionOpen)
 
         const { options, cheapLeader, me, isMyTurn, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
-        if (chosenGame !== 'TEXAS'){
-            setTimeout(()=>{
-                this.props.dealerChooseGame(chosenGame);
-            },150);
-        }
+
         const {game, initial} = this.props;
         const { pendingJoin, pendingRebuy, dealerChoice} = game;
         const showPendingIndication = this.props.isAdmin && ((pendingJoin.length >0 || (pendingRebuy.length >0)));
@@ -661,7 +663,7 @@ class OnlineGame extends Component {
 
                 </div>) : <div/>}
 
-                {this.state.getTimeEnabled ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
+                {this.state.getTimeEnabled && game.playersTurn ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
                     Get More Time X {this.state.timeBankCount}
                 </div> : <div/>}
 
