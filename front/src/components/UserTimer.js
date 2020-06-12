@@ -73,15 +73,16 @@ class UserTimer extends Component {
     }
 
     render() {
+        const { onlyBar, linearProgressId = 'hand-clock-progress' }=this.props;
         const val = this.getTimeLeftValue();
 
         return <div>
             {/* time left to talk */}
-            <div id="hand-clock"> { this.getTimeLeft()} </div>
+            {onlyBar ? <div/> : <div id="hand-clock"> { this.getTimeLeft()} </div>}
 
             <MuiThemeProvider theme={theme}>
                 {/* time left to talk progess bar */}
-                <LinearProgress id="hand-clock-progress" variant="determinate" color="secondary" value={val} />
+                <LinearProgress id={linearProgressId} variant="determinate" color="secondary" value={val} />
             </MuiThemeProvider>
 
 

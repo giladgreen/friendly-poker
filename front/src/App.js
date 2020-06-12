@@ -451,7 +451,6 @@ class App extends Component {
         });
 
         this.socket.on('joinrequestdeclined', (game) => {
-            console.log('on joinrequestdeclined', game);
             this.setState({ operationpendingapproval: false, game });
             this.showAlertMessage('join request declined');
             this.showAlertMessage(game.declineMessage);

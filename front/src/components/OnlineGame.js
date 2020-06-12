@@ -339,7 +339,6 @@ class OnlineGame extends Component {
             }
         }
         const admin = this.props.game.players.filter(p=>Boolean(p)).find(p=>p.admin);
-        console.log(' new state rebuySectionOpen: this.state.rebuySectionOpen && rebuyEnabled', this.state.rebuySectionOpen ,'&&', rebuyEnabled)
         const newState = {
             gameName,
             me,
@@ -444,7 +443,6 @@ class OnlineGame extends Component {
     };
 
     toggleRebuyButton = ()=>{
-        console.log('toggleRebuyButton')
         this.setState({rebuySectionOpen:!this.state.rebuySectionOpen });
     };
 
@@ -467,7 +465,6 @@ class OnlineGame extends Component {
         if (!this.state.rebuyEnabled){
             this.props.showAlertMessage('Rebuy request sent')
         }
-        console.log('after rebuy pressed')
         this.setState({rebuySectionOpen:false, rebuyValue:this.props.game.defaultBuyIn});
 
     };
@@ -596,8 +593,6 @@ class OnlineGame extends Component {
         this.props.dealerChooseGame(chosenGame);
     }
     render() {
-        console.log('this.state.sideMenu',this.state.sideMenu)
-        console.log('this.state.rebuySectionOpen',this.state.rebuySectionOpen)
 
         const { options, cheapLeader, me, isMyTurn, betRoundOver, isNextDealer,isNextStraddle, chosenGame, gameName, chatFocused} = this.state;
 

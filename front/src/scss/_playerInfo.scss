@@ -594,7 +594,7 @@ $players-dealer-button-left: (
 
 .player-status{
     position: absolute;
-    width: 4vw;
+    width: 5vw;
     height: 1.8vw;
     border: 1px solid black;
     border-radius: 20px;
@@ -603,18 +603,18 @@ $players-dealer-button-left: (
     font-weight: bold;
     @include font-med;
     z-index: 30;
-    padding-top: 3px;
+    padding-top: 2px;
     alignment: center;
     text-align: center;
     top:8.7vh;
-    left:2.4vw;
+    left:1.2vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        font-size: 0.8em;
-        width: 9vw;
-        height: 2.9vw;
-        top:9.2vh;
-        left:1.5vw;
+        font-size: 0.7em;
+        width: 8vw;
+        height: 2.7vw;
+        top:8.5vh;
+        left:0vw;
         padding-top: 0px;
         font-weight: normal;
     }
@@ -632,6 +632,8 @@ $players-dealer-button-left: (
     border-bottom: 1px solid #00000033;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
        font-size: 0.9em;
+
+        padding-left: 1.2vw;
     }
     @media only screen and (max-width: $mobile-vertical) {
         font-size: 0.9em;
@@ -702,19 +704,27 @@ $players-dealer-button-left: (
     width: 1.5vw;
     height: 1.5vw;
     font-weight: bold;
-    background: transparent;
+    background: white;
 
-    @include font-med;
-    border: 1px solid #00000044;
-    border-radius: 50%;
+    font-size: 1.2em;
+    border: 1px solid #000000cc;
+    border-radius: 10px;
     z-index: 41;
     text-align: center;
-    top:0.8vh;
-    left:13.3vw;
+    top:0.2vh;
+    left:15vw;
     cursor: pointer;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        visibility: hidden;
+        font-size: 0.78em;
+        width: 3vw;
+        height: 3vw;
+        border-radius: 10px;
+
+
+        top:0.2vh;
+        left:15vw;
+
     }
     @media only screen and (max-width: $mobile-vertical) {
         visibility: hidden;
@@ -723,30 +733,14 @@ $players-dealer-button-left: (
 }
 .kick-out{
     color: #11111177;
-    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        visibility: hidden;
-    }
-    @media only screen and (max-width: $mobile-vertical) {
-        visibility: hidden;
-    }
 }
 .force-check{
     color: #00640077;
-    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        visibility: hidden;
-    }
-    @media only screen and (max-width: $mobile-vertical) {
-        visibility: hidden;
-    }
+
 }
 .force-fold{
     color: #721c2477;
-    @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        visibility: hidden;
-    }
-    @media only screen and (max-width: $mobile-vertical) {
-        visibility: hidden;
-    }
+
 }
 
 .force-action-button{
@@ -826,7 +820,7 @@ $players-dealer-button-left: (
 
 .player-hand-description{
     position: absolute;
-    width: 11vw;
+    width: 16vw;
     height: 2vw;
     border-radius: 10px;
     background: white;
@@ -834,17 +828,20 @@ $players-dealer-button-left: (
     font-weight: bold;
     @include font-small;
     z-index: 10;
-    padding-top: 3px;
+    padding-top: 4px;
     alignment: center;
     text-align: center;
     top:11.6vh;
-    left:0vw;
+    left:-1vw;
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
-        width: 37vw;
-        height: 6vw;
-        padding-top: 1px;
-        font-size: 0.4em;
+        width: 24vw;
+        height: 2.7vw;
+        top:12vh;
+        left:-3vw;
+
+        padding-top: 2px;
+        font-size: 0.3em;
     }
     @media only screen and (max-width: $mobile-vertical) {
         width: 21vw;
@@ -864,7 +861,7 @@ $players-dealer-button-left: (
     to {
         top:11.6vh;
         left:0vw;
-        width: 13vw;
+        width: 15vw;
         font-size: 1em;
         color: black;
 
@@ -891,3 +888,11 @@ $players-dealer-button-left: (
     animation-fill-mode: both;
 }
 
+#player-info-hand-clock-progress{
+    z-index: 30;
+    position: relative;
+    top:0vh;
+    left:-2vw;
+    width: 8.6vw;
+
+}

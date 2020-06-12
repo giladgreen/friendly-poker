@@ -6,6 +6,7 @@ import { CSSTransition } from "react-transition-group";
 const isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import UserTimer from "../components/UserTimer";
 const PlayerInfo = (props) => {
 
     const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
@@ -26,6 +27,7 @@ const PlayerInfo = (props) => {
     const forceAction = player.active ? (player.options.includes('Call') ? 'F':'C') :'K';
     const actionClass = player.active ? (player.options.includes('Call') ? 'force-fold':'force-check') :'kick-out';
 
+    const playerName = player.name.length> 9 && isMobile ? player.name.substr(0,7)+'..': player.name;
     return  <div key={`player_${index}`} id={`player${index}`} className={`player ${player.active ? 'active-player' : ''}`}>
         <div className={`player-div`}>
 
@@ -36,8 +38,13 @@ const PlayerInfo = (props) => {
 
             <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
-                    {player.name}
+                    {playerName}
                 </div>
+                {game.hand && game.hand>0 && !game.paused && !game.handOver && player.active && !isMobile ? (
+                        <UserTimer userTimer={game.currentTimerTime} time={game.time} onlyBar={true} linearProgressId="player-info-hand-clock-progress" />
+                    )
+                    :  <div id={"777"}/>}
+
                 <div className={`player-balance ${ player.winner ? 'player-balance-winner' :''} `} >
                       {player.winner ?  Math.floor(player.balance)- Math.floor(player.winner) : Math.floor(player.balance)}
                 </div>
@@ -68,9 +75,9 @@ const PlayerInfo = (props) => {
             {/*{ false && props.admin && !props.isMe && <div  className={`kickOut-button ${ player.active ? 'force-action-button':''}`} onClick={()=>props.kickOutPlayer(player.id)}>{player.active ? (player.options.includes('Call') ? 'Force Fold':'Force Check') :'Kick Out'}</div>}*/}
             { player.sitOut && player.justJoined ? <div className="player-joining-next-hand-indication">Joining next hand</div> : <div/>}
             { player.sitOut && !player.justJoined ? <div className="player-sitOut-indication">Sitting Out</div> : <div/>}
-            { player.userDesc && game.gamePhase === 1 && <div  className={`player-hand-description player-hand-description-at-game-phase-1`}>{player.userDesc}</div>}
-            { player.userDesc && game.gamePhase === 2 && <div  className={`player-hand-description player-hand-description-at-game-phase-2`}>{player.userDesc}</div>}
-            { player.userDesc && game.gamePhase === 3 && <div  className={`player-hand-description player-hand-description-at-game-phase-3`}>{player.userDesc}</div>}
+            { player.userDesc && game.gamePhase === 1 && <div  className={`player-hand-description ${isMobile ? '' :'player-hand-description-at-game-phase-1'} `}>{player.userDesc}</div>}
+            { player.userDesc && game.gamePhase === 2 && <div  className={`player-hand-description ${isMobile ? '' :'player-hand-description-at-game-phase-2'}`}>{player.userDesc}</div>}
+            { player.userDesc && game.gamePhase === 3 && <div  className={`player-hand-description ${isMobile ? '' :'player-hand-description-at-game-phase-3'}`}>{player.userDesc}</div>}
 
          </div>
     </div>
