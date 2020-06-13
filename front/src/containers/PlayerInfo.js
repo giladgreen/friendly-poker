@@ -10,7 +10,7 @@ import UserTimer from "../components/UserTimer";
 const PlayerInfo = (props) => {
 
     const {game, player, index, winningHandCards, isMe, initial, betRoundOver} = props;
-    const { pineapple } = game;
+    const { pineapple, handOver } = game;
 
     const {cardsToShow, needToThrow, sitOut} = player;
     const dropEnabled = pineapple && needToThrow;
@@ -36,7 +36,7 @@ const PlayerInfo = (props) => {
             {!sitOut && (game.omaha || (game.pineapple && (game.gamePhase === 0 || needToThrow))) && cardsToShow > 1 && <Card dropEnabled={dropEnabled}  dropCard={()=>props.dropCard(card3)} playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card3} folded={!showCards && (player.fold || !game.startDate)} third={true} omaha={game.omaha} pineapple={game.pineapple}  shown={showCards} highlight={winningHandCards.includes(card3)}/>}
             {!sitOut && game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
 
-            <div className={`player-info ${ player.active ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
+            <div className={`player-info ${ player.active && !handOver ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
                     {playerName}
                 </div>
@@ -50,6 +50,7 @@ const PlayerInfo = (props) => {
                 </div>
             </div>
             { !isMobile && player.isMobile && <div className="player-mobile-indication" > 📱  </div>}
+            { !isMobile && player.bot && <div className="player-bot-indication" > 🖨️ </div>}
             { player.dealer && <div id={`player-${index}-dealer-button`} className="base-dealer-button" > D </div>}
             { player.straddle && <div id={`player-${index}-straddle-button`} className="base-straddle-button" > S </div>}
              <div className={handWonClass} >  {handsWon}<EmojiEventsIcon/> </div>

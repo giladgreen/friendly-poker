@@ -90,7 +90,7 @@ class App extends Component {
         }
 
         this.state = {
-            games:null,
+            games:[],
             logs:[],
             messages:[],
             pendingJoin:[],
@@ -428,7 +428,7 @@ class App extends Component {
         });
 
         this.socket.on('gamecreated', (game) => {
-            // console.log('on gamecreated');
+             console.log('on gamecreated');
             game = this.getGameClone(game);
 
             const gameId = game.id;
@@ -438,9 +438,12 @@ class App extends Component {
             // console.log('going to ',`${serverPrefix}?gameid=${gameId}`)
 
             this.setState({ game, gameId, connected: true });
-            setTimeout(()=>{
-                window.location = `${serverPrefix}?gameid=${gameId}`
-            },200)
+            if (game.players.filter(p=>p).length===1){
+                setTimeout(()=>{
+                    window.location = `${serverPrefix}?gameid=${gameId}`
+                },200)
+            }
+
         });
 
         this.socket.on('operationpendingapproval', () => {

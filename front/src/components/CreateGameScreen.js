@@ -152,6 +152,7 @@ class CreateGameScreen extends Component {
     render() {
         const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError } = this.state;
         const createButtonEnabled = this.props.connected && !showNameError && !showBuyInError && !showSmallBlindError && !showBigBlindError && !showTimeError;
+
         return (
             <div id="create-new-game-screen">
                 <div id="create-new-game-section" className="config-screens-top-level-sections"  >
@@ -299,16 +300,16 @@ class CreateGameScreen extends Component {
 
                 </div>
 
-                {this.props.games && (
+                {!this.props.games ? <div/> : (
                 <div id="my-existing-games" className="config-screens-top-level-sections">
                     <div id="my-existing-games-header" className="config-screens-top-level-sections-header">
                         {this.props.games.length > 0 ? this.props.games.length : 'No'} Existing Game{ this.props.games.length === 1 ? '' : 's' }
                     </div>
                     <div id="my-existing-games-body" className="config-screens-top-level-sections-body">
                         {
-                            this.props.games.length === 0 ? <div/> :
+                            !this.props.games || this.props.games.length === 0 ? <div/> :
 
-                                this.props.games.map((game,index)=>{
+                                (this.props.games || []).map((game,index)=>{
                                     const admin = game.players.find(p=>p && p.admin);
                                     const isAdmin = admin && admin.id === this.props.playerId;
                                     const gameId = game.id;
