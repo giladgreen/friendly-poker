@@ -11,7 +11,6 @@ import CreateGameScreen from "./components/CreateGameScreen";
 import OnlineGame from "./components/OnlineGame";
 import JoinGameScreen from "./components/JoinGameScreen";
 import Loader from "./containers/Loader";
-import GamePauseScreen from "./containers/GamePauseScreen";
 import NotSupported from "./containers/NotSupported";
 import ShowAlert from "./containers/ShowAlert";
 import GameInfoScreen from "./containers/GameInfoScreen";
@@ -847,11 +846,13 @@ class App extends Component {
                 return <Loader waitingApproval={operationpendingapproval}/>;
             }
             if (this.state.showInfoScreen) {
-                return <GameInfoScreen game={game} onClose={this.toggleShowInfo}/>
+                return <GameInfoScreen game={game} onClose={this.toggleShowInfo} />
             }
 
             const admin = game.players.find(p=>p && p.admin);
+
             const isAdmin = admin && (admin.id === playerId);
+
 
             const gamePlayer =  game.players.find(p=>p && p.id === playerId);
 

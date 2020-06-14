@@ -118,6 +118,7 @@ class OnlineGame extends Component {
 
         const key = String.fromCharCode(keycode).toLowerCase();
 
+
         if (!chatFocused && (key === 'm' || key === 'צ')){
             setTimeout(()=>{
                 document.getElementById("chat-input").focus();
@@ -623,13 +624,12 @@ class OnlineGame extends Component {
 
         const startButtonEnabled = this.props.isAdmin && !startDate && players.filter(p=>Boolean(p)).length>1;
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
-        const resumeButtonEnabled = this.props.isAdmin && game.paused;
+
         const messages = this.props.messages;
         const cantQuit =  isMyTurn || (me.admin && players.filter(p=>p && p.id !== me.id).length > 0);
         const showStraddleButton = game.handOver && game.straddleEnabled && isNextStraddle;
 
         const showDealerChoiceButtons = (game.handOver && isNextDealer && dealerChoice);
-
 
         return (
             <div id="online-game-screen">

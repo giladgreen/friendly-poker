@@ -4,12 +4,13 @@ import React from 'react'
 
 import infoHelper from '../infoHelper';
 const { getPlayersInfo } = infoHelper;
-const GameInfoScreen = (props) => {
+const GamePauseScreen = (props) => {
 
     const {game, isAdmin, resumeGame } = props;
     const {playersData, serverError, players} = game;
 
-    const canResume = isAdmin && (!game.handOver || game.players.filter(player => player && !player.sitOut && player.balance > 0) > 1)
+    const canResume = isAdmin && (!game.handOver || game.players.filter(player => player && !player.sitOut && player.balance > 0).length > 1);
+
     return  <div  id="game-pause-screen">
         <div id="game-pause-buy-ins-section">
             <div>
@@ -35,4 +36,4 @@ const GameInfoScreen = (props) => {
     </div>
 }
 
-export default GameInfoScreen;
+export default GamePauseScreen;

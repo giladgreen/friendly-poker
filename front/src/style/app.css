@@ -15558,9 +15558,9 @@ em-spades {
 #game-pause-screen {
   position: fixed;
   top: 9.3vh;
-  height: 87vh;
-  width: 99vw;
-  left: 0.8vw;
+  height: 89vh;
+  width: 99.6vw;
+  left: 0.2vw;
   background: #000000DD;
   border: 2px solid grey;
   border-radius: 10px;
@@ -15739,7 +15739,7 @@ em-spades {
   font-size: 2em;
   padding-top: 1vh;
   background: #00000066;
-  z-index: 102;
+  z-index: 99102;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #start-pause-game-button {
