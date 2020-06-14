@@ -68,6 +68,13 @@ class GameSettingModal extends Component {
             requireRebuyApproval: props.game.requireRebuyApproval,
             straddleEnabled: props.game.straddleEnabled,
             showPendingRequests: true,
+            gameOptions:[
+                {value: 1, name: 'No Limit Texas Holdem', type:'TEXAS', icons: ["horns.svg"]  },
+                {value: 2, name: 'Pot Limit Omaha', type: 'OMAHA',icons: ["omaha.svg"] },
+                {value: 3, name: 'No Limit Pineapple', type: 'PINEAPPLE',  icons: ["black_pineapple.svg"] },
+                {value: 4, name: "Dealer's Choice", type: 'DEALER_CHOICE',  icons: ["horns.svg", "omaha.svg", "black_pineapple.svg"]},
+            ],
+            selectedGame: 1,
         }
 
     }
@@ -75,6 +82,9 @@ class GameSettingModal extends Component {
         this.setState({showPendingRequests: !this.state.showPendingRequests })
     };
 
+    onSelectedGameChange = (selectedGame)=>{
+        this.setState({selectedGame})
+    }
     setApprovalRequired= (e) =>{
         this.setState({requireRebuyApproval: e.target.checked })
     };
@@ -144,8 +154,8 @@ class GameSettingModal extends Component {
     };
 
     saveSettings = ()=>{
-        const {showSmallBlindError, showBigBlindError, showTimeError, time, smallBlind, bigBlind,
-            adminId, sendTrasfer,  fromPlayerId, toPlayerId,  amount, requireRebuyApproval, straddleEnabled, timeBankEnabled } = this.state;
+        const {showSmallBlindError, showBigBlindError, showTimeError, time, smallBlind, bigBlind, gameOptions,
+            adminId, sendTrasfer,  fromPlayerId, toPlayerId,  amount, requireRebuyApproval, straddleEnabled, timeBankEnabled, selectedGame } = this.state;
         if (showSmallBlindError || showBigBlindError || showTimeError){
             return;
         }
@@ -156,7 +166,8 @@ class GameSettingModal extends Component {
                 {fromPlayerId, toPlayerId, amount}
             ]
         }
-        this.props.saveSettings({time, smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled});
+        const gameType = gameOptions.find(option=>option.value === selectedGame).type;
+        this.props.saveSettings({time, smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled, gameType});
     };
 
     clostIfLastRequest = ()=>{
@@ -280,6 +291,21 @@ class GameSettingModal extends Component {
 
             <div id="game-settings-modal-title">Game Settings</div>
 
+            <div id="game-settings-modal-select-game-div">
+                <span id="game-settings-modal-select-game-label" className="game-settings-label">Select Game:</span>
+                <Select
+                    id="select-game-dropdown"
+                    value={this.state.selectedGame}
+                    onChange={(e) => this.onSelectedGameChange(e.target.value)} >
+                    {this.state.gameOptions.map(option => {
+                        return  <MenuItem value={option.value} key={`__gamename_${option.name}`}>
+                            <span> {option.icons.map(src => <img key={src} style={{width: '30px'}} src={src} />)}  { option.name} </span>
+                        </MenuItem>
+                    })}
+
+                </Select>
+            </div>
+
             <div id="game-settings-blinds">
                 <span className="game-settings-label">Small Blind:</span>
                 <input className={`game-settings-input ${this.state.showSmallBlindError ? 'red-border red-background':''}`}
@@ -367,7 +393,7 @@ class GameSettingModal extends Component {
                     value={this.state.adminId}
                     onChange={(e) => this.onAdminChange(e.target.value)} >
                     {this.props.game.players.filter(player=>Boolean(player)).map(player => {
-                        return <MenuItem value={player.id}>{ player.name}</MenuItem>
+                        return <MenuItem  key={`_mi_${player.name}`}  value={player.id}>{ player.name}</MenuItem>
                     })}
 
                 </Select>
@@ -395,10 +421,10 @@ class GameSettingModal extends Component {
                 <div id="pending-requests-header">{pendingIndicationCount} pending requests</div>
                 <div id="pending-requests-body">
                     {gamePendingJoin.map(joinData =>{
-                        return <div key={`join_${joinData.playerId}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineJoin(joinData)}> Decline</span>   </div>
+                        return <div key={`join_${joinData.id}`} className="pending-row"><span className="pending-name">{joinData.name}</span> has requested to join the game with an initial balance of<span className="pending-number"> {joinData.balance}</span> <span className="approve-pending" onClick={()=>this.approveJoin(joinData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineJoin(joinData)}> Decline</span>   </div>
                     }) }
                     {gamePendingRebuy.map(rebuyData =>{
-                        return <div key={`rebuy_${rebuyData.playerId}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineRebuy(rebuyData)}> Decline</span>  </div>
+                        return <div key={`rebuy_${rebuyData.id}`} className="pending-row"><span className="pending-name">{rebuyData.name}</span>  has requested to rebuy an extra <span className="pending-number">{rebuyData.amount}</span><span className="approve-pending" onClick={()=>this.approveRebuy(rebuyData)}> Approve</span><span className="decline-pending" onClick={()=>this.declineRebuy(rebuyData)}> Decline</span>  </div>
                     }) }
 
 

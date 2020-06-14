@@ -90,7 +90,7 @@ class App extends Component {
         }
 
         this.state = {
-            games:[],
+            games:null,
             logs:[],
             messages:[],
             pendingJoin:[],
@@ -301,6 +301,7 @@ class App extends Component {
         this.socket = io(endpoint, {origins:"*"});
 
         this.socket.on('gamesdata', (games) => {
+            console.log('gamesdata')
             this.setState({ games, connected:true });
         });
 
@@ -311,12 +312,13 @@ class App extends Component {
         });
 
         this.socket.on('connect', ()=>{
-            // console.log('App on connect.');
+            console.log('connect')
+
             if (!this.state.gameId){
                 if (!this.state.games){
                     setTimeout(()=>{
                         this.socket.emit('getgames',{ playerId: this.state.playerId });
-                    },2000)
+                    },1000)
                 } else{
                     this.socket.emit('updateplayerid', {playerId: this.state.playerId});
                 }
@@ -344,6 +346,8 @@ class App extends Component {
         });
 
         this.socket.on('disconnect', (data) => {
+            console.log('disconnect')
+
             // console.log('App on disconnect',data);
             if (this.state.connected){
                 this.setState({connected:false});
@@ -361,7 +365,7 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-            // console.log('on game update game.socketId',game.socketId)
+             console.log('on gameupdate')
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
@@ -655,11 +659,11 @@ class App extends Component {
         this.socket.emit('gettime', {gameId , now, playerId });
     };
 
-    updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled) =>{
+    updateGameSettings = (time,smallBlind,bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled, gameType) =>{
         const { gameId, playerId } = this.state;
-        // console.log('emiting updategamesettings')
+
         const now = (new Date()).getTime();
-        this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, requireRebuyApproval, straddleEnabled, timeBankEnabled, now });
+        this.socket.emit('updategamesettings', {gameId, playerId, newBalances, time,smallBlind,bigBlind, requireRebuyApproval, straddleEnabled, timeBankEnabled, gameType, now });
         if (adminId !== playerId){
             // console.log('emiting changeadmin')
 

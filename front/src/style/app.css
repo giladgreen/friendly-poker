@@ -12619,6 +12619,26 @@ em-spades {
   border-radius: 20px;
   color: white;
 }
+@media only screen and (max-width: 800px) {
+  #game-settings-modal {
+    height: 91vh;
+    top: 8vh;
+    padding: 0px 20px;
+  }
+}
+
+.game-settings-label {
+  font-size: 1.8em;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+@media only screen and (max-width: 800px) {
+  .game-settings-label {
+    font-size: 1.3em;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+}
 
 #game-settings-modal-close-x {
   font-size: 3em;
@@ -12630,6 +12650,12 @@ em-spades {
   top: 11vh;
   left: 2vw;
 }
+@media only screen and (max-width: 800px) {
+  #game-settings-modal-close-x {
+    top: 8vh;
+    left: 3vw;
+  }
+}
 
 #game-settings-modal-title {
   font-size: 2.8em;
@@ -12639,41 +12665,90 @@ em-spades {
   text-decoration: underline;
   margin-bottom: 1vh;
 }
+@media only screen and (max-width: 800px) {
+  #game-settings-modal-title {
+    font-size: 2.2em;
+  }
+}
 
-#game-settings-blinds {
+#game-settings-modal-select-game-div {
   position: fixed;
   top: 20vh;
   left: 2vw;
 }
+@media only screen and (max-width: 800px) {
+  #game-settings-modal-select-game-div {
+    top: 20vh;
+    left: 2vw;
+  }
+}
+
+#game-settings-blinds {
+  position: fixed;
+  top: 28vh;
+  left: 2vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-blinds {
+    top: 32vh;
+  }
+}
 
 #game-settings-Decision-Time-Limit {
   position: fixed;
-  top: 30.2vh;
+  top: 37.2vh;
   left: 2vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-Decision-Time-Limit {
+    top: 44vh;
+  }
 }
 
 #game-settings-timebank-enabled-checkbox {
   position: fixed;
-  top: 36vh;
+  top: 43vh;
   left: 4vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-timebank-enabled-checkbox {
+    top: 57vh;
+  }
 }
 
 #game-settings-approval-required-checkbox {
   position: fixed;
-  top: 46vh;
+  top: 53vh;
   left: 4vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-approval-required-checkbox {
+    top: 67vh;
+  }
 }
 
 #game-settings-straddle-enabled-checkbox {
   position: fixed;
-  top: 54vh;
+  top: 61vh;
   left: 4vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-straddle-enabled-checkbox {
+    top: 77vh;
+  }
 }
 
 #game-settings-select-admin {
   position: fixed;
   top: 20.2vh;
   left: 55vw;
+}
+@media only screen and (max-width: 800px) {
+  #game-settings-select-admin {
+    top: 20vh;
+    left: 60vw;
+    height: 23vh;
+  }
 }
 
 #open-change-balances-button {
@@ -12688,6 +12763,14 @@ em-spades {
   top: 30.2vh;
   left: 57vw;
 }
+@media only screen and (max-width: 800px) {
+  #open-change-balances-button {
+    top: 57vh;
+    left: 50vw;
+    width: 45vw;
+    font-size: 1.2em;
+  }
+}
 
 #force-skip-hand-button {
   background: #8b0000cc;
@@ -12700,6 +12783,14 @@ em-spades {
   position: fixed;
   top: 40.2vh;
   left: 57vw;
+}
+@media only screen and (max-width: 800px) {
+  #force-skip-hand-button {
+    top: 67vh;
+    left: 50vw;
+    width: 45vw;
+    font-size: 1.2em;
+  }
 }
 
 #toggle-show-requests-button {
@@ -12714,13 +12805,14 @@ em-spades {
   top: 11.8vh;
   right: 3vw;
 }
-@media only screen and (max-width: 800px) and (min-width: 530px) {
+@media only screen and (max-width: 800px) {
   #toggle-show-requests-button {
     right: 2vw;
     font-size: 1em;
     width: 27vw;
   }
 }
+
 #pending-requests {
   background: #CDCDCD;
   border: 2px solid white;
@@ -12729,7 +12821,12 @@ em-spades {
   top: 20vh;
   left: 2vw;
   width: 96vw;
-  height: 81.6vh;
+  height: 78vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #pending-requests {
+    height: 78vh;
+  }
 }
 
 #pending-requests-header {
@@ -12742,13 +12839,26 @@ em-spades {
   font-weight: bold;
   height: 4vh;
 }
+@media only screen and (max-width: 800px) {
+  #pending-requests-header {
+    padding-top: 1px;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    height: 4vh;
+  }
+}
 
 #pending-requests-body {
   padding-left: 15px;
   font-size: 2em;
   color: #333333;
   overflow-y: scroll;
-  height: 25vh;
+  height: 50vh;
+}
+@media only screen and (max-width: 800px) and (min-width: 530px) {
+  #pending-requests-body {
+    font-size: 1.2em;
+  }
 }
 
 .pending-name {
@@ -12801,12 +12911,6 @@ em-spades {
   color: dodgerblue;
 }
 
-.game-settings-label {
-  font-size: 1.8em;
-  margin-left: 2vw;
-  margin-right: 2vw;
-}
-
 .game-settings-secondary-label {
   font-size: 1.8em;
   margin-left: 0.5vw;
@@ -12841,9 +12945,14 @@ em-spades {
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #game-settings-save-button {
-    top: 80vh;
+    top: 87vh;
+    height: 10vh;
+    font-size: 1.8em;
+    width: 50vw;
+    left: 25vw;
   }
 }
+
 #game-subsettings-save-button {
   width: 16vw;
   font-size: 2.5em;

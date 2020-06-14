@@ -152,7 +152,6 @@ class CreateGameScreen extends Component {
     render() {
         const {showNameError, showBuyInError, showSmallBlindError, showBigBlindError, showTimeError } = this.state;
         const createButtonEnabled = this.props.connected && !showNameError && !showBuyInError && !showSmallBlindError && !showBigBlindError && !showTimeError;
-
         return (
             <div id="create-new-game-screen">
                 <div id="create-new-game-section" className="config-screens-top-level-sections"  >
@@ -160,20 +159,20 @@ class CreateGameScreen extends Component {
                         Create New Online Game
                     </div>
                     <div id="create-new-game-section-body" className="config-screens-top-level-sections-body">
-                        {<div id="select-game-div">
+                        <div id="select-game-div">
                             <span id="select-game-label">Select Game:</span>
                             <Select
                                 id="select-game-dropdown"
                                 value={this.state.selectedGame}
                                 onChange={(e) => this.onSelectedGameChange(e.target.value)} >
                                 {this.state.gameOptions.map(option => {
-                                    return  <MenuItem value={option.value}>
+                                    return  <MenuItem value={option.value} key={`_gamename_${option.name}`}>
                                        <span> {option.icons.map(src => <img key={src} style={{width: '30px'}} src={src} />)}  { option.name} </span>
                                     </MenuItem>
                                 })}
 
                             </Select>
-                        </div>}
+                        </div>
                         <div id="create-new-game-blinds-div">
                             <span id="create-new-game-small-blind-label" className="create-new-game-labels">Small Blind:</span>
                             <input id="create-new-game-small-blind-input"

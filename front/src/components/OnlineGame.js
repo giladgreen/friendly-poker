@@ -426,8 +426,8 @@ class OnlineGame extends Component {
         this.setState({showLogs:!this.state.showLogs})
     };
 
-    saveSettings = ({time,smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled})=>{
-        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled);
+    saveSettings = ({time,smallBlind, bigBlind, adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled, gameType})=>{
+        this.props.updateGameSettings(time,smallBlind,bigBlind,adminId, newBalances, requireRebuyApproval, straddleEnabled, timeBankEnabled, gameType);
         this.setState({showSettings:false})
     };
 
