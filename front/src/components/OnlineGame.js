@@ -627,7 +627,11 @@ class OnlineGame extends Component {
         const pauseButtonEnabled = this.props.isAdmin && startDate && !game.paused && (game.handOver || !game.playersTurn);
 
         const messages = this.props.messages;
-        const cantQuit =  isMyTurn || (me.admin && players.filter(p=>p && p.id !== me.id).length > 0);
+        const allGamePlayersCount = players.filter(p=>p && p.id !== me.id).length;
+        let cantQuit = isMyTurn || (me.admin && players.filter(p=>p && p.id !== me.id).length > 0);
+        if (allGamePlayersCount<2){
+            cantQuit = false;
+        }
         const showStraddleButton = game.handOver && game.straddleEnabled && isNextStraddle;
 
         const showDealerChoiceButtons = (game.handOver && isNextDealer && dealerChoice);
