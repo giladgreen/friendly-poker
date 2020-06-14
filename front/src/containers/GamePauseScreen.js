@@ -9,6 +9,7 @@ const GameInfoScreen = (props) => {
     const {game, isAdmin, resumeGame } = props;
     const {playersData, serverError, players} = game;
 
+    const canResume = isAdmin && (!game.handOver || game.players.filter(player => player && !player.sitOut && player.balance > 0) > 1)
     return  <div  id="game-pause-screen">
         <div id="game-pause-buy-ins-section">
             <div>
@@ -23,7 +24,7 @@ const GameInfoScreen = (props) => {
 
 
             <div id="game-pause-info-screen-header"> Game summary</div>
-            {isAdmin &&  <div id="start-pause-game-button" className="big-button active-button"  onClick={resumeGame}> Resume Game </div>}
+            {canResume &&  <div id="start-pause-game-button" className="big-button active-button"  onClick={resumeGame}> Resume Game </div>}
 
             <div id="game-pause-info-screen-body">
                 {getPlayersInfo(playersData, players)}

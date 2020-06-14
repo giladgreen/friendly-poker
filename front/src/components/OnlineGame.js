@@ -877,8 +877,6 @@ class OnlineGame extends Component {
                 { startButtonEnabled && <div  id="start-pause-game-button" className="big-button active-button" onClick={this.props.startGame}> Start Game </div>}
                 {/* pause button */}
                 { pauseButtonEnabled && <div id="start-pause-game-button" className="big-button active-button" onClick={this.props.pauseGame}> Pause Game </div>}
-                {/* resume button */}
-                { resumeButtonEnabled && <div id="start-pause-game-button" className="big-button active-button"  onClick={this.props.resumeGame}> Resume Game </div>}
 
                 {/* settings screen popup */}
                 <Modal
