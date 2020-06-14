@@ -516,14 +516,15 @@ class OnlineGame extends Component {
         const game = this.props.game;
         const maxForAllIn = this.state.me.balance + this.state.me.pot[game.gamePhase];
         const amountToCall = (game.amountToCall - this.state.me.pot[game.gamePhase]);
-        if (game.omaha){
-            const max = amountToCall > 0 ? (game.pot + (2*amountToCall)) : game.pot;
 
+        if (game.omaha){
+            const max = amountToCall === 0 ? game.pot : (game.pot + (2*amountToCall));
             return max < maxForAllIn ? max : maxForAllIn;
         } else{
             return maxForAllIn;
         }
     };
+
 
     setRaiseValue = (raiseValue) =>{
         raiseValue = Math.floor(raiseValue);
@@ -716,7 +717,7 @@ class OnlineGame extends Component {
                         <div id="choose-pineapple" className={chosenGame === 'PINEAPPLE' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('PINEAPPLE')}}>
                             <div className="chosen-game-limit">no limit</div>
                             <div className="chosen-game-name">Pineapple</div>
-                            <img src="Pineapple.svg" />
+                            <img src="pineapple.svg" />
                         </div>
                         <div id="choose-omaha" className={chosenGame === 'OMAHA' ? 'chosen-game':'not-chosen-game'} onClick={()=>{ this.dealerChooseGame('OMAHA')}}>
                             <div className="chosen-game-limit">pot limit</div>
@@ -788,7 +789,7 @@ class OnlineGame extends Component {
                                 <div id="all-in-button" className="action-button pot-raise-smaller-font" onClick={()=> this.setRaiseValue(this.getMaxRaise())}> <span><span className="shortcut">A</span>ll In</span></div>
 
                                 {/* pot */}
-                                { options.includes('Raise') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(pot)}> <span><span className="shortcut">P</span>ot</span></div>}
+                                { options.includes('Raise') && <div id="raise-button-pot" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(game.omaha ? this.getMaxRaise(): pot)}> <span><span className="shortcut">P</span>ot</span></div>}
                                 {/*/!* 2/3 pot *!/*/}
                                 { options.includes('Check') && <div id="raise-button-2-3" className="action-buttons-second-row" onClick={()=> this.setRaiseValue(2*pot / 3)}> 2/3 Pot</div>}
                                 {/*/!* 1/2 pot *!/*/}
