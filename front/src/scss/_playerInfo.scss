@@ -664,7 +664,9 @@ $players-dealer-button-left: (
     height: 2.2vw;
     z-index: 30;
     border: 1px solid black;
-
+    @media only screen and (max-width: $mobile-horizonal) {
+        visibility: hidden;
+    }
 
 }
 
@@ -691,7 +693,7 @@ $players-dealer-button-left: (
     z-index: 29;
     border: 1px solid black;
 
-visibility: hidden;
+    visibility: hidden;
 }
 
 #videoElement {
