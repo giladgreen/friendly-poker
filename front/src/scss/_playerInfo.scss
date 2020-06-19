@@ -666,7 +666,7 @@ $players-dealer-button-left: (
     border: 1px solid black;
     @media only screen and (max-width: $mobile-horizonal) {
         top:0.15vh;
-        left:7vw;
+        left:10vw;
         width: 6vw;
         height: 4.2vw;
     }
@@ -687,8 +687,8 @@ $players-dealer-button-left: (
     @media only screen and (max-width: $mobile-horizonal) {
         top:0.15vh;
         left:8vw;
-        width: 6vw;
-        height: 4.2vw;
+        width: 8vw;
+        height: 6vw;
     }
 }
 
