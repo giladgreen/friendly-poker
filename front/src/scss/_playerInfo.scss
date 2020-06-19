@@ -665,7 +665,10 @@ $players-dealer-button-left: (
     z-index: 30;
     border: 1px solid black;
     @media only screen and (max-width: $mobile-horizonal) {
-        visibility: hidden;
+        top:0.15vh;
+        left:7vw;
+        width: 6vw;
+        height: 4.2vw;
     }
 
 }
@@ -680,6 +683,13 @@ $players-dealer-button-left: (
 
     z-index: 30;
     border: 1px solid black;
+
+    @media only screen and (max-width: $mobile-horizonal) {
+        top:0.15vh;
+        left:8vw;
+        width: 6vw;
+        height: 4.2vw;
+    }
 }
 
 #canvas{
@@ -694,12 +704,18 @@ $players-dealer-button-left: (
     border: 1px solid black;
 
     visibility: hidden;
+
 }
 
 #videoElement {
     width: 2.7vw;
     height: 2.2vw;
     background-color: #666;
+    @media only screen and (max-width: $mobile-horizonal) {
+
+        width: 6vw;
+        height: 4.2vw;
+    }
 }
 .trophy-badge{
     position: absolute;

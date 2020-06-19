@@ -40,7 +40,7 @@ const PlayerInfo = (props) => {
                 {isMe ? <div id="player-video"><video autoPlay={true} id="videoElement"></video> </div>: <div/>}
                 {isMe ? <canvas id="canvas"> </canvas>: <div/>}
 
-                {isMe || isMobile || !player.image || player.image.length < 200 ? <div/> : <img className="player-image" src={player.image}/>}
+                {isMe || !player.image || player.image.length < 200 ? <div/> : <img className="player-image" src={player.image}/>}
 
 
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
