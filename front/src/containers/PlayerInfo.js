@@ -37,6 +37,10 @@ const PlayerInfo = (props) => {
             {!sitOut && game.omaha && cardsToShow > 1 && <Card playerPreferences={props.playerPreferences} initial={initial} index={index} isMe={isMe} card={card4} folded={!showCards && (player.fold || !game.startDate)} fourth={true} omaha={game.omaha}  shown={showCards} highlight={winningHandCards.includes(card4)}/>}
 
             <div className={`player-info ${ player.active && !handOver ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
+                {isMe && !isMobile ? <div id="player-video"><video autoPlay={true} id="videoElement"></video> </div>: <div/>}
+                {!isMe && !isMobile && player.image ? <img className="player-image" src={player.image}/> : <div/>}
+                {isMe && !isMobile ? <canvas id="canvas"> </canvas>: <div/>}
+
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
                     {playerName}
                 </div>

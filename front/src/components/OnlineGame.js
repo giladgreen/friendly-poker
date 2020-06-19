@@ -201,7 +201,28 @@ class OnlineGame extends Component {
         }
     }
 
+    captureImage = () => {
+
+        const canvas = document.getElementById('canvas');
+        const videoElement = document.getElementById('videoElement');
+        if (canvas && videoElement){
+            canvas.width = videoElement.videoWidth/10;
+            canvas.height = videoElement.videoHeight/10;
+            canvas.getContext('2d').drawImage(videoElement, 0, 0, videoElement.videoWidth/10, videoElement.videoHeight/10);
+            console.log(videoElement.videoWidth, 'x' ,videoElement.videoHeight)
+
+            const data = canvas.toDataURL();
+            console.log('data',data)
+            this.props.updateImage(data)
+        }
+
+    }
+
     componentDidMount() {
+        setInterval(()=>{
+            this.captureImage()
+        },500);
+
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);
         if (isMobile){
@@ -212,6 +233,34 @@ class OnlineGame extends Component {
 
         const name = localStorage.getItem('myName') || '♠️ ♦️ ♣️ ♥️';
         document.title = `F.L.O.P - ${name}`;
+
+
+        const setupVideo = (v)=>{
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        v.srcObject = stream;
+                    })
+                    .catch(function (error) {
+                        console.log("Something went wrong!", error);
+                    });
+            }
+        };
+
+        let video = document.querySelector("#videoElement");
+
+        if (video){
+            setupVideo(video);
+        }else{
+            this.videoTimerRef = setInterval(()=>{
+                 video = document.querySelector("#videoElement");
+                 if (video){
+                    setupVideo(video);
+                    clearInterval(this.videoTimerRef);
+                 }
+            },2000)
+        }
+
     }
 
     onGameUpdate = (game) =>{

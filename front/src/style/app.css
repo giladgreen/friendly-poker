@@ -17555,6 +17555,45 @@ em-spades {
   }
 }
 
+#player-video {
+  margin: 0px auto;
+  position: absolute;
+  top: 0.15vh;
+  left: 6.7vw;
+  width: 2.7vw;
+  height: 2.2vw;
+  z-index: 30;
+  border: 1px solid black;
+}
+
+.player-image {
+  margin: 0px auto;
+  position: absolute;
+  top: 0.15vh;
+  left: 6.7vw;
+  width: 2.7vw;
+  height: 2.2vw;
+  z-index: 30;
+  border: 1px solid black;
+}
+
+#canvas {
+  margin: 0px auto;
+  position: absolute;
+  top: 0.15vh;
+  left: 6.7vw;
+  width: 2.7vw;
+  height: 2.2vw;
+  z-index: 29;
+  border: 1px solid black;
+}
+
+#videoElement {
+  width: 2.7vw;
+  height: 2.2vw;
+  background-color: #666;
+}
+
 .trophy-badge {
   position: absolute;
   width: 3.4vw;

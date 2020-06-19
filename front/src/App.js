@@ -364,7 +364,6 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
-             console.log('on gameupdate')
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 
@@ -643,6 +642,13 @@ class App extends Component {
         }
     };
 
+    updateImage = (image) =>{
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+
+            this.socket.emit('imageupdate', {gameId , now, playerId, image });
+    };
+
     startGame = () =>{
         const now =(new Date()).getTime();
         const { gameId, playerId } = this.state;
@@ -867,6 +873,7 @@ class App extends Component {
                     registerKeypressCallback={this.registerKeypressCallback}
                     isAdmin={isAdmin}
                     toggleShowInfo={this.toggleShowInfo}
+                    updateImage={this.updateImage}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}
                     dealerChooseGame={this.dealerChooseGame}
