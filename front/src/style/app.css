@@ -17563,14 +17563,13 @@ em-spades {
   width: 2.7vw;
   height: 2.2vw;
   z-index: 30;
-  border: 1px solid black;
 }
 @media only screen and (max-width: 800px) {
   #player-video {
-    top: 0.15vh;
+    top: 0vh;
     left: 10vw;
-    width: 6vw;
-    height: 4.2vw;
+    width: 8vw;
+    height: 6vw;
   }
 }
 
@@ -17582,11 +17581,10 @@ em-spades {
   width: 2.7vw;
   height: 2.2vw;
   z-index: 30;
-  border: 1px solid black;
 }
 @media only screen and (max-width: 800px) {
   .player-image {
-    top: 0.15vh;
+    top: 0vh;
     left: 8vw;
     width: 8vw;
     height: 6vw;
@@ -17608,12 +17606,12 @@ em-spades {
 #videoElement {
   width: 2.7vw;
   height: 2.2vw;
-  background-color: #666;
+  background-color: transparent;
 }
 @media only screen and (max-width: 800px) {
   #videoElement {
-    width: 6vw;
-    height: 4.2vw;
+    width: 8vw;
+    height: 6vw;
   }
 }
 
