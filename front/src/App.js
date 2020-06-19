@@ -367,9 +367,7 @@ class App extends Component {
             if ( this.state.game){
                 const game = {...this.state.game};
                 game.players.filter(p=>p).forEach(p=>{
-                    if (mappingObject[p.id]){
-                        p.image = mappingObject[p.id]
-                    }
+                    p.image = mappingObject[p.id] || p.image;
                 });
                 this.setState({game})
             }
