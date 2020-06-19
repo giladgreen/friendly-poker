@@ -202,18 +202,17 @@ class OnlineGame extends Component {
     }
 
     captureImage = () => {
+        const w = 40;
+        const h = 32;
 
-        const canvas = document.getElementById('canvas');
-        const videoElement = document.getElementById('videoElement');
-        if (canvas && videoElement){
-            canvas.width = videoElement.videoWidth/10;
-            canvas.height = videoElement.videoHeight/10;
-            canvas.getContext('2d').drawImage(videoElement, 0, 0, videoElement.videoWidth/10, videoElement.videoHeight/10);
-            console.log(videoElement.videoWidth, 'x' ,videoElement.videoHeight)
-
-            const data = canvas.toDataURL();
-            console.log('data',data)
-            this.props.updateImage(data)
+        this.canvas = this.canvas || document.getElementById('canvas');
+        this.videoElement = this.videoElement || document.getElementById('videoElement');
+        if (this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
+            this.canvas.width = w;
+            this.canvas.height = h;
+            const context = this.canvas.getContext('2d');
+            context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
+            this.props.updateImage(this.canvas.toDataURL())
         }
 
     }
@@ -221,7 +220,7 @@ class OnlineGame extends Component {
     componentDidMount() {
         setInterval(()=>{
             this.captureImage()
-        },500);
+        },150);
 
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);

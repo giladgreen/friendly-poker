@@ -363,7 +363,24 @@ class App extends Component {
             }
         });
 
+        if (!isMobile){
+            this.socket.on('playersimages', (mappingObject) => {
+                if ( this.state.game){
+                    const game = {...this.state.game};
+                    game.players.filter(p=>p).forEach(p=>{
+                        if (mappingObject[p.id]){
+                            p.image = mappingObject[p.id]
+                        }
+                    });
+                    this.setState({game})
+                }
+
+            });
+        }
+
+
         this.socket.on('gameupdate', (game) => {
+           // console.log('gameupdate', new Date())
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
 

@@ -38,8 +38,10 @@ const PlayerInfo = (props) => {
 
             <div className={`player-info ${ player.active && !handOver ? 'active-player-info' :''} ${ player.winner ? 'winner-player' :''} `}>
                 {isMe && !isMobile ? <div id="player-video"><video autoPlay={true} id="videoElement"></video> </div>: <div/>}
-                {!isMe && !isMobile && player.image ? <img className="player-image" src={player.image}/> : <div/>}
                 {isMe && !isMobile ? <canvas id="canvas"> </canvas>: <div/>}
+
+                {!isMe && !isMobile && player.image ? <img className="player-image" src={player.image}/> : <div/>}
+
 
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >
                     {playerName}

@@ -675,6 +675,7 @@ $players-dealer-button-left: (
     left:6.7vw;
     width: 2.7vw;
     height: 2.2vw;
+
     z-index: 30;
     border: 1px solid black;
 }
@@ -690,7 +691,7 @@ $players-dealer-button-left: (
     z-index: 29;
     border: 1px solid black;
 
-
+visibility: hidden;
 }
 
 #videoElement {
