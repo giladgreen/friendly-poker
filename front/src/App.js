@@ -160,7 +160,7 @@ class App extends Component {
         const h = 45;
 
         const wOffset = 240;
-        const hOffset  = 70;
+        const hOffset  = 10;
 
         this.canvas = this.canvas || document.getElementById('canvas');
         this.videoElement = this.videoElement || document.getElementById('videoElement');
