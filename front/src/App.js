@@ -116,30 +116,31 @@ class App extends Component {
                 }
             },100)
         }
-
-        const CaptureImage = this.captureImage;
+        this.videoAllowed = false;
         const setupVideo = (v)=>{
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
+                    .then( (stream) =>{
+                        this.videoAllowed = true;
                         v.srcObject = stream;
+                        clearInterval(this.videoTimerRef);
                         this.captureImageRef = setInterval(()=>{
-                            CaptureImage();
+                            this.captureImage();
                         },isMobile ? 1000 : 200);
                     })
-                    .catch(function (error) {
-                        console.log("Something went wrong!", error);
+                    .catch( (error) =>{
+                        if(error.message === 'Permission denied') {
+
+                        }
                     });
             }
         };
-
         this.videoTimerRef = setInterval(()=>{
             this.videoElement = document.querySelector("#videoElement");
             if (this.videoElement){
                 setupVideo(this.videoElement);
-                clearInterval(this.videoTimerRef);
             }
-        },2000)
+        },2500)
 
     }
 
@@ -158,13 +159,17 @@ class App extends Component {
         const w = 60;
         const h = 45;
 
+        const wOffset = 240;
+        const hOffset  = 70;
+
         this.canvas = this.canvas || document.getElementById('canvas');
         this.videoElement = this.videoElement || document.getElementById('videoElement');
-        if (this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
+        if (this.videoAllowed && this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
             this.canvas.width = w;
             this.canvas.height = h;
             const context = this.canvas.getContext('2d');
-            context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
+           // context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
+            context.drawImage(this.videoElement, wOffset, hOffset, this.videoElement.videoWidth - wOffset, this.videoElement.videoHeight - hOffset,0,0,w,h);
             this.updateImage()
         }
 

@@ -663,10 +663,10 @@ $players-dealer-button-left: (
     width: 2.7vw;
     height: 2.2vw;
     z-index: 30;
-border-radius: 50%;
+    border-radius: 50%;
     @media only screen and (max-width: $mobile-horizonal) {
         top:0vh;
-        left:10vw;
+        left:8vw;
         width: 8vw;
         height: 6vw;
         border-radius: 0px;
@@ -698,13 +698,12 @@ border-radius: 50%;
 #canvas{
     margin: 0px auto;
 
-    position: absolute;
-    top:0.15vh;
-    left:6.7vw;
-    width: 2.7vw;
-    height: 2.2vw;
+    position: fixed;
+    top:25vh;
+    left:1vw;
+
     z-index: 29;
-    border: 1px solid black;
+    border: 1px solid white;
 
     visibility: hidden;
 
