@@ -18,6 +18,7 @@ import Confirm from "./containers/Confirm";
 
 
 const localhost = window.location.origin.indexOf('localhost') >= 0;
+const hasGameId = window.location.origin.indexOf('gameid=') >= 0;
 const endpoint = localhost ?  'http://127.0.0.1:5000' : window.location.origin;
 const serverPrefix = localhost ?  'http://localhost:3000' : window.location.origin;
 
@@ -429,6 +430,13 @@ class App extends Component {
         });
 
         this.socket.on('gameupdate', (game) => {
+            const hasGameId = window.location.search.indexOf('gameid=') >= 0;
+
+            if (!hasGameId){
+                 console.log('gameupdate - ignoring,   window.location.search',window.location.search);
+
+                return;
+            }
            // console.log('gameupdate', new Date())
             const prevHand = this.state.game ? this.state.game.hand : -1;
             const newHand = prevHand !== game.hand;
@@ -472,7 +480,7 @@ class App extends Component {
             gameClone.players.filter(p=>Boolean(p)).forEach(p=>{
                 p.cardsToShow = newHand && gameClone.texas ? 0 : 2;
             });
-            this.setState({game: gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver && game.gamePhase === 0});
+            this.setState({game:  gameClone, gameId:gameClone.id, connected:true, gamePaused: game.paused, initial:!game.handOver && game.gamePhase === 0});
             if (newHand){
                 const playersWithCards = game.players.filter(p=>Boolean(p)).filter(p=>!p.sitOut);
                 const playersWithCardsCount = playersWithCards.length;
@@ -509,7 +517,7 @@ class App extends Component {
             if (game.players.filter(p=>p).length===1){
                 setTimeout(()=>{
                     window.location = `${serverPrefix}?gameid=${gameId}`
-                },200)
+                },100)
             }
 
         });
