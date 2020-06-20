@@ -202,8 +202,8 @@ class OnlineGame extends Component {
     }
 
     captureImage = () => {
-        const w = 40;
-        const h = 30;
+        const w = 60;
+        const h = 45;
 
         this.canvas = this.canvas || document.getElementById('canvas');
         this.videoElement = this.videoElement || document.getElementById('videoElement');
@@ -219,9 +219,8 @@ class OnlineGame extends Component {
 
     componentDidMount() {
         setInterval(()=>{
-            this.captureImage()
-        },300);
-        //},isMobile ? 2500 : 200);
+            this.captureImage();
+        },isMobile ? 1000 : 200);
 
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);
