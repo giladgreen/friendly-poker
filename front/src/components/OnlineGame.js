@@ -201,26 +201,7 @@ class OnlineGame extends Component {
         }
     }
 
-    captureImage = () => {
-        const w = 60;
-        const h = 45;
-
-        this.canvas = this.canvas || document.getElementById('canvas');
-        this.videoElement = this.videoElement || document.getElementById('videoElement');
-        if (this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
-            this.canvas.width = w;
-            this.canvas.height = h;
-            const context = this.canvas.getContext('2d');
-            context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
-            this.props.updateImage(this.canvas.toDataURL())
-        }
-
-    }
-
     componentDidMount() {
-        setInterval(()=>{
-            this.captureImage();
-        },isMobile ? 1000 : 200);
 
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);
@@ -232,33 +213,6 @@ class OnlineGame extends Component {
 
         const name = localStorage.getItem('myName') || '♠️ ♦️ ♣️ ♥️';
         document.title = `F.L.O.P - ${name}`;
-
-
-        const setupVideo = (v)=>{
-            if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        v.srcObject = stream;
-                    })
-                    .catch(function (error) {
-                        console.log("Something went wrong!", error);
-                    });
-            }
-        };
-
-        let video = document.querySelector("#videoElement");
-
-        if (video){
-            setupVideo(video);
-        }else{
-            this.videoTimerRef = setInterval(()=>{
-                 video = document.querySelector("#videoElement");
-                 if (video){
-                    setupVideo(video);
-                    clearInterval(this.videoTimerRef);
-                 }
-            },2000)
-        }
 
     }
 

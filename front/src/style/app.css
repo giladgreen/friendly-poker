@@ -17563,6 +17563,7 @@ em-spades {
   width: 2.7vw;
   height: 2.2vw;
   z-index: 30;
+  border-radius: 50%;
 }
 @media only screen and (max-width: 800px) {
   #player-video {
@@ -17570,6 +17571,7 @@ em-spades {
     left: 10vw;
     width: 8vw;
     height: 6vw;
+    border-radius: 0px;
   }
 }
 
@@ -17581,13 +17583,15 @@ em-spades {
   width: 2.7vw;
   height: 2.2vw;
   z-index: 30;
+  border-radius: 50%;
 }
 @media only screen and (max-width: 800px) {
   .player-image {
-    top: 0vh;
-    left: 8vw;
-    width: 8vw;
-    height: 6vw;
+    top: 9vh;
+    left: 3vw;
+    width: 7.4vw;
+    height: 5vw;
+    border-radius: 0px;
   }
 }
 
@@ -17607,11 +17611,14 @@ em-spades {
   width: 2.7vw;
   height: 2.2vw;
   background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #33333333;
 }
 @media only screen and (max-width: 800px) {
   #videoElement {
     width: 8vw;
     height: 6vw;
+    border-radius: 0px;
   }
 }
 

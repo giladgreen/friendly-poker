@@ -117,6 +117,56 @@ class App extends Component {
             },100)
         }
 
+        const CaptureImage = this.captureImage;
+        const setupVideo = (v)=>{
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        v.srcObject = stream;
+                        this.captureImageRef = setInterval(()=>{
+                            CaptureImage();
+                        },isMobile ? 1000 : 200);
+                    })
+                    .catch(function (error) {
+                        console.log("Something went wrong!", error);
+                    });
+            }
+        };
+
+        this.videoTimerRef = setInterval(()=>{
+            this.videoElement = document.querySelector("#videoElement");
+            if (this.videoElement){
+                setupVideo(this.videoElement);
+                clearInterval(this.videoTimerRef);
+            }
+        },2000)
+
+    }
+
+    updateImage = () =>{
+        const image = this.canvas.toDataURL();
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+
+        this.socket.emit('imageupdate', {gameId , now, playerId, image });
+    };
+
+    captureImage = () => {
+        if (!this.state.game){
+            return;
+        }
+        const w = 60;
+        const h = 45;
+
+        this.canvas = this.canvas || document.getElementById('canvas');
+        this.videoElement = this.videoElement || document.getElementById('videoElement');
+        if (this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
+            this.canvas.width = w;
+            this.canvas.height = h;
+            const context = this.canvas.getContext('2d');
+            context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
+            this.updateImage()
+        }
 
     }
 
@@ -363,7 +413,7 @@ class App extends Component {
             }
         });
 
-        this.socket.on('playersimages', (mappingObject) => {
+        this.socket.on('playersimages', (mappingObject) => {// todo
             if ( this.state.game){
                 const game = {...this.state.game};
                 game.players.filter(p=>p).forEach(p=>{
@@ -653,12 +703,7 @@ class App extends Component {
         }
     };
 
-    updateImage = (image) =>{
-        const now =(new Date()).getTime();
-        const { gameId, playerId } = this.state;
 
-            this.socket.emit('imageupdate', {gameId , now, playerId, image });
-    };
 
     startGame = () =>{
         const now =(new Date()).getTime();
