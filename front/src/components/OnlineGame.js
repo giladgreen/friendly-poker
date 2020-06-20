@@ -220,7 +220,8 @@ class OnlineGame extends Component {
     componentDidMount() {
         setInterval(()=>{
             this.captureImage()
-        },isMobile ? 2500 : 200);
+        },300);
+        //},isMobile ? 2500 : 200);
 
         this.props.registerGameUpdatedCallback(this.onGameUpdate);
         this.props.registerKeypressCallback(this.keypress);
