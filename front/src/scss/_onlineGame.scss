@@ -741,7 +741,6 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     left:1.5vw;
 }
 #hand-clock{
-    color: red;
     z-index: 30;
     font-size: 2.2em;
     position: fixed;
@@ -749,6 +748,12 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     left:1.5vw;
     font-weight: bold;
     font-family: "Arial Black"
+}
+.hand-clock-not-my-turn{
+    color: white;
+}
+.hand-clock-my-turn{
+    color: red;
 }
 #hand-clock-progress{
     z-index: 30;

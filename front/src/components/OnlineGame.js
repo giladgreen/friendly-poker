@@ -619,7 +619,7 @@ class OnlineGame extends Component {
 
         const skipHandEnabled = me && me.admin && startDate;
         const showDropCardMessage = game.pineapple && game.waitingForPlayers;
-        const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Throw' : 'Waiting for all players to Throw 1 card';
+        const showDropCardMessageText = showDropCardMessage && me && me.needToThrow ? 'Choose Card to Discard' : 'Waiting for all players to Discard 1 card';
         const changePlayersBalances = me && me.admin && players.filter(p=>Boolean(p)).length >1;
 
 
@@ -655,7 +655,7 @@ class OnlineGame extends Component {
                 </div>) :  <div />}
 
                 {hand && hand>0 && !game.paused && !game.handOver ? (
-                    <UserTimer userTimer={this.state.userTimer} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
+                    <UserTimer userTimer={this.state.userTimer} isMyTurn={isMyTurn} time={game.time} registerForceUserTimerUpdate={this.registerForceUserTimerUpdate}/>
                     )
                     :  <div id={"666"}/>}
                 {/* your turn indication */}
@@ -665,7 +665,7 @@ class OnlineGame extends Component {
 
                 </div>) : <div/>}
 
-                {this.state.getTimeEnabled && game.playersTurn ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
+                {this.state.getTimeEnabled && game.playersTurn && !showDropCardMessage ? <div id="request-more-time-button" onClick={this.props.askForMoreTime}>
                     Get More Time X {this.state.timeBankCount}
                 </div> : <div/>}
 
