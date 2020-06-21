@@ -17572,10 +17572,36 @@ em-spades {
   z-index: 30;
   border-radius: 50%;
 }
+#player-video:hover {
+  top: -4vh;
+  left: 6.7vw;
+  width: 5.7vw;
+  height: 5.2vw;
+  border-radius: 70%;
+}
 @media only screen and (max-width: 800px) {
   #player-video {
     top: 0vh;
     left: 8vw;
+    width: 8vw;
+    height: 6vw;
+    border-radius: 0px;
+  }
+}
+
+#videoElement {
+  width: 2.7vw;
+  height: 2.2vw;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #33333333;
+}
+#videoElement:hover {
+  width: 5.7vw;
+  height: 5.2vw;
+}
+@media only screen and (max-width: 800px) {
+  #videoElement {
     width: 8vw;
     height: 6vw;
     border-radius: 0px;
@@ -17591,6 +17617,15 @@ em-spades {
   height: 2.2vw;
   z-index: 30;
   border-radius: 50%;
+}
+.player-image:hover {
+  top: 0vh;
+  left: 7vw;
+  width: 8vw;
+  height: 10vh;
+  z-index: 50;
+  border-radius: 0px;
+  border: 2px solid black;
 }
 @media only screen and (max-width: 800px) {
   .player-image {
@@ -17610,21 +17645,6 @@ em-spades {
   z-index: 29;
   border: 1px solid white;
   visibility: hidden;
-}
-
-#videoElement {
-  width: 2.7vw;
-  height: 2.2vw;
-  background-color: transparent;
-  border-radius: 50%;
-  border: 1px solid #33333333;
-}
-@media only screen and (max-width: 800px) {
-  #videoElement {
-    width: 8vw;
-    height: 6vw;
-    border-radius: 0px;
-  }
 }
 
 .trophy-badge {

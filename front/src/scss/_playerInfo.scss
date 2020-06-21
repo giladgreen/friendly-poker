@@ -664,6 +664,13 @@ $players-dealer-button-left: (
     height: 2.2vw;
     z-index: 30;
     border-radius: 50%;
+    &:hover{
+        top:-4vh;
+        left:6.7vw;
+        width: 5.7vw;
+        height: 5.2vw;
+        border-radius: 70%;
+    }
     @media only screen and (max-width: $mobile-horizonal) {
         top:0vh;
         left:8vw;
@@ -674,7 +681,22 @@ $players-dealer-button-left: (
     }
 
 }
-
+#videoElement {
+    width: 2.7vw;
+    height: 2.2vw;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid #33333333;
+    &:hover{
+        width: 5.7vw;
+        height: 5.2vw;
+    }
+    @media only screen and (max-width: $mobile-horizonal) {
+        width: 8vw;
+        height: 6vw;
+        border-radius: 0px;
+    }
+}
 .player-image{
     margin: 0px auto;
     position: absolute;
@@ -686,6 +708,15 @@ $players-dealer-button-left: (
     z-index: 30;
 
     border-radius: 50%;
+    &:hover{
+        top:0vh;
+        left:7vw;
+        width: 8vw;
+        height: 10vh;
+        z-index: 50;
+        border-radius: 0px;
+        border: 2px solid black;
+    }
     @media only screen and (max-width: $mobile-horizonal) {
         top:9vh;
         left:3vw;
@@ -709,18 +740,7 @@ $players-dealer-button-left: (
 
 }
 
-#videoElement {
-    width: 2.7vw;
-    height: 2.2vw;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px solid #33333333;
-    @media only screen and (max-width: $mobile-horizonal) {
-        width: 8vw;
-        height: 6vw;
-        border-radius: 0px;
-    }
-}
+
 .trophy-badge{
     position: absolute;
     width: 3.4vw;
