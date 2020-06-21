@@ -1,5 +1,9 @@
+/* eslint-disable no-restricted-globals */
+
 const Hand = require('pokersolver').Hand;
 const Mappings = require('../Maps');
+const sendGame = require('./SendGame');
+
 const models = require('../models');
 const BadRequest = require('../errors/badRequest');
 const { getUserHandObject } = require('./deck');
@@ -10,25 +14,39 @@ const {
 } = require('../consts');
 
 function handlePlayerQuit(game, player, now) {
-  const playerData = game.playersData.find(p => p.id === player.id);
-  if (playerData) {
+  let playerData = game.playersData.find(p => p.id === player.id);
+  if (!playerData) {
+    logger.error('on player quit, player did not have a playerData object!!!', { player, playersData: game.playersData });
+    playerData = {
+      id: player.id,
+      name: player.name,
+      totalBuyIns: player.balance,
+      buyIns: [{ amount: player.balance, time: now }],
+    };
+    game.playersData.push(playerData);
+  }
+  if (playerData.cashOut) {
+    playerData.cashOut.amount += player.balance;
+  } else {
     playerData.cashOut = { amount: player.balance, time: now };
   }
+  playerData.handsWon = player.handsWon;
+
   const playerIndex = game.players.findIndex(p => p && p.id === player.id);
   if (playerIndex) {
     logger.info(`${player.name} - player is quiting game, he has ${player.balance}, the game.moneyInGame before he quit is ${game.moneyInGame}`);
     game.moneyInGame -= player.balance;
     logger.info(`the game.moneyInGame after he quit is ${game.moneyInGame}`);
     game.players[playerIndex] = null;
-  }
 
-  let bottomLine = playerData.cashOut.amount - playerData.totalBuyIns;
-  bottomLine = bottomLine > 0 ? `+${bottomLine}` : bottomLine;
-  const msg = `${player.name} has quit the game (${bottomLine})`;
-  logger.info(msg);
-  game.messages.push({
-    action: 'quit', popupMessage: msg, log: msg, now,
-  });
+    let bottomLine = playerData.cashOut.amount - playerData.totalBuyIns;
+    bottomLine = bottomLine > 0 ? `+${bottomLine}` : bottomLine;
+    const msg = `${player.name} has quit the game (${bottomLine})`;
+    logger.info(msg);
+    game.messages.push({
+      action: 'quit', popupMessage: msg, log: msg, now,
+    });
+  }
 }
 
 function handleFold(game, player) {
@@ -66,6 +84,7 @@ function handleCall(game, player) {
   if (player.balance === 0) {
     player.allIn = true;
     player.status = ALL_IN;
+    logger.info(`${player.name} is all in`);
   }
 }
 
@@ -84,19 +103,30 @@ function handleRaise(game, player, amount) {
   logger.info(`${player.name} raise ${amount}`);
   const alreadyInPot = player.pot[game.gamePhase];
   if (player.balance + alreadyInPot < amount) {
+    logger.warn(`${player.name} has balance of raise ${player.balance}, and already in pot this round:${alreadyInPot}. game amount to call is:${game.amountToCall} `);
     throw new BadRequest('insufficient funds');
   }
 
+  const minRaise = getMinRaise(game, player);
+  const maxRaise = alreadyInPot + player.balance;
+  if (amount < minRaise || amount > maxRaise) {
+    logger.warn(`${player.name} has balance of raise ${player.balance}, and already in pot this round:${alreadyInPot}. game amount to call is:${game.amountToCall} `);
+    logger.warn(`minRaise: ${minRaise} `);
+    logger.warn(`maxRaise: ${alreadyInPot + player.balance} `);
+    logger.warn(`amount: ${amount} `);
+    logger.warn(`${amount < minRaise ? 'amount < minRaise' : 'amount > maxRaise'} `);
+
+    throw new BadRequest('illegal raise amount');
+  }
+
   const playersCurrentPotentialAllIn = game.players.filter(p => p && p.id !== player.id && !p.fold && !p.sitOut).map(p => p.balance + p.pot[game.gamePhase]);
-  const maxAllInValue = Math.max(...playersCurrentPotentialAllIn);
+  const maxAllInValue = playersCurrentPotentialAllIn.length > 0 ? Math.max(...playersCurrentPotentialAllIn) : amount;
+
   if (amount > maxAllInValue) {
+    logger.info(`player ${player.name} wanted to raise by ${amount}, but the max AllIn Value is: ${maxAllInValue} `);
     amount = maxAllInValue;
   }
 
-  const minRaise = getMinRaise(game, player);
-  if (amount < minRaise || amount > alreadyInPot + player.balance) {
-    throw new BadRequest('illegal raise amount');
-  }
 
   player.status = player.options.includes('Call') || game.gamePhase === 0 ? RAISE : BET;
   delete player.active;
@@ -115,6 +145,7 @@ function handleRaise(game, player, amount) {
   game.amountToCall = amount;
   if (player.balance === 0) {
     player.allIn = true;
+    logger.info(`${player.name} is all in`);
     player.status = ALL_IN;
   }
 }
@@ -125,10 +156,14 @@ function deleteGameInDB(gameId) {
 
 async function saveGameToDB(g) {
   try {
-    const game = { ...g };
-    const id = game.id;
-    delete game.timerRef;
-    delete game.pineappleRef;
+    const id = g.id;
+    const game = {
+      ...g,
+      players: g.players ? g.players.map(p => (p ? ({ ...p, solvedHand: undefined }) : p)) : [],
+      timerRefCb: undefined,
+      timerRef: undefined,
+      pineappleRef: undefined,
+    };
 
     return await models.onlineGames
       .findOne({ where: { id } })
@@ -148,6 +183,7 @@ async function loadGamesFromDb() {
   try {
     return await models.onlineGames.findAll();
   } catch (e) {
+    logger.error('no DB connection');
     return [];
   }
 }
@@ -171,8 +207,7 @@ function updateGamePlayers(game, showCards = false) {
 
       const gamePrivateCopy = getPlayerCopyOfGame(playerId, game, showCards);
       gamePrivateCopy.socketId = playerId;
-
-      socket.emit('gameupdate', gamePrivateCopy);
+      sendGame(socket, gamePrivateCopy, 'gameupdate');
     }
   });
   game.audioableAction = [];
@@ -313,6 +348,7 @@ function onGetGamesEvent(socket, { playerId }) {
   Mappings.SaveSocketByPlayerId(playerId, socket);
   const allGames = Mappings.GetAllGames();
   const gamesToReturn = allGames.filter(game => !game.privateGame || game.players.some(p => p && p.id === playerId)).map(game => getPlayerCopyOfGame(playerId, game));
+
   socket.emit('gamesdata', gamesToReturn);
 }
 

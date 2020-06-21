@@ -1,9 +1,8 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
 const GamesService = require('../services/games');
-const { onPlayerActionEvent } = require('./playerAction');
 const BadRequest = require('../errors/badRequest');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 function onResumeGameEvent(socket, { gameId, playerId, now }) {
   logger.info('onResumeGameEvent ', { gameId, playerId, now });
@@ -12,9 +11,9 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
     const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
-    validateGameWithMessage(game, ' before onResumeGameEvent');
 
     if (game.pausedByServer) {
+      logger.info('resuming game paused by server');
       const playersCount = game.pausingHand
         ? game.players.filter(player => player && !player.sitOut)
         : game.players.filter(player => player && (!player.sitOut || player.justJoined) && (player.balance || player.justDidRebuyAmount));
@@ -27,26 +26,31 @@ function onResumeGameEvent(socket, { gameId, playerId, now }) {
         if (game.startDate && game.handOver) {
           logger.info('calling startNewHand');
           GamesService.startNewHand(game, now);
-          GamesService.resetHandTimer(game, onPlayerActionEvent);
+          GamesService.resetHandTimer(game);
         }
       }
     } else {
+      logger.info('resuming game paused by admin');
       delete game.paused;
       if (!game.pausingHand) {
-        logger.info('calling startNewHand');
+        logger.info('game was paused not in the middle of a hand - calling startNewHand');
         GamesService.startNewHand(game, now);
       }
-      GamesService.resetHandTimer(game, onPlayerActionEvent);
+      const secondsPassed = game.secondsPassedFromLastActionOnPause || 1;
+      logger.info(`seconds Passed since last action: ${secondsPassed}, game.currentTimerTime was ${game.currentTimerTime}`);
+      game.currentTimerTime = game.currentTimerTime - secondsPassed < 5 ? 5 : game.currentTimerTime - secondsPassed;
+
+      GamesService.resetHandTimer(game);
       game.messages.push({
         action: 'game_resumed', popupMessage: 'Game Resumed', log: 'Game Resumed', now,
       });
     }
 
-    validateGameWithMessage(game, ' after onResumeGameEvent');
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onResumeGameEvent error', e);
+    logger.error('onResumeGameEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to resume game', reason: e.message });
   }

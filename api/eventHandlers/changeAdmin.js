@@ -1,6 +1,6 @@
 const logger = require('../services/logger');
 const { updateGamePlayers } = require('../helpers/game');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 const BadRequest = require('../errors/badRequest');
 
@@ -12,7 +12,6 @@ function onChangeAdminEvent(socket, {
     const { game, adminPlayer } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
-    validateGameWithMessage(game, ' before onChangeAdminEvent');
 
     const newAdmin = game.players.find(p => p && p.id === newAdminId);
     if (!newAdmin) {
@@ -24,11 +23,11 @@ function onChangeAdminEvent(socket, {
     game.messages.push({
       action: 'newadmin', popupMessage: msg, log: msg, now,
     });
-    validateGameWithMessage(game, ' after onChangeAdminEvent');
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onChangeAdminEvent error', e);
+    logger.error('onChangeAdminEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to change admin', reason: e.message });
   }

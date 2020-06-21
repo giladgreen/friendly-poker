@@ -1,5 +1,5 @@
 const logger = require('../services/logger');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 const { updateGamePlayers } = require('../helpers/game');
 const BadRequest = require('../errors/badRequest');
@@ -11,7 +11,6 @@ function onStandupEvent(socket, { playerId, gameId }) {
     const { game, player } = extractRequestGameAndPlayer({
       socket, gameId, playerId,
     });
-    validateGameWithMessage(game, ' before onStandupEvent');
 
     if (player.sitOut) {
       throw new BadRequest('already sitting out');
@@ -20,7 +19,7 @@ function onStandupEvent(socket, { playerId, gameId }) {
     if (game.handOver) {
       player.sitOut = true;
     } else {
-      if (!player.fold && game.timerRefCb) {
+      if (!player.fold) {
         game.timerRefCb(socket, {
           op: FOLD,
           amount: 0,
@@ -33,11 +32,11 @@ function onStandupEvent(socket, { playerId, gameId }) {
       game.pendingStandUp.push(playerId);
     }
 
-    validateGameWithMessage(game, ' after onStandupEvent');
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onStandupEvent error', e);
+    logger.error('onStandupEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to stand up', reason: e.message });
   }

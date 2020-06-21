@@ -1,15 +1,6 @@
-
 const _ = require('lodash');
 const htmlStringify = require('html-stringify');
-const { onPlayerActionEvent } = require('../eventHandlers/playerAction');
-const { updateGamePlayers } = require('./game');
-const GamesService = require('../services/games');
-
-const {
-  CHECK, CALL, FOLD, RAISE,
-} = require('../consts');
 const Mappings = require('../Maps');
-const PlayerHelper = require('./players');
 const logger = require('../services/logger');
 const BadRequest = require('../errors/badRequest');
 const FatalError = require('../errors/fatalError');
@@ -23,84 +14,14 @@ function getBalances(game) {
     activePlayerBalancesSum,
   };
 }
-function setupActivePlayer(game) {
-  const activePlayers = game.players.filter(p => p && p.active);
-  const logs = [`activePlayers:${activePlayers}`];
 
-
-  const { gamePhase } = game;
-  logs.push(`gamePhase:${gamePhase}`);
-
-  const dealerIndex = PlayerHelper.getDealerIndex(game);
-  logs.push(`dealerIndex:${dealerIndex}`);
-  const smallIndex = PlayerHelper.getNextGamePlayerIndex(game.players, dealerIndex);
-  logs.push(`smallIndex:${smallIndex}`);
-  const bigIndex = PlayerHelper.getNextGamePlayerIndex(game.players, smallIndex);
-  logs.push(`bigIndex:${bigIndex}`);
-  const utgIndex = PlayerHelper.getNextGamePlayerIndex(game.players, bigIndex);
-  logs.push(`utgIndex:${utgIndex}`);
-
-  if (utgIndex === null) {
-    const error = new FatalError('failed to find active player (no utg)');
-    error.logs = logs;
-    throw error;
+function getCheapLeaderPlayer(game) {
+  const activePlayerBalances = game.players.filter(p => Boolean(p)).map(p => p.balance + (p.pot || []).reduce((all, one) => all + one, 0));
+  const maxPlayerBalance = activePlayerBalances.length > 0 ? Math.max(...activePlayerBalances) : 0;
+  if (!maxPlayerBalance) {
+    return null;
   }
-  const utg = game.players[utgIndex];
-
-  let currentPlayer = utg;
-  let currentIndex = utgIndex;
-  logs.push(`game.amountToCall:${game.amountToCall}`);
-  if (game.amountToCall > 0) {
-    let count = 0;
-    logs.push('looking for player with current phase pot size smaller then amount to call');
-    while (currentPlayer.pot[gamePhase] === game.amountToCall) {
-      currentIndex = PlayerHelper.getNextActivePlayerIndex(game.players, currentIndex);
-      currentPlayer = game.players[currentIndex];
-      count++;
-      if (count > game.maxPlayers) {
-        logs.push(`game.maxPlayers:${game.maxPlayers}`);
-        logs.push(`count:${count}`);
-
-        const error = new FatalError('failed to find active player (no utg)');
-        error.logs = logs;
-        throw error;
-      }
-    }
-  } else {
-    let count = 0;
-    logs.push('looking for player that his status is not check');
-    while (currentPlayer.status === CHECK) {
-      currentIndex = PlayerHelper.getNextActivePlayerIndex(game.players, currentIndex);
-      currentPlayer = game.players[currentIndex];
-      count++;
-      if (count > game.maxPlayers) {
-        logs.push(`game.maxPlayers:${game.maxPlayers}`);
-        logs.push(`count:${count}`);
-        const error = new FatalError('failed to find active player (no utg)');
-        error.logs = logs;
-        throw error;
-      }
-    }
-  }
-
-  const nextActivePlayer = currentPlayer;
-  if (!nextActivePlayer) {
-    logs.push('no nextActivePlayer');
-    const error = new FatalError('failed to find active player (no utg)');
-    error.logs = logs;
-    throw error;
-  }
-  game.players.filter(p => p && p.active).forEach((p) => {
-    delete p.active;
-    p.options = [];
-  });
-  nextActivePlayer.active = true;
-
-  nextActivePlayer.options = [(nextActivePlayer.pot[gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
-
-  if (nextActivePlayer.balance + nextActivePlayer.pot[gamePhase] - game.amountToCall > 0) {
-    nextActivePlayer.options.push(RAISE);
-  }
+  return game.players.find(p => p && p.balance + (p.pot || []).reduce((all, one) => all + one, 0) === maxPlayerBalance);
 }
 
 function validateGame(game) {
@@ -113,15 +34,18 @@ function validateGame(game) {
     if (diff !== 0) {
       logger.info(`activePlayerBalancesSum:  ${activePlayerBalances.join('+')} = ${activePlayerBalancesSum}`);
       logger.info(`game.moneyInGame: ${game.moneyInGame}`);
-      logger.error("the numbers don't add up!!");
+      logger.warn("the numbers don't add up!!");
       // if its a very small amount its ok:
 
-      if (diff > 4 * game.bigBlind) {
-        logger.error(`the numbers diff:${diff}`);
+      if (diff > 2 * game.bigBlind) {
+        logger.info(`game blinds: ${game.smallBlind} / ${game.bigBlind}`);
+        logger.error(`BIG Numbers diff:${diff}`);
         throw new FatalError("numbers don't add up.. diff is too big");
       } else if (activePlayerBalancesSum > game.moneyInGame) {
-        logger.error(`setting game.moneyInGame to be ${activePlayerBalancesSum} instead of ${game.moneyInGame}`);
-        game.moneyInGame = activePlayerBalancesSum;
+        const cheapLeader = getCheapLeaderPlayer(game);
+        logger.error(`removing amount (${diff}) from the current cheap leader (${cheapLeader.name})`);
+        cheapLeader.balance -= diff;
+        cheapLeader.balance = cheapLeader.balance >= 0 ? cheapLeader.balance : 0;
       } else {
         logger.error(`will split the extra money between players: ${diff}`);
         const players = game.players.filter(p => p && !p.fold && !p.sitOut);
@@ -145,11 +69,11 @@ function validateGame(game) {
     if (game.startDate && !game.handOver && !game.fastForward && !allButOneHaveFolded) {
       const activePlayers = game.players.filter(p => p && p.active);
       if (activePlayers.length !== 1) {
-        logger.error(`validation: game round is not over, but there are ${activePlayers.length} active players`);
-
-        setupActivePlayer(game);
-        GamesService.resetHandTimer(game, onPlayerActionEvent);
-        updateGamePlayers(game);
+        logger.error(`validation: game round is not over, but there are ${activePlayers.length} active players `);
+        //
+        // setupActivePlayer(game);
+        // GamesService.resetHandTimer(game);
+        // updateGamePlayers(game);
       }
     }
   } catch (e) {
@@ -170,7 +94,7 @@ function validateGame(game) {
 
 function validateGameWithMessage(game, message) {
   try {
-    // logger.info('validation ', message);
+    logger.info('validation ', message);
     validateGame(game);
     // logger.info('validation passed ', message);
   } catch (e) {

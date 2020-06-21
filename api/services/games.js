@@ -3,65 +3,108 @@
 
 const logger = require('../services/logger');
 const GameHelper = require('../helpers/game');
+const sendGame = require('../helpers/SendGame');
 const Deck = require('../helpers/deck');
 const { validateGameWithMessage } = require('../helpers/handlers');
-const { botActivated, botAction } = require('../helpers/bot');
+const { botActivated } = require('../helpers/bot');
 const Mappings = require('../Maps');
 const PlayerHelper = require('../helpers/players');
 
 const MINUTE = 60 * 1000;
 const {
-  FOLD, CALL, RAISE, PRE_FLOP, CHECK, BEEP, TEXAS, OMAHA, PINEAPPLE,
+  FOLD, CALL, RAISE, PRE_FLOP, CHECK, BEEP, TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE,
 } = require('../consts');
 
-function resetHandTimer(game, cb) {
+
+function setupActivePlayer(game) {
+  logger.error('setupActivePlayer was called!');
+  try {
+    const { players, straddleEnabled } = game;
+    const activePlayers = players.filter(p => p && p.active);
+    if (activePlayers.length > 1) {
+      activePlayers.forEach((p) => {
+        delete p.active;
+        p.options = [];
+      });
+    } else if (activePlayers.length === 1) {
+      const activePlayer = activePlayers[0];
+      activePlayer.options = [(activePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
+      return activePlayer;
+    }
+
+    const hasStraddle = straddleEnabled && players.filter(p => p && p.straddle).length === 1;
+    const dealerIndex = players.findIndex(p => p && p.dealer);
+    const smallIndex = PlayerHelper.getNextGamePlayerIndex(players, dealerIndex);
+    const bigIndex = PlayerHelper.getNextGamePlayerIndex(players, smallIndex);
+    const utgIndex = PlayerHelper.getNextGamePlayerIndex(players, bigIndex);
+    const straddleUtgIndex = PlayerHelper.getNextGamePlayerIndex(players, utgIndex);
+
+
+    const firstToTalkIndex = hasStraddle && game.gamePhase === PRE_FLOP ? straddleUtgIndex : utgIndex;
+
+    const lastToTalkIndex = hasStraddle && game.gamePhase === PRE_FLOP ? utgIndex : bigIndex;
+
+    let currentIndex = firstToTalkIndex;
+    while (!players[currentIndex].needToTalk || currentIndex !== lastToTalkIndex) {
+      currentIndex = PlayerHelper.getNextGamePlayerIndex(players, currentIndex);
+    }
+    const activePlayer = players[currentIndex];
+    activePlayer.options = [(activePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
+
+    logger.error(`new active player:${activePlayer.name}`);
+
+    return activePlayer;
+  } catch (e) {
+    logger.error('failed to set up new active player:', e.message);
+    logger.error('error.stack ', e.stack);
+    return null;
+  }
+}
+function resetHandTimer(game, force) {
   if (game.timerRef) {
     clearTimeout(game.timerRef);
     delete game.timerRefEnd;
     delete game.timerRef;
   }
-  const time = game.fastForward ? 1700 : (game.currentTimerTime) * 1000 + 300;
+  const time = game.timerRefCb ? (game.fastForward || force ? 1700 : (game.currentTimerTime) * 1000 + 300) : 120000;
   game.timerRefEnd = (new Date()).getTime() + time + 1000;
-  game.timerRefCb = game.timerRefCb || cb;
-  const activePlayerOnStartTime = PlayerHelper.getActivePlayer(game);
 
   game.timerRef = setTimeout(() => {
+    if (!game.timerRefCb) {
+      return;
+    }
     try {
       delete game.timerRefEnd;
       delete game.timerRef;
-      logger.info('timerRef timeout.   time:', time);
+      // logger.info('timerRef timeout.   time:', time);
       if (game.paused) {
         logger.warn('resetHandTimer: game is paused');
         return;
       }
       if (game.fastForward || game.handOver) {
+        logger.info('calling playerActionWithOnly game id..');
         return game.timerRefCb(null, {
           gameId: game.id,
         });
       }
-      const activePlayer = PlayerHelper.getActivePlayer(game);
-      if (activePlayerOnStartTime !== activePlayer) {
-        logger.warn('activePlayerOnStartTime', activePlayerOnStartTime, 'activePlayerNow', activePlayer);
+      let activePlayer = PlayerHelper.getActivePlayer(game);
+      if (!activePlayer) {
+        activePlayer = setupActivePlayer(game);
       }
+
       if (activePlayer) {
         const activePlayerSocket = Mappings.GetSocketByPlayerId(activePlayer.id);
-        let op = (activePlayer.options.includes(CHECK) ? CHECK : FOLD);
-        let amount = 0;
-        if (activePlayer.bot) {
-          const action = botAction(game, activePlayer);
-          op = action.op;
-          amount = action.amount;
-        }
+        const op = (activePlayer.options.includes(CHECK) ? CHECK : FOLD);
+        const amount = 0;
+
         game.timerRefCb(activePlayerSocket, {
           op,
           amount,
           gameId: game.id,
           hand: game.hand,
           playerId: activePlayer.id,
-          force: op === FOLD && activePlayerOnStartTime === activePlayer,
+          force: true,
         });
-      } else {
-        logger.warn('resetHandTimer: could not find any active player..', { game });
       }
     } catch (e) {
       logger.error('resetHandTimer: ERROR', e);
@@ -82,8 +125,88 @@ function resumeHandTimer(game) {
   }
 }
 
+function handlePlayerRebuyOnHandStart(game, player, time) {
+  if (player.sitOut && player.sitOutByServer) {
+    delete player.sitOut;
+    delete player.sitOutByServer;
+  }
+  player.balance += player.justDidRebuyAmount;
+  const playerData = game.playersData.find(p => p.id === player.id);
+  if (playerData) {
+    playerData.buyIns.push({ amount: player.justDidRebuyAmount, time });
+    playerData.totalBuyIns += player.justDidRebuyAmount;
+  }
+
+  game.moneyInGame += player.justDidRebuyAmount;
+  const msg = `${player.name}: Rebuy ${player.justDidRebuyAmount}`;
+  game.messages.push({
+    action: 'rebuy', name: player.name, amount: player.justDidRebuyAmount, popupMessage: msg, log: msg,
+  });
+  delete player.justDidRebuyAmount;
+}
+function handlePlayerRebuyMidHand(game, player, time) {
+  player.balance += player.justDidRebuyAmount;
+  const playerData = game.playersData.find(p => p.id === player.id);
+  if (playerData) {
+    playerData.buyIns.push({ amount: player.justDidRebuyAmount, time });
+    playerData.totalBuyIns += player.justDidRebuyAmount;
+  }
+
+  game.moneyInGame += player.justDidRebuyAmount;
+  const msg = `${player.name}: Rebuy ${player.justDidRebuyAmount}`;
+  game.messages.push({
+    action: 'rebuy', name: player.name, amount: player.justDidRebuyAmount, popupMessage: msg, log: msg,
+  });
+  player.justJoined = true;
+  delete player.justDidRebuyAmount;
+}
+
+function handlePlayerJoinMidHand(game, playerData, now) {
+  const msg = `${playerData.name} has join the game, initial balance of ${playerData.balance}`;
+  logger.info(msg);
+  game.messages.push({
+    action: 'join', log: msg, popupMessage: `${playerData.name} has join the game`, now,
+  });
+  // eslint-disable-next-line no-loop-func
+  while (game.players.some(p => p && p.name === playerData.name)) {
+    playerData.name = `${playerData.name} (2)`;
+    playerData.name = playerData.name.replace('(2) (2)', '(3)');
+    playerData.name = playerData.name.replace('(3) (2)', '(4)');
+    playerData.name = playerData.name.replace('(4) (2)', '(5)');
+    playerData.name = playerData.name.replace('(5) (2)', '(6)');
+    playerData.name = playerData.name.replace('(6) (2)', '(7)');
+  }
+  if (game.players[playerData.positionIndex]) {
+    playerData.positionIndex = game.players.findIndex(p => !p);
+  }
+  game.players[playerData.positionIndex] = playerData;
+  game.moneyInGame += playerData.balance;
+
+  const existingDataItem = game.playersData.find(item => item.id === playerData.id);
+  if (!existingDataItem) {
+    game.playersData.push({
+      id: playerData.id,
+      name: playerData.name,
+      totalBuyIns: playerData.balance,
+      buyIns: [{ amount: playerData.balance, time: now }],
+    });
+  } else {
+    existingDataItem.totalBuyIns += playerData.balance;
+    existingDataItem.buyIns.push({ amount: playerData.balance, time: now });
+    game.players[playerData.positionIndex].handsWon = existingDataItem.handsWon;
+  }
+
+  const allSockets = Mappings.getAllActiveSockets();
+  allSockets.forEach((s) => {
+    const g = Mappings.GetGameIdByPlayerId(s.playerId);
+    if (!g) {
+      sendGame(s, game, 'gameupdate');
+    }
+  });
+}
+
 function startNewHand(game, dateTime) {
-  logger.info('startNewHand, dateTime', dateTime);
+  logger.info(`Start New Hand, #${game.hand + 1}`);
 
   dateTime = dateTime || (new Date()).getTime();
 
@@ -93,8 +216,6 @@ function startNewHand(game, dateTime) {
     player.balance += moneyInPot;
     player.pot = [0, 0, 0, 0];
   });
-
-  validateGameWithMessage(game, 'before startNewHand');
 
   game.messages = [];
   game.pendingQuit.forEach((id) => {
@@ -121,14 +242,21 @@ function startNewHand(game, dateTime) {
   });
   game.pendingStandUp = [];
 
-
-  validateGameWithMessage(game, 'startNewHand, after handling pendingQuit');
-
+  const playersToPlayThisHand = game.players.filter(player => player && player.balance > 0 && (!player.sitOut || player.justJoined));
+  if (playersToPlayThisHand.length < 2) {
+    logger.warn(`there are ${playersToPlayThisHand.length} players To Play next Hand pausing it by server`);
+    game.paused = true;
+    game.pausedByServer = true;
+  } else if (game.paused && game.pausedByServer) {
+    delete game.paused;
+    delete game.pausedByServer;
+  }
   if (game.paused) {
     logger.info('game is paused..');
     pauseHandTimer(game);
     return;
   }
+  logger.debug(`there are ${playersToPlayThisHand.length} players To Play next Hand.`);
 
   if (game.dealerChoice) {
     game.omaha = game.dealerChoiceNextGame === OMAHA;
@@ -159,9 +287,17 @@ function startNewHand(game, dateTime) {
   game.time = game.timePendingChange || game.time;
   game.smallBlind = game.smallBlindPendingChange || game.smallBlind;
   game.bigBlind = game.bigBlindPendingChange || game.bigBlind;
-  game.requireRebuyApproval = game.requireRebuyApprovalPendingChange || game.requireRebuyApproval;
-  game.straddleEnabled = game.straddleEnabledPendingChange || game.straddleEnabled;
-  game.timeBankEnabled = game.timeBankEnabledPendingChange || game.timeBankEnabled;
+  if (game.gameTypePendingChange) {
+    game.gameType = game.gameTypePendingChange;
+    game.dealerChoice = game.gameTypePendingChange === DEALER_CHOICE;
+    game.dealerChoiceNextGame = TEXAS;
+    game.texas = game.gameTypePendingChange === TEXAS;
+    game.omaha = game.gameTypePendingChange === OMAHA;
+    game.pineapple = game.gameTypePendingChange === PINEAPPLE;
+  }
+  game.requireRebuyApproval = game.hasOwnProperty('requireRebuyApprovalPendingChange') ? game.requireRebuyApprovalPendingChange : game.requireRebuyApproval;
+  game.straddleEnabled = game.hasOwnProperty('straddleEnabledPendingChange') ? game.straddleEnabledPendingChange : game.straddleEnabled;
+  game.timeBankEnabled = game.hasOwnProperty('timeBankEnabledPendingChange') ? game.timeBankEnabledPendingChange : game.timeBankEnabled;
 
   const dealerIndex = PlayerHelper.getDealerIndex(game);
 
@@ -183,23 +319,7 @@ function startNewHand(game, dateTime) {
     }
 
     if (player.justDidRebuyAmount) {
-      if (player.sitOut && player.sitOutByServer) {
-        delete player.sitOut;
-        delete player.sitOutByServer;
-      }
-      player.balance += player.justDidRebuyAmount;
-      const playerData = game.playersData.find(p => p.id === player.id);
-      if (playerData) {
-        playerData.buyIns.push({ amount: player.justDidRebuyAmount, time: dateTime });
-        playerData.totalBuyIns += player.justDidRebuyAmount;
-      }
-
-      game.moneyInGame += player.justDidRebuyAmount;
-      const msg = `${player.name} did a rebuy of ${player.justDidRebuyAmount}`;
-      game.messages.push({
-        action: 'rebuy', name: player.name, amount: player.justDidRebuyAmount, popupMessage: msg, log: msg,
-      });
-      delete player.justDidRebuyAmount;
+      handlePlayerRebuyOnHandStart(game, player, dateTime);
     }
     delete player.active;
     delete player.dealer;
@@ -245,6 +365,7 @@ function startNewHand(game, dateTime) {
     newSmall.balance -= smallAmount;
     if (newSmall.balance === 0) {
       newSmall.allIn = true;
+      logger.info(`${newSmall.name} is all in`);
     }
 
     const newBigIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newSmallIndex);
@@ -258,6 +379,7 @@ function startNewHand(game, dateTime) {
     newBig.balance -= bigAmount;
     if (newBig.balance === 0) {
       newBig.allIn = true;
+      logger.info(`${newBig.name} is all in`);
     }
 
     let newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newBigIndex);
@@ -271,14 +393,19 @@ function startNewHand(game, dateTime) {
       straddlePlayer.balance -= straddlePlayerAmount;
       if (straddlePlayer.balance === 0) {
         straddlePlayer.allIn = true;
+        logger.info(`${straddlePlayer.name} is all in`);
       }
 
       newUnderTheGunIndex = PlayerHelper.getNextActivePlayerIndex(game.players, newUnderTheGunIndex);
       newUnderTheGun = game.players[newUnderTheGunIndex];
     }
+    game.players.filter(p => p && p.active).forEach((p) => {
+      delete p.active;
+      p.options = [];
+    });
     newUnderTheGun.active = true;
     if (newUnderTheGun.bot) {
-      botActivated(game);
+      botActivated(game, newUnderTheGun);
     }
     newUnderTheGun.options = [FOLD, (newUnderTheGun.pot && newUnderTheGun.pot[0] === game.amountToCall ? CHECK : CALL)];
 
@@ -288,7 +415,7 @@ function startNewHand(game, dateTime) {
 
     if (newUnderTheGun.small && newUnderTheGun.allIn) {
       newUnderTheGun.options = [];
-      game.currentTimerTime = 1;
+      game.currentTimerTime = game.time;
     }
   }
 
@@ -297,6 +424,7 @@ function startNewHand(game, dateTime) {
     || game.hasOwnProperty('bigBlindPendingChange')
     || game.hasOwnProperty('requireRebuyApprovalPendingChange')
     || game.hasOwnProperty('straddleEnabledPendingChange')
+    || game.hasOwnProperty('gameTypePendingChange')
     || game.hasOwnProperty('timeBankEnabledPendingChange')) {
     delete game.timePendingChange;
     delete game.smallBlindPendingChange;
@@ -304,6 +432,7 @@ function startNewHand(game, dateTime) {
     delete game.requireRebuyApprovalPendingChange;
     delete game.straddleEnabledPendingChange;
     delete game.timeBankEnabledPendingChange;
+    delete game.gameTypePendingChange;
     game.messages.push({
       action: 'game-settings-change', popupMessage: 'Game Settings Changed',
     });
@@ -320,6 +449,7 @@ async function restoreGamesFromDB() {
     logger.info(`restoring ${games.length} games from DB`);
     games.forEach((dbObj) => {
       const game = dbObj.data;
+
       validateGameWithMessage(game, 'after restore from DB');
 
       Mappings.SaveGameById(game);
@@ -342,14 +472,11 @@ async function deleteOldGames() {
     let shouldDelete = false;
     if (!game.startDate) {
       const gameCreationTime = typeof game.gameCreationTime === 'string' ? parseInt(game.gameCreationTime, 10) : game.gameCreationTime;
-      if (now - gameCreationTime > 60 * MINUTE) {
+      if (now - gameCreationTime > 180 * MINUTE) {
         shouldDelete = true;
       }
     } else {
       const gameLastAction = typeof game.lastAction === 'string' ? parseInt(game.lastAction, 10) : game.lastAction;
-      if (!game.paused && now - gameLastAction > 15 * MINUTE) {
-        shouldDelete = true;
-      }
       if (game.paused && now - gameLastAction > 240 * MINUTE) {
         shouldDelete = true;
       }
@@ -368,7 +495,7 @@ function restartStuckGamesTimer() {
   const now = (new Date()).getTime();
   const allGames = Mappings.GetAllGames();
 
-  allGames.forEach(game => game.startDate && game.timerRefEnd && now > game.timerRefEnd && resetHandTimer(game));
+  allGames.forEach(game => game.startDate && game.timerRefEnd && now > game.timerRefEnd && resetHandTimer(game, true));
 }
 
 setInterval(restartStuckGamesTimer, 10 * 1000);
@@ -379,4 +506,7 @@ module.exports = {
   restoreGamesFromDB,
   pauseHandTimer,
   resumeHandTimer,
+  handlePlayerRebuyOnHandStart,
+  handlePlayerRebuyMidHand,
+  handlePlayerJoinMidHand,
 };

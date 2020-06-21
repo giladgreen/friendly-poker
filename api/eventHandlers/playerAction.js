@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-restricted-globals */
 
-const _ = require('lodash');
+
 const logger = require('../services/logger');
 const BadRequest = require('../errors/badRequest');
 const FatalError = require('../errors/fatalError');
@@ -24,6 +24,8 @@ let handlePlayerWonHandWithoutShowdown;
 function handlePlayerAction(game, playerId, op, amount, hand, force) {
   const player = game.players.find(p => p && p.id === playerId);
   if (!player) {
+    logger.info(`game players ids :${game.players.filter(p => p).map(p => p.id).join(', ')}`);
+    logger.error(`handlePlayerAction got a request from id:${playerId}`);
     throw new BadRequest('player not in game');
   }
 
@@ -48,7 +50,8 @@ function handlePlayerAction(game, playerId, op, amount, hand, force) {
     GameHelper.handleRaise(game, player, amount);
   }
   game.audioableAction.push(op);
-
+  game.lastAction = (new Date()).getTime();
+  GamesService.pauseHandTimer(game);
   return player;
 }
 
@@ -58,13 +61,18 @@ function handleRoundOver(game, player, gameIsOver) {
   if (firstToTalkIndex === null) {
     game.fastForward = true;
     gameIsOver = true;
+    logger.info('Fast Forward');
   } else {
     const firstToTalk = game.players[firstToTalkIndex];
     player.options = [];
-    delete player.active;
+
+    game.players.filter(p => p && p.active).forEach((p) => {
+      delete p.active;
+      p.options = [];
+    });
     firstToTalk.active = true;
     if (firstToTalk.bot) {
-      botActivated(game); // for dubug purposes, when a "BOT" turn we drop the time left to 1-3 sec
+      botActivated(game, firstToTalk); // for dubug purposes, when a "BOT" turn we drop the time left to 1-3 sec
     }
     game.players.filter(p => Boolean(p)).forEach((p) => {
       p.needToTalk = !p.fold && !p.sitOut && !p.allIn;
@@ -81,6 +89,7 @@ function handleRoundOver(game, player, gameIsOver) {
       firstToTalk.options = [];
       gameIsOver = true;
       game.fastForward = true;
+      logger.info('Fast Forward');
     }
   }
 
@@ -101,7 +110,7 @@ function pineappleAutoSelectCardToThrow(game) {
     });
     delete game.waitingForPlayers;
 
-    GamesService.resetHandTimer(game, onPlayerActionEvent);
+    GamesService.resetHandTimer(game);
 
     GameHelper.updateGamePlayers(game);
   }
@@ -165,7 +174,7 @@ function proceedToNextStreet(game, now, gameIsOver) {
 
     setTimeout(() => {
       GamesService.startNewHand(game, now + timeToShowShowdown);
-      GamesService.resetHandTimer(game, onPlayerActionEvent);
+      GamesService.resetHandTimer(game);
       GameHelper.updateGamePlayers(game);
     }, timeToShowShowdown);
   } else {
@@ -180,7 +189,7 @@ async function onPlayerActionEvent(socket, {
 }) {
   now = now || (new Date()).getTime();
   let game;
-  let gameBackup;
+
   let gameIsOver = false;
   try {
     if (socket) {
@@ -188,21 +197,21 @@ async function onPlayerActionEvent(socket, {
       Mappings.SaveSocketByPlayerId(playerId, socket);
     }
     game = Mappings.getGameById(gameId);
-    validateGameWithMessage(game, ' before onPlayerActionEvent');
+    if (!game) {
+      return;
+    }
+    if (!game.timerRefCb){
+      game.timerRefCb = onPlayerActionEvent;
+    }
+    if (!game.handOver) {
+      validateGameWithMessage(game, ' before onPlayerActionEvent');
+    }
 
     let player;
-    if (!game) {
-      throw new BadRequest('did not find game');
-    } else {
-      game.lastAction = (new Date()).getTime();
-      gameBackup = _.cloneDeep(game);
-    }
-
-    game.audioableAction = [];
-
-    if (!game.fastForward || game.handOver) {
+    if (playerId && !game.fastForward && !game.handOver) {
       player = handlePlayerAction(game, playerId, op, amount, hand, force);
     }
+    game.audioableAction = [];
 
     const roundSum = game.players.filter(p => p && p.pot && p.pot[game.gamePhase] && !isNaN(p.pot[game.gamePhase]))
       .map(p => p.pot[game.gamePhase])
@@ -237,60 +246,39 @@ async function onPlayerActionEvent(socket, {
         if (game.fastForward) {
           gameIsOver = true;
           game.messages = [];
-        } else {
+        } else if (player) {
           gameIsOver = handleRoundOver(game, player, gameIsOver);
         }
 
         gameIsOver = proceedToNextStreet(game, now, gameIsOver);
       }
     } else {
-      delete player.active;
-      player.options = [];
       const nextActivePlayer = PlayerHelper.getNextPlayerToTalk(game.players, playerId);
-      if (!nextActivePlayer) {
-        logger.warn('no nextActivePlayer found');
-      }
-      nextActivePlayer.active = true;
-      if (nextActivePlayer.bot) {
-        botActivated(game);
-      }
-      nextActivePlayer.options = [];
-      if (nextActivePlayer.balance > 0) {
-        nextActivePlayer.options = [(nextActivePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
+      if (nextActivePlayer) {
+        game.players.filter(p => p && p.active).forEach((p) => {
+          delete p.active;
+          p.options = [];
+        });
+        nextActivePlayer.active = true;
+        if (nextActivePlayer.bot) {
+          botActivated(game, nextActivePlayer);
+        }
+        nextActivePlayer.options = [];
 
+        nextActivePlayer.options = [(nextActivePlayer.pot[game.gamePhase] < game.amountToCall ? CALL : CHECK), FOLD];
         if (nextActivePlayer.balance + nextActivePlayer.pot[game.gamePhase] - game.amountToCall > 0) {
           nextActivePlayer.options.push(RAISE);
         }
       }
     }
 
-    validateGameWithMessage(game, ' after onPlayerActionEvent');
-
     validateGame(game);
 
     GameHelper.updateGamePlayers(game, gameIsOver);
     delete game.betRoundOver;
   } catch (e) {
-    if (e instanceof FatalError) {
-      Object.keys(gameBackup).forEach((key) => {
-        game[key] = gameBackup[key];
-      });
-      // game.paused = true;
-      // game.serverError = true;
-      game.players.filter(p => Boolean(p)).forEach((p) => { p.balance += p.pot.reduce((total, num) => total + num, 0); });
-      GamesService.startNewHand(game, now);
-      GamesService.resetHandTimer(game, onPlayerActionEvent);
-
-      game.messages.push({
-        action: 'server error', log: 'server error - jumping to next hand', popupMessage: 'Server Error - staring next hand..',
-      });
-      GameHelper.updateGamePlayers(game, false);
-      game.messages = [];
-    }
-
-
     logger.error('onPlayerActionEvent error', e.message);
-    logger.error('error', e);
+    logger.error('error.stack ', e.stack);
     if (socket) socket.emit('onerror', { message: 'action failed', reason: e.message });
     return;
   }
@@ -298,8 +286,8 @@ async function onPlayerActionEvent(socket, {
   if (game) {
     if (game.waitingForPlayers) {
       GamesService.pauseHandTimer(game);
-    } else {
-      GamesService.resetHandTimer(game, onPlayerActionEvent);
+    } else if (playerId || game.fastForward) {
+      GamesService.resetHandTimer(game);
     }
   }
 
@@ -331,7 +319,7 @@ handlePlayerWonHandWithoutShowdown = (game, player, now) => {
 
   setTimeout(() => {
     GamesService.startNewHand(game, now + timeToShowShowdown);
-    GamesService.resetHandTimer(game, onPlayerActionEvent);
+    GamesService.resetHandTimer(game);
     GameHelper.updateGamePlayers(game);
   }, timeToShowShowdown);
 };

@@ -16,6 +16,7 @@ function onDeleteGameEvent(socket, { playerId, gameId }) {
     GameHelper.publishPublicGames();
   } catch (e) {
     logger.error('failed to create game, error', e.message);
+    logger.error('error.stack ', e.stack);
     if (socket) socket.emit('onerror', { message: 'failed to delete game', reason: e.message });
   }
 }

@@ -2,7 +2,7 @@ const logger = require('../services/logger');
 
 const BadRequest = require('../errors/badRequest');
 
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 const getNextPlayerIndex = (players, index) => ((index + 1 < players.length) ? index + 1 : 0);
 
@@ -39,7 +39,6 @@ function onStraddle(socket, {
       socket, gameId, playerId,
 
     });
-    validateGameWithMessage(game, ' before onStraddle');
 
     if (!game.straddleEnabled) {
       throw new BadRequest('straddle not enabled');
@@ -61,10 +60,9 @@ function onStraddle(socket, {
     });
     player.straddle = true;
     logger.info(`player is now Straddle:${player.name}`);
-
-    validateGameWithMessage(game, ' after onStraddle');
   } catch (e) {
-    logger.error('onStraddle error', e);
+    logger.error('onStraddle error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to Straddle', reason: e.message });
   }

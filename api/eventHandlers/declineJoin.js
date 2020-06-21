@@ -1,8 +1,9 @@
 const logger = require('../services/logger');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 const { updateGamePlayers } = require('../helpers/game');
 const { getPlayerCopyOfGame } = require('../helpers/gameCopy');
 const Mappings = require('../Maps');
+const sendGame = require('../helpers/SendGame');
 
 function onDeclineJoinEvent(socket, {
   gameId, playerId, joinedPlayerId, balance, declineMessage,
@@ -15,7 +16,6 @@ function onDeclineJoinEvent(socket, {
     const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
-    validateGameWithMessage(game, ' before onDeclineJoinEvent');
 
     game.pendingJoin = game.pendingJoin.filter(data => data.id !== joinedPlayerId);
     updateGamePlayers(game);
@@ -24,12 +24,11 @@ function onDeclineJoinEvent(socket, {
     if (playerSocket) {
       const gamePrivateCopy = getPlayerCopyOfGame(joinedPlayerId, game);
       gamePrivateCopy.declineMessage = declineMessage;
-      playerSocket.emit('joinrequestdeclined', gamePrivateCopy);
+      sendGame(playerSocket, gamePrivateCopy, 'joinrequestdeclined');
     }
-
-    validateGameWithMessage(game, ' after onDeclineJoinEvent');
   } catch (e) {
-    logger.error('onDeclineJoinEvent ', e);
+    logger.error('onDeclineJoinEvent ', e.message);
+    logger.error('error.stack ', e.stack);
     if (socket) socket.emit('onerror', { message: 'failed to decline Join', reason: e.message });
   }
 }

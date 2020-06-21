@@ -1,8 +1,10 @@
 const htmlStringify = require('html-stringify');
 const { isBot } = require('../helpers/handlers');
 const { sendHtmlMail } = require('../helpers/emails');
+const sendGame = require('../helpers/SendGame');
 
 const GameHelper = require('../helpers/game');
+const { onPlayerActionEvent } = require('./playerAction');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const {
@@ -28,6 +30,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
 
     const time = gameCreatorData.timeBankEnabled ? TIME_BANK_DEFAULT : parseInt(gameCreatorData.time, 10);
 
+    const now = (new Date()).getTime();
     const player = {
       id: playerId,
       name: gameCreatorData.name,
@@ -41,12 +44,15 @@ function onCreateGameEvent(socket, gameCreatorData) {
       pot: [0],
       bot: isBot({ name: gameCreatorData.name }),
       timeBank: TIME_BANK_INITIAL_VALUE,
+      lastImageUpdate: now,
+      lastImageBroadcast: now,
     };
     const players = (new Array(TABLE_MAX_PLAYERS)).fill(null);
     players[0] = player;
 
     const newGame = {
       id: gameCreatorData.id,
+      timerRefCb: onPlayerActionEvent,
       defaultBuyIn: amount,
       pendingJoin: [],
       pendingRebuy: [],
@@ -83,15 +89,15 @@ function onCreateGameEvent(socket, gameCreatorData) {
     };
     Mappings.SaveGameById(newGame);
     GameHelper.saveGameToDB(newGame);
-    socket.emit('gamecreated', newGame);
-
+    sendGame(socket, newGame, 'gamecreated');
     if (!newGame.privateGame) {
       GameHelper.publishPublicGames();
     }
 
     sendHtmlMail(`Game Created by ${gameCreatorData.name}`, htmlStringify(newGame));
   } catch (e) {
-    logger.error('failed to create game - error', e);
+    logger.error('failed to create game - error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to create game', reason: e.message });
   }

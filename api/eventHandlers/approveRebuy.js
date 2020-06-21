@@ -2,11 +2,12 @@ const logger = require('../services/logger');
 
 const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 const { updateGamePlayers } = require('../helpers/game');
+const GamesService = require('../services/games');
 const BadRequest = require('../errors/badRequest');
 
 
 function onApproveRebuyEvent(socket, {
-  gameId, playerId, rebuyPlayerId, amount,
+  gameId, playerId, rebuyPlayerId, amount, now,
 }) {
   logger.info('onApproveRebuyEvent ', {
     gameId, playerId, rebuyPlayerId, amount,
@@ -27,9 +28,14 @@ function onApproveRebuyEvent(socket, {
     }
     player.justDidRebuyAmount = pendingRequest.amount;
     game.pendingRebuy = game.pendingRebuy.filter(data => (data.id !== rebuyPlayerId) || data.amount !== amount);
+    if (player.fold || player.sitOut) {
+      GamesService.handlePlayerRebuyMidHand(game, player, now);
+    }
+
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onApproveRebuyEvent error', e);
+    logger.error('onApproveRebuyEvent error', e.message);
+    logger.error('error.stack ', e.stack);
     if (socket) socket.emit('onerror', { message: 'failed to approve rebuy', reason: e.message });
   }
 }

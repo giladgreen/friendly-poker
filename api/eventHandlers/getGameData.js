@@ -1,6 +1,7 @@
 const logger = require('../services/logger');
 const { getPlayerCopyOfGame } = require('../helpers/gameCopy');
 const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const sendGame = require('../helpers/SendGame');
 
 const Mappings = require('../Maps');
 
@@ -13,9 +14,10 @@ function onGetGameDataEvent(socket, { gameId, playerId }) {
     });
 
     const gamePrivateCopy = getPlayerCopyOfGame(playerId, Mappings.getGameById(gameId));
-    socket.emit('gameupdate', gamePrivateCopy);
+    sendGame(socket, gamePrivateCopy, 'gameupdate');
   } catch (e) {
-    logger.error('onGetGameDataEvent ', e);
+    logger.error('onGetGameDataEvent ', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to get game data', reason: e.message, forceReload: true });
   }

@@ -1,4 +1,5 @@
 const Hand = require('pokersolver').Hand;
+const logger = require('../services/logger');
 
 const signs = ['D', 'S', 'H', 'C'];
 const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
@@ -43,7 +44,9 @@ function getOmahaHand(cards, board) {
   ].filter(item => item[0] && item[1] && item[2]);
 
   const allOptions = playerCardsOptions.reduce((results, playerOption) => [...results, ...boardOptions.map(boardOption => [...boardOption, ...playerOption])], []);
-
+  if (allOptions.length !== playerCardsOptions.length * boardOptions.length) {
+    logger.warn(`getOmahaHand, playerCardsOptions: ${playerCardsOptions.length}, boardOptions:${boardOptions.length}, allOptions:${allOptions.length}`);
+  }
   const allHands = allOptions.map(h => Hand.solve(h));
   const bestHands = Hand.winners(allHands);
 
@@ -55,7 +58,7 @@ function getTexasHand(cards, board) {
 }
 
 function getUserHandObject(game, cards, board) {
-  return game.omaha ? getOmahaHand(cards, board) : getTexasHand(cards, board);
+  return game.omaha && cards.length === 4 ? getOmahaHand(cards, board) : getTexasHand(cards, board);
 }
 
 module.exports = {

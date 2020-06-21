@@ -65,11 +65,14 @@ function getNextActivePlayer(players, playerId) {
   return players[nextPlayerIndex];
 }
 function getNextPlayerToTalk(players, playerId) {
+  if (playerId === null || playerId === undefined) {
+    return null;
+  }
   const playerIndex = players.findIndex(p => p && p.id === playerId);
   let nextPlayerIndex = getNextPlayerIndex(players, playerIndex);
   let count = 0;
 
-  while (!players[nextPlayerIndex] || !players[nextPlayerIndex].needToTalk) {
+  while (!players[nextPlayerIndex] || !players[nextPlayerIndex].needToTalk || players[nextPlayerIndex].sitOut || players[nextPlayerIndex].fold || players[nextPlayerIndex].balance === 0) {
     nextPlayerIndex = getNextPlayerIndex(players, nextPlayerIndex);
     count++;
 

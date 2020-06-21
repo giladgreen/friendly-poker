@@ -2,7 +2,7 @@ const Mappings = require('../Maps');
 const logger = require('../services/logger');
 const GamesService = require('../services/games');
 const { updateGamePlayers } = require('../helpers/game');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
 
 const { onPlayerActionEvent } = require('./playerAction');
 const { CHECK, FOLD } = require('../consts');
@@ -19,7 +19,6 @@ function onKickOutEvent(socket, {
     ({ game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     }));
-    validateGameWithMessage(game, ' before onKickOutEvent');
 
     const playerToKick = game.players.find(p => p && p.id === playerToKickId);
     if (!playerToKick) {
@@ -50,7 +49,6 @@ function onKickOutEvent(socket, {
           action: 'kickout', popupMessage: `${playerToKick.name} was Folded by admin`, now,
         });
       }
-      GamesService.resetHandTimer(game, onPlayerActionEvent);
     } else {
       const moneyInPot = (playerToKick.pot || []).reduce((all, one) => all + one, 0);
       playerToKick.balance += moneyInPot;
@@ -58,6 +56,7 @@ function onKickOutEvent(socket, {
 
       const playerData = game.playersData.find(p => p && p.id === playerToKickId);
       playerData.cashOut = { amount: playerToKick.balance, time: now };
+      playerData.handsWon = playerToKick.handsWon;
       game.moneyInGame -= playerToKick.balance;
       const playerIndex = game.players.findIndex(p => p && p.id === playerToKickId);
       game.players[playerIndex] = null;
@@ -74,11 +73,12 @@ function onKickOutEvent(socket, {
         action: 'kickout', popupMessage: `${playerToKick.name} was removed from the game`, log: `${playerToKick.name} was removed from the game by the admin`, now,
       });
     }
-    validateGameWithMessage(game, ' after onKickOutEvent');
+    // validateGameWithMessage(game, ' after onKickOutEvent');
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onKickOutEvent error', e);
+    logger.error('onKickOutEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to kick out', reason: e.message });
   }

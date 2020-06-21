@@ -2,10 +2,16 @@ const logger = require('../services/logger');
 const GamesService = require('../services/games');
 const GameHelper = require('../helpers/game');
 const Mappings = require('../Maps');
-const { extractRequestGameAndPlayer, validateGameWithMessage } = require('../helpers/handlers');
+const { extractRequestGameAndPlayer } = require('../helpers/handlers');
+const { onPlayerActionEvent } = require('./playerAction');
 
 const { updateGamePlayers, handlePlayerQuit } = require('../helpers/game');
 const BadRequest = require('../errors/badRequest');
+
+const {
+  FOLD,
+} = require('../consts');
+
 
 function onQuitEvent(socket, { playerId, gameId, now }) {
   try {
@@ -13,7 +19,6 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
     const { game, player } = extractRequestGameAndPlayer({
       socket, gameId, playerId,
     });
-    validateGameWithMessage(game, ' before onQuitEvent');
 
     logger.info(`onQuitEvent ${player.name}, (is admin: ${player.admin})`);
     if (player.admin) {
@@ -28,7 +33,7 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
       }
     }
     logger.info('quit - non admin player');
-    if (!game.startDate || game.handOver) {
+    if (!game.startDate || game.handOver || player.sitOut) {
       logger.info('quit - game not started / hand is over');
       handlePlayerQuit(game, player, now);
       if (game.startDate && game.players.filter(p => p && !p.sitOut).length < 2) {
@@ -38,16 +43,26 @@ function onQuitEvent(socket, { playerId, gameId, now }) {
     } else {
       logger.info('quit - hand not over');
 
-      player.status = 'Fold';
-      delete player.needToTalk;
-      player.fold = true;
+      if (!player.fold) {
+        if (player.active) {
+          onPlayerActionEvent(socket, {
+            now, gameId, playerId, hand: game.hand, op: FOLD, amount: 0, force: true,
+          });
+        } else {
+          player.status = 'Quit';
+          delete player.needToTalk;
+          player.fold = true;
+        }
+      }
+
+
       game.pendingQuit.push(playerId);
     }
 
-    validateGameWithMessage(game, ' after onQuitEvent');
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onQuitEvent error', e);
+    logger.error('onQuitEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to quit', reason: e.message });
   }

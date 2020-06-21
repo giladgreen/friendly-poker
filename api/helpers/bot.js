@@ -1,3 +1,6 @@
+const Mappings = require('../Maps');
+const logger = require('../services/logger');
+
 const {
   FOLD, CALL, RAISE, CHECK,
 } = require('../consts');
@@ -14,18 +17,26 @@ function getMinRaise(game, me) {
   return game.bigBlind;
 }
 
-function botAction(game, bot) {
-  if (bot.balance < game.defaultBuyIn && Math.floor(Math.random() * 10) === 1) {
-    bot.justDidRebuyAmount = game.defaultBuyIn;
+function getAction(game, bot) {
+  const amountToCall = game.amountToCall;
+  const random = Math.floor(Math.random() * 100);
+  logger.info('random number = ', random);
+  if (bot.balance < game.defaultBuyIn && random % 8 === 0) {
+    setTimeout(() => {
+      if (bot.balance < game.defaultBuyIn) {
+        bot.justDidRebuyAmount = game.defaultBuyIn;
+        logger.info(`${bot.name}: Rebuy ${game.defaultBuyIn}`);
+      }
+    }, 9000);
   }
+  const minRaise = getMinRaise(game, bot);
+  const maxRaise = bot.pot[game.gamePhase] + bot.balance;
   // no raise
-  if (game.amountToCall === 0 || bot.pot[game.gamePhase] === game.amountToCall) {
-    if (bot.options.includes(RAISE) && Math.floor(Math.random() * 5) === 1) {
-      const minRaise = getMinRaise(game, bot);
-      const maxRaise = bot.pot[game.gamePhase] + bot.balance;
+  if (amountToCall === 0 || bot.pot[game.gamePhase] === amountToCall) {
+    if (bot.options.includes(RAISE) && random % 8 === 0) {
       const dif = maxRaise - minRaise;
 
-      const amount = dif === 0 ? minRaise : (Math.floor(Math.random() * (dif))) + minRaise;
+      const amount = (Math.floor(Math.random() * (dif))) + minRaise;
 
       return {
         op: RAISE,
@@ -35,7 +46,7 @@ function botAction(game, bot) {
       return {
         op: CHECK,
       };
-    } if (bot.options.includes(CALL) && Math.floor(Math.random() * 3) === 1) {
+    } if (bot.options.includes(CALL)) {
       return {
         op: CALL,
       };
@@ -44,38 +55,47 @@ function botAction(game, bot) {
       op: FOLD,
     };
   }
-  const amountToCall = game.amountToCall;
-  const aLot = amountToCall > game.bigBlind * 3;
+
+  const aLot = amountToCall > game.bigBlind * 4;
   if (aLot) {
-    if (bot.options.includes(CALL) && Math.floor(Math.random() * 4) === 1) {
+    if (random % 3 === 0) {
+      return {
+        op: FOLD,
+      };
+    }
+    if (bot.options.includes(CALL) && random % 4 !== 0) {
       return {
         op: CALL,
       };
-    } if (bot.options.includes(RAISE) && Math.floor(Math.random() * 9) === 1) {
+    }
+    if (bot.options.includes(RAISE)) {
+      setTimeout(() => {
+        if (bot.balance === 0) {
+          bot.justDidRebuyAmount = game.defaultBuyIn;
+          logger.info(`${bot.name}: Rebuy ${game.defaultBuyIn}`);
+        }
+      }, 8000);
       return {
         op: RAISE,
-        amount: bot.balance,
+        amount: maxRaise,
       };
     }
-    return {
-      op: FOLD,
-    };
   }
-  if (bot.options.includes(CHECK) && Math.floor(Math.random() * 3) === 1) {
+  if (bot.options.includes(CHECK)) {
     return {
       op: CHECK,
     };
   }
 
-  if (bot.options.includes(CALL) && Math.floor(Math.random() * 3) === 1) {
+  if (bot.options.includes(CALL) && random % 3 !== 0) {
     return {
       op: CALL,
     };
   }
-  if (bot.options.includes(RAISE) && Math.floor(Math.random() * 8) === 1) {
+  if (bot.options.includes(RAISE) && random % 4 === 0) {
     return {
       op: RAISE,
-      amount: getMinRaise(game, bot),
+      amount: minRaise,
     };
   }
 
@@ -85,11 +105,23 @@ function botAction(game, bot) {
 }
 
 
-function botActivated(game) {
-  game.currentTimerTime = Math.floor(Math.random() * 2) + 1;
+function botActivated(game, bot) {
+  const random = 3 + Math.floor(Math.random() * 5);
+
+  setTimeout(() => {
+    const action = getAction(game, bot);
+    const botSocket = Mappings.GetSocketByPlayerId(bot.id);
+    game.timerRefCb(botSocket, {
+      op: action.op,
+      amount: action.amount,
+      gameId: game.id,
+      hand: game.hand,
+      playerId: bot.id,
+      force: true,
+    });
+  }, random * 1000);
 }
 
 module.exports = {
-  botAction,
   botActivated,
 };

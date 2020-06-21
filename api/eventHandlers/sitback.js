@@ -19,7 +19,8 @@ function onSitBackEvent(socket, { playerId, gameId, now }) {
 
     updateGamePlayers(game);
   } catch (e) {
-    logger.error('onSitBackEvent error', e);
+    logger.error('onSitBackEvent error', e.message);
+    logger.error('error.stack ', e.stack);
 
     if (socket) socket.emit('onerror', { message: 'failed to sit back', reason: e.message });
   }
