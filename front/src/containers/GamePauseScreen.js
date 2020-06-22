@@ -9,7 +9,7 @@ const GamePauseScreen = (props) => {
     const {game, isAdmin, resumeGame } = props;
     const {playersData, serverError, players} = game;
 
-    const canResume = isAdmin && (!game.handOver || game.players.filter(player => player && !player.sitOut && player.balance > 0).length > 1);
+    const canResume = isAdmin && (!game.handOver || game.players.filter(player => player && player.balance > 0).length > 1);
 
     return  <div  id="game-pause-screen">
         <div id="game-pause-buy-ins-section">

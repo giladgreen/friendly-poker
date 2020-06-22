@@ -1017,7 +1017,7 @@ class OnlineGame extends Component {
                 </Modal>
 
 
-                {me && me.image ? <div/> : (
+                {!me || ! me.image ? <div/> : (
                     <div id="popup-label" onClick={this.props.showImage}> <span className="shortcut">P</span>op </div>)}
 
                 {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (

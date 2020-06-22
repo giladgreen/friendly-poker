@@ -222,7 +222,7 @@ class GameSettingModal extends Component {
                         className="select-player-dropdown"
                         value={this.state.fromPlayerId}
                         onChange={(e) => this.onFromPlayerChange(e.target.value)} >
-                        {this.props.game.players.map(player => {
+                        {this.props.game.players.filter(p => p).map(player => {
                             return <MenuItem value={player.id}>{ player.name} ({player.balance})</MenuItem>
                         })}
 
