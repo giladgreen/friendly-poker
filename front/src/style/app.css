@@ -14855,6 +14855,16 @@ em-spades {
   }
 }
 
+#popup-label {
+  position: fixed;
+  bottom: 27vh;
+  left: 0.5vw;
+  width: 22vw;
+  color: white;
+  font-size: 1.5em;
+  z-index: 999999;
+}
+
 #chat-header {
   position: fixed;
   bottom: 23vh;
@@ -17634,6 +17644,24 @@ em-spades {
     width: 7.4vw;
     height: 5vw;
     border-radius: 0px;
+  }
+}
+
+.highlighted-player-image {
+  margin: 0px auto;
+  position: fixed;
+  top: 46vh;
+  left: 3vw;
+  width: 14vw;
+  z-index: 40;
+  border-radius: 50%;
+}
+@media only screen and (max-width: 800px) {
+  .highlighted-player-image {
+    position: fixed;
+    top: 46vh;
+    left: 3vw;
+    width: 14vw;
   }
 }
 

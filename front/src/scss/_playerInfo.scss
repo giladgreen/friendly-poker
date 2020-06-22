@@ -726,6 +726,25 @@ $players-dealer-button-left: (
     }
 }
 
+.highlighted-player-image{
+    margin: 0px auto;
+    position: fixed;
+    top:46vh;
+    left:3vw;
+    width: 14vw;
+
+    z-index: 40;
+
+    border-radius: 50%;
+
+    @media only screen and (max-width: $mobile-horizonal) {
+        position: fixed;
+        top:46vh;
+        left:3vw;
+        width: 14vw;
+    }
+}
+
 #canvas{
     margin: 0px auto;
 

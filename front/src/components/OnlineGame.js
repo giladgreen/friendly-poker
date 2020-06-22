@@ -118,7 +118,10 @@ class OnlineGame extends Component {
 
         const key = String.fromCharCode(keycode).toLowerCase();
 
-
+        if (!chatFocused && (key === 'p' || key === 'פ')){
+            this.props.showImage();
+            return;
+        }
         if (!chatFocused && (key === 'm' || key === 'צ')){
             setTimeout(()=>{
                 document.getElementById("chat-input").focus();
@@ -642,7 +645,7 @@ class OnlineGame extends Component {
             <div id="online-game-screen">
 
                 {/* game name */}
-                <div id="game-name"> {gameName}  </div>
+                <div id="game-name" > {gameName}  </div>
 
                 {/* game time */}
                 {startDate ? <Clock startDate={startDate}/> :  <div />}
@@ -1015,6 +1018,9 @@ class OnlineGame extends Component {
 
 
 
+
+                {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
+                    <div id="popup-label" onClick={this.props.showImage}> <span className="shortcut">P</span>op </div>)}
 
                 {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
                     <div id="chat-header" > <span className="shortcut">M</span>essages </div>)}

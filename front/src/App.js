@@ -69,7 +69,7 @@ if (!localStorage.getItem('playerPreferences')){
     localStorage.setItem('playerPreferences', JSON.stringify(basePreferences));
 }
 
-
+let showingImage = false;
 const search = window.location.search || '';
 class App extends Component {
     constructor(props) {
@@ -153,15 +153,25 @@ class App extends Component {
         this.socket.emit('imageupdate', {gameId , now, playerId, image });
     };
 
+    showImage = () =>{
+        const now =(new Date()).getTime();
+        const { gameId, playerId } = this.state;
+        showingImage = true;
+        this.socket.emit('showimage', {gameId , now, playerId });
+        setTimeout(()=>{
+            showingImage = false;
+        },2600);
+    };
+
     captureImage = () => {
         if (!this.state.game){
             return;
         }
-        const w = 60;
-        const h = 45;
+        const w = showingImage ? 300 : 60;
+        const h = showingImage ? 220 : 45;
 
-        const wOffset = 240;
-        const hOffset  = 10;
+        const wOffset = showingImage ? 0 : 240;
+        const hOffset  = showingImage ? 0 : 10;
 
         this.canvas = this.canvas || document.getElementById('canvas');
         this.videoElement = this.videoElement || document.getElementById('videoElement');
@@ -169,7 +179,6 @@ class App extends Component {
             this.canvas.width = w;
             this.canvas.height = h;
             const context = this.canvas.getContext('2d');
-           // context.drawImage(this.videoElement, 0, 0, this.videoElement.videoWidth, this.videoElement.videoHeight,0,0,w,h);
             context.drawImage(this.videoElement, wOffset, hOffset, this.videoElement.videoWidth - wOffset, this.videoElement.videoHeight - hOffset,0,0,w,h);
             this.updateImage()
         }
@@ -419,11 +428,12 @@ class App extends Component {
             }
         });
 
-        this.socket.on('playersimages', (mappingObject) => {// todo
+        this.socket.on('playersimages', (mappingObject) => {
             if ( this.state.game){
                 const game = {...this.state.game};
                 game.players.filter(p=>p).forEach(p=>{
-                    p.image = mappingObject[p.id] || p.image;
+                    p.image = mappingObject[p.id] ? mappingObject[p.id].image : p.image;
+                    p.imageHighlighted = mappingObject[p.id] ? mappingObject[p.id].highlight : false;
                 });
                 this.setState({game})
             }
@@ -945,6 +955,7 @@ class App extends Component {
                     updateImage={this.updateImage}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}
+                    showImage={this.showImage}
                     dealerChooseGame={this.dealerChooseGame}
                     updateGameSettings={this.updateGameSettings}
                     resumeGame={this.resumeGame}
