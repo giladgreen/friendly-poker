@@ -125,9 +125,8 @@ class App extends Component {
                         this.videoAllowed = true;
                         v.srcObject = stream;
                         clearInterval(this.videoTimerRef);
-                        this.captureImageRef = setInterval(()=>{
-                            this.captureImage();
-                        },isMobile ? 1000 : 200);
+                        this.captureImageWrapper();
+
                     })
                     .catch( (error) =>{
                         if(error.message === 'Permission denied') {
@@ -182,6 +181,14 @@ class App extends Component {
             context.drawImage(this.videoElement, wOffset, hOffset, this.videoElement.videoWidth - wOffset, this.videoElement.videoHeight - hOffset,0,0,w,h);
             this.updateImage()
         }
+
+    }
+    captureImageWrapper = () => {
+        this.captureImage();
+
+        setTimeout(()=>{
+            this.captureImageWrapper();
+        },isMobile && !showingImage ? 1000 : 200);
 
     }
 
