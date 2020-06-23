@@ -729,12 +729,12 @@ $players-dealer-button-left: (
 .highlighted-player-image{
     margin: 0px auto;
     position: fixed;
-    top:46vh;
+    top:50vh;
     left:3vw;
     width: 14vw;
 
     z-index: 400;
-
+    border: 6px solid crimson;
     border-radius: 50%;
 
     @media only screen and (max-width: $mobile-horizonal) {

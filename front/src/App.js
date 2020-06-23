@@ -160,7 +160,7 @@ class App extends Component {
         this.socket.emit('showimage', {gameId , now, playerId });
         setTimeout(()=>{
             showingImage = false;
-        },2600);
+        },3400);
     };
 
     captureImage = () => {

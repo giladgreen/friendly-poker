@@ -41,6 +41,7 @@ const PlayerInfo = (props) => {
                 {isMe ? <canvas id="canvas"> </canvas>: <div/>}
 
                 {isMe || !player.image || player.image.length < 200 ? <div/> : <img className={player.imageHighlighted ? 'highlighted-player-image':'player-image'} src={player.image}/>}
+                {!isMe || !player.imageHighlighted ? <div/> : <img className="highlighted-player-image" src={player.image}/>}
 
 
                 <div className={`player-name ${ player.winner ? 'player-name-winner' :''} `} >

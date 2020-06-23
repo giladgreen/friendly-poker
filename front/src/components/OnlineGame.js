@@ -118,7 +118,7 @@ class OnlineGame extends Component {
 
         const key = String.fromCharCode(keycode).toLowerCase();
 
-        if (!chatFocused && (key === 'p' || key === 'פ')){
+        if (!chatFocused && (key === 'z' || key === 'ז')){
             this.props.showImage();
             return;
         }
@@ -1018,7 +1018,7 @@ class OnlineGame extends Component {
 
 
                 {!me || ! me.image ? <div/> : (
-                    <div id="popup-label" onClick={this.props.showImage}> <span className="shortcut">P</span>op </div>)}
+                    <div id="popup-label" onClick={this.props.showImage}> <span className="shortcut">Z</span>oom </div>)}
 
                 {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
                     <div id="chat-header" > <span className="shortcut">M</span>essages </div>)}
