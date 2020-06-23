@@ -14865,6 +14865,20 @@ em-spades {
   z-index: 999999;
 }
 
+#zoom-mobile-icon {
+  position: fixed;
+  bottom: 18vh;
+  left: 0vw;
+  text-align: center;
+  color: white;
+  font-size: 0.8em;
+  z-index: 999999;
+}
+
+#popup-mobile-icon {
+  font-size: 3em;
+}
+
 #chat-header {
   position: fixed;
   bottom: 23vh;
@@ -17660,9 +17674,9 @@ em-spades {
 @media only screen and (max-width: 800px) {
   .highlighted-player-image {
     position: fixed;
-    top: 50vh;
-    left: 3vw;
-    width: 14vw;
+    top: 60vh;
+    left: 1vw;
+    width: 16vw;
   }
 }
 

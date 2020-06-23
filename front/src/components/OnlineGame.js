@@ -17,7 +17,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
-
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import TuneIcon from '@material-ui/icons/Tune';
 
@@ -65,7 +65,15 @@ const PrettoSlider = withStyles({
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
 class OnlineGame extends Component {
-
+    zoom = ()=>{
+        if (this.state.me && this.state.me.image && !this.state.zoom){
+            this.props.showImage();
+            this.setState({zoom: true});
+            setTimeout(()=>{
+                this.setState({zoom: false});
+            },4200)
+        }
+    }
     constructor(props) {
         super(props);
         const gameOptions=[
@@ -80,6 +88,7 @@ class OnlineGame extends Component {
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
+            zoom: false,
             straddlePressed: false,
             gameName,
             chosenGame: 'TEXAS',
@@ -119,7 +128,7 @@ class OnlineGame extends Component {
         const key = String.fromCharCode(keycode).toLowerCase();
 
         if (!chatFocused && (key === 'z' || key === 'ז')){
-            this.props.showImage();
+            this.zoom();
             return;
         }
         if (!chatFocused && (key === 'm' || key === 'צ')){
@@ -1017,8 +1026,13 @@ class OnlineGame extends Component {
                 </Modal>
 
 
-                {!me || ! me.image ? <div/> : (
-                    <div id="popup-label" onClick={this.props.showImage}> <span className="shortcut">Z</span>oom </div>)}
+                {isMobile || !me || ! me.image || this.state.zoom ? <div/> : (
+                    <div id="popup-label" onClick={this.zoom}> <span className="shortcut">Z</span>oom </div>)}
+
+                {!isMobile || !me || ! me.image || this.state.zoom ? <div/> : <div onClick={this.zoom} id="zoom-mobile-icon"><div>zoom</div><PersonPinIcon id="popup-mobile-icon" /></div>}
+
+
+
 
                 {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (
                     <div id="chat-header" > <span className="shortcut">M</span>essages </div>)}

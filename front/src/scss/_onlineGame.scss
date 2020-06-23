@@ -992,6 +992,19 @@ $mobile-horizonal-rebuy-section-right: 1vw;
     font-size: 1.5em;
     z-index: 999999;
 }
+#zoom-mobile-icon{
+    position: fixed;
+    bottom: 18vh;
+    left: 0vw;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 999999;
+}
+#popup-mobile-icon{
+    font-size: 3em;
+
+}
 #chat-header{
     position: fixed;
     bottom: 23vh;
