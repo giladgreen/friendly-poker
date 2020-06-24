@@ -46,14 +46,14 @@ $mobile-vertical: 530px;
 #app-version{
   position: fixed;
   top: 8.6vh;
-  left: 38.3vw;
+  left: 21.3vw;
   z-index: 50;
   color: #777777;
 }
 #app-name{
   position: fixed;
   top: 1.6vh;
-  left: 18vw;
+  left: 1vw;
   height: 7.8vh;
   width: 23vw;
   z-index: 50;
@@ -69,16 +69,16 @@ $mobile-vertical: 530px;
 }
 #connection-status{
   position: fixed;
-  top: 2vh;
+  top: 1.8vh;
   left: 0.8vw;
-
-  height: 7vh;
+  width: 25vw;
+  height: 8vh;
   font-family: "Arial Black";
   z-index: 50;
-  font-size: 2em;
+  font-size: 2.2em;
   text-align: center;
   padding: 3px 10px;
-
+  background: black;
   border-radius: 12px;
   border-width: 3px;
   border-style: solid;
@@ -157,18 +157,18 @@ $mobile-vertical: 530px;
   }
   #connection-status{
     top: 1vh;
-    left: 0.8vw;
-    height: 8.5vh;
-    font-size: 1em;
-    padding: 0px 10px;
 
+    height: 8.5vh;
+    font-size: 1.1em;
+    padding: 0px 10px;
+    width: 55vw;
     border-radius: 12px;
     border-width: 2px;
 
   }
   #app-name{
     top: 0.6vh;
-    left: 27vw;
+    left: 1vw;
     height: 7vh;
     width: 48vw;
 

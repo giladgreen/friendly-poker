@@ -10691,7 +10691,7 @@ body {
 #app-version {
   position: fixed;
   top: 8.6vh;
-  left: 38.3vw;
+  left: 21.3vw;
   z-index: 50;
   color: #777777;
 }
@@ -10699,7 +10699,7 @@ body {
 #app-name {
   position: fixed;
   top: 1.6vh;
-  left: 18vw;
+  left: 1vw;
   height: 7.8vh;
   width: 23vw;
   z-index: 50;
@@ -10717,14 +10717,16 @@ body {
 
 #connection-status {
   position: fixed;
-  top: 2vh;
+  top: 1.8vh;
   left: 0.8vw;
-  height: 7vh;
+  width: 25vw;
+  height: 8vh;
   font-family: "Arial Black";
   z-index: 50;
-  font-size: 2em;
+  font-size: 2.2em;
   text-align: center;
   padding: 3px 10px;
+  background: black;
   border-radius: 12px;
   border-width: 3px;
   border-style: solid;
@@ -10811,17 +10813,17 @@ body {
 
   #connection-status {
     top: 1vh;
-    left: 0.8vw;
     height: 8.5vh;
-    font-size: 1em;
+    font-size: 1.1em;
     padding: 0px 10px;
+    width: 55vw;
     border-radius: 12px;
     border-width: 2px;
   }
 
   #app-name {
     top: 0.6vh;
-    left: 27vw;
+    left: 1vw;
     height: 7vh;
     width: 48vw;
   }
@@ -13767,22 +13769,23 @@ em-spades {
 
 #game-name {
   position: fixed;
-  left: 45vw;
+  left: 0vw;
   top: 1vh;
+  width: 100vw;
+  text-align: center;
   font-size: 1.9em;
   color: #ffffffaa;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #game-name {
-    left: 27.2vw;
-    top: 6.3vh;
-    font-size: 1em;
+    padding-left: 1.5vw;
+    top: 7vh;
+    text-align: left;
+    font-size: 0.75em;
   }
 }
 @media only screen and (max-width: 530px) {
   #game-name {
-    left: 40vw;
-    top: 7.2vh;
     font-size: 1em;
   }
 }

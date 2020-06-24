@@ -915,7 +915,7 @@ class App extends Component {
             <audio id='card-place-audio3' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
             <audio id='card-place-audio45' src="./card-place.mp3" preload="auto" controls="none" style={{display:'none'}}/>
             <audio id='chips-audio' src="./chips.mp3" preload="auto" controls="none" style={{display:'none'}}/>
-            <div id="connection-status" className={this.state.connected ? 'connected-to-server':'connecting-to-server'}> { this.state.connected ? 'Connected' : 'Connecting..'}</div>
+            { this.state.connected ? <div/> : <div id="connection-status" className="connecting-to-server"> { 'Connecting..'}</div>}
 
         </div>
     };
