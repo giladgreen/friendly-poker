@@ -727,6 +727,14 @@ $players-dealer-button-left: (
         visibility: hidden;
     }
 }
+@keyframes highlighted-player-image-anim {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
 .highlighted-player-image{
     margin: 0px auto;
@@ -738,6 +746,7 @@ $players-dealer-button-left: (
     z-index: 400;
     border: 6px solid crimson;
     border-radius: 50%;
+    animation: highlighted-player-image-anim 1s linear;
 
     @media only screen and (max-width: $mobile-horizonal) {
         border: 4px solid darkred;
@@ -747,7 +756,20 @@ $players-dealer-button-left: (
         width: 16vw;
     }
 }
+@keyframes highlighted-player-image-anim-exit {
+    0%   { opacity: 1;}
+    10%   { opacity: 0;}
+    20%   { opacity: 1;}
+    30%   { opacity: 0;}
+    40%  { opacity: 1;}
+    50%  { opacity: 0;}
+    60%  { opacity: 1;}
+    100% { opacity: 0;}
 
+}
+.highlighted-player-image-exit{
+    animation: highlighted-player-image-anim-exit 1s linear;
+}
 #canvas{
     margin: 0px auto;
 

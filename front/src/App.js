@@ -18,7 +18,6 @@ import Confirm from "./containers/Confirm";
 
 
 const localhost = window.location.origin.indexOf('localhost') >= 0;
-const hasGameId = window.location.origin.indexOf('gameid=') >= 0;
 const endpoint = localhost ?  'http://127.0.0.1:5000' : window.location.origin;
 const serverPrefix = localhost ?  'http://localhost:3000' : window.location.origin;
 
@@ -159,7 +158,14 @@ class App extends Component {
         this.socket.emit('showimage', {gameId , now, playerId });
         setTimeout(()=>{
             showingImage = false;
-        },3400);
+        },3700);
+
+        setTimeout(()=>{
+            const img = document.getElementById("highlighted-player-image");
+            if (img){
+                img.className += " highlighted-player-image-exit";
+            };
+        },3200);
     };
 
     captureImage = () => {

@@ -652,6 +652,8 @@ class OnlineGame extends Component {
 
         const showZoomOption = me && me.image && !this.state.zoom && game.players.filter(p=>p && p.imageHighlighted).length ===0;
 
+        const showShowCardsButton = !game.paused && game.handOver && !this.state.showingCards && !this.props.game.showPlayersHands.includes(me.id) && !me.showingCards;
+
         return (
             <div id="online-game-screen">
 
@@ -723,7 +725,7 @@ class OnlineGame extends Component {
                 {/* action buttons */}
                 <div>
                     {/* show cards button */}
-                    { !game.paused && game.handOver && !this.state.showingCards && <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>}
+                    { showShowCardsButton ? <div className="action-button" id="show-cards-button"  onClick={this.showCards}> Show Cards </div>:<div/> }
 
                     {/* dealer choice button */}
                     {  showDealerChoiceButtons && <div  id="dealer-choice-div" >
