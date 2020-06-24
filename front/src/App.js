@@ -437,12 +437,21 @@ class App extends Component {
 
         this.socket.on('playersimages', (mappingObject) => {
             if ( this.state.game){
+                const highlightExistBefore = this.state.game.players.filter(p => p && p.imageHighlighted).length > 0;
+
+                let highlightedExist = false;
                 const game = {...this.state.game};
                 game.players.filter(p=>p).forEach(p=>{
                     p.image = mappingObject[p.id] ? mappingObject[p.id].image : p.image;
                     p.imageHighlighted = mappingObject[p.id] ? mappingObject[p.id].highlight : false;
+                    if (p.imageHighlighted){
+                        highlightedExist = true;
+                    }
                 });
-                this.setState({game})
+                if (!isMobile || highlightedExist || highlightExistBefore) {
+                    this.setState({game})
+                }
+
             }
         });
 

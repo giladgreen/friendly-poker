@@ -174,10 +174,10 @@
 
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         bottom: 1vh;
-        left: 37vw;
-        width: 35vw;
+        left: 38vw;
+        width: 33vw;
         height: 11vh;
-        font-size: 2em;
+        font-size: 1.7em;
         padding-top: 0px;
     }
     @media only screen and (max-width: $mobile-vertical) {
@@ -185,7 +185,7 @@
         left: 20vw;
         width: 60vw;
         height: 8.4vh;
-        font-size: 2em;
+        font-size: 1.7em;
         padding-top: 0vh;
     }
 }

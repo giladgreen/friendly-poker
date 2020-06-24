@@ -14862,7 +14862,7 @@ em-spades {
   width: 22vw;
   color: white;
   font-size: 1.5em;
-  z-index: 999999;
+  z-index: 50;
 }
 
 #zoom-mobile-icon {
@@ -14872,7 +14872,7 @@ em-spades {
   text-align: center;
   color: white;
   font-size: 0.8em;
-  z-index: 999999;
+  z-index: 50;
 }
 
 #popup-mobile-icon {
@@ -15775,10 +15775,10 @@ em-spades {
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #start-pause-game-button {
     bottom: 1vh;
-    left: 37vw;
-    width: 35vw;
+    left: 38vw;
+    width: 33vw;
     height: 11vh;
-    font-size: 2em;
+    font-size: 1.7em;
     padding-top: 0px;
   }
 }
@@ -15788,7 +15788,7 @@ em-spades {
     left: 20vw;
     width: 60vw;
     height: 8.4vh;
-    font-size: 2em;
+    font-size: 1.7em;
     padding-top: 0vh;
   }
 }
@@ -16187,7 +16187,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16204,7 +16204,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -16335,7 +16335,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16352,7 +16352,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -16483,7 +16483,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16500,7 +16500,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -16631,7 +16631,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16648,7 +16648,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -16779,7 +16779,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16796,7 +16796,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -16927,7 +16927,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -16944,7 +16944,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -17075,7 +17075,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -17092,7 +17092,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -17223,7 +17223,7 @@ em-spades {
     text-shadow: 2px 2px black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 7.4vh;
@@ -17240,7 +17240,7 @@ em-spades {
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     text-shadow: 2px 2px black;
-    z-index: 999;
+    z-index: 9999;
     border: 3px solid transparent;
     width: 8vw;
     height: 4vw;
@@ -17610,6 +17610,7 @@ em-spades {
     width: 8vw;
     height: 6vw;
     border-radius: 0px;
+    visibility: hidden;
   }
 }
 
@@ -17629,6 +17630,7 @@ em-spades {
     width: 8vw;
     height: 6vw;
     border-radius: 0px;
+    visibility: hidden;
   }
 }
 
@@ -17658,6 +17660,7 @@ em-spades {
     width: 7.4vw;
     height: 5vw;
     border-radius: 0px;
+    visibility: hidden;
   }
 }
 
@@ -17673,8 +17676,9 @@ em-spades {
 }
 @media only screen and (max-width: 800px) {
   .highlighted-player-image {
+    border: 4px solid darkred;
     position: fixed;
-    top: 60vh;
+    top: 59vh;
     left: 1vw;
     width: 16vw;
   }
@@ -17986,8 +17990,8 @@ em-spades {
     height: 2.7vw;
     top: 12vh;
     left: -3vw;
-    padding-top: 2px;
-    font-size: 0.3em;
+    padding-top: 3px;
+    font-size: 0.5em;
   }
 }
 @media only screen and (max-width: 530px) {

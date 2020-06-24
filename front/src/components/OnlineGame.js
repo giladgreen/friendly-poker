@@ -66,7 +66,7 @@ const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http:/
 
 class OnlineGame extends Component {
     zoom = ()=>{
-        if (this.state.me && this.state.me.image && !this.state.zoom){
+        if (this.state.me && this.state.me.image && !this.state.zoom && this.props.game.players.filter(p=>p && p.imageHighlighted).length ===0){
             this.props.showImage();
             this.setState({zoom: true});
             setTimeout(()=>{
@@ -650,6 +650,8 @@ class OnlineGame extends Component {
 
         const showDealerChoiceButtons = (game.handOver && isNextDealer && dealerChoice);
 
+        const showZoomOption = me && me.image && !this.state.zoom && game.players.filter(p=>p && p.imageHighlighted).length ===0;
+
         return (
             <div id="online-game-screen">
 
@@ -1026,10 +1028,10 @@ class OnlineGame extends Component {
                 </Modal>
 
 
-                {isMobile || !me || ! me.image || this.state.zoom ? <div/> : (
+                {isMobile || !showZoomOption ? <div/> : (
                     <div id="popup-label" onClick={this.zoom}> <span className="shortcut">Z</span>oom </div>)}
 
-                {!isMobile || !me || ! me.image || this.state.zoom ? <div/> : <div onClick={this.zoom} id="zoom-mobile-icon"><div>zoom</div><PersonPinIcon id="popup-mobile-icon" /></div>}
+                {!isMobile || !showZoomOption ? <div/> : <div onClick={this.zoom} id="zoom-mobile-icon"><div>zoom</div><PersonPinIcon id="popup-mobile-icon" /></div>}
 
 
 
