@@ -10731,8 +10731,8 @@ body {
 }
 
 .connected-to-server {
-  border-color: antiquewhite;
-  color: antiquewhite;
+  border-color: transparent;
+  color: transparent;
 }
 
 @keyframes blinker {
