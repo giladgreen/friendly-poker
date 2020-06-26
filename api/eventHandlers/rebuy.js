@@ -29,9 +29,10 @@ async function onRebuyEvent(socket, {
     } else {
       player.justDidRebuyAmount = amount;
 
-      if (player.fold || player.sitOut) {
+      if (player.fold || player.sitOut || (player.balance === 0 && game.handOver)) {
         GamesService.handlePlayerRebuyMidHand(game, player, now);
       }
+
 
       if (game.startDate && game.paused && game.pausedByServer) {
         logger.info('calling startNewHand');
@@ -39,7 +40,6 @@ async function onRebuyEvent(socket, {
         GamesService.resetHandTimer(game);
       }
     }
-
 
     updateGamePlayers(game);
   } catch (e) {

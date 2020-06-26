@@ -29,6 +29,7 @@ const { onDealerChooseGame } = require('./dealerChooseGame');
 const { onStraddle } = require('./straddle');
 const { onGetTimeFromBank } = require('./getTime');
 const { onImageUpdate } = require('./imageUpdate');
+const { onUserShowingImageEvent } = require('./imageUpdate');
 
 function onConnection(socket) {
   socket.on('disconnect', () => socket.playerId && disconnect(socket.playerId));
@@ -63,6 +64,7 @@ function onConnection(socket) {
   socket.on('straddle', data => onStraddle(socket, data));
   socket.on('gettime', data => onGetTimeFromBank(socket, data));
   socket.on('imageupdate', data => onImageUpdate(socket, data));
+  socket.on('showimage', data => onUserShowingImageEvent(socket, data));
 }
 
 module.exports = {

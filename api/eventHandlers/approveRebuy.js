@@ -28,7 +28,7 @@ function onApproveRebuyEvent(socket, {
     }
     player.justDidRebuyAmount = pendingRequest.amount;
     game.pendingRebuy = game.pendingRebuy.filter(data => (data.id !== rebuyPlayerId) || data.amount !== amount);
-    if (player.fold || player.sitOut) {
+    if (player.fold || player.sitOut || (player.balance === 0 && game.handOver)) {
       GamesService.handlePlayerRebuyMidHand(game, player, now);
     }
 

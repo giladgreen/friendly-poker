@@ -8,7 +8,14 @@ const { onPlayerActionEvent } = require('./playerAction');
 const logger = require('../services/logger');
 const Mappings = require('../Maps');
 const {
-  TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE, TIME_BANK_DEFAULT, TABLE_MAX_PLAYERS, TIME_BANK_INITIAL_VALUE,
+  TEXAS, OMAHA, PINEAPPLE, DEALER_CHOICE,
+  TIME_BANK_DEFAULT,
+  TABLE_MAX_PLAYERS,
+  TIME_BANK_INITIAL_VALUE,
+  REQUIRE_APPROVAL_DEFAULT,
+  PRIVATE_GAME_DEFAULT,
+  STRADDLE_ENABLED_DEFAULT,
+  TIME_BANK_ENABLED_DEFAULT,
 } = require('../consts');
 
 function onCreateGameEvent(socket, gameCreatorData) {
@@ -59,11 +66,11 @@ function onCreateGameEvent(socket, gameCreatorData) {
       pendingQuit: [],
       pendingStandUp: [],
       maxPlayers: TABLE_MAX_PLAYERS,
-      requireRebuyApproval: Boolean(gameCreatorData.requireRebuyApproval),
+      requireRebuyApproval: gameCreatorData.requireRebuyApproval === undefined ? REQUIRE_APPROVAL_DEFAULT : Boolean(gameCreatorData.requireRebuyApproval),
       gameCreationTime: (new Date()).getTime(),
-      privateGame: gameCreatorData.privateGame,
-      straddleEnabled: gameCreatorData.straddleEnabled,
-      timeBankEnabled: gameCreatorData.timeBankEnabled,
+      privateGame: gameCreatorData.privateGame === undefined ? PRIVATE_GAME_DEFAULT : Boolean(gameCreatorData.privateGame),
+      straddleEnabled: gameCreatorData.straddleEnabled === undefined ? STRADDLE_ENABLED_DEFAULT : Boolean(gameCreatorData.straddleEnabled),
+      timeBankEnabled: gameCreatorData.timeBankEnabled === undefined ? TIME_BANK_ENABLED_DEFAULT : Boolean(gameCreatorData.timeBankEnabled),
       gameType,
       dealerChoice: gameType === DEALER_CHOICE,
       dealerChoiceNextGame: TEXAS,

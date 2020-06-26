@@ -1,6 +1,3 @@
-
-/* eslint-disable no-await-in-loop */
-const Mappings = require('../Maps');
 const sendGame = require('../helpers/SendGame');
 
 const logger = require('../services/logger');

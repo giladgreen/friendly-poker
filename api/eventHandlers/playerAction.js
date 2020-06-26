@@ -200,7 +200,7 @@ async function onPlayerActionEvent(socket, {
     if (!game) {
       return;
     }
-    if (!game.timerRefCb){
+    if (!game.timerRefCb) {
       game.timerRefCb = onPlayerActionEvent;
     }
     if (!game.handOver) {
@@ -273,6 +273,7 @@ async function onPlayerActionEvent(socket, {
     }
 
     validateGame(game);
+
 
     GameHelper.updateGamePlayers(game, gameIsOver);
     delete game.betRoundOver;

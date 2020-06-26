@@ -7,9 +7,16 @@ function onDeleteGameEvent(socket, { playerId, gameId }) {
   logger.info('onDeleteGameEvent ', { playerId, gameId });
 
   try {
-    extractRequestGameAndPlayer({
+    const { game } = extractRequestGameAndPlayer({
       socket, gameId, playerId, adminOperation: true,
     });
+
+    game.players
+      .filter(p => p)
+      .map(p => Mappings.GetSocketByPlayerId(p.id))
+      .filter(s => s).forEach((s) => {
+        s.emit('forcequit');
+      });
 
     GameHelper.deleteGameInDB(gameId);
     Mappings.DeleteGameByGameId(gameId);

@@ -477,7 +477,7 @@ async function deleteOldGames() {
       }
     } else {
       const gameLastAction = typeof game.lastAction === 'string' ? parseInt(game.lastAction, 10) : game.lastAction;
-      if (game.paused && now - gameLastAction > 240 * MINUTE) {
+      if (now - gameLastAction > 60 * MINUTE) {
         shouldDelete = true;
       }
     }
