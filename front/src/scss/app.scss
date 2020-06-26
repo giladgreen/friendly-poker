@@ -14,6 +14,10 @@ $mobile-vertical: 530px;
     @content;
   }
 }
+@keyframes fade-in {
+  from   { opacity: 0;}
+  to { opacity: 1;}
+}
 @keyframes blinker {
   0%   { color: #ff000022;}
   50% { color: #ff0000ff;}

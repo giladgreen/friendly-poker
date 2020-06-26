@@ -10653,6 +10653,14 @@ body {
   user-select: none;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes blinker {
   0% {
     color: #ff000022;
@@ -11797,6 +11805,8 @@ em-spades {
   font-size: 2em;
   padding-top: 0.7vh;
   cursor: pointer;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 .collapse-button {
@@ -11833,6 +11843,8 @@ em-spades {
   text-align: left;
   font-weight: bold;
   color: white;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #dealer-choice-div {
@@ -12122,6 +12134,8 @@ em-spades {
   right: 21vw;
   background: #555655AA;
   width: 9vw;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #call-button:hover {
@@ -12131,6 +12145,8 @@ em-spades {
 #toggle-raise-button-cancel {
   right: 1vw;
   background: #99999933;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #toggle-raise-button-cancel:hover {
@@ -12141,6 +12157,8 @@ em-spades {
   right: 9vw;
   background-image: linear-gradient(black, #55555555);
   width: 16.6vw;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #raise-button:hover {
@@ -12157,6 +12175,8 @@ em-spades {
   color: white;
   z-index: 10;
   background-image: linear-gradient(black, #222222);
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 .raise-button-add-remove:hover {
@@ -12178,6 +12198,8 @@ em-spades {
   font-weight: bold;
   font-size: 2em;
   border-radius: 0px;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #raise-input-slider {
@@ -12186,6 +12208,8 @@ em-spades {
   right: 27.5vw;
   width: 8vw;
   z-index: 9;
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #raise-button-sub {
@@ -12198,6 +12222,8 @@ em-spades {
   width: 8vw;
   font-size: 1.9em;
   background-image: linear-gradient(black, #55555555);
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 #all-in-button:hover {
@@ -12217,6 +12243,8 @@ em-spades {
   padding-top: 0.2vh;
   cursor: pointer;
   background-image: linear-gradient(black, #55555555);
+  opacity: 0;
+  animation: fade-in 1s linear both;
 }
 
 .action-buttons-second-row:hover {
@@ -13260,7 +13288,7 @@ em-spades {
     width: 25vw;
   }
 }
-#full-game-div {
+#game-table-mid-div {
   position: fixed;
   top: 40vh;
   height: 10vh;
@@ -13274,7 +13302,7 @@ em-spades {
   z-index: 90000;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
-  #full-game-div {
+  #game-table-mid-div {
     top: 60vh;
     height: 10vh;
     margin-top: 10px;
@@ -13286,7 +13314,7 @@ em-spades {
   }
 }
 @media only screen and (max-width: 530px) {
-  #full-game-div {
+  #game-table-mid-div {
     top: 70vh;
     height: 10vh;
     margin-top: 10px;
@@ -13296,6 +13324,19 @@ em-spades {
     width: 50vw;
     left: 25vw;
   }
+}
+
+@keyframes join-game-text-blinker {
+  0% {
+    color: #00000099;
+  }
+  50% {
+    color: #00000022;
+  }
+}
+#join-game-text {
+  font-size: 0.8em;
+  animation: join-game-text-blinker 2s linear infinite;
 }
 
 #existing-players {
@@ -13374,6 +13415,8 @@ em-spades {
 #join-table-existing-player-1 {
   top: 31vh;
   left: 56vw;
+  opacity: 0;
+  animation: fade-in 0s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-1 {
@@ -13391,6 +13434,8 @@ em-spades {
 #join-table-existing-player-2 {
   top: 18vh;
   left: 65vw;
+  opacity: 0;
+  animation: fade-in 0.5s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-2 {
@@ -13408,6 +13453,8 @@ em-spades {
 #join-table-existing-player-3 {
   top: 18vh;
   left: 80vw;
+  opacity: 0;
+  animation: fade-in 1s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-3 {
@@ -13425,6 +13472,8 @@ em-spades {
 #join-table-existing-player-4 {
   top: 31vh;
   left: 89vw;
+  opacity: 0;
+  animation: fade-in 1.5s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-4 {
@@ -13442,6 +13491,8 @@ em-spades {
 #join-table-existing-player-5 {
   top: 55vh;
   left: 89vw;
+  opacity: 0;
+  animation: fade-in 2s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-5 {
@@ -13459,6 +13510,8 @@ em-spades {
 #join-table-existing-player-6 {
   top: 67vh;
   left: 80vw;
+  opacity: 0;
+  animation: fade-in 2.5s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-6 {
@@ -13476,6 +13529,8 @@ em-spades {
 #join-table-existing-player-7 {
   top: 67vh;
   left: 65vw;
+  opacity: 0;
+  animation: fade-in 3s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-7 {
@@ -13493,6 +13548,8 @@ em-spades {
 #join-table-existing-player-8 {
   top: 55vh;
   left: 56vw;
+  opacity: 0;
+  animation: fade-in 3.5s 1s linear both;
 }
 @media only screen and (max-width: 800px) and (min-width: 530px) {
   #join-table-existing-player-8 {

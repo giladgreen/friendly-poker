@@ -155,7 +155,11 @@ class JoinGameScreen extends Component {
                         }
 
 
-                        {playersCount >= game.maxPlayers && <div id="full-game-div">
+                        {canJoin && <div id="game-table-mid-div">
+                            <span id="join-game-text" >Choose Sit to join</span>
+
+                        </div>}
+                        {playersCount >= game.maxPlayers && <div id="game-table-mid-div">
                             <span id="full-game-text" >Game is Full</span>
 
                         </div>}

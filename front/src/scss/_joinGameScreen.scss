@@ -44,6 +44,7 @@
     margin-right: 2vw;
     font-size: 1.7em;
 
+
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 9.8vh;
         left: 2vw;
@@ -134,7 +135,7 @@
     }
 }
 
-#full-game-div{
+#game-table-mid-div{
     position: fixed;
     top: 40vh;
     height: 10vh;
@@ -168,7 +169,15 @@
 
     }
 }
+@keyframes join-game-text-blinker {
+    0%   { color: #00000099;}
+    50% { color: #00000022}
+}
+#join-game-text{
+    font-size: 0.8em;
+    animation: join-game-text-blinker 2s linear infinite;
 
+}
 #existing-players{
     position: fixed;
     top: 13vh;
@@ -235,7 +244,8 @@
 #join-table-existing-player-1{
     top: 31vh;
     left: 56vw;
-
+    opacity: 0;
+    animation: fade-in 0s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 57vh;
         left: 9vw;
@@ -249,6 +259,8 @@
 #join-table-existing-player-2{
     top: 18vh;
     left: 65vw;
+    opacity: 0;
+    animation: fade-in 0.5s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 50vh;
         left: 32vw;
@@ -262,6 +274,8 @@
 #join-table-existing-player-3{
     top: 18vh;
     left: 80vw;
+    opacity: 0;
+    animation: fade-in 1s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 50vh;
         left: 56vw;
@@ -275,6 +289,8 @@
 #join-table-existing-player-4{
     top: 31vh;
     left: 89vw;
+    opacity: 0;
+    animation: fade-in 1.5s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 57vh;
         left: 79vw;
@@ -288,6 +304,8 @@
 #join-table-existing-player-5{
     top: 55vh;
     left: 89vw;
+    opacity: 0;
+    animation: fade-in 2s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 77vh;
         left: 79vw;
@@ -302,6 +320,8 @@
 #join-table-existing-player-6{
     top: 67vh;
     left: 80vw;
+    opacity: 0;
+    animation: fade-in 2.5s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 82vh;
         left: 56vw;
@@ -316,6 +336,8 @@
 #join-table-existing-player-7{
     top: 67vh;
     left: 65vw;
+    opacity: 0;
+    animation: fade-in 3s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 82vh;
         left: 32vw;
@@ -329,6 +351,8 @@
 #join-table-existing-player-8{
     top: 55vh;
     left: 56vw;
+    opacity: 0;
+    animation: fade-in 3.5s 1s linear both;
     @media only screen and (max-width: $mobile-horizonal) and (min-width: $mobile-vertical) {
         top: 77vh;
         left: 9vw;
