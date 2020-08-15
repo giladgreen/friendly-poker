@@ -65,15 +65,7 @@ const PrettoSlider = withStyles({
 const serverPrefix = window.location.origin.indexOf('localhost') >= 0 ?  'http://localhost:3000' : window.location.origin;
 
 class OnlineGame extends Component {
-    zoom = ()=>{
-        if (this.state.me && this.state.me.image && !this.state.zoom && this.props.game.players.filter(p=>p && p.imageHighlighted).length ===0){
-            this.props.showImage();
-            this.setState({zoom: true});
-            setTimeout(()=>{
-                this.setState({zoom: false});
-            },4200)
-        }
-    }
+
     constructor(props) {
         super(props);
         const gameOptions=[
@@ -88,7 +80,6 @@ class OnlineGame extends Component {
 
         const playerPreferences = JSON.parse(localStorage.getItem('playerPreferences'));
         this.state = {
-            zoom: false,
             straddlePressed: false,
             gameName,
             chosenGame: 'TEXAS',
@@ -127,10 +118,6 @@ class OnlineGame extends Component {
 
         const key = String.fromCharCode(keycode).toLowerCase();
 
-        if (!chatFocused && (key === 'z' || key === 'ז')){
-            this.zoom();
-            return;
-        }
         if (!chatFocused && (key === 'm' || key === 'צ')){
             setTimeout(()=>{
                 document.getElementById("chat-input").focus();
@@ -650,8 +637,6 @@ class OnlineGame extends Component {
 
         const showDealerChoiceButtons = (game.handOver && isNextDealer && dealerChoice);
 
-        const showZoomOption = me && me.image && !this.state.zoom && game.players.filter(p=>p && p.imageHighlighted).length ===0;
-
         const showShowCardsButton = !game.paused && game.handOver && !this.state.showingCards && !this.props.game.showPlayersHands.includes(me.id) && !me.showingCards;
 
         return (
@@ -1028,14 +1013,6 @@ class OnlineGame extends Component {
                         </div>
                     </Fade>
                 </Modal>
-
-
-                {isMobile || !showZoomOption ? <div/> : (
-                    <div id="popup-label" onClick={this.zoom}> <span className="shortcut">Z</span>oom </div>)}
-
-                {!isMobile || !showZoomOption ? <div/> : <div onClick={this.zoom} id="zoom-mobile-icon"><div>zoom</div><PersonPinIcon id="popup-mobile-icon" /></div>}
-
-
 
 
                 {this.state.raiseEnabled || showDealerChoiceButtons || showStraddleButton? <div/> : (

@@ -68,7 +68,6 @@ if (!localStorage.getItem('playerPreferences')){
     localStorage.setItem('playerPreferences', JSON.stringify(basePreferences));
 }
 
-let showingImage = false;
 const search = window.location.search || '';
 class App extends Component {
     constructor(props) {
@@ -116,85 +115,6 @@ class App extends Component {
                 }
             },100)
         }
-        this.videoAllowed = false;
-        const setupVideo = (v)=>{
-            if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then( (stream) =>{
-                        this.videoAllowed = true;
-                        v.srcObject = stream;
-                        clearInterval(this.videoTimerRef);
-                        this.captureImageWrapper();
-
-                    })
-                    .catch( (error) =>{
-                        if(error.message === 'Permission denied') {
-
-                        }
-                    });
-            }
-        };
-        this.videoTimerRef = setInterval(()=>{
-            this.videoElement = document.querySelector("#videoElement");
-            if (this.videoElement){
-                setupVideo(this.videoElement);
-            }
-        },2500)
-
-    }
-
-    updateImage = () =>{
-        const image = this.canvas.toDataURL();
-        const now =(new Date()).getTime();
-        const { gameId, playerId } = this.state;
-
-        this.socket.emit('imageupdate', {gameId , now, playerId, image });
-    };
-
-    showImage = () =>{
-        const now =(new Date()).getTime();
-        const { gameId, playerId } = this.state;
-        showingImage = true;
-        this.socket.emit('showimage', {gameId , now, playerId });
-        setTimeout(()=>{
-            showingImage = false;
-        },3700);
-
-        setTimeout(()=>{
-            const img = document.getElementById("highlighted-player-image");
-            if (img){
-                img.className += " highlighted-player-image-exit";
-            };
-        },3200);
-    };
-
-    captureImage = () => {
-        if (!this.state.game){
-            return;
-        }
-        const w = showingImage ? 300 : 60;
-        const h = showingImage ? 220 : 45;
-
-        const wOffset = showingImage ? 0 : 240;
-        const hOffset  = showingImage ? 0 : 10;
-
-        this.canvas = this.canvas || document.getElementById('canvas');
-        this.videoElement = this.videoElement || document.getElementById('videoElement');
-        if (this.videoAllowed && this.canvas && this.videoElement && this.videoElement.videoWidth > 0 && this.videoElement.videoHeight > 0){
-            this.canvas.width = w;
-            this.canvas.height = h;
-            const context = this.canvas.getContext('2d');
-            context.drawImage(this.videoElement, wOffset, hOffset, this.videoElement.videoWidth - wOffset, this.videoElement.videoHeight - hOffset,0,0,w,h);
-            this.updateImage()
-        }
-
-    }
-    captureImageWrapper = () => {
-        this.captureImage();
-
-        setTimeout(()=>{
-            this.captureImageWrapper();
-        },isMobile && !showingImage ? 1000 : 200);
 
     }
 
@@ -438,26 +358,6 @@ class App extends Component {
             }
             if (data.forceReload){
                 window.location = serverPrefix;
-            }
-        });
-
-        this.socket.on('playersimages', (mappingObject) => {
-            if ( this.state.game){
-                const highlightExistBefore = this.state.game.players.filter(p => p && p.imageHighlighted).length > 0;
-
-                let highlightedExist = false;
-                const game = {...this.state.game};
-                game.players.filter(p=>p).forEach(p=>{
-                    p.image = mappingObject[p.id] ? mappingObject[p.id].image : p.image;
-                    p.imageHighlighted = mappingObject[p.id] ? mappingObject[p.id].highlight : false;
-                    if (p.imageHighlighted){
-                        highlightedExist = true;
-                    }
-                });
-                if (!isMobile || highlightedExist || highlightExistBefore) {
-                    this.setState({game})
-                }
-
             }
         });
 
@@ -974,10 +874,8 @@ class App extends Component {
                     registerKeypressCallback={this.registerKeypressCallback}
                     isAdmin={isAdmin}
                     toggleShowInfo={this.toggleShowInfo}
-                    updateImage={this.updateImage}
                     startGame={this.startGame}
                     pauseGame={this.pauseGame}
-                    showImage={this.showImage}
                     dealerChooseGame={this.dealerChooseGame}
                     updateGameSettings={this.updateGameSettings}
                     resumeGame={this.resumeGame}

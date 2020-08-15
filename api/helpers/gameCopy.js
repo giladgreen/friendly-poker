@@ -9,6 +9,7 @@ function getPlayerCopyOfGame(playerId, game, showCards = false) {
     delete gameToSend.pineappleRef;
 
     gameToSend.players = gameToSend.players.map((p) => {
+        if (!p) return p;
         const player = { ...p, cards: [...(p.cards || [])] };
         delete player.offline;
         const userDesc = player.solvedHand ? player.solvedHand.descr : null;

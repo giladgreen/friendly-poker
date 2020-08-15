@@ -100,7 +100,6 @@ async function createPlayers(groupId){
                     firstName: p.firstName,
                     familyName: p.familyName,
                     email: p.email,
-                    imageUrl: p.imageUrl,
                     token: 'xx',
                     tokenExpiration: new Date()
                 };

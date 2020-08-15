@@ -50,9 +50,7 @@ function onCreateGameEvent(socket, gameCreatorData) {
       justJoined: true,
       pot: [0],
       bot: isBot({ name: gameCreatorData.name }),
-      timeBank: TIME_BANK_INITIAL_VALUE,
-      lastImageUpdate: now,
-      lastImageBroadcast: now,
+      timeBank: TIME_BANK_INITIAL_VALUE
     };
     const players = (new Array(TABLE_MAX_PLAYERS)).fill(null);
     players[0] = player;

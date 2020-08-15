@@ -52,8 +52,6 @@ async function onJoinGameEvent(socket, {
       handsWon: 0,
       pot: [0],
       timeBank: TIME_BANK_INITIAL_VALUE,
-      lastImageUpdate: NOW,
-      lastImageBroadcast: NOW,
     };
 
     if (game.requireRebuyApproval) {
