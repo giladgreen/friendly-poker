@@ -21,7 +21,7 @@
     "html-stringify": "0.0.3",
     "http-status-codes": "1.0.6",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "4.17.10",
+    "lodash": "4.17.19",
     "moment": "^2.24.0",
     "nodemailer": "^6.4.11",
     "path": "^0.12.7",
