@@ -15,7 +15,7 @@
     "react-scripts": "0.9.x",
     "react-transition-group": "^4.4.1",
     "socket.io": "2.3.0",
-    "socket.io-client": "1.7.0"
+    "socket.io-client": "4.5.3"
   },
   "devDependencies": {},
   "scripts": {
